@@ -1,9 +1,13 @@
+import { existsSync, readFileSync } from "node:fs";
+import { resolve as resolvePath } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { PairResult } from "@/src/contracts";
+import { buildPriorTable, parsePrevalenceFile } from "./priors";
 import { compareCandidates, rank, rankPatientsForTrial, rankTrialsForPatient, travelMinutesFor } from "./rank";
 import { fact, leaf, patient, trial } from "./testing";
 
 const ASOF = "2026-09-25";
+const PREVALENCE = resolvePath(process.cwd(), "data/prevalence.json");
 
 /** A bare roll-up; the ranker only reads the summary fields, never the cells. */
 const pair = (over: Partial<PairResult> & Pick<PairResult, "nctId">): PairResult => ({
@@ -187,5 +191,139 @@ describe("both axes of the cube", () => {
     // The trial's view of these two patients must not contradict itself.
     const forTrial = rankPatientsForTrial(t("NCT00000001", 30), [silent, resolved], ASOF);
     expect(forTrial[0].unknownCount).toBeLessThanOrEqual(forTrial[1].unknownCount);
+  });
+});
+
+/* ------------------------------------------------------- priors reach the rank */
+
+describe("VOI priors change the order, not just the cells", () => {
+  /**
+   * Both trials leave the patient with exactly one unknown, both tier 0, both the
+   * same distance away. So the order is decided purely by expectedValue, which is
+   * decided purely by pFavorable — which is the whole point of resolving priors
+   * from cited prevalence instead of trusting what the compiler inferred.
+   */
+  const marker = (id: string, analyte: string, value: string, compilerGuess: number) =>
+    leaf({
+      id,
+      predicate: "biomarker",
+      analyte,
+      operator: "==",
+      value,
+      tier: 0,
+      pFavorable: compilerGuess,
+      sourceSpan: `${analyte} ${value}`,
+    });
+
+  // KRAS mutation is common (~29% of NSCLC); NTRK fusion is vanishingly rare
+  // (~0.16%). The compiler guessed the other way round.
+  const common = trial({
+    nctId: "NCT00000001",
+    siteDistanceMinutes: 30,
+    criteria: [marker("INC-kras", "KRAS", "mutation", 0.01)],
+  });
+  const rare = trial({
+    nctId: "NCT00000002",
+    siteDistanceMinutes: 30,
+    criteria: [marker("INC-ntrk", "NTRK", "fusion", 0.99)],
+  });
+
+  const silent = patient({ id: "PT-1", age: 60 });
+
+  const table = buildPriorTable([
+    {
+      id: "kras-mutation",
+      biomarker: "KRAS",
+      alteration: "mutation",
+      prevalence: 0.2887,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+    {
+      id: "ntrk-fusion",
+      biomarker: "NTRK",
+      alteration: "fusion",
+      prevalence: 0.0016,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+  ]);
+
+  it("follows the compiler's guess when no table is supplied", () => {
+    const order = rankTrialsForPatient(silent, [common, rare], ASOF).map((r) => r.nctId);
+    expect(order).toEqual(["NCT00000002", "NCT00000001"]);
+  });
+
+  it("reverses once the cited priors are wired in", () => {
+    const order = rankTrialsForPatient(silent, [common, rare], ASOF, { priors: table }).map(
+      (r) => r.nctId,
+    );
+    expect(order).toEqual(["NCT00000001", "NCT00000002"]);
+  });
+
+  it("puts the cited prior on the cell, not just in the sort", () => {
+    const [first] = rankTrialsForPatient(silent, [common], ASOF, { priors: table });
+    expect(first.cells[0].pFavorable).toBeCloseTo(0.2887, 6);
+    expect(first.expectedValue).toBeCloseTo(0.2887, 6);
+  });
+
+  it("reaches the coordinator's worklist too, not only the patient's view", () => {
+    const a = patient({ id: "PT-A", age: 60 });
+    const b = patient({ id: "PT-B", age: 60 });
+    const ranked = rankPatientsForTrial(common, [a, b], ASOF, { priors: table });
+    for (const r of ranked) expect(r.cells[0].pFavorable).toBeCloseTo(0.2887, 6);
+  });
+
+  it("leaves the verdicts and the eliminated set untouched", () => {
+    const without = rankTrialsForPatient(silent, [common, rare], ASOF);
+    const withPriors = rankTrialsForPatient(silent, [common, rare], ASOF, { priors: table });
+    expect(withPriors.map((r) => r.unknownCount).sort()).toEqual(
+      without.map((r) => r.unknownCount).sort(),
+    );
+    expect(withPriors).toHaveLength(without.length);
+  });
+});
+
+describe.skipIf(!existsSync(PREVALENCE))("priors from the real data/prevalence.json", () => {
+  const real = buildPriorTable(
+    parsePrevalenceFile(JSON.parse(readFileSync(PREVALENCE, "utf8"))).records,
+  );
+
+  const biomarkerTrial = (nctId: string, analyte: string, value: string) =>
+    trial({
+      nctId,
+      siteDistanceMinutes: 30,
+      criteria: [
+        leaf({
+          id: "INC-1",
+          predicate: "biomarker",
+          analyte,
+          operator: "==",
+          value,
+          tier: 0,
+          pFavorable: 0.5, // a uniform compiler guess, deliberately uninformative
+          sourceSpan: `${analyte} ${value}`,
+        }),
+      ],
+    });
+
+  it("ranks a common marker above a rare one, from the cited file", () => {
+    const kras = biomarkerTrial("NCT00000001", "KRAS", "mutation");
+    const ntrk = biomarkerTrial("NCT00000002", "NTRK", "fusion");
+    const silent = patient({ id: "PT-1", age: 60 });
+
+    // Identical compiler guesses, so without priors the ids break the tie and
+    // KRAS wins by accident. With priors it wins because KRAS is 180x commoner.
+    const ranked = rankTrialsForPatient(silent, [ntrk, kras], ASOF, { priors: real });
+    expect(ranked.map((r) => r.nctId)).toEqual(["NCT00000001", "NCT00000002"]);
+    expect(ranked[0].expectedValue).toBeGreaterThan(ranked[1].expectedValue * 50);
+  });
+
+  it("carries a citation for every prior it resolved from the table", () => {
+    const resolved = real.resolve(
+      leaf({ id: "L", predicate: "biomarker", analyte: "KRAS", operator: "==", value: "mutation", tier: 0 }),
+    );
+    expect(resolved.source).toBe("table");
+    expect(resolved.citations.length).toBeGreaterThan(0);
   });
 });

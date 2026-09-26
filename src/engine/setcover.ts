@@ -44,6 +44,7 @@ import {
   type Trial,
 } from "@/src/contracts";
 import { evaluate, indexLeaves } from "./evaluate";
+import type { PriorTable } from "./priors";
 
 /** One thing to order: one question, about one patient. */
 export interface TestOrder {
@@ -98,6 +99,13 @@ export interface SetCoverPlan {
 }
 
 export interface SetCoverOptions {
+  /**
+   * Cited prevalence priors. Pass them: `pFavorable` IS this module's objective,
+   * so planning without them ranks the whole batch on whatever the compiler
+   * inferred from prose. See priors.ts.
+   */
+  priors?: PriorTable;
+
   /**
    * What to assume for an unknown with no prevalence prior. A coin flip by
    * default, which is the least informative honest choice; `assumedPriors`
@@ -183,7 +191,7 @@ export function planTestOrders(
 
   for (const patient of patients) {
     for (const trial of trials) {
-      const result = evaluate(patient, trial, asOf);
+      const result = evaluate(patient, trial, asOf, { priors: options.priors });
       if (result.eliminated) continue; // no test un-eliminates a decided FAIL
 
       const unknowns = result.cells.filter((c) => c.verdict === "UNKNOWN");

@@ -373,3 +373,260 @@ Please:
   `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
+
+## From P2 (engine) — unattended run 2026-09-26: three blockers, one urgent
+
+### 1. URGENT, P1: `data/compiled/trials.json` was overwritten mid-run and is now empty
+
+At 03:33 the file held 300 records, 233 with compiled criteria, 5,103 criteria
+total. At 03:55 it was rewritten to 1.5 MB with the envelope
+`{ failure, sourceText, trial }`, **every trial has zero criteria and
+`needsHumanReview: true`**. A compiler run is failing and has clobbered its own
+good output.
+
+`data/compiled/trials.backtranslated.json` (sha `9df33cee`, 03:33) is intact —
+300 records, 233 with criteria, 5,105 criteria — and is what every engine report
+in this run was computed from. The sha256 of the exact input is recorded in each
+report so the numbers can be re-verified.
+
+Two things needed:
+
+1. **Recover `trials.json`.** The 03:55 write looks like a failure path writing
+   over the success path rather than beside it.
+2. **Commit the compiled trials.** They are currently untracked (`?? data/compiled/`)
+   in the `amber-compiler` worktree and exist on no branch, so nothing downstream
+   is reproducible and a single bad run destroys the artifact. The engine reports
+   in `data/compiled/` are committed and reference an input that is not.
+
+### 2. P1/P4: `data/claims/patients.json` has not landed — task deferred, code ready
+
+The compiler lane recorded `src/claims/**` and `data/claims/**` as an ownership
+blocker. The analysis is written, tested and wired anyway:
+`claimsCohortEvaluation` in `src/engine/claims.ts`, 18 tests against synthetic
+claims-provenance cohorts. The emitter skips itself while the file is absent and
+will write `data/claims/evaluation.json` on the first run after it appears:
+
+```bash
+AMBER_EMIT=1 npm test -- src/engine/emit.test.ts
+```
+
+What it will report: pairs definitively excluded by claims alone, pairs confirmed
+eligible (expected at or near zero — that is the finding, not a gap), undetermined
+pairs, mean and median unresolved criteria per pair, and every cell by reason. It
+checks the provenance mix first and puts a warning in its own headline if the
+cohort turns out to carry non-claims facts, because then the figures describe
+something other than a claims feed.
+
+### 3. P1: back-translation is flagging every trial
+
+In `trials.backtranslated.json` all 300 records have `needsHumanReview: true`. Per
+contract rule 5 that empties the demo pool. The coverage report therefore leads
+with all 233 trials that have criteria and reports the demo-pool subset separately;
+on the pre-back-translation file the demo pool was 63 trials at 62.3% coverage.
+Most flags read `"<ID> sourceSpan near-verbatim"`, which is a citation-fidelity
+warning rather than a wrong criterion tree — worth deciding whether it should gate
+the demo pool at all.
+
+### 4. P3: two new reports you can render
+
+- `data/compiled/coverage.json` — the answerability gap, with `byPredicate`,
+  `byType`, `perTrial` (233 rows, sorted worst-covered first) and a ten-band
+  `distribution` for a histogram. Empty bands are kept deliberately: a gap in the
+  shape is information.
+- `data/compiled/benchmark.json` — throughput, with the machine and input shas.
+
+Both carry a generated `headline` string. Render that rather than recomputing a
+percentage in the UI, so the slide and the data cannot drift.
+
+### 5. P1: `data/claims/evaluation.json` now lands in your lane — decide who writes it
+
+CONTRACT §12 (03:55) granted `data/claims/**` to the compiler lane, after I was
+asked to emit `data/claims/evaluation.json`. The emitter is written and skips
+itself while `data/claims/patients.json` is absent, so **nothing has been written
+into your lane and nothing will be until that file exists**. Before it does, pick
+one:
+
+- **You run it.** `AMBER_EMIT=1 npm test -- src/engine/emit.test.ts` once the
+  cohort is in place. No engine change needed.
+- **Grant the one path.** Add `data/claims/evaluation.json` to the engine lane in
+  §1 and I will emit it.
+- **Move the output.** Say where — `data/compiled/claims-evaluation.json` sits in
+  your lane too but keeps the claims cohort and the engine's reading of it apart.
+
+Defaulting to the first, since it needs no contract change.
+
+### 6. On §13 (the 100% eval) — the engine side of that warning
+
+§13 is right and there is an engine-side corollary worth recording. `evaluate()`
+now takes `priors`, and the prevalence file only moves `pFavorable` and
+`expectedValue` — never a verdict or a reason. So:
+
+- A confusion matrix over verdicts is unaffected by priors. Run it either way.
+- Any metric that touches `pFavorable` must state whether priors were wired in,
+  because the same pair scores differently. With the cited file a KRAS arm scores
+  0.2887 where the compiler had guessed 0.01.
+
+And the class-imbalance point in §13 has a number from this lane: on the real
+233-trial pool against the Synthea cohort, **69% of all cells are UNKNOWN**
+(14,135,500 of 20,420,000 at the 4,000-patient scale). An accuracy figure over
+that distribution is dominated by one class, exactly as §13 says. `cellsByReason`
+in the claims report breaks UNKNOWN into `absent`, `stale` and `unsupported`,
+which are three different actions and worth reporting separately rather than as
+one bar.
+
+## From P2 (engine) — coverage.json is now the single source of truth for answerability
+
+### The published numbers (regenerate, do not recompute)
+
+`data/compiled/coverage.json`, built from the committed corpus at sha256
+`2539c315…` (300 records, 233 with criteria, **5,105 criteria**):
+
+| figure | value |
+|---|---|
+| answerable from claims (lower bound) | **54.4%** |
+| upper bound, counting the ambiguous middle | 71.6% |
+| inclusions | 45.3% |
+| exclusions | 62.4% |
+| diagnosis | 99.7% (582 of 584) |
+| age · prior_therapy · comorbidity | 100% |
+| staging · contraindication · washout · performance_status · lab_value · biomarker | 0% |
+
+### P3: why yours differed, and what to change
+
+Your `components/payer/coverage.ts` reported 54.5% / diagnosis 100% / inclusions
+45.4%. After fixing two bugs on my side the gap is down to **exactly two leaves**,
+and on those two the engine is right:
+
+- `NCT06660407 INC-5` — "Extracranial lesion ≥ 3 cm", filed under `diagnosis`.
+- `NCT06371482 INC-9` — "survival ≥ 6 months", filed under `diagnosis`.
+
+Both are measurements wearing a coded predicate. A claim shows the scan was
+billed, not the lesion size, and nobody bills a life expectancy. Classifying by
+predicate alone counts them as claims-answerable and overstates coverage.
+
+**The fix:** read `coverage.json` instead of calling `buildClaimsCoverage`. It
+carries an `assertions` block for exactly this:
+
+```ts
+// fail the build, not the demo, if the app and the report disagree
+assert(report.assertions.criteria === 5105);
+assert(report.assertions.corpusSha256 === expectedCorpusSha);
+```
+
+If you would rather keep computing in the app, import `answerableBy` from
+`@/src/engine` rather than reimplementing the predicate sets — it has the
+measurement override and a test that it and the evaluation-time ceiling never
+diverge. Please do not keep a second copy of the rules either way.
+
+`upperRate` is unchanged at 71.6%, so the two-bound framing on the payer slide
+still holds.
+
+### Two bugs this reconciliation found, both now fixed
+
+1. **`indexLeaves` deduplicates by criterion id, and I was counting with it.**
+   `NCT07631624` is a two-cohort protocol whose arms were numbered independently,
+   so it has two `INC-1` and two `INC-2`. Coverage was reporting 5,103 criteria
+   against the true 5,105 — which would have failed the very leaf-count assertion
+   this file now asks you to make. Counting now uses `allLeaves`.
+
+2. **The measurement override misfired on demographics.** `NCT05334329 INC-3` is
+   `age` with `analyte: "age"`, `unit: "years"`, and was being called
+   claims-unanswerable. An enrolment file carries date of birth. The override now
+   skips `age`, and skips any analyte that merely restates its predicate.
+
+### P1: duplicate criterion ids are a correctness bug, not a cosmetic one
+
+`duplicateLeafIds()` is exported and `coverage.json` lists the offenders — one
+trial today, `NCT07631624`.
+
+This needs fixing upstream because **the engine's roll-up looks cells up by id**.
+`evaluate` emits a cell per leaf occurrence, but `eliminatedFromCells` and
+`rollUp` read `byId.get(node.id)`, so with a collision both tree positions see
+whichever cell was written last and the trial verdict can come out wrong. It is
+not wrong for `NCT07631624` as it happens — all four leaves are inclusions that
+the hero patient satisfies — but it is luck, not design.
+
+Cheapest correct fix is at compile time: make criterion ids unique within a
+trial, e.g. suffix the cohort (`INC-1`, `INC-1b`) or prefix the arm. Until then
+the pipeline check I am adding asserts the set is empty and names the trial, so
+this fails loudly rather than silently.
+
+### The corpus is committed on `eng/compiler` but not on `main`
+
+`data/compiled/trials.json` exists on `origin/eng/compiler` (blob `b48833c3`,
+content sha256 `2539c315`) and on no other branch. Every engine report references
+that sha, so until it reaches `main` the numbers are traceable but not
+independently reproducible from a clean checkout. Please merge it.
+
+Note also: the sha `189c8b35` I was given does not match anything in the repo or
+either worktree. The corpus I used is `2539c315`; if `189c8b35` is a different
+run, say so and I will regenerate.
+
+## From P2 (engine) — fidelity review: the compiler's accuracy, measured
+
+`src/verify/` builds and ingests a hand-review of compiled trees against protocol
+prose. `data/eval/fidelity-sheet.json` is cut and waiting for a reviewer.
+
+**Why this and not the eval harness.** The eval harness asks whether the engine
+evaluates a tree correctly. The engine is deterministic with 791 tests, so that is
+close to tautological — it mostly proves the engine agrees with itself. The
+unmeasured risk is in the compiler: a protocol that said "A or B" compiling into a
+tree demanding both. Every downstream number inherits that silently.
+
+**The sheet:** 77 rows. 37 from the flagged trials, 40 drawn uniformly at random
+(seed 20260926) from the 3,764 criteria of the 196 unflagged trials — a 1.1%
+sample. Deterministic: same corpus, same seed, same 77 rows, so two reviewers grade
+the same sheet.
+
+**To review:** open the file and for each row read `sourceSpans`, then
+`compiledPlainEnglish`, then set `faithful` to true or false and put a short phrase
+in `failureMode`. `instructions` in the file carries the suggested vocabulary. Then:
+
+```bash
+AMBER_EMIT=1 npm test -- src/verify/emit.test.ts   # re-cut the sheet
+```
+
+### Three things a reader should know before quoting the number
+
+1. **The two strata are drawn differently, on purpose.** All 37 flagged trials
+   contribute one criterion each, chosen *because it looked suspicious*; the
+   unflagged 40 are uniform. So "the detector caught X of Y errors" is true of the
+   sample and overstates the corpus, because flagged criteria are oversampled about
+   90x. `ingestFidelity` reports the sample figures as the headline and a reweighted
+   `corpusEstimate` beside them, with a Wilson interval on the base rate — the
+   counts are small enough that a normal interval would go negative.
+
+2. **I could not localise the flag, and did not pretend to.** The compiler's
+   semantic flag is trial-level and names no criterion. A disjunction-marker
+   heuristic matches all 37 flagged trials but also 166 of 196 unflagged ones, so it
+   is far looser than whatever the compiler used. Reviewing one criterion per
+   flagged trial means that if a trial's real error sits in a criterion I did not
+   surface, it counts as a miss — which makes the detector look *worse* than it is,
+   not better.
+
+3. **63 of the 100 review-queue entries are not findings.** They are the
+   back-translation run's 403 after it exhausted its API credits, written into
+   `semanticReasons`. `flaggedTrialIds` filters them out; the genuine flags are the
+   37 that read "possible structural alternative has no OR group". P1 may want to
+   separate infrastructure failures from semantic findings at the source, because
+   anything reading that field naively will report 100 flagged trials.
+
+### What the sheet already shows, before anyone reviews it
+
+Two patterns are visible in the rendered rows and both look like real compiler
+defects worth a look regardless of the review:
+
+- **Dropped qualifiers.** `NCT03693014 INC-10`: "Prior palliative **or curative
+  radiotherapy** must be completed at least 14 days prior" compiled to "at least 14
+  days since the last dose". Both the disjunction and the fact that it is
+  *radiotherapy specifically* are gone.
+- **Undecomposed prose.** A number of leaves carry a whole protocol sentence as a
+  string value or as a bare `true` — `"Women who are pregnant or lactating"` with
+  `value: true`. The tree asserts only "that sentence holds", which the engine
+  cannot evaluate against any fact. These will read as `flag: "…"` on the sheet.
+
+### Lane note for P1
+
+`src/verify/**` is not assigned in CONTRACT §1. I built it there as directed.
+Please record ownership — engine lane is the natural home since it imports
+`@/src/engine` and nothing else, but it is your call.

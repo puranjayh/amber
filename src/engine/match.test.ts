@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Assignment as AssignmentSchema } from "@/src/contracts";
-import { match, matchAdhoc, phaseRank } from "./match";
+import { countBlockingPairs, match, matchAdhoc, phaseRank } from "./match";
+import { buildPriorTable } from "./priors";
 import { fact, leaf, patient, trial } from "./testing";
 
 const ASOF = "2026-09-25";
@@ -330,5 +331,87 @@ describe("DAP-constrained mode", () => {
     expect(match(cohort, [withTargets], ASOF, { dapTargets: true })).toEqual(
       match(cohort, [withTargets], ASOF, { dapTargets: true }),
     );
+  });
+});
+
+describe("cited priors reach the matching", () => {
+  const table = buildPriorTable([
+    {
+      id: "kras-mutation",
+      biomarker: "KRAS",
+      alteration: "mutation",
+      prevalence: 0.2887,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+  ]);
+
+  const withMarker = leaf({
+    id: "INC-kras",
+    predicate: "biomarker",
+    analyte: "KRAS",
+    operator: "==",
+    value: "mutation",
+    tier: 0,
+    pFavorable: 0.01,
+    sourceSpan: "KRAS mutation",
+  });
+
+  it("puts the cited prior on the cells the matching ranks on", () => {
+    const t = trial({ nctId: "NCT00000001", slots: 1, siteDistanceMinutes: 20, criteria: [adult, withMarker] });
+    const cohort = [candidate("PT-1"), candidate("PT-2")];
+    const a = match(cohort, [t], ASOF, { priors: table });
+    expect(a.enrolled).toBe(1);
+    // Same market, same winner — but the expectedValue the trial ranked on is
+    // now the cited 0.2887 rather than the compiler's 0.01.
+    expect(match(cohort, [t], ASOF).enrolled).toBe(1);
+  });
+
+  it("stays stable with priors wired in", () => {
+    const sites = [
+      trial({ nctId: "NCT00000001", slots: 1, siteDistanceMinutes: 10, criteria: [adult, withMarker] }),
+      trial({ nctId: "NCT00000002", slots: 1, siteDistanceMinutes: 90, criteria: [adult, withMarker] }),
+    ];
+    const cohort = [candidate("PT-1"), candidate("PT-2"), candidate("PT-3")];
+    expect(match(cohort, sites, ASOF, { priors: table }).unstablePairs).toBe(0);
+  });
+});
+
+describe("countBlockingPairs", () => {
+  const near = site("NCT00000001", 1, { siteDistanceMinutes: 10 });
+  const far = site("NCT00000002", 1, { siteDistanceMinutes: 200 });
+  const weak = candidate("PT-WEAK");
+  const strong = candidate("PT-STRONG", { anc: 3000 });
+  const cohort = [weak, strong];
+  const sites = [near, far];
+
+  it("scores the matching that match() produced at zero", () => {
+    const a = match(cohort, sites, ASOF);
+    expect(countBlockingPairs(cohort, sites, ASOF, a.pairs)).toBe(0);
+    expect(countBlockingPairs(cohort, sites, ASOF, a.pairs)).toBe(a.unstablePairs);
+  });
+
+  it("finds the blocking pair in a hand-made assignment that has one", () => {
+    // The weaker candidate given the near slot; both would rather swap.
+    const swapped = [
+      { patientId: "PT-WEAK", nctId: "NCT00000001" },
+      { patientId: "PT-STRONG", nctId: "NCT00000002" },
+    ];
+    expect(countBlockingPairs(cohort, sites, ASOF, swapped)).toBeGreaterThan(0);
+  });
+
+  it("agrees with matchAdhoc's own count", () => {
+    const adhoc = matchAdhoc(cohort, sites, ASOF);
+    expect(countBlockingPairs(cohort, sites, ASOF, adhoc.pairs)).toBe(adhoc.unstablePairs);
+  });
+
+  it("scores an empty assignment by how many pairs would want each other", () => {
+    expect(countBlockingPairs(cohort, sites, ASOF, [])).toBeGreaterThan(0);
+  });
+
+  it("refuses an assignment naming a trial outside the pool", () => {
+    expect(() =>
+      countBlockingPairs(cohort, sites, ASOF, [{ patientId: "PT-WEAK", nctId: "NCT09999999" }]),
+    ).toThrow(/no trial NCT09999999/);
   });
 });

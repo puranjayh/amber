@@ -8,6 +8,9 @@
  *   evaluate    one patient x one trial → PairResult, a cell per criterion
  *   provenance  what chart / claims / patient report are each allowed to prove
  *   priors      VOI priors resolved from data/prevalence.json, with citations
+ *   coverage    what share of real trial criteria a data source can answer
+ *   claims      what a claims-only cohort can and cannot be told
+ *   load        reading other lanes' files without trusting their shape
  *   rank        worklist order, both axes of the cube
  *   elasticity  what one threshold costs the cohort
  *   equity      exclusion rate per criterion, grouped by race
@@ -89,7 +92,13 @@ export {
   type CalendarEntry,
   type CalendarOptions,
 } from "./calendar";
-export { match, matchAdhoc, phaseRank, type MatchOptions } from "./match";
+export {
+  countBlockingPairs,
+  match,
+  matchAdhoc,
+  phaseRank,
+  type MatchOptions,
+} from "./match";
 export {
   orderKey,
   planTestOrders,
@@ -109,3 +118,17 @@ export {
   type PriorTableOptions,
   type ResolvedPrior,
 } from "./priors";
+export {
+  answerableBy,
+  explainAnswerability,
+  type Answerability,
+} from "./provenance";
+export {
+  claimsCoverage,
+  type CoverageOptions,
+  type CoverageReport,
+  type CoverageTally,
+  type TrialCoverage,
+} from "./coverage";
+export { claimsCohortEvaluation, type ClaimsCohortReport } from "./claims";
+export { loadPatients, loadTrials, type LoadResult } from "./load";

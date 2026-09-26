@@ -22,9 +22,16 @@
  */
 import type { Assignment, PairResult, Patient, Trial } from "@/src/contracts";
 import { evaluate } from "./evaluate";
+import type { PriorTable } from "./priors";
 import { compareCandidates, travelMinutesFor } from "./rank";
 
 export interface MatchOptions {
+  /**
+   * Cited prevalence priors. Trials rank patients with rank.ts's comparator,
+   * which breaks ties on expectedValue, so priors change who gets the slot.
+   */
+  priors?: PriorTable;
+
   /**
    * DAP-constrained mode. When a trial is at capacity, let a proposer from a
    * subgroup below the sponsor's Diversity Action Plan target displace a held
@@ -82,7 +89,7 @@ function buildMarket(
   const results = new Map<string, PairResult>();
   for (const p of patients) {
     for (const t of trials) {
-      results.set(key(p.id, t.nctId), evaluate(p, t, asOf));
+      results.set(key(p.id, t.nctId), evaluate(p, t, asOf, { priors: options.priors }));
     }
   }
 
@@ -238,7 +245,7 @@ function deferredAcceptance(
  * Blocking pairs: a patient and a trial who would both rather have each other
  * than what they got. Zero means the matching is stable.
  */
-export function countUnstablePairs(
+function countUnstablePairs(
   market: Market,
   patients: readonly Patient[],
   trials: readonly Trial[],
@@ -371,4 +378,34 @@ export function matchAdhoc(
   }
 
   return assemble("adhoc", market, patients, trials, held);
+}
+
+/**
+ * Blocking pairs in an assignment somebody else produced.
+ *
+ * `match()` already reports its own, but an assignment can arrive from anywhere —
+ * a coordinator's spreadsheet, last month's enrolment, a competing algorithm —
+ * and the interesting question about it is how many patient/trial pairs would
+ * both rather have each other. Zero means it could not be improved by any swap.
+ *
+ * Takes the same preference model as `match`, so the answer is comparable with
+ * the one `match` reports rather than a differently-defined number.
+ */
+export function countBlockingPairs(
+  patients: readonly Patient[],
+  trials: readonly Trial[],
+  asOf: string,
+  pairs: readonly { patientId: string; nctId: string }[],
+  options: MatchOptions = {},
+): number {
+  const market = buildMarket(patients, trials, asOf, options);
+  const held: Held = new Map(trials.map((t) => [t.nctId, []]));
+  for (const pair of pairs) {
+    const seats = held.get(pair.nctId);
+    if (seats === undefined) {
+      throw new Error(`countBlockingPairs: no trial ${pair.nctId} in the pool.`);
+    }
+    seats.push(pair.patientId);
+  }
+  return countUnstablePairs(market, patients, trials, held);
 }

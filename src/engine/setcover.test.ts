@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { TIER_WEIGHT } from "@/src/contracts";
+import { buildPriorTable } from "./priors";
 import { orderKey, planTestOrders } from "./setcover";
 import { fact, group, leaf, patient, trial } from "./testing";
 
@@ -371,5 +372,68 @@ describe("plan shape and purity", () => {
       unlocked: [],
       pairsUnlocked: 0,
     });
+  });
+});
+
+describe("cited priors reach the plan", () => {
+  const table = buildPriorTable([
+    {
+      id: "kras-mutation",
+      biomarker: "KRAS",
+      alteration: "mutation",
+      prevalence: 0.2887,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+    {
+      id: "ntrk-fusion",
+      biomarker: "NTRK",
+      alteration: "fusion",
+      prevalence: 0.0016,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+  ]);
+
+  const marker = (id: string, analyte: string, guess: number) =>
+    leaf({
+      id,
+      predicate: "biomarker",
+      analyte,
+      operator: "==",
+      value: "mutation",
+      tier: 0,
+      pFavorable: guess,
+      sourceSpan: `${analyte} mutation`,
+    });
+
+  it("uses the cited prevalence rather than the compiler's guess", () => {
+    const t = trial({ nctId: "NCT00000001", criteria: [adult, marker("INC-kras", "KRAS", 0.01)] });
+    const plain = planTestOrders([silent("PT-1")], [t], ASOF, 10);
+    const cited = planTestOrders([silent("PT-1")], [t], ASOF, 10, { priors: table });
+    expect(plain.expectedPairsUnlocked).toBeCloseTo(0.01, 6);
+    expect(cited.expectedPairsUnlocked).toBeCloseTo(0.2887, 6);
+  });
+
+  it("changes which order a tight budget buys", () => {
+    // Two patients, one test each, same tier-0 cost. The compiler guessed the
+    // rare marker was near-certain; the cited file says it is 0.16%.
+    const krasTrial = trial({ nctId: "NCT00000001", criteria: [adult, marker("INC-kras", "KRAS", 0.01)] });
+    const ntrkTrial = trial({ nctId: "NCT00000002", criteria: [adult, marker("INC-ntrk", "NTRK", 0.99)] });
+    const cohort = [silent("PT-1")];
+
+    const plain = planTestOrders(cohort, [krasTrial, ntrkTrial], ASOF, 1);
+    expect(plain.orders.map((o) => o.analyte)).toEqual(["NTRK"]);
+
+    const cited = planTestOrders(cohort, [krasTrial, ntrkTrial], ASOF, 1, { priors: table });
+    expect(cited.orders.map((o) => o.analyte)).toEqual(["KRAS"]);
+  });
+
+  it("does not change what a plan can unlock, only what it is worth", () => {
+    const t = trial({ nctId: "NCT00000001", criteria: [adult, marker("INC-kras", "KRAS", 0.01)] });
+    const plain = planTestOrders([silent("PT-1")], [t], ASOF, 10);
+    const cited = planTestOrders([silent("PT-1")], [t], ASOF, 10, { priors: table });
+    expect(cited.pairsUnlocked).toBe(plain.pairsUnlocked);
+    expect(cited.spent).toBe(plain.spent);
   });
 });
