@@ -20,6 +20,7 @@ const PROBES = [
 ] as const;
 
 const EXPECTED_REJECTION = new Set(["NCT05384769"]);
+const ENUMERATED = new Set(["NCT03860272", "NCT04141644", "NCT07699237"]);
 
 interface FidelitySheetRow {
   nctId: string;
@@ -79,7 +80,12 @@ export async function runFidelityPilot({
   const results = await Promise.all(PROBES.map(async (nctId): Promise<ProbeResult> => {
     const row = sheet.rows.find((candidate) => candidate.nctId === nctId);
     if (!row?.sourceSpans[0]) throw new Error(`Fidelity pilot source is missing for ${nctId}`);
-    const block: EligibilityBlock = { type: row.side, sourceText: row.sourceSpans[0] };
+    const block: EligibilityBlock = {
+      type: row.side,
+      // Fidelity rows retain each enumerated sub-clause separately. Compile the
+      // complete list so this probe can prove it becomes one AND group.
+      sourceText: ENUMERATED.has(nctId) ? row.sourceSpans.join("\n") : row.sourceSpans[0],
+    };
     const candidate = await compiler(block);
     const checked = validateCompiledTree(candidate, block);
     return checked.success
