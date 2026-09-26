@@ -7,6 +7,7 @@
  *   kleene      three-valued AND / OR / NOT
  *   evaluate    one patient x one trial → PairResult, a cell per criterion
  *   provenance  what chart / claims / patient report are each allowed to prove
+ *   priors      VOI priors resolved from data/prevalence.json, with citations
  *   rank        worklist order, both axes of the cube
  *   elasticity  what one threshold costs the cohort
  *   equity      exclusion rate per criterion, grouped by race
@@ -97,3 +98,14 @@ export {
   type TestOrder,
   type UnlockedPair,
 } from "./setcover";
+export {
+  DEFAULT_PFAVORABLE,
+  PRIOR_DOMAIN,
+  PrevalenceFile,
+  PrevalenceRecord,
+  buildPriorTable,
+  parsePrevalenceFile,
+  type PriorTable,
+  type PriorTableOptions,
+  type ResolvedPrior,
+} from "./priors";

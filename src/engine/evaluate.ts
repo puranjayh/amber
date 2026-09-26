@@ -45,11 +45,22 @@ import {
 } from "@/src/contracts";
 import { combine, not } from "./kleene";
 import { ceilingFor, explainCeiling, type ProvenanceNote } from "./provenance";
+import type { PriorTable } from "./priors";
 import { ageInDays, daysBetween, parseIsoDate } from "./time";
 
 /* ------------------------------------------------------------------ options */
 
 export interface EvaluateOptions {
+  /**
+   * Prevalence priors for the VOI ranking. When supplied, a leaf's `pFavorable`
+   * is resolved from the table — with its citation — in preference to whatever
+   * the compiler inferred from protocol prose. Build one with
+   * `buildPriorTable(parsePrevalenceFile(json).records)`.
+   *
+   * Omit it and nothing changes: the compiled value is used as before.
+   */
+  priors?: PriorTable;
+
   /**
    * Stop at the first eliminating top-level criterion (the contract's
    * short-circuit). Off by default, because the criteria table, the elasticity
@@ -683,7 +694,9 @@ export function evaluate(
         // stale one, so the UI can show what it found and why it did not count.
         chartCitation: outcome.fact?.sourceQuote,
         tier: node.tier,
-        pFavorable: node.pFavorable,
+        // A cited prior beats an inferred one. See priors.ts on why this is
+        // polarity-aware: for an exclusion, favourable means NOT having it.
+        pFavorable: options.priors?.resolve(node).pFavorable ?? node.pFavorable,
         observedAt: outcome.fact?.observedAt,
         ageDays: outcome.ageDays,
       });
