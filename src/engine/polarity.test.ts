@@ -295,12 +295,22 @@ describe.each(CASES)("exclusion — $what", (c) => {
   });
 
   it("a matching fact yields FAIL, and never PASS", () => {
+    // The brief's words, in patient-facing polarity: did the patient clear it?
     const r = evaluate(subjectFor(c.matching), t, ASOF);
-    const cell = r.cells[0];
-    const patientFacing: Verdict = eligibilityVerdict(cell.verdict, "exclusion");
+    const patientFacing: Verdict = eligibilityVerdict(r.cells[0].verdict, "exclusion");
 
     expect(patientFacing).toBe("FAIL");
     expect(patientFacing).not.toBe("PASS");
+  });
+
+  it("stores the cell criterion-oriented: the exclusion predicate holds, so PASS", () => {
+    // CONTRACT.md §4 RULING, asserted directly on what the engine stores, so
+    // the convention is pinned from both ends and an inversion fails whichever
+    // way someone reads it.
+    const r = evaluate(subjectFor(c.matching), t, ASOF);
+    expect(r.cells[0].verdict).toBe("PASS");
+    expect(r.cells[0].reason).toBe("satisfied");
+    expect(r.eliminated).toBe(true);
   });
 
   it("a matching fact eliminates the patient from the trial", () => {
