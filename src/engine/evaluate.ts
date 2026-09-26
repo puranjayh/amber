@@ -97,16 +97,30 @@ const norm = (s: string): string => s.trim().toLowerCase();
 /**
  * Does this fact speak to this leaf at all?
  *
- * `analyte` filters, `drugClass` does not, and the difference matters. An
- * analyte names WHICH QUESTION is being asked — an albumin result is not a
- * partial answer about ANC, it is an answer to a different question, so a
- * criterion about ANC stays UNKNOWN in its presence. A drug class names WHICH
- * ANSWERS COUNT AS YES to the question "what therapy has this patient had",
- * and that question is answered by the therapy history as a whole. A
- * documented history of pembrolizumab alone does answer "prior EGFR TKI?" — it
- * answers no. Filtering on drugClass here instead would leave every drug-class
- * exclusion permanently UNKNOWN for every patient treated with something else,
- * and nobody would ever clear an exclusion.
+ * `analyte` always filters: it names WHICH QUESTION is being asked. An albumin
+ * result is not a partial answer about ANC, it is an answer to a different
+ * question, so an ANC criterion stays UNKNOWN in its presence.
+ *
+ * `drugClass` is subtler, because records state therapy history two ways and
+ * the field means something different in each:
+ *
+ *   { value: true, drugClass: "EGFR_TKI" }   the class names the question, and
+ *                                            the boolean is the answer — so it
+ *                                            filters, exactly like an analyte.
+ *                                            A PLATINUM flag must not be read
+ *                                            as an answer about EGFR TKIs.
+ *   { value: "pembrolizumab" }               a drug name, with no class. It
+ *                                            answers the general question
+ *                                            "what has this patient had", so it
+ *                                            is relevant, and whether it lands
+ *                                            inside the class is settled by the
+ *                                            comparison against `members`.
+ *
+ * Hence: a fact that declares a class must match the leaf's class; a fact that
+ * declares none is relevant and left to the comparison. Filtering out the
+ * unclassed facts as well would leave every drug-class exclusion permanently
+ * UNKNOWN for every patient treated with something else, and nobody would ever
+ * clear an exclusion.
  */
 function factMatchesLeaf(leaf: CriterionLeaf, fact: Fact): boolean {
   if (fact.predicate !== leaf.predicate) return false;
@@ -114,6 +128,14 @@ function factMatchesLeaf(leaf: CriterionLeaf, fact: Fact): boolean {
   if (leaf.analyte !== undefined) {
     if (fact.analyte === undefined) return false;
     if (norm(fact.analyte) !== norm(leaf.analyte)) return false;
+  }
+
+  if (
+    leaf.drugClass !== undefined &&
+    fact.drugClass !== undefined &&
+    norm(fact.drugClass) !== norm(leaf.drugClass)
+  ) {
+    return false;
   }
 
   return true;
