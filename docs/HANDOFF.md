@@ -3,6 +3,14 @@
 Things one lane noticed that another lane owns. Add a line and keep going
 (docs/CONTRACT.md §5).
 
+## From compiler — DE-SynPUF claims ingestion: BLOCKED
+
+The unattended queue assigns `src/claims/**` and `data/claims/**` to the compiler,
+but CONTRACT §1 assigns neither path to this lane and reserves `data/**` for P4.
+No claims downloader or transformation was started to avoid a cross-lane conflict.
+The intended implementation is documented in the queue: Sample 1 only, subset ICD-9
+162.x early, claims-only provenance, and no fabricated labs.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
