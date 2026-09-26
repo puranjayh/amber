@@ -73,6 +73,17 @@ export interface CriteriaLandscape {
   analytes: LandscapeAnalyte[];
 }
 
+/** Corpus-level denominator for every compiler-derived slide. */
+export interface CompilationCoverage {
+  generatedFromTrials: number;
+  compiledTrials: number;
+  rejectedTrials: number;
+  flaggedTrials: number;
+  demoPoolTrials: number;
+  semanticReviewTrials: number;
+  citationGranularityReviewTrials: number;
+}
+
 function leaves(nodes: CriterionNode[]): CriterionLeaf[] {
   const result: CriterionLeaf[] = [];
   const visit = (node: CriterionNode): void => {
@@ -222,6 +233,28 @@ export async function writeSemanticReviewQueue(queue: SemanticReviewQueue, outpu
   await writeFile(path, `${JSON.stringify(queue, null, 2)}\n`, "utf8");
 }
 
+/** Keep the coverage denominator alongside landscape and review artifacts. */
+export function buildCompilationCoverage(results: CompiledTrialResult[]): CompilationCoverage {
+  const reviewFlags = summarizeReviewFlags(results);
+  const compiledTrials = results.filter((result) => result.trial.criteria.length > 0).length;
+  const flaggedTrials = results.filter((result) => result.trial.needsHumanReview).length;
+  return {
+    generatedFromTrials: results.length,
+    compiledTrials,
+    rejectedTrials: results.length - compiledTrials,
+    flaggedTrials,
+    demoPoolTrials: results.filter((result) => result.trial.criteria.length > 0 && !result.trial.needsHumanReview).length,
+    semanticReviewTrials: reviewFlags.semantic.trials,
+    citationGranularityReviewTrials: reviewFlags.citationGranularity.trials,
+  };
+}
+
+export async function writeCompilationCoverage(coverage: CompilationCoverage, outputPath = "data/compiled/coverage.json"): Promise<void> {
+  const path = resolve(outputPath);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, `${JSON.stringify(coverage, null, 2)}\n`, "utf8");
+}
+
 export function validateCompilationResults(results: CompiledTrialResult[]): CompilerReport {
   let invalidOutput = 0;
   for (const result of results) {
@@ -268,10 +301,12 @@ async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/compiled/trials.backtranslated.json");
   const landscapePath = process.argv[3] || "data/compiled/landscape.json";
   const reviewQueuePath = process.argv[4] || "data/compiled/review-queue.json";
+  const coveragePath = process.argv[5] || "data/compiled/coverage.json";
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const report = validateCompilationResults(results);
   await writeCriteriaLandscape(buildCriteriaLandscape(results), landscapePath);
   await writeSemanticReviewQueue(buildSemanticReviewQueue(results), reviewQueuePath);
+  await writeCompilationCoverage(buildCompilationCoverage(results), coveragePath);
   printReport(report);
   printHumanVerificationPairs(results);
   if (report.invalidOutput > 0) process.exitCode = 1;

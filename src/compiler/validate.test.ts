@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { buildCriteriaLandscape, buildSemanticReviewQueue, buildThresholdHistogram, classifyReviewFlag, summarizeReviewFlags, validateCompilationResults } from "@/src/compiler/validate";
+import { buildCompilationCoverage, buildCriteriaLandscape, buildSemanticReviewQueue, buildThresholdHistogram, classifyReviewFlag, summarizeReviewFlags, validateCompilationResults } from "@/src/compiler/validate";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
 import type { CriterionLeaf } from "@/src/contracts";
 
@@ -98,5 +98,23 @@ test("exports a trial-deduplicated landscape with flagged context and percentage
         ],
       }],
     }],
+  });
+});
+
+test("exports one corpus coverage denominator for the app", () => {
+  const rejected: CompiledTrialResult = {
+    sourceText: "Unable to compile.",
+    trial: { ...accepted.trial, nctId: "NCT00000002", criteria: [], compilerConfidence: 0, needsHumanReview: true },
+    failure: { nctId: "NCT00000002", issues: ["schema rejected"] },
+  };
+  const semantic = { ...accepted, trial: { ...accepted.trial, nctId: "NCT00000003", needsHumanReview: true }, reviewReasons: ["depth-limit flag"] } satisfies CompiledTrialResult;
+  expect(buildCompilationCoverage([accepted, rejected, semantic])).toEqual({
+    generatedFromTrials: 3,
+    compiledTrials: 2,
+    rejectedTrials: 1,
+    flaggedTrials: 2,
+    demoPoolTrials: 1,
+    semanticReviewTrials: 1,
+    citationGranularityReviewTrials: 0,
   });
 });
