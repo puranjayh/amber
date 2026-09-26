@@ -105,7 +105,9 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 
 Washout leaves are time since a SPECIFIC prior exposure, never generic time since any treatment. Every washout leaf must have a numeric duration in days, tier:4, and a non-empty target in drugClass or analyte. Put the target in drugClass whenever it is a treatment category: RADIOTHERAPY, PLATINUM_CHEMOTHERAPY, INVESTIGATIONAL_AGENT, or SURGERY. For example, “prior palliative or curative radiotherapy must be completed at least 14 days prior” is a washout leaf with value:14, unit:"days", operator:">=", drugClass:"RADIOTHERAPY", tier:4. Preserve “palliative or curative” as a sourceSpan/countingRule; it does not make the target optional.
 
-Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
+Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For example, “pregnant or lactating” is an OR group of named contraindication/comorbidity leaves (analyte:"pregnancy" and analyte:"lactation", value:true); never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
+
+Do not use washout for an imaging or assessment requirement. “Chest CT or PET/CT within 12 months” is not time since a dose; it is not representable by a washout leaf. Never put a quoted source sentence in value. Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
 
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
@@ -338,6 +340,49 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
     issues.push(`${node.id}: sourceSpan contains multiple threshold requirements; compile an AND group of typed leaves`);
   }
   return issues;
+}
+
+export type FidelityDefectClass =
+  | "sentence-as-boolean"
+  | "washout-without-target"
+  | "quoted-sentence-in-value";
+
+function looksLikeQuotedSentence(value: string): boolean {
+  return /[.!?]$/.test(value.trim()) || value.trim().split(/\s+/).length >= 6;
+}
+
+/**
+ * A narrow, named audit for the defect classes found in the fidelity review.
+ * Validation prevents these new trees; the audit makes the smoke/full-run gate
+ * observable and refuses to publish if a future validation change regresses it.
+ */
+export function fidelityDefects(node: CriterionNodeValue): FidelityDefectClass[] {
+  const defects: FidelityDefectClass[] = [];
+  walk(node, (current) => {
+    if (current.kind !== "leaf") return;
+    if (typeof current.value === "boolean" && !nonEmptyText(current.analyte) && !nonEmptyText(current.drugClass)) {
+      defects.push("sentence-as-boolean");
+    }
+    if (current.predicate === "washout") {
+      if (!nonEmptyText(current.analyte) && !nonEmptyText(current.drugClass)) defects.push("washout-without-target");
+      if (typeof current.value === "string" && looksLikeQuotedSentence(current.value)) defects.push("quoted-sentence-in-value");
+    }
+  });
+  return defects;
+}
+
+export function fidelityDefectCounts(results: readonly CompiledTrialResult[]): Record<FidelityDefectClass, number> {
+  const counts: Record<FidelityDefectClass, number> = {
+    "sentence-as-boolean": 0,
+    "washout-without-target": 0,
+    "quoted-sentence-in-value": 0,
+  };
+  for (const result of results) {
+    for (const criterion of result.trial.criteria) {
+      for (const defect of fidelityDefects(criterion)) counts[defect] += 1;
+    }
+  }
+  return counts;
 }
 
 /**
@@ -652,18 +697,26 @@ async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
   const fullBatch = process.argv.includes("--full");
   const retryIdsPath = cliArgument("--nct-ids");
+  const requestedSmokeCount = cliArgument("--smoke-count");
+  const smokeCount = requestedSmokeCount === undefined ? 3 : Number(requestedSmokeCount);
+  if (!Number.isInteger(smokeCount) || smokeCount < 1) throw new Error("--smoke-count must be a positive integer");
   const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
   const retryNctIds = retryIdsPath
     ? z.array(z.string().regex(/^NCT\d{8}$/)).parse(JSON.parse(await readFile(resolve(retryIdsPath), "utf8")))
     : undefined;
-  const batch = retryNctIds ? selectRawTrialsByNctIds(rawTrials, retryNctIds) : fullBatch ? rawTrials : rawTrials.slice(0, 3);
+  const batch = retryNctIds ? selectRawTrialsByNctIds(rawTrials, retryNctIds) : fullBatch ? rawTrials : rawTrials.slice(0, smokeCount);
   if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
-  else if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
+  else if (!fullBatch) console.log(`Smoke test: compiling ${batch.length} trials. Re-run with --full only after reviewing this output.`);
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
+  const defects = fidelityDefectCounts(results);
+  console.log(`Fidelity defect scan: sentence-as-boolean ${defects["sentence-as-boolean"]}; washout-without-target ${defects["washout-without-target"]}; quoted-sentence-in-value ${defects["quoted-sentence-in-value"]}`);
+  if (Object.values(defects).some((count) => count > 0)) {
+    throw new Error("Refusing to publish compilation containing fidelity defect classes");
+  }
   const published = await publishCompilationResults(results, outputPath);
   console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
 }

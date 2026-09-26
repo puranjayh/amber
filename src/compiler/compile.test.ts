@@ -3,6 +3,8 @@ import {
   boundedResponseJsonSchema,
   compileTrial,
   extractEligibilityBlocks,
+  fidelityDefectCounts,
+  fidelityDefects,
   MAX_GROUP_DEPTH,
   nearVerbatimSimilarity,
   normalizeSweepMetadata,
@@ -132,6 +134,29 @@ test("rejects an unnamed boolean clause instead of emitting a catch-all fact", (
   }, { type: "exclusion", sourceText: source });
   expect(checked.success).toBe(false);
   if (!checked.success) expect(checked.issues.join("\n")).toMatch(/boolean leaf has no named subject/);
+});
+
+test("names the three fidelity defect classes for the smoke-publication gate", () => {
+  const booleanLeaf = {
+    kind: "leaf" as const, id: "EXC-1", type: "exclusion" as const, predicate: "comorbidity" as const,
+    operator: "==" as const, value: true, tier: 1 as const, sweepable: false, sourceSpan: "Pregnant or lactating.",
+  };
+  const missingWashoutTarget = {
+    kind: "leaf" as const, id: "EXC-2", type: "exclusion" as const, predicate: "washout" as const,
+    operator: ">=" as const, value: 14, tier: 4 as const, sweepable: true, sweepRange: [0, 90] as [number, number], sweepStep: 1, sourceSpan: "Radiotherapy 14 days prior.",
+  };
+  const quotedWashout = {
+    kind: "leaf" as const, id: "EXC-3", type: "exclusion" as const, predicate: "washout" as const,
+    operator: "==" as const, value: "Chest CT scan or chest PET/CT within 12 months.", drugClass: "RADIOTHERAPY", tier: 4 as const, sweepable: false, sourceSpan: "Chest CT scan or chest PET/CT within 12 months.",
+  };
+  expect(fidelityDefects(booleanLeaf)).toEqual(["sentence-as-boolean"]);
+  expect(fidelityDefects(missingWashoutTarget)).toEqual(["washout-without-target"]);
+  expect(fidelityDefects(quotedWashout)).toEqual(["quoted-sentence-in-value"]);
+  expect(fidelityDefectCounts([{ trial: { ...raw.protocolSection.identificationModule, nctId: "NCT00000001", title: "x", phase: "x", slots: 0, condition: "x", criteria: [booleanLeaf, missingWashoutTarget, quotedWashout], compilerConfidence: 1, needsHumanReview: false }, sourceText: "x" }])).toEqual({
+    "sentence-as-boolean": 1,
+    "washout-without-target": 1,
+    "quoted-sentence-in-value": 1,
+  });
 });
 
 test("accepts an AND group of typed leaves for an enumerated organ-function clause", () => {
