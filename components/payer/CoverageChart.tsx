@@ -1,5 +1,5 @@
 import type { ClaimsCoverage, PredicateCoverage } from "./coverage";
-import { pct1 } from "./coverage";
+import { assertSlideCoverage, pct1 } from "./coverage";
 
 const CHART_ORDER = [
   "prior_therapy",
@@ -34,6 +34,7 @@ function Row({ row }: { row: PredicateCoverage }) {
 }
 
 export function CoverageChart({ coverage }: { coverage: ClaimsCoverage }) {
+  assertSlideCoverage(coverage, coverage.source);
   const shown = CHART_ORDER.map((predicate) => coverage.byPredicate.find((row) => row.predicate === predicate)).filter(
     (row): row is PredicateCoverage => row !== undefined,
   );

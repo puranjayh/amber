@@ -50,3 +50,6 @@ data/raw/
 # Other lanes' inputs, consumed by app/_data/generate.ts. Tracked copies on main still win.
 /data/synthea/
 /data/compiled/
+
+# generated: too large for git, rebuilt by the generation script
+app/_data/cube.json

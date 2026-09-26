@@ -15,7 +15,9 @@ The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts`
 
 `/payer` evaluates `data/claims/patients.json` when it exists. It is not in this tree, so the screen runs `components/payer/stub.ts` (4 synthetic BENE-* records, DE-SynPUF-shaped claim lines). Drop the real extract at `data/claims/patients.json` (contract `Patient[]`, `provenance: "claims"`) and regenerate — no route change.
 
-`data/compiled/coverage.json` on `eng/compiler` is compile-stats (233 compiled / 67 rejected), not the claims-answerable figure. `/payer` now derives that figure from the 233 trees in `data/compiled/trials.json` (conservative 54.5%, 875 ambiguous). A rich `ClaimsCoverage` JSON at that path would be used as-is.
+`data/compiled/coverage.json` is compile-stats (now at `compile-stats.json` on `eng/compiler`). `/payer` will not derive a number from the trees. Republish `data/compiled/coverage.json` as `ClaimsCoverage` with **5,103** leaves (the slide number). Any other leaf count throws.
+
+The app cube now consumes the 133 demo-ready compiled trials (citation flags do not gate). Keep that count stable — a different non-zero pool throws. NCT07001001 is still pinned from fixtures so the presentation pair does not move.
 
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 

@@ -61,7 +61,7 @@ Nothing on screen is a real patient. Do not present it as one.
 | Payer stub | Four DE-SynPUF-shaped `BENE-*` records until `data/claims/patients.json` lands. |
 | `/eval` labels | `labeller: model-draft`. The 100% diagonal is expected and is **not** a human grade. The page says so first. |
 
-The landscape histogram is compiled from 300 public trial records. The cube the rest of the console shows is the fixture trio evaluated against the Synthea cohort (203 × 3) until accepted compiled trees replace the empty `needsHumanReview` set.
+The landscape histogram is compiled from 300 public trial records. The cube the rest of the console shows is evaluated against 133 real trial protocols. Citation-granularity flags do not gate the pool. The hero presentation trial (NCT07001001) stays pinned so the demo path is stable.
 
 ## Prior art
 

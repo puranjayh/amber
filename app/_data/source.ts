@@ -106,6 +106,7 @@ export const getPatients = (): Patient[] => patients;
 /** Hand-built fixture ids — the 3×3 pair picker and the demo stay on these. */
 export const fixturePatientIds = () => patients.filter((p) => /^PT-\d+$/.test(p.id)).map((p) => p.id);
 export const fixtureTrialIds = () => trials.filter((t) => /^NCT07001\d+$/.test(t.nctId)).map((t) => t.nctId);
+export const realProtocols = trials.filter((t) => !/^NCT07001\d+$/.test(t.nctId)).length;
 export const getCube = (): PairResult[] => cube;
 export const getWorklist = () => worklist;
 export const getSweeps = () => sweeps;

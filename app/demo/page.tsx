@@ -14,6 +14,7 @@ import {
   getTrials,
   getWorklist,
   meta,
+  realProtocols,
   subgroupSizes,
 } from "@/app/_data/source";
 import { MissingData } from "@/components/console/MissingData";
@@ -125,11 +126,15 @@ export default function DemoPage() {
             <div className="mb-3">
               <h1 className="text-[16px] font-medium text-ink">The worklist</h1>
               <p className="mt-0.5 text-[12px] text-ink-2">
-                Every patient&apos;s best trial, cheapest unknown first. Click {DEMO.patientId} — we
+                Evaluated against {realProtocols} real trial protocols. Click {DEMO.patientId} — we
                 open them against {DEMO.nctId}, the pair with two unknowns. Or press space.
               </p>
             </div>
-            <WorklistHeader strip={worklistStrip(getCube())} failures={screenFailures(items)} />
+            <WorklistHeader
+              strip={worklistStrip(getCube())}
+              failures={screenFailures(items)}
+              realProtocols={realProtocols}
+            />
             <div className="mt-3">
               <Worklist rows={featuredWorklist(items, DEMO.patientId)} selectedId={DEMO.patientId} advanceTo={1} />
             </div>

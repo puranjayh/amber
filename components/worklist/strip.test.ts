@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CubeCell, PairResult } from "@/src/contracts";
-import { formatBench, MEASURED_BENCH, screenFailures, worklistStrip } from "./strip";
+import { formatBench, formatRealProtocols, MEASURED_BENCH, screenFailures, worklistStrip } from "./strip";
 
 function cell(over: Partial<CubeCell> & Pick<CubeCell, "criterionId" | "verdict">): CubeCell {
   return {
@@ -95,6 +95,10 @@ test("screen-failures-avoided: 62% baseline minus true eliminations, times $2,00
     failuresAvoided: 122,
     dollarsAvoided: 244_000,
   });
+});
+
+test("real-protocol line names the compiled pool", () => {
+  expect(formatRealProtocols(133)).toBe("Evaluated against 133 real trial protocols");
 });
 
 test("bench line says measured, not up to", () => {

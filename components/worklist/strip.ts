@@ -69,3 +69,7 @@ export const MEASURED_BENCH = {
 export function formatBench(b: typeof MEASURED_BENCH): string {
   return `measured: ${b.cells.toLocaleString("en-US")} criterion evaluations in ${b.seconds}s · ${b.patients.toLocaleString("en-US")} patients × ${b.trials} trials`;
 }
+
+export function formatRealProtocols(n: number): string {
+  return `Evaluated against ${n.toLocaleString("en-US")} real trial protocols`;
+}

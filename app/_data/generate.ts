@@ -12,7 +12,8 @@ import { CLAIMS_STUB } from "@/components/payer/stub";
 import { buildEvalReport } from "./eval";
 import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "./inputs";
 import { buildPayerView } from "./payer";
-import { buildReadModels } from "./readModels";
+import { PRESENTATION_TRIAL } from "./inputs";
+import { buildReadModels, publishCube } from "./readModels";
 import type { Meta } from "./schema";
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
@@ -39,7 +40,7 @@ const meta: Meta = {
 const compact = patients.length > 20;
 write("trials.json", trials);
 write("patients.json", patients, !compact);
-write("cube.json", models.cube, !compact);
+write("cube.json", publishCube(models.cube, models.worklist, PRESENTATION_TRIAL), !compact);
 write("worklist.json", models.worklist);
 write("elasticity.json", models.elasticity, !compact);
 write("equity.json", models.equity);

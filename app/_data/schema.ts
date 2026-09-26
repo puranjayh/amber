@@ -104,18 +104,20 @@ export const SideCoverage = z.object({
   answerable: z.number().int(),
   rate: z.number(),
 });
-export const ClaimsCoverage = z.object({
-  trials: z.number().int(),
-  criteria: z.number().int(),
-  answerable: z.number().int(),
-  ambiguous: z.number().int(),
-  lowerRate: z.number(),
-  upperRate: z.number(),
-  inclusions: SideCoverage,
-  exclusions: SideCoverage,
-  byPredicate: z.array(PredicateCoverage),
-  source: z.string(),
-});
+export const ClaimsCoverage = z
+  .object({
+    trials: z.number().int(),
+    criteria: z.number().int(),
+    answerable: z.number().int(),
+    ambiguous: z.number().int(),
+    lowerRate: z.number(),
+    upperRate: z.number(),
+    inclusions: SideCoverage,
+    exclusions: SideCoverage,
+    byPredicate: z.array(PredicateCoverage),
+    source: z.string().default("data/compiled/coverage.json"),
+  })
+  .passthrough();
 export type ClaimsCoverage = z.infer<typeof ClaimsCoverage>;
 
 export const SettledExclusion = z.object({

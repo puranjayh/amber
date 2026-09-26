@@ -49,121 +49,16 @@
       {
         "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SYN-00bcbfc6-c7b9-bd0e-3d95-071f9fba6321",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-2e9a9dab-f5b6-8960-d3ce-7834bb5e7344",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-3eec36b2-71cc-13c4-489a-495c45318bc3",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-8ece28c6-f931-b0e0-5c0e-72b8d8d3c86a",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-ca443842-f546-d34c-a69b-b044cfe007d9",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-d309f605-948b-962f-ca72-878ce8b8d154",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-029c95e2-d252-d8d3-3626-7f347182d6d7",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-06476266-59b1-ded7-4138-3c7543fd4981",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-1426480f-ccc7-2393-40bd-f92ccf2b74b2",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-1d63466e-0cfd-eb12-77aa-d153393355e5",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-31f368d9-3fdc-a15f-ccdc-fafa74a860e9",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-3368f8e7-5e00-7794-1e39-f65cb954d43d",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-46fcc34a-97a1-f038-9bb1-4ae87116ae61",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-4be6b5fb-2a19-943a-9249-7068445be4cc",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-65cbad6a-eb9d-420e-9bab-b4f9c6aab7db",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-7132442e-b0b9-a886-e28d-f83700e5a3bd",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-82623afe-e51c-e02e-1dd7-15a4394d0e92",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-8704c44c-8b97-e35a-3bac-7d5b24de06b3",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-87f7ad7b-85f9-d26d-5a41-9933f4039331",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-9389eec9-a5c3-a9e1-b675-93cd1f199532",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-cbd1dd48-89c3-3fdb-434e-3f0802738abf",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-d21f2794-014b-c66b-3688-888382ab7434",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-e7c068bb-6d29-27d3-0b8b-ec0406cc91b7",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-f6745f8a-8107-443e-8946-3e6329d20408",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-f870c432-0887-125e-f778-cf5110d3de1d",
-        "nctId": "NCT07001003"
       }
     ],
-    "enrolled": 38,
-    "meanTravelMinutes": 61.6,
-    "unstablePairs": 507,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
+    "unstablePairs": 174,
     "subgroupShare": {
-      "Asian": 0.02631578947368421,
-      "Black or African American": 0.02631578947368421,
-      "white": 0.7894736842105258,
-      "black": 0.13157894736842105,
-      "White": 0.02631578947368421
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.6666666666666666,
+      "black": 0.16666666666666666
     }
   },
   {
@@ -216,122 +111,16 @@
       {
         "patientId": "SYN-03c5e223-c016-4477-947f-22c691d6a62c",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SYN-04a29a39-c12f-480b-9521-f2d20559089f",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-04a849f4-1aaf-4112-a62f-d44df4325773",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-04dff6e5-123a-4c13-bd08-ad690d287173",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-064341a0-60ed-4d68-88a7-5c730572d285",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-06476266-59b1-ded7-4138-3c7543fd4981",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-072f2f15-605e-4c83-b0a6-0274a0474b91",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-07b30273-070e-47c7-9617-d12785a4c9d5",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-08180c75-dd87-418f-95ff-06fb2f434713",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-09616ead-22c8-4210-8cb9-2fdc28e043ca",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-097079b1-ff8f-4ee0-8ce3-0ea744ecfa21",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0983e422-3b48-4f1a-936b-bee5f0eb4695",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-09867b02-24b8-4896-b38b-86782dd64ef1",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0aaa2164-8de6-4152-8674-14d254aae13a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0ace3e15-8aa4-41c5-8b90-2408285ebcfe",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0b48619e-1602-488c-a23b-3d4937153dff",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0c1606c8-637e-4ed3-baf4-67390d8f3956",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0d270daf-d227-4461-a6bd-256676bdf824",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0df7cd60-097e-4fba-90eb-f7e9d9de0b67",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e003777-2825-44c6-b090-c6df626f7f4a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e1ad739-81d1-4170-841d-414ddc97c93a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e796659-9d7a-4383-85c9-b72b43b80252",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0ec17b30-0776-4c70-8735-a09dfc709d3c",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0edbb001-5914-42b6-9194-0a3c753b5c25",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0f9eca6a-cee2-4155-94ae-4e43b3b55f06",
-        "nctId": "NCT07001003"
       }
     ],
-    "enrolled": 38,
-    "meanTravelMinutes": 61.6,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.02631578947368421,
-      "Black or African American": 0.02631578947368421,
-      "white": 0.7894736842105258,
-      "asian": 0.07894736842105263,
-      "White": 0.02631578947368421,
-      "black": 0.05263157894736842
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.75,
+      "asian": 0.08333333333333333
     }
   },
   {
@@ -384,122 +173,16 @@
       {
         "patientId": "SYN-03c5e223-c016-4477-947f-22c691d6a62c",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SYN-04a29a39-c12f-480b-9521-f2d20559089f",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-04a849f4-1aaf-4112-a62f-d44df4325773",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-04dff6e5-123a-4c13-bd08-ad690d287173",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-064341a0-60ed-4d68-88a7-5c730572d285",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-06476266-59b1-ded7-4138-3c7543fd4981",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "SYN-072f2f15-605e-4c83-b0a6-0274a0474b91",
-        "nctId": "NCT07001002"
-      },
-      {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-07b30273-070e-47c7-9617-d12785a4c9d5",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-08180c75-dd87-418f-95ff-06fb2f434713",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-09616ead-22c8-4210-8cb9-2fdc28e043ca",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-097079b1-ff8f-4ee0-8ce3-0ea744ecfa21",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0983e422-3b48-4f1a-936b-bee5f0eb4695",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-09867b02-24b8-4896-b38b-86782dd64ef1",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0aaa2164-8de6-4152-8674-14d254aae13a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0ace3e15-8aa4-41c5-8b90-2408285ebcfe",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0b48619e-1602-488c-a23b-3d4937153dff",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0c1606c8-637e-4ed3-baf4-67390d8f3956",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0d270daf-d227-4461-a6bd-256676bdf824",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0df7cd60-097e-4fba-90eb-f7e9d9de0b67",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e003777-2825-44c6-b090-c6df626f7f4a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e1ad739-81d1-4170-841d-414ddc97c93a",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0e796659-9d7a-4383-85c9-b72b43b80252",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0ec17b30-0776-4c70-8735-a09dfc709d3c",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0edbb001-5914-42b6-9194-0a3c753b5c25",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
-        "nctId": "NCT07001003"
-      },
-      {
-        "patientId": "SYN-0f9eca6a-cee2-4155-94ae-4e43b3b55f06",
-        "nctId": "NCT07001003"
       }
     ],
-    "enrolled": 38,
-    "meanTravelMinutes": 61.6,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.02631578947368421,
-      "Black or African American": 0.02631578947368421,
-      "white": 0.7894736842105258,
-      "asian": 0.07894736842105263,
-      "White": 0.02631578947368421,
-      "black": 0.05263157894736842
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.75,
+      "asian": 0.08333333333333333
     }
   }
 ]

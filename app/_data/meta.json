@@ -1,16 +1,17 @@
 {
   "asOf": "2026-09-25",
   "sources": [
-    "fixtures/trials.sample.json",
+    "data/compiled/trials.json",
     "fixtures/patients.sample.json",
+    "fixtures/trials.sample.json",
     "data/synthea/patients.json",
     "data/compiled/landscape.json"
   ],
   "patients": 203,
-  "trials": 3,
-  "cells": 4060,
-  "pairsEvaluated": 609,
-  "eligibleNow": 1,
+  "trials": 134,
+  "cells": 671727,
+  "pairsEvaluated": 27202,
+  "eligibleNow": 0,
   "oneTier0Away": 0,
   "engineTree": "1a47ed5"
 }

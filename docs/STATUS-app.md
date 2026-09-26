@@ -1,6 +1,6 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 08:40 ET
+Last updated: 2026-09-26 08:55 ET
 
 ## Done
 
@@ -12,8 +12,9 @@ Previous queue (landscape → README) still stands.
 12. **Empty states** — `source.ts` safeParse; every route that needs a file renders `MissingData` instead of crashing or `notFound()`.
 13. **First paint** — `/demo` is `force-static`. Later beats are in the first HTML and hidden with CSS (`display: none`). No `loading.tsx`, no spinner, no client fetch.
 
-14. **Coverage headline on `/payer`** — derived from the 233 compiled trees (5,105 leaves). Conservative 54.5% (washout + contraindication = 875 ambiguous, counted as chart). Upper bound 71.6%. Exclusions 62.4% vs inclusions 45.4%. Bars: prior_therapy / comorbidity / diagnosis / age 100%; lab / biomarker / ECOG / staging 0%.
+14. **Coverage headline on `/payer`** — reads `data/compiled/coverage.json` only. Compile-stats → pending. A claims figure whose leaf count is not 5,103 throws. Never derived from the trees.
 15. **Measured bench on the worklist** — 20,420,000 criterion evaluations in 8.76s · 4,000 patients × 233 trials. Says "measured", not "up to".
+16. **Cube on 133 real protocols** — citation flags no longer gate. `data/compiled/trials.json` demo pool must be 133 or generate throws. NCT07001001 stays pinned so PT-4401's presentation pair is stable. Worklist says "Evaluated against 133 real trial protocols."
 
 Nine deep-dive routes are unchanged.
 
@@ -23,8 +24,7 @@ None in this lane.
 
 ## Blocked
 
-- Compiled trees are still `needsHumanReview`; the cube stays 203 × 3 fixtures. Coverage walks the 233 trees anyway.
-- `data/claims/patients.json` missing — payer split is still the stub. `data/compiled/coverage.json` is compile-stats, not the claims figure; we derive the figure from the trees.
+- `data/claims/patients.json` missing — payer split is still the stub. `data/compiled/coverage.json` is still compile-stats; `/payer` waits for the engine to republish the claims figure (5,103 leaves).
 - Eval is model-draft.
 
 ## Do not

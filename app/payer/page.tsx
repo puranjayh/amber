@@ -34,7 +34,7 @@ export default async function PayerPage({
           meta={meta}
           call={
             view.coverage
-              ? `buildClaimsCoverage(${view.coverage.source}) · ${view.source === "stub" ? "evaluate(claims stub × fixture trials)" : "evaluate(data/claims/patients.json × fixture trials)"}`
+              ? `data/compiled/coverage.json · ${view.source === "stub" ? "evaluate(claims stub × fixture trials)" : "evaluate(data/claims/patients.json × fixture trials)"}`
               : view.source === "stub"
                 ? "evaluate(claims stub × fixture trials) — swap when data/claims/patients.json lands"
                 : "evaluate(data/claims/patients.json × fixture trials)"

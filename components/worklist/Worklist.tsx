@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
 import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
-import { MEASURED_BENCH, formatBench, formatDollars, type ScreenFailures } from "./strip";
+import { MEASURED_BENCH, formatBench, formatDollars, formatRealProtocols, type ScreenFailures } from "./strip";
 
 export type WorklistItem = WorklistRow & {
   patient?: Patient;
@@ -38,7 +38,15 @@ function Blocking({ row }: { row: WorklistItem }) {
 
 const COLS = "md:grid md:grid-cols-[2.5rem_9rem_minmax(0,1fr)_6.5rem_minmax(0,12rem)_8rem] md:items-center md:gap-3";
 
-export function WorklistHeader({ strip, failures }: { strip: WorklistStrip; failures: ScreenFailures }) {
+export function WorklistHeader({
+  strip,
+  failures,
+  realProtocols = 0,
+}: {
+  strip: WorklistStrip;
+  failures: ScreenFailures;
+  realProtocols?: number;
+}) {
   const items = [
     {
       value: strip.pairsEvaluated,
@@ -70,6 +78,11 @@ export function WorklistHeader({ strip, failures }: { strip: WorklistStrip; fail
           </div>
         ))}
       </dl>
+      {realProtocols > 0 && (
+        <p className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink sm:px-4">
+          {formatRealProtocols(realProtocols)}
+        </p>
+      )}
       <p
         className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
         title="Industry oncology screen-fail rate 62% × $2,000. AMBER only eliminates on a matching fact — absence stays UNKNOWN."

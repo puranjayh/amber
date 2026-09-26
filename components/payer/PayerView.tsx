@@ -58,7 +58,7 @@ export function PayerSplit({ view }: { view: PayerModel }) {
         <CoverageChart coverage={view.coverage} />
       ) : (
         <p className="rounded-md border border-line bg-surface px-3 py-3 font-mono text-[12px] text-ink-3 sm:px-4">
-          Coverage figure pending a compiled corpus at data/compiled/trials.json.
+          Coverage figure pending engine republish of data/compiled/coverage.json.
         </p>
       )}
       <header>

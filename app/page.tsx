@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { DEMO, asOf, getCube, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
+import { DEMO, asOf, getCube, getPair, getPatient, getTrial, getWorklist, meta, realProtocols } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
@@ -47,6 +47,7 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
             <h1 className="text-[16px] font-medium text-ink">Worklist</h1>
             <p className="mt-0.5 text-[12px] text-ink-2">
               Every patient&apos;s best trial, ranked: fewest unknowns first, then expected value, then travel.
+              {realProtocols > 0 ? ` Evaluated against ${realProtocols} real trial protocols.` : ""}
             </p>
           </div>
           <Link
@@ -59,7 +60,11 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
             </span>
           </Link>
         </div>
-        <WorklistHeader strip={worklistStrip(getCube())} failures={screenFailures(rows)} />
+        <WorklistHeader
+          strip={meta}
+          failures={screenFailures(rows)}
+          realProtocols={realProtocols}
+        />
         <Worklist rows={rows} />
         <Provenance meta={meta} call="rank(evaluate(patient × trial))" />
       </main>

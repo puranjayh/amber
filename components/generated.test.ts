@@ -66,8 +66,11 @@ test("the engine's cube over the sample fixtures agrees with the hand-worked ora
   const generated = committed("cube").filter((p: { patientId: string; nctId: string }) =>
     sampleIds.has(`${p.patientId}|${p.nctId}`),
   );
+  const generatedIds = new Set(generated.map((p: { patientId: string; nctId: string }) => `${p.patientId}|${p.nctId}`));
+  const expected = cubeOracle.filter((p) => generatedIds.has(`${p.patientId}|${p.nctId}`));
+  expect(generated.length).toBeGreaterThan(0);
   const key = (p: { patientId: string; nctId: string }) => `${p.patientId}|${p.nctId}`;
   expect([...generated].sort((a, b) => key(a).localeCompare(key(b)))).toEqual(
-    [...cubeOracle].sort((a, b) => key(a).localeCompare(key(b))),
+    [...expected].sort((a, b) => key(a).localeCompare(key(b))),
   );
 });
