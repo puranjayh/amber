@@ -1,0 +1,32 @@
+[
+  {
+    "criterionId": "INC-5",
+    "label": "ANC ≥ 1500/μL",
+    "exclusionRateBySubgroup": { "White": 0.06, "Black or African American": 0.21, "Asian": 0.05, "Other": 0.07 },
+    "maxGapPoints": 16
+  },
+  {
+    "criterionId": "INC-6",
+    "label": "Hemoglobin ≥ 9 g/dL",
+    "exclusionRateBySubgroup": { "White": 0.05, "Black or African American": 0.11, "Asian": 0.04, "Other": 0.06 },
+    "maxGapPoints": 7
+  },
+  {
+    "criterionId": "INC-4",
+    "label": "ECOG 0–1 within 28 days",
+    "exclusionRateBySubgroup": { "White": 0.12, "Black or African American": 0.15, "Asian": 0.1, "Other": 0.13 },
+    "maxGapPoints": 5
+  },
+  {
+    "criterionId": "EXC-1",
+    "label": "Prior osimertinib",
+    "exclusionRateBySubgroup": { "White": 0.08, "Black or African American": 0.05, "Asian": 0.1, "Other": 0.06 },
+    "maxGapPoints": 5
+  },
+  {
+    "criterionId": "INC-1",
+    "label": "Age ≥ 18",
+    "exclusionRateBySubgroup": { "White": 0, "Black or African American": 0, "Asian": 0, "Other": 0 },
+    "maxGapPoints": 0
+  }
+]

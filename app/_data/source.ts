@@ -1,6 +1,7 @@
 import {
   CubeFixture,
   ElasticityPoint,
+  EquityRow,
   PatientsFixture,
   TrialsFixture,
   type PairResult,
@@ -11,6 +12,7 @@ import cubeJson from "@/fixtures/cube.sample.json";
 import patientsJson from "@/fixtures/patients.sample.json";
 import trialsJson from "@/fixtures/trials.sample.json";
 import elasticitySample from "./elasticity.sample.json";
+import equitySample from "./equity.sample.json";
 
 // The only place the app reads data. Parsed with the contract schemas so a fixture that
 // drifts from the contract fails loudly at load instead of rendering wrong.
@@ -30,6 +32,13 @@ const elasticity = {
   criterionId: "INC-5",
   points: ElasticityPoint.array().parse(elasticitySample),
 };
+
+// Hand-written placeholder until the engine's equityAudit() output ships as a fixture.
+const equity = { nctId: "NCT07001001", rows: EquityRow.array().parse(equitySample) };
+
+export function getEquity() {
+  return equity;
+}
 
 export function getTrials(): Trial[] {
   return trials;
