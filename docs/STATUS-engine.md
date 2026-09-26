@@ -47,3 +47,14 @@ records, zero criteria, all flagged. Every report here was computed from
 `trials.backtranslated.json` (sha `9df33cee`, 03:33, intact) and records that sha. The
 compiled trials are untracked in the `amber-compiler` worktree and exist on no branch, so
 these numbers are not yet independently reproducible. Details in `docs/HANDOFF.md`.
+
+## Two contract changes landed mid-run
+
+- **§12** granted `data/claims/**` to the compiler lane after I was asked to emit
+  `data/claims/evaluation.json` there. Nothing has been written into that lane — the
+  emitter skips while the cohort is absent. Three options for P1 in `docs/HANDOFF.md`;
+  default is that P1 runs the emitter.
+- **§13** flags the 100% eval as uninformative. Engine corollary recorded: priors move
+  only `pFavorable`/`expectedValue`, never verdicts, so a verdict confusion matrix is
+  unaffected — and 69% of cells on the real pool are UNKNOWN, which is the class
+  imbalance §13 describes, measured.

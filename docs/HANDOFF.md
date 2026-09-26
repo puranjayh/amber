@@ -437,3 +437,39 @@ the demo pool at all.
 
 Both carry a generated `headline` string. Render that rather than recomputing a
 percentage in the UI, so the slide and the data cannot drift.
+
+### 5. P1: `data/claims/evaluation.json` now lands in your lane — decide who writes it
+
+CONTRACT §12 (03:55) granted `data/claims/**` to the compiler lane, after I was
+asked to emit `data/claims/evaluation.json`. The emitter is written and skips
+itself while `data/claims/patients.json` is absent, so **nothing has been written
+into your lane and nothing will be until that file exists**. Before it does, pick
+one:
+
+- **You run it.** `AMBER_EMIT=1 npm test -- src/engine/emit.test.ts` once the
+  cohort is in place. No engine change needed.
+- **Grant the one path.** Add `data/claims/evaluation.json` to the engine lane in
+  §1 and I will emit it.
+- **Move the output.** Say where — `data/compiled/claims-evaluation.json` sits in
+  your lane too but keeps the claims cohort and the engine's reading of it apart.
+
+Defaulting to the first, since it needs no contract change.
+
+### 6. On §13 (the 100% eval) — the engine side of that warning
+
+§13 is right and there is an engine-side corollary worth recording. `evaluate()`
+now takes `priors`, and the prevalence file only moves `pFavorable` and
+`expectedValue` — never a verdict or a reason. So:
+
+- A confusion matrix over verdicts is unaffected by priors. Run it either way.
+- Any metric that touches `pFavorable` must state whether priors were wired in,
+  because the same pair scores differently. With the cited file a KRAS arm scores
+  0.2887 where the compiler had guessed 0.01.
+
+And the class-imbalance point in §13 has a number from this lane: on the real
+233-trial pool against the Synthea cohort, **69% of all cells are UNKNOWN**
+(14,135,500 of 20,420,000 at the 4,000-patient scale). An accuracy figure over
+that distribution is dominated by one class, exactly as §13 says. `cellsByReason`
+in the claims report breaks UNKNOWN into `absent`, `stale` and `unsupported`,
+which are three different actions and worth reporting separately rather than as
+one bar.
