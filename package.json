@@ -12,6 +12,7 @@
     "compiler:fetch": "tsx src/compiler/fetch-trials.ts",
     "compiler:compile": "tsx src/compiler/compile.ts",
     "compiler:backtranslate": "tsx src/compiler/backtranslate.ts",
+    "compiler:validate": "tsx src/compiler/validate.ts",
     "compiler:test": "tsx --test src/compiler/**/*.test.ts",
     "compiler:typecheck": "tsc --noEmit --project src/compiler/tsconfig.json"
   },
