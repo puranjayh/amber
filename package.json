@@ -14,7 +14,8 @@
     "compiler:backtranslate": "tsx src/compiler/backtranslate.ts",
     "compiler:validate": "tsx src/compiler/validate.ts",
     "compiler:test": "tsx --test src/compiler/**/*.test.ts",
-    "compiler:typecheck": "tsc --noEmit --project src/compiler/tsconfig.json"
+    "compiler:typecheck": "tsc --noEmit --project src/compiler/tsconfig.json",
+    "shots": "tsx scripts/shots.ts"
   },
   "dependencies": {
     "next": "16.3.6",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "playwright": "^1.63.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5",
