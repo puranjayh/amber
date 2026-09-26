@@ -122,7 +122,7 @@ test("rejects an enumerated organ-function clause collapsed into a boolean leaf"
   if (!checked.success) {
     expect(checked.issues.join("\n")).toMatch(/lab_value requires a numeric value and a named analyte/);
     expect(checked.issues.join("\n")).toMatch(/boolean leaf has no named subject/);
-    expect(checked.issues.join("\n")).toMatch(/multiple threshold requirements/);
+    expect(checked.issues.join("\n")).toMatch(/no AND group of typed leaves/);
   }
 });
 

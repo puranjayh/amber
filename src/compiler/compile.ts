@@ -353,9 +353,6 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
     }
     if (node.tier !== 4) issues.push(`${node.id}: washout must use tier 4`);
   }
-  if (enumeratedThresholdCount(node.sourceSpan) > 1) {
-    issues.push(`${node.id}: sourceSpan contains multiple threshold requirements; compile an AND group of typed leaves`);
-  }
   return issues;
 }
 
