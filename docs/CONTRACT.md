@@ -17,10 +17,15 @@ deterministic code with no model inference in the scoring path.
 |---|---|---|---|
 | `src/contracts/**` | P2 | Claude Code | `amber-engine` |
 | `src/engine/**` | P2 | Claude Code | `amber-engine` |
-| `src/compiler/**` | P1 | Codex | `amber-compiler` |
+| `src/compiler/**`, `data/raw/**` | P1 | Codex | `amber-compiler` |
 | `app/**`, `components/**` | P3 | Cursor (laptop 1) | `amber-app` |
-| `data/**`, `fixtures/**` | P4 | Cursor (laptop 2) | `amber-data` |
-| `docs/**`, merges to `main` | P1 | — | `amber` |
+| `data/**` (except `raw/`), `fixtures/**` | P4 | Cursor (laptop 2) | `amber-data` |
+| `docs/**`, `package.json`, merges to `main` | P1 | — | `amber` |
+
+`data/raw/` is compiler output, so the compiler owns it — it is gitignored, not committed.
+`package.json` belongs to P1: if any lane needs a dependency or an npm script, ask in
+Discord and P1 adds it on `main`. **Test runner is vitest for every lane** — installed on
+`main`, run with `npm test`.
 
 `src/contracts` is **FROZEN AT 00:00 Saturday.** Before then, announce any change in
 Discord. After then, a change needs all four people to agree.
@@ -106,6 +111,61 @@ NOT   PASS ↔ FAIL;      UNKNOWN stays UNKNOWN
 
 Trial verdict: any inclusion FAIL, or any exclusion PASS → ELIMINATED (short-circuit)
 ```
+
+### RULING — cell verdicts are CRITERION-oriented, not patient-oriented
+
+Resolved 21:10 Friday. This supersedes any earlier wording in §8.
+
+A `CubeCell.verdict` answers exactly one question, the same question for every criterion:
+
+> **Does this predicate hold for this patient?**
+
+It does NOT mean "is this good news for the patient." Polarity lives in exactly one
+place — the trial-level elimination rule — and nowhere else.
+
+```
+Exclusion "prior EGFR TKI", patient took osimertinib
+  → cell verdict PASS      (the predicate holds: they did take one)
+  → trial verdict ELIMINATED
+
+Exclusion "prior EGFR TKI", medication history shows none
+  → cell verdict FAIL      (the predicate does not hold)
+  → patient remains eligible
+
+Exclusion "prior EGFR TKI", no medication history available
+  → cell verdict UNKNOWN   (we cannot tell)
+  → patient remains a candidate; this becomes resolvable work
+```
+
+Why this way: `evaluate()` stays uniform and never branches on criterion type, Kleene
+composition over nested groups works without special cases, and UNKNOWN stays symmetric.
+
+**Engine (P2):** the polarity suite asserts that a fact matching an exclusion yields cell
+verdict **PASS** *and* trial-level **ELIMINATED**. It must never leave the patient
+eligible. That is the bug the suite exists to catch.
+
+**App (P3):** keep the patient-oriented colours — they read better on stage — but derive
+them, never store them:
+
+```ts
+// green = good for this patient; independent of how the cell is stored
+function displayTone(cell: CubeCell, type: "inclusion" | "exclusion") {
+  if (cell.verdict === "UNKNOWN") return "amber";
+  const good = type === "inclusion" ? cell.verdict === "PASS" : cell.verdict === "FAIL";
+  return good ? "green" : "red";
+}
+```
+
+The exclusion section header should read: *"green means the patient clears this
+exclusion."*
+
+**Data (P4):** `cube.sample.json` must encode the criterion-oriented convention. The
+osimertinib patient's exclusion cell is `PASS`, and their `PairResult.eliminated` is
+`true`.
+
+**Group verdicts:** the engine emits cells for leaves only. The app computes group
+verdicts for display with the Kleene tables above. If the engine later emits group
+results, the app switches to those.
 
 ---
 
