@@ -23,3 +23,37 @@ export function worklistStrip(pairs: PairResult[]): WorklistStrip {
   }
   return { pairsEvaluated: pairs.length, eligibleNow, oneTier0Away };
 }
+
+/** Industry screen-fail baseline (Tufts CSDD / published oncology screening). */
+export const SCREEN_FAIL_RATE = 0.62;
+export const SCREEN_FAIL_COST = 2000;
+
+export type ScreenFailures = {
+  patientsScreened: number;
+  expectedFailures: number;
+  failuresAvoided: number;
+  dollarsAvoided: number;
+};
+
+/**
+ * Old world: 62% of screened patients fail at the site ($2,000 each).
+ * AMBER only writes a patient off when a criterion actually eliminates them —
+ * absence stays UNKNOWN. Failures avoided = expected baseline minus those
+ * true eliminations.
+ */
+export function screenFailures(rows: { eliminated: boolean }[]): ScreenFailures {
+  const patientsScreened = rows.length;
+  const expectedFailures = Math.round(patientsScreened * SCREEN_FAIL_RATE);
+  const eliminated = rows.filter((r) => r.eliminated).length;
+  const failuresAvoided = Math.max(0, expectedFailures - eliminated);
+  return {
+    patientsScreened,
+    expectedFailures,
+    failuresAvoided,
+    dollarsAvoided: failuresAvoided * SCREEN_FAIL_COST,
+  };
+}
+
+export function formatDollars(n: number): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+}

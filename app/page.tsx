@@ -7,7 +7,7 @@ import { isDemo } from "@/components/console/params";
 import { collectLeaves } from "@/components/criteria/rows";
 import { toneCounts } from "@/components/criteria/tone";
 import { Worklist, WorklistHeader, type WorklistItem } from "@/components/worklist/Worklist";
-import { worklistStrip } from "@/components/worklist/strip";
+import { screenFailures, worklistStrip } from "@/components/worklist/strip";
 
 export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   if (isDemo(await searchParams)) redirect("/patient?demo=1");
@@ -38,12 +38,15 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
           </div>
           <Link
             href="/patient?demo=1"
-            className="rounded-md bg-ink px-3.5 py-2 text-[13px] font-medium text-surface hover:bg-ink-2"
+            className="shrink-0 rounded-md bg-ink px-3 py-2 text-[12px] font-medium text-surface hover:bg-ink-2 sm:text-[13px]"
           >
-            Start demo — {DEMO.patientId} × {DEMO.nctId} →
+            <span className="sm:hidden">Start demo →</span>
+            <span className="hidden sm:inline">
+              Start demo — {DEMO.patientId} × {DEMO.nctId} →
+            </span>
           </Link>
         </div>
-        <WorklistHeader strip={worklistStrip(getCube())} />
+        <WorklistHeader strip={worklistStrip(getCube())} failures={screenFailures(rows)} />
         <Worklist rows={rows} />
         <Provenance meta={meta} call="rank(evaluate(patient × trial))" />
       </main>

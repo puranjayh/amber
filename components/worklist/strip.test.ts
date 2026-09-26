@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CubeCell, PairResult } from "@/src/contracts";
-import { worklistStrip } from "./strip";
+import { screenFailures, worklistStrip } from "./strip";
 
 function cell(over: Partial<CubeCell> & Pick<CubeCell, "criterionId" | "verdict">): CubeCell {
   return {
@@ -84,5 +84,15 @@ test("eliminated pairs never count as eligible or one-Tier-0-away", () => {
     pairsEvaluated: 2,
     eligibleNow: 0,
     oneTier0Away: 0,
+  });
+});
+
+test("screen-failures-avoided: 62% baseline minus true eliminations, times $2,000", () => {
+  const rows = Array.from({ length: 203 }, (_, i) => ({ eliminated: i < 4 }));
+  expect(screenFailures(rows)).toEqual({
+    patientsScreened: 203,
+    expectedFailures: 126,
+    failuresAvoided: 122,
+    dollarsAvoided: 244_000,
   });
 });
