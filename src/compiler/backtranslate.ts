@@ -2,8 +2,8 @@
  * Independent compiler defence: translate the structured tree back to prose
  * without exposing source spans, then compare it with the protocol's words.
  */
-import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { Trial } from "@/src/contracts";
@@ -155,6 +155,7 @@ async function main(): Promise<void> {
   const outputPath = resolve(process.argv[3] || "data/compiled/trials.backtranslated.json");
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const checked = await backtranslateTrials(results, createGrokBacktranslator());
+  await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(checked, null, 2)}\n`, "utf8");
   console.log(`Backtranslation flagged ${checked.filter((result) => result.trial.needsHumanReview).length} of ${checked.length} trials`);
 }

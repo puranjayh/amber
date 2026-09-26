@@ -1,6 +1,6 @@
 /** Offline, batch-only eligibility compiler. Never import this from the app. */
-import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { CriterionNode, Trial } from "@/src/contracts";
@@ -220,6 +220,7 @@ async function main(): Promise<void> {
   const outputPath = resolve(process.argv[3] || "data/compiled/trials.json");
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
   const results = await compileRawTrials(rawTrials, createGrokBlockCompiler());
+  await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(results, null, 2)}\n`, "utf8");
   console.log(`Compiled ${results.length - results.filter((result) => result.failure).length}; rejected ${results.filter((result) => result.failure).length}`);
 }
