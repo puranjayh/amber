@@ -1,0 +1,4 @@
+data/synthea/patients.json
+data/compiled/*.json
+data/claims/*.json
+package-lock.json
