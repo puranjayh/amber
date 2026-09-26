@@ -20,6 +20,7 @@ describe("claims ingestion helpers", () => {
 
   it("recognizes infused Part B drugs and normalizes FDA package NDCs", () => {
     expect(PART_B_HCPCS_DRUGS.J9045).toMatchObject({ drug: "carboplatin", drugClass: "PLATINUM" });
+    expect(PART_B_HCPCS_DRUGS.J9299).toMatchObject({ drug: "nivolumab", drugClass: "IMMUNOTHERAPY" });
     expect(normalizeNdc("00078-0628-15")).toBe("00078062815");
     expect(normalizeNdc("50242-064-01")).toBe("50242006401");
   });
@@ -38,5 +39,6 @@ describe("claims ingestion helpers", () => {
     expect(report).toContain("No lab values");
     expect(report).toContain("2008–2010");
     expect(report).toContain("Part B");
+    expect(report).toContain("checkpoint-immunotherapy");
   });
 });

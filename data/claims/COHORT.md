@@ -8,11 +8,14 @@ Generated from CMS 2008–2010 Data Entrepreneurs' Synthetic Public Use File (DE
 - Lung-cancer inpatient claims: 1327
 - Part B mapped chemotherapy administrations (carrier and outpatient): 114
 - Beneficiaries with Part B platinum administration: 80
+- Beneficiaries with Part B taxane administration: 7
+- Beneficiaries with Part B checkpoint-immunotherapy administration: 0
 - Beneficiaries with Part D oral EGFR-TKI fill: 0
 - PDE rows in cohort not mapped to erlotinib/gefitinib by openFDA: 78489
 
-Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, and J9171 docetaxel. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
+Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, J9171 docetaxel, and the checkpoint-inhibitor codes J9022 atezolizumab, J9173 durvalumab, J9228 ipilimumab, J9271 pembrolizumab, and J9299 nivolumab. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
 
+No checkpoint-immunotherapy administration appears in this 2008–2010 sample. That is consistent with the era: the mapped checkpoint agents entered lung-cancer care after this claims window, so zero is not evidence that a beneficiary was clinically ineligible for immunotherapy.
 The 0 mapped oral EGFR-TKI beneficiaries reflect the 2008–2010 era and this synthetic Sample 1 subset. Targeted therapy was much less prevalent than later eras; this is not evidence that an individual had no targeted treatment.
 
 ## Race distribution

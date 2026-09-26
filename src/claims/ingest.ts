@@ -162,6 +162,14 @@ export const PART_B_HCPCS_DRUGS: Record<string, ResolvedDrug> = {
   J9060: { drug: "cisplatin", drugClass: "PLATINUM" },
   J9305: { drug: "pemetrexed", drugClass: "ANTIFOLATE" },
   J9171: { drug: "docetaxel", drugClass: "TAXANE" },
+  // Checkpoint inhibitors are included for a complete historical mapping. They
+  // are expected to be absent from this 2008–2010 cohort, before their use in
+  // lung cancer became routine.
+  J9022: { drug: "atezolizumab", drugClass: "IMMUNOTHERAPY" },
+  J9173: { drug: "durvalumab", drugClass: "IMMUNOTHERAPY" },
+  J9228: { drug: "ipilimumab", drugClass: "IMMUNOTHERAPY" },
+  J9271: { drug: "pembrolizumab", drugClass: "IMMUNOTHERAPY" },
+  J9299: { drug: "nivolumab", drugClass: "IMMUNOTHERAPY" },
 };
 
 const ORAL_EGFR_TKIS: readonly ResolvedDrug[] = [
@@ -230,6 +238,8 @@ function reportDistribution(items: PatientRecord[], key: (patient: PatientRecord
 
 export function renderCohortReport(build: ClaimsPatientBuild): string {
   const platinum = build.patients.filter((patient) => patient.facts.some((fact) => fact.drugClass === "PLATINUM")).length;
+  const taxane = build.patients.filter((patient) => patient.facts.some((fact) => fact.drugClass === "TAXANE")).length;
+  const immunotherapy = build.patients.filter((patient) => patient.facts.some((fact) => fact.drugClass === "IMMUNOTHERAPY")).length;
   const tki = build.patients.filter((patient) => patient.facts.some((fact) => fact.drugClass === "EGFR_TKI")).length;
   return `# DE-SynPUF Sample 1 lung-cancer cohort
 
@@ -241,11 +251,14 @@ Generated from CMS 2008–2010 Data Entrepreneurs' Synthetic Public Use File (DE
 - Lung-cancer inpatient claims: ${build.lungCancerClaimCount}
 - Part B mapped chemotherapy administrations (carrier and outpatient): ${build.mappedPartBFacts}
 - Beneficiaries with Part B platinum administration: ${platinum}
+- Beneficiaries with Part B taxane administration: ${taxane}
+- Beneficiaries with Part B checkpoint-immunotherapy administration: ${immunotherapy}
 - Beneficiaries with Part D oral EGFR-TKI fill: ${tki}
 - PDE rows in cohort not mapped to erlotinib/gefitinib by openFDA: ${build.unresolvedPdeRows}
 
-Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, and J9171 docetaxel. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
+Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, J9171 docetaxel, and the checkpoint-inhibitor codes J9022 atezolizumab, J9173 durvalumab, J9228 ipilimumab, J9271 pembrolizumab, and J9299 nivolumab. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
 
+${immunotherapy === 0 ? "No checkpoint-immunotherapy administration appears in this 2008–2010 sample. That is consistent with the era: the mapped checkpoint agents entered lung-cancer care after this claims window, so zero is not evidence that a beneficiary was clinically ineligible for immunotherapy." : ""}
 ${tki <= 5 ? `The ${tki} mapped oral EGFR-TKI beneficiaries reflect the 2008–2010 era and this synthetic Sample 1 subset. Targeted therapy was much less prevalent than later eras; this is not evidence that an individual had no targeted treatment.` : ""}
 
 ## Race distribution
