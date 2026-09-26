@@ -405,3 +405,9 @@ Please:
   `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
+
+## From P4 (data) — lung cohort replaces Synthea on the worklist
+
+`fixtures/cohort.json` is 150 synthetic advanced-NSCLC charts (60 academic, 90 community). `fixtures/COHORT.md` is what that draw actually produced. The four hand-built charts stay in `fixtures/demo-patients.json` and are merged ahead of the cohort.
+
+`app/_data/inputs.ts` loads `fixtures/cohort.json` instead of `data/synthea/patients.json` when the cohort file is present. On NCT02496663 the top of the worklist is 22/27 with 1 unknown (EXC-3, half-lives). On NCT06281964 every chart is eliminated: the two staging leaves require different strings and the engine keeps one newest stage fact.
