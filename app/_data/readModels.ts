@@ -132,19 +132,57 @@ export function buildReadModels(
   return { cube, worklist, strip: worklistStrip(cube), elasticity, equity, assignments };
 }
 
+export type ListedPair = { patientId: string; nctId: string };
+
+export type HcpListedPatient = {
+  patientId: string;
+  bestNctId: string;
+  trials: readonly { nctId: string }[];
+};
+
 /**
- * The full cube is 203 × 134 and too large to ship. Keep the pairs the console
- * actually opens: every worklist row, and every patient on the presentation trial.
+ * The full cube is one pair per patient per trial and too large to ship. The lists are built first.
+ * Persist exactly the pairs those lists can open, plus every pair for the demo
+ * patients so their charts stay complete.
  */
 export function publishCube(
-  cube: PairResult[],
-  worklist: WorklistRow[],
-  pinNctId: string,
-  extraNctIds: readonly string[] = [],
+  cube: readonly PairResult[],
+  lists: {
+    worklist: readonly ListedPair[];
+    hcp?: readonly HcpListedPatient[];
+    doctor?: readonly ListedPair[];
+    demoPatientIds?: readonly string[];
+  },
 ): PairResult[] {
-  const pins = new Set([pinNctId, ...extraNctIds]);
-  const worklistKeys = new Set(worklist.map((row) => `${row.patientId}|${row.nctId}`));
-  return cube.filter(
-    (pair) => worklistKeys.has(`${pair.patientId}|${pair.nctId}`) || pins.has(pair.nctId),
-  );
+  const keys = new Set<string>();
+  const add = (patientId: string, nctId: string) => {
+    if (patientId && nctId) keys.add(`${patientId}|${nctId}`);
+  };
+  for (const row of lists.worklist) add(row.patientId, row.nctId);
+  for (const row of lists.doctor ?? []) add(row.patientId, row.nctId);
+  for (const patient of lists.hcp ?? []) {
+    add(patient.patientId, patient.bestNctId);
+    for (const trial of patient.trials) add(patient.patientId, trial.nctId);
+  }
+  const demos = new Set(lists.demoPatientIds ?? []);
+  return cube.filter((pair) => keys.has(`${pair.patientId}|${pair.nctId}`) || demos.has(pair.patientId));
+}
+
+/** One trial's rows, in the order the doctor list and the anchor worklist show. */
+export function rowsOnTrial(cube: readonly PairResult[], trial: Trial): WorklistRow[] {
+  return cube
+    .filter((pair) => pair.nctId === trial.nctId)
+    .map((pair) => {
+      const open = pair.cells.filter((cell) => cell.verdict === "UNKNOWN").sort((a, b) => a.tier - b.tier);
+      if (!pair.eliminated) return worklistRow(pair, open);
+      const ids = new Set(blockingCriterionIds(trial, pair));
+      const blockers = pair.cells.filter((cell) => (ids.size > 0 ? ids.has(cell.criterionId) : cell.verdict === "FAIL"));
+      return worklistRow(pair, blockers.length > 0 ? blockers : open);
+    })
+    .sort(
+      (a, b) =>
+        Number(a.eliminated) - Number(b.eliminated) ||
+        a.unknownCount - b.unknownCount ||
+        a.patientId.localeCompare(b.patientId),
+    );
 }

@@ -5,5 +5,17 @@
   "flaggedTrials": 167,
   "demoPoolTrials": 133,
   "semanticReviewTrials": 100,
-  "citationGranularityReviewTrials": 167
+  "citationGranularityReviewTrials": 167,
+  "corpusSha256": "05f6ce43e8bc0067d0d187a35fa9c23a1b6e1283508589af6a03898dd90e339d",
+  "manualCorrections": [
+    {
+      "nctId": "NCT02496663",
+      "leaves": {
+        "EXC-1": "SURGERY",
+        "EXC-2": "EGFR_TKI",
+        "EXC-3": "INVESTIGATIONAL_AGENT"
+      },
+      "reason": "The compiler pilot proved targetful washouts are the correct output, the full recompile didn't complete, so three leaves were corrected by hand against their own source sentences."
+    }
+  ]
 }

@@ -8,11 +8,11 @@
     "fixtures/cohort.json",
     "data/compiled/landscape.json"
   ],
-  "patients": 203,
+  "patients": 208,
   "trials": 134,
-  "cells": 671727,
-  "pairsEvaluated": 27202,
-  "eligibleNow": 0,
+  "cells": 688272,
+  "pairsEvaluated": 27872,
+  "eligibleNow": 5,
   "oneTier0Away": 0,
   "realProtocols": 133,
   "engineTree": "e3e6bfd"

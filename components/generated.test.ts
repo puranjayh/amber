@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "vitest";
 import cubeOracle from "@/fixtures/cube.sample.json";
 import { buildEvalReport } from "@/app/_data/eval";
-import { ANCHOR_TRIALS, AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "@/app/_data/inputs";
+import { AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "@/app/_data/inputs";
 import { buildPayerView } from "@/app/_data/payer";
 import { publishCube } from "@/app/_data/readModels";
 import { buildLandscape } from "@/components/landscape/build";
@@ -33,17 +33,42 @@ test("worklist pins the hero to the presentation pair", () => {
   expect(hero).toMatchObject({ nctId: PRESENTATION_PAIR.nctId, unknownCount: 2, eliminated: false });
 });
 
-test("published cube is the worklist pairs plus every patient on the presentation trial", () => {
+test("every worklist and hcp id has its clickable pair in the cube", () => {
   const cube = committed("cube") as { patientId: string; nctId: string }[];
   const worklist = committed("worklist") as { patientId: string; nctId: string }[];
-  const keys = new Set(cube.map((p) => `${p.patientId}|${p.nctId}`));
-  for (const row of worklist) expect(keys.has(`${row.patientId}|${row.nctId}`)).toBe(true);
-  expect(cube.filter((p) => p.nctId === PRESENTATION_TRIAL)).toHaveLength(patients.length);
-  for (const nctId of ANCHOR_TRIALS) {
-    expect(cube.filter((p) => p.nctId === nctId)).toHaveLength(patients.length);
+  const hcp = committed("hcp") as {
+    physicians: { patients: { patientId: string; bestNctId: string; trials: { nctId: string }[] }[] }[];
+  };
+  const anchors = committed("anchors") as { rows: Record<string, { patientId: string; nctId: string }[]> };
+  const ids = new Set(cube.map((pair) => pair.patientId));
+  const keys = new Set(cube.map((pair) => `${pair.patientId}|${pair.nctId}`));
+  for (const row of worklist) {
+    expect(ids.has(row.patientId), row.patientId).toBe(true);
+    expect(keys.has(`${row.patientId}|${row.nctId}`), `${row.patientId}|${row.nctId}`).toBe(true);
+  }
+  for (const doc of hcp.physicians) {
+    for (const patient of doc.patients) {
+      expect(ids.has(patient.patientId), patient.patientId).toBe(true);
+      expect(keys.has(`${patient.patientId}|${patient.bestNctId}`)).toBe(true);
+      for (const trial of patient.trials) {
+        expect(keys.has(`${patient.patientId}|${trial.nctId}`), `${patient.patientId}|${trial.nctId}`).toBe(true);
+      }
+    }
+  }
+  for (const rows of Object.values(anchors.rows)) {
+    for (const row of rows) expect(keys.has(`${row.patientId}|${row.nctId}`)).toBe(true);
   }
   expect(cube.length).toBeLessThan(committed("meta").pairsEvaluated);
-  expect(publishCube(cube as never, worklist as never, PRESENTATION_TRIAL, ANCHOR_TRIALS)).toHaveLength(cube.length);
+  expect(
+    publishCube(cube as never, {
+      worklist,
+      hcp: hcp.physicians.flatMap((doc) => doc.patients),
+      doctor: Object.values(anchors.rows).flat(),
+      demoPatientIds: [...new Set(cube.map((pair) => pair.patientId))].filter(
+        (id) => id === "PT-4401" || id.startsWith("PT-441"),
+      ),
+    }),
+  ).toHaveLength(cube.length);
 });
 
 test("landscape.json is the compiler file when it has analytes, else derived from the same trials", () => {
