@@ -36,6 +36,18 @@ interface ProbeResult {
   rejection?: string[];
 }
 
+function thresholdCount(text: string): number {
+  return (text.match(/(?:>=|<=|≥|≤|(?<![A-Za-z])>|(?<![A-Za-z])<|\bat least\b|\bmore than\b|\bless than\b)\s*\d/gi) ?? []).length;
+}
+
+function sourceForProbe(nctId: string, row: FidelitySheetRow): string {
+  if (!ENUMERATED.has(nctId)) return row.sourceSpans[0];
+  // Some rows keep one complete clause; others retain a heading plus distinct
+  // leaves. Do not feed both, which would duplicate thresholds in the prompt.
+  return row.sourceSpans.find((span) => thresholdCount(span) > 1)
+    ?? row.sourceSpans.join("\n");
+}
+
 function leafValues(node: CriterionNode): CriterionLeaf[] {
   if (node.kind === "leaf") return [node];
   return node.children.flatMap(leafValues);
@@ -84,7 +96,7 @@ export async function runFidelityPilot({
       type: row.side,
       // Fidelity rows retain each enumerated sub-clause separately. Compile the
       // complete list so this probe can prove it becomes one AND group.
-      sourceText: ENUMERATED.has(nctId) ? row.sourceSpans.join("\n") : row.sourceSpans[0],
+      sourceText: sourceForProbe(nctId, row),
     };
     const candidate = await compiler(block);
     const checked = validateCompiledTree(candidate, block);

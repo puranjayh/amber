@@ -198,6 +198,16 @@ test("rejects a sentence stored as a string value", () => {
   if (!checked.success) expect(checked.issues.join("\n")).toMatch(/string value exceeds 40 characters/);
 });
 
+test("rejects an imaging timing sentence rather than relabelling it as washout", () => {
+  const source = "Chest CT scan or chest PET/CT within 12 months.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-1", type: "exclusion", predicate: "diagnosis", operator: "==", value: "normal scan",
+    tier: 2, sweepable: false, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/imaging timing requirement has no contract predicate/);
+});
+
 test("inlines bounded group nesting without recursive schema references", () => {
   expect(JSON.stringify(boundedResponseJsonSchema)).not.toContain("$ref");
   expect(MAX_GROUP_DEPTH).toBe(3);

@@ -296,6 +296,10 @@ function structuralAlternative(text: string): boolean {
   return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
 }
 
+function isUntypableImagingTimingRequirement(text: string): boolean {
+  return /\b(?:CT|PET\/?CT|MRI)\b[\s\S]{0,160}\bwithin\s+\d+\s+(?:day|week|month|year)/i.test(text);
+}
+
 function nonEmptyText(value: string | undefined): boolean {
   return typeof value === "string" && value.trim().length > 0;
 }
@@ -506,6 +510,9 @@ export function validateCompiledTree(
   if (groupDepth(reconciled.data) > MAX_GROUP_DEPTH) {
     reviewReasons.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups`);
   }
+  if (isUntypableImagingTimingRequirement(block.sourceText)) {
+    issues.push("imaging timing requirement has no contract predicate; reject rather than relabel it as washout");
+  }
   const enumeratedRequirements = enumeratedThresholdCount(block.sourceText);
   if (enumeratedRequirements > 1 && !hasEnumeratedAndGroup(reconciled.data, enumeratedRequirements)) {
     issues.push(`source block has ${enumeratedRequirements} threshold requirements but no AND group of typed leaves`);
@@ -534,12 +541,16 @@ export function createGrokBlockCompiler({
 }
 
 function messagesFor(block: EligibilityBlock, jsonMode = false) {
+  const enumerated = enumeratedThresholdCount(block.sourceText);
+  const enumerationInstruction = enumerated > 1
+    ? `\nThis source contains ${enumerated} explicit thresholds. Its root MUST be an AND group; split every threshold into its own typed leaf. Keep an OR group only inside an alternative such as AST OR ALT or eGFR OR creatinine clearance.`
+    : "";
   return [
     {
       role: "developer" as const,
       content: jsonMode
-        ? `${COMPILER_INSTRUCTIONS}\nReturn one JSON object with exactly one key, root. Do not use markdown.`
-        : COMPILER_INSTRUCTIONS,
+        ? `${COMPILER_INSTRUCTIONS}${enumerationInstruction}\nReturn one JSON object with exactly one key, root. Do not use markdown.`
+        : `${COMPILER_INSTRUCTIONS}${enumerationInstruction}`,
     },
     { role: "user" as const, content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
   ];
