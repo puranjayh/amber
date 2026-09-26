@@ -160,6 +160,96 @@
       ]
     }
   ],
-  "coverage": null,
+  "coverage": {
+    "trials": 233,
+    "criteria": 5105,
+    "answerable": 2781,
+    "ambiguous": 875,
+    "lowerRate": 0.5447600391772772,
+    "upperRate": 0.7161606268364349,
+    "inclusions": {
+      "count": 2381,
+      "answerable": 1081,
+      "rate": 0.45401091978160435
+    },
+    "exclusions": {
+      "count": 2724,
+      "answerable": 1700,
+      "rate": 0.6240822320117474
+    },
+    "byPredicate": [
+      {
+        "predicate": "comorbidity",
+        "count": 1504,
+        "answerable": 1504,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "diagnosis",
+        "count": 584,
+        "answerable": 584,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "prior_therapy",
+        "count": 431,
+        "answerable": 431,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "age",
+        "count": 262,
+        "answerable": 262,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "lab_value",
+        "count": 660,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "contraindication",
+        "count": 623,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "ambiguous"
+      },
+      {
+        "predicate": "staging",
+        "count": 326,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "washout",
+        "count": 252,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "ambiguous"
+      },
+      {
+        "predicate": "biomarker",
+        "count": 232,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "performance_status",
+        "count": 231,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      }
+    ],
+    "source": "data/compiled/trials.json"
+  },
   "source": "stub"
 }

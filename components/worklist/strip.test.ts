@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CubeCell, PairResult } from "@/src/contracts";
-import { screenFailures, worklistStrip } from "./strip";
+import { formatBench, MEASURED_BENCH, screenFailures, worklistStrip } from "./strip";
 
 function cell(over: Partial<CubeCell> & Pick<CubeCell, "criterionId" | "verdict">): CubeCell {
   return {
@@ -95,4 +95,13 @@ test("screen-failures-avoided: 62% baseline minus true eliminations, times $2,00
     failuresAvoided: 122,
     dollarsAvoided: 244_000,
   });
+});
+
+test("bench line says measured, not up to", () => {
+  const line = formatBench(MEASURED_BENCH);
+  expect(line).toMatch(/^measured:/);
+  expect(line).not.toMatch(/up to/i);
+  expect(line).toContain("20,420,000");
+  expect(line).toContain("8.76s");
+  expect(line).toContain("4,000 patients × 233 trials");
 });

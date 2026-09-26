@@ -15,7 +15,7 @@ The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts`
 
 `/payer` evaluates `data/claims/patients.json` when it exists. It is not in this tree, so the screen runs `components/payer/stub.ts` (4 synthetic BENE-* records, DE-SynPUF-shaped claim lines). Drop the real extract at `data/claims/patients.json` (contract `Patient[]`, `provenance: "claims"`) and regenerate — no route change.
 
-`data/compiled/coverage.json` is also missing. Any JSON object with optional `beneficiaries` / `years` / `caption` / `source` / `figure` will render in the header. Until then the caption says the figure is pending.
+`data/compiled/coverage.json` on `eng/compiler` is compile-stats (233 compiled / 67 rejected), not the claims-answerable figure. `/payer` now derives that figure from the 233 trees in `data/compiled/trials.json` (conservative 54.5%, 875 ambiguous). A rich `ClaimsCoverage` JSON at that path would be used as-is.
 
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
 import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
-import { formatDollars, type ScreenFailures } from "./strip";
+import { MEASURED_BENCH, formatBench, formatDollars, type ScreenFailures } from "./strip";
 
 export type WorklistItem = WorklistRow & {
   patient?: Patient;
@@ -78,6 +78,12 @@ export function WorklistHeader({ strip, failures }: { strip: WorklistStrip; fail
         <span className="text-pass">{failures.failuresAvoided} avoided</span>
         {" · "}
         <span className="font-medium text-ink">{formatDollars(failures.dollarsAvoided)}</span>
+      </p>
+      <p
+        className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
+        title="Full cube, every cell emitted. 4,000 patients × 233 compiled trials."
+      >
+        {formatBench(MEASURED_BENCH)}
       </p>
     </div>
   );

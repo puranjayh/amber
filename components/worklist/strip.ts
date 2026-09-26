@@ -57,3 +57,15 @@ export function screenFailures(rows: { eliminated: boolean }[]): ScreenFailures 
 export function formatDollars(n: number): string {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 }
+
+/** Measured full-cube run — 4,000 patients × 233 compiled trials. Not a peak. */
+export const MEASURED_BENCH = {
+  cells: 20_420_000,
+  seconds: 8.76,
+  patients: 4_000,
+  trials: 233,
+} as const;
+
+export function formatBench(b: typeof MEASURED_BENCH): string {
+  return `measured: ${b.cells.toLocaleString("en-US")} criterion evaluations in ${b.seconds}s · ${b.patients.toLocaleString("en-US")} patients × ${b.trials} trials`;
+}

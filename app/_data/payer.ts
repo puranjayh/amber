@@ -1,6 +1,6 @@
 import type { CubeCell, Patient, Predicate, Trial } from "@/src/contracts";
 import { evaluate, explainCeiling, indexLeaves, isEliminating } from "@/src/engine";
-import type { ChartNeed, CoverageFigure, PayerView, SettledExclusion } from "./schema";
+import type { ChartNeed, ClaimsCoverage, PayerView, SettledExclusion } from "./schema";
 
 const SETTLE: ReadonlySet<Predicate> = new Set(["prior_therapy", "comorbidity", "contraindication"]);
 
@@ -35,7 +35,7 @@ export function buildPayerView(
   patients: Patient[],
   trials: Trial[],
   asOf: string,
-  coverage: CoverageFigure | null,
+  coverage: ClaimsCoverage | null,
   source: PayerView["source"],
 ): PayerView {
   const settled: SettledExclusion[] = [];

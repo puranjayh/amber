@@ -92,6 +92,32 @@ export const CoverageFigure = z
   .passthrough();
 export type CoverageFigure = z.infer<typeof CoverageFigure>;
 
+export const PredicateCoverage = z.object({
+  predicate: z.string(),
+  count: z.number().int(),
+  answerable: z.number().int(),
+  rate: z.number(),
+  kind: z.enum(["certain", "ambiguous", "never"]),
+});
+export const SideCoverage = z.object({
+  count: z.number().int(),
+  answerable: z.number().int(),
+  rate: z.number(),
+});
+export const ClaimsCoverage = z.object({
+  trials: z.number().int(),
+  criteria: z.number().int(),
+  answerable: z.number().int(),
+  ambiguous: z.number().int(),
+  lowerRate: z.number(),
+  upperRate: z.number(),
+  inclusions: SideCoverage,
+  exclusions: SideCoverage,
+  byPredicate: z.array(PredicateCoverage),
+  source: z.string(),
+});
+export type ClaimsCoverage = z.infer<typeof ClaimsCoverage>;
+
 export const SettledExclusion = z.object({
   patientId: z.string(),
   nctId: z.string(),
@@ -118,7 +144,7 @@ export const PayerView = z.object({
   beneficiaries: z.number().int(),
   settled: z.array(SettledExclusion),
   needs: z.array(ChartNeed),
-  coverage: CoverageFigure.nullable(),
+  coverage: ClaimsCoverage.nullable(),
   source: z.enum(["data/claims/patients.json", "stub"]),
 });
 export type PayerView = z.infer<typeof PayerView>;

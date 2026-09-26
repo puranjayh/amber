@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { Patient, PatientsFixture, Trial, TrialsFixture, type Patient as PatientT, type Trial as TrialT } from "@/src/contracts";
-import { CoverageFigure, CriteriaLandscape } from "./schema";
+import { ClaimsCoverage, CriteriaLandscape } from "./schema";
+import { buildClaimsCoverage } from "@/components/payer/coverage";
 
 /** The evaluation date the fixtures are written against (fixtures/ORACLE.md). */
 export const AS_OF = "2026-09-25";
@@ -125,9 +126,28 @@ export function loadClaims(root: string): { patients: PatientT[]; source: "data/
   return { patients: parsed.data, source: CLAIMS };
 }
 
-export function loadCoverage(root: string): CoverageFigure | null {
-  const path = root + COVERAGE;
+/**
+ * Trees with criteria, including `needsHumanReview`. Coverage is a property of
+ * the compiled corpus, not of the demo pool.
+ */
+export function loadCompiledTrees(root: string): { trials: TrialT[]; source: string } | null {
+  const path = root + COMPILED;
   if (!existsSync(path)) return null;
-  const parsed = CoverageFigure.safeParse(readJson(path));
-  return parsed.success ? parsed.data : null;
+  const rows = unwrapTrials(readJson(path));
+  const trials = rows.flatMap((row) => {
+    const parsed = Trial.safeParse(row);
+    return parsed.success && parsed.data.criteria.length > 0 ? [parsed.data] : [];
+  });
+  return trials.length > 0 ? { trials, source: COMPILED } : null;
+}
+
+/** Prefer a rich coverage.json; otherwise derive from the compiled trees. */
+export function loadCoverage(root: string): ClaimsCoverage | null {
+  const path = root + COVERAGE;
+  if (existsSync(path)) {
+    const parsed = ClaimsCoverage.safeParse(readJson(path));
+    if (parsed.success) return parsed.data;
+  }
+  const compiled = loadCompiledTrees(root);
+  return compiled ? buildClaimsCoverage(compiled.trials, compiled.source) : null;
 }

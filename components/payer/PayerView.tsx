@@ -1,25 +1,5 @@
-import type { ChartNeed, CoverageFigure, PayerView as PayerModel, SettledExclusion } from "@/app/_data/schema";
-
-function Coverage({ coverage }: { coverage: CoverageFigure | null }) {
-  if (!coverage) {
-    return (
-      <p className="font-mono text-[12px] text-ink-3">
-        Coverage figure pending data/compiled/coverage.json.
-      </p>
-    );
-  }
-  const figure = coverage.figure ?? coverage.beneficiaries;
-  return (
-    <p className="text-[13px] text-ink-2">
-      {figure !== undefined && <span className="font-mono text-[18px] font-medium text-ink">{figure}</span>}
-      {coverage.years && <span className="ml-2 font-mono text-[12px] text-ink-3">{coverage.years}</span>}
-      <span className="mt-0.5 block text-[12px] text-ink-3">
-        {coverage.caption ?? "CMS DE-SynPUF"}
-        {coverage.source ? ` · ${coverage.source}` : ""}
-      </span>
-    </p>
-  );
-}
+import type { ChartNeed, ClaimsCoverage, PayerView as PayerModel, SettledExclusion } from "@/app/_data/schema";
+import { CoverageChart } from "./CoverageChart";
 
 function Settled({ rows }: { rows: SettledExclusion[] }) {
   if (rows.length === 0) {
@@ -74,15 +54,19 @@ function Needs({ rows }: { rows: ChartNeed[] }) {
 export function PayerSplit({ view }: { view: PayerModel }) {
   return (
     <div className="space-y-3">
+      {view.coverage ? (
+        <CoverageChart coverage={view.coverage} />
+      ) : (
+        <p className="rounded-md border border-line bg-surface px-3 py-3 font-mono text-[12px] text-ink-3 sm:px-4">
+          Coverage figure pending a compiled corpus at data/compiled/trials.json.
+        </p>
+      )}
       <header>
         <h1 className="text-[16px] font-medium text-ink">{view.headline}</h1>
-        <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
-          <p className="text-[12px] text-ink-2">
-            {view.beneficiaries} beneficiaries · {view.settled.length} settled by a claim ·{" "}
-            {view.needs.length} kinds of UNKNOWN a chart has to close.
-          </p>
-          <Coverage coverage={view.coverage} />
-        </div>
+        <p className="mt-1 text-[12px] text-ink-2">
+          {view.beneficiaries} beneficiaries · {view.settled.length} settled by a claim ·{" "}
+          {view.needs.length} kinds of UNKNOWN a chart has to close.
+        </p>
       </header>
 
       <div className="grid gap-3 md:grid-cols-2">
