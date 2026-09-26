@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
-import type { WorklistRow } from "@/app/_data/schema";
+import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
 
 export type WorklistItem = WorklistRow & {
   patient?: Patient;
@@ -36,6 +36,40 @@ function Blocking({ row }: { row: WorklistItem }) {
 }
 
 const COLS = "md:grid md:grid-cols-[2.5rem_9rem_minmax(0,1fr)_6.5rem_minmax(0,12rem)_8rem] md:items-center md:gap-3";
+
+export function WorklistHeader({ strip }: { strip: WorklistStrip }) {
+  const items = [
+    {
+      value: strip.pairsEvaluated,
+      label: "pairs evaluated",
+      title: "evaluate(patient, trial) for every patient × trial",
+      tone: "text-ink",
+    },
+    {
+      value: strip.eligibleNow,
+      label: "eligible now",
+      title: "Not eliminated, and no criterion is UNKNOWN",
+      tone: "text-pass",
+    },
+    {
+      value: strip.oneTier0Away,
+      label: "one Tier-0 away",
+      title: "Not eliminated; the only remaining unknown is a single existing-specimen (tier 0) test",
+      tone: strip.oneTier0Away > 0 ? "text-unknown" : "text-ink",
+    },
+  ] as const;
+
+  return (
+    <dl className="grid grid-cols-3 overflow-hidden rounded-md border border-line bg-surface">
+      {items.map((item) => (
+        <div key={item.label} className="border-l border-line-2 px-3 py-2.5 first:border-l-0 sm:px-4" title={item.title}>
+          <dt className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-3">{item.label}</dt>
+          <dd className={`mt-0.5 font-mono text-[22px] leading-none ${item.tone}`}>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 export function Worklist({ rows }: { rows: WorklistItem[] }) {
   return (

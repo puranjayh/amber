@@ -19,6 +19,10 @@ test.each(["cube", "worklist", "elasticity", "equity", "assignments"] as const)(
   },
 );
 
+test("meta header-strip counts match a fresh engine run", () => {
+  expect(committed("meta")).toMatchObject(fresh.strip);
+});
+
 test("inputs written for the app are the inputs the engine ran on", () => {
   expect(committed("trials")).toEqual(JSON.parse(JSON.stringify(trials)));
   expect(committed("patients")).toEqual(JSON.parse(JSON.stringify(patients)));

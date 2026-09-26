@@ -16,6 +16,13 @@ export type EquitySet = z.infer<typeof EquitySet>;
 
 export const Assignments = z.array(Assignment);
 
+export const WorklistStrip = z.object({
+  pairsEvaluated: z.number().int(),
+  eligibleNow: z.number().int(),
+  oneTier0Away: z.number().int(),
+});
+export type WorklistStrip = z.infer<typeof WorklistStrip>;
+
 export const WorklistRow = z.object({
   patientId: z.string(),
   /** Best trial by rank(); when every trial eliminates, the one with the fewest blockers. */
@@ -41,6 +48,9 @@ export const Meta = z.object({
   patients: z.number().int(),
   trials: z.number().int(),
   cells: z.number().int(),
+  pairsEvaluated: z.number().int(),
+  eligibleNow: z.number().int(),
+  oneTier0Away: z.number().int(),
   /** Git tree hash of src/engine at generation time — ties every number to engine code. */
   engineTree: z.string(),
 });

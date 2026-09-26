@@ -10,11 +10,13 @@ import {
   sweepableLeaves,
   sweepThresholds,
 } from "@/src/engine";
-import type { ElasticitySweep, EquitySet, WorklistRow } from "./schema";
+import { worklistStrip } from "@/components/worklist/strip";
+import type { ElasticitySweep, EquitySet, WorklistRow, WorklistStrip } from "./schema";
 
 export type ReadModels = {
   cube: PairResult[];
   worklist: WorklistRow[];
+  strip: WorklistStrip;
   elasticity: ElasticitySweep[];
   equity: EquitySet[];
   assignments: Assignment[];
@@ -89,5 +91,5 @@ export function buildReadModels(trials: Trial[], patients: Patient[], asOf: stri
     match(patients, trials, asOf, { dapTargets: true }),
   ];
 
-  return { cube, worklist, elasticity, equity, assignments };
+  return { cube, worklist, strip: worklistStrip(cube), elasticity, equity, assignments };
 }

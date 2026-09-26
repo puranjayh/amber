@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { DEMO, asOf, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
+import { DEMO, asOf, getCube, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
 import { collectLeaves } from "@/components/criteria/rows";
 import { toneCounts } from "@/components/criteria/tone";
-import { Worklist, type WorklistItem } from "@/components/worklist/Worklist";
+import { Worklist, WorklistHeader, type WorklistItem } from "@/components/worklist/Worklist";
+import { worklistStrip } from "@/components/worklist/strip";
 
 export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   if (isDemo(await searchParams)) redirect("/patient?demo=1");
@@ -42,6 +43,7 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
             Start demo — {DEMO.patientId} × {DEMO.nctId} →
           </Link>
         </div>
+        <WorklistHeader strip={worklistStrip(getCube())} />
         <Worklist rows={rows} />
         <Provenance meta={meta} call="rank(evaluate(patient × trial))" />
       </main>

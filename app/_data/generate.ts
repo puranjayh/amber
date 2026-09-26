@@ -25,6 +25,7 @@ const meta: Meta = {
   patients: patients.length,
   trials: trials.length,
   cells: models.cube.reduce((n, p) => n + p.cells.length, 0),
+  ...models.strip,
   engineTree: execSync("git rev-parse --short HEAD:src/engine", { cwd: ROOT }).toString().trim(),
 };
 

@@ -7,5 +7,8 @@
   "patients": 3,
   "trials": 3,
   "cells": 60,
-  "engineTree": "c4bc82c"
+  "pairsEvaluated": 9,
+  "eligibleNow": 1,
+  "oneTier0Away": 0,
+  "engineTree": "e431198"
 }
