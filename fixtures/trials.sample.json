@@ -315,6 +315,18 @@
         "tier": 0,
         "sweepable": false,
         "sourceSpan": "History of interstitial lung disease."
+      },
+      {
+        "kind": "leaf",
+        "id": "EXC-2",
+        "type": "exclusion",
+        "predicate": "washout",
+        "operator": "<",
+        "value": 21,
+        "unit": "days",
+        "tier": 4,
+        "sweepable": false,
+        "sourceSpan": "Systemic anticancer therapy within 21 days before the first dose."
       }
     ]
   }
