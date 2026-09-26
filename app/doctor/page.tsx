@@ -47,7 +47,8 @@ export default async function DoctorPage({
   const sp = await searchParams;
   const demo = isStaticDemo(sp);
   const demoMode = one(sp.demo) === "static" ? "static" : "1";
-  const view = one(sp.view) === "patients" ? "patients" : "trials";
+  const view =
+    one(sp.view) === "patients" ? "patients" : one(sp.view) === "followups" ? "followups" : "trials";
   const requestedTrial = one(sp.trial);
   const trialId =
     requestedTrial && /^NCT\d{8}$/.test(requestedTrial) ? requestedTrial : anchorById(undefined).nctId;
@@ -131,9 +132,24 @@ export default async function DoctorPage({
               href: doctorQuery({ physicianId, trialId: card.nctId, demo: demo ? demoMode : null }),
             }))}
           />
+          <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
+        </main>
+      </>
+    );
+  }
+
+  if (view === "followups") {
+    return (
+      <>
+        {chrome}
+        <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+          {nav}
+          <h1 className="text-[28px] font-semibold text-ink">Follow-ups</h1>
           {loop ? (
             <DoctorRetention initial={loop} physicianId={physicianId} patientIds={[...mine]} />
-          ) : null}
+          ) : (
+            <p className="text-[15px] text-ink-2">No follow-ups on file.</p>
+          )}
           <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
         </main>
       </>
@@ -245,22 +261,27 @@ function DoctorNav({
   physicianId: string;
   trial: string;
   demo: "1" | "static" | null;
-  view: "patients" | "trials";
+  view: "patients" | "trials" | "followups";
 }) {
   const patients = new URLSearchParams();
   const trials = new URLSearchParams();
+  const followups = new URLSearchParams();
   if (demo) {
     patients.set("demo", demo);
     trials.set("demo", demo);
+    followups.set("demo", demo);
   }
   patients.set("physician", physicianId);
   trials.set("physician", physicianId);
+  followups.set("physician", physicianId);
   if (trial) {
     patients.set("trial", trial);
     trials.set("trial", trial);
+    followups.set("trial", trial);
   }
   patients.set("view", "patients");
   trials.set("view", "trials");
+  followups.set("view", "followups");
   const item = (current: boolean) =>
     `border-b-2 px-1 py-2 text-[15px] ${current ? "border-ink font-medium text-ink" : "border-transparent text-ink-3 hover:text-ink"}`;
   return (
@@ -270,6 +291,13 @@ function DoctorNav({
       </Link>
       <Link href={`/doctor?${patients}`} aria-current={view === "patients" ? "page" : undefined} className={item(view === "patients")}>
         My patients
+      </Link>
+      <Link
+        href={`/doctor?${followups}`}
+        aria-current={view === "followups" ? "page" : undefined}
+        className={item(view === "followups")}
+      >
+        Follow-ups
       </Link>
     </nav>
   );

@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import type { CriterionLeaf, PairResult, Trial } from "@/src/contracts";
 import type { RegistryStudy } from "@/app/_data/schema";
-import { blockerSentence, buildTrialCards, phaseWords } from "./trialBoard";
+import { blockerSentence, buildTrialCards, phaseWords, trialTopics } from "./trialBoard";
 
 function leaf(partial: Partial<CriterionLeaf> & Pick<CriterionLeaf, "id" | "predicate">): CriterionLeaf {
   return {
@@ -86,6 +86,15 @@ test("trials rank by patients close to eligible, not by how many the trial wants
   expect(cards[0].enrollment).toBe(10);
   expect(cards[1].enrollment).toBe(500);
   expect(cards[0].statusLine).toBe("RECRUITING — open to new patients");
+  expect(cards[0].topics).toEqual(["Non-small cell lung cancer"]);
+});
+
+test("non-small cell is not also small cell", () => {
+  expect(trialTopics("Non-small cell lung cancer; Breast cancer")).toEqual([
+    "Non-small cell lung cancer",
+    "Breast cancer",
+  ]);
+  expect(trialTopics("Limited Stage Small Cell Lung Cancer")).toEqual(["Small cell lung cancer"]);
 });
 
 test("a shared lab is one order covering those patients", () => {

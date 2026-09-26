@@ -5,6 +5,15 @@ import { useEffect, useState } from "react";
 import type { TrialCard } from "@/components/hcp/trialBoard";
 import type { TrialNewsItem } from "./trialNews";
 
+const SORTS = [
+  { id: "date", label: "Date" },
+  { id: "close", label: "Near eligible" },
+  { id: "eligible", label: "Eligible now" },
+  { id: "name", label: "Name" },
+] as const;
+
+type SortId = (typeof SORTS)[number]["id"];
+
 export function DoctorTrials({
   items,
   cards,
@@ -13,6 +22,8 @@ export function DoctorTrials({
   cards: (TrialCard & { href: string })[];
 }) {
   const [open, setOpen] = useState<string | null>(null);
+  const [sort, setSort] = useState<SortId>("date");
+  const [topic, setTopic] = useState("");
 
   useEffect(() => {
     const fromHash = () => {
@@ -25,57 +36,102 @@ export function DoctorTrials({
   }, []);
 
   const news = new Map(items.map((item) => [item.nctId, item]));
-  const rows = [...cards].sort((a, b) => {
-    const left = news.get(a.nctId)?.date ?? "";
-    const right = news.get(b.nctId)?.date ?? "";
-    return right.localeCompare(left) || a.title.localeCompare(b.title);
-  });
+  const topics = [...new Set(cards.flatMap((card) => card.topics))].sort((a, b) => a.localeCompare(b));
+  const rows = cards
+    .filter((card) => !topic || card.topics.includes(topic))
+    .sort((a, b) => compareTrials(a, b, sort, news));
 
-  if (rows.length === 0) {
+  if (cards.length === 0) {
     return <p className="text-[15px] text-ink-2">None of your patients have been scored against a trial yet.</p>;
   }
 
   return (
-    <ol className="divide-y divide-line overflow-hidden rounded-md border border-line bg-surface">
-      {rows.map((card) => {
-        const item = news.get(card.nctId);
-        const expanded = open === card.nctId;
-        return (
-          <li key={card.nctId} id={`trial-${card.nctId}`} className="scroll-mt-6">
-            <button
-              type="button"
-              aria-expanded={expanded}
-              onClick={() => setOpen(expanded ? null : card.nctId)}
-              className="flex w-full flex-col gap-2 px-4 py-3 text-left hover:bg-canvas sm:flex-row sm:gap-6 sm:px-5"
-            >
-              {item ? (
-                <time className="shrink-0 font-mono text-[18px] font-semibold text-ink" dateTime={item.date}>
-                  {item.dateLabel}
-                </time>
-              ) : (
-                <span className="shrink-0 font-mono text-[18px] text-ink-3">—</span>
-              )}
-              <span className="min-w-0">
-                <span className="flex items-baseline justify-between gap-4">
-                  <span className="break-words text-[15px] font-medium text-ink">{card.title}</span>
-                  <span className="shrink-0 font-mono text-[13px] text-ink-3">{card.nctId}</span>
-                </span>
-                {item ? <span className="mt-1 block break-words text-[15px] leading-snug text-ink">{item.text}</span> : null}
-                {item && item.followUps > 0 ? (
-                  <span className="mt-1 block text-[15px] text-ink">
-                    {item.followUps === 1
-                      ? "1 of your patients was told to book a follow-up"
-                      : `${item.followUps} of your patients were told to book a follow-up`}
+    <div className="space-y-4">
+      <div className="flex w-full min-w-0 flex-wrap items-end gap-3">
+        <label className="block min-w-0 max-w-full flex-[1_1_100%] text-[13px] text-ink-3 sm:max-w-xs sm:flex-none">
+          Sort
+          <select
+            value={sort}
+            onChange={(event) => setSort(event.target.value as SortId)}
+            className="mt-1 block w-full max-w-full rounded-md border border-line bg-surface px-2 py-1.5 text-[15px] text-ink"
+          >
+            {SORTS.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block min-w-0 max-w-full flex-[1_1_100%] text-[13px] text-ink-3 sm:max-w-xs sm:flex-none">
+          Topic
+          <select
+            value={topic}
+            onChange={(event) => setTopic(event.target.value)}
+            className="mt-1 block w-full max-w-full rounded-md border border-line bg-surface px-2 py-1.5 text-[15px] text-ink"
+          >
+            <option value="">Any</option>
+            {topics.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {rows.length === 0 ? (
+        <p className="text-[15px] text-ink-2">No trials match this topic.</p>
+      ) : (
+        <ol className="divide-y divide-line overflow-hidden rounded-md border border-line bg-surface">
+          {rows.map((card) => {
+            const item = news.get(card.nctId);
+            const expanded = open === card.nctId;
+            return (
+              <li key={card.nctId} id={`trial-${card.nctId}`} className="scroll-mt-6">
+                <button
+                  type="button"
+                  aria-expanded={expanded}
+                  onClick={() => setOpen(expanded ? null : card.nctId)}
+                  className="flex w-full flex-col gap-2 px-4 py-3 text-left hover:bg-canvas sm:flex-row sm:gap-6 sm:px-5"
+                >
+                  {item ? (
+                    <time className="shrink-0 font-mono text-[18px] font-semibold text-ink" dateTime={item.date}>
+                      {item.dateLabel}
+                    </time>
+                  ) : (
+                    <span className="shrink-0 font-mono text-[18px] text-ink-3">—</span>
+                  )}
+                  <span className="min-w-0">
+                    <span className="flex items-baseline justify-between gap-4">
+                      <span className="break-words text-[15px] font-medium text-ink">{card.title}</span>
+                      <span className="shrink-0 font-mono text-[13px] text-ink-3">{card.nctId}</span>
+                    </span>
+                    {item ? (
+                      <span className="mt-1 block break-words text-[15px] leading-snug text-ink">{item.text}</span>
+                    ) : null}
                   </span>
-                ) : null}
-              </span>
-            </button>
-            {expanded ? <TrialDetail card={card} href={card.href} /> : null}
-          </li>
-        );
-      })}
-    </ol>
+                </button>
+                {expanded ? <TrialDetail card={card} href={card.href} /> : null}
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </div>
   );
+}
+
+function compareTrials(
+  a: TrialCard,
+  b: TrialCard,
+  sort: SortId,
+  news: Map<string, TrialNewsItem>,
+): number {
+  if (sort === "close") return b.close - a.close || a.title.localeCompare(b.title);
+  if (sort === "eligible") return b.eligible - a.eligible || b.close - a.close || a.title.localeCompare(b.title);
+  if (sort === "name") return a.title.localeCompare(b.title);
+  const left = news.get(a.nctId)?.date ?? "";
+  const right = news.get(b.nctId)?.date ?? "";
+  return right.localeCompare(left) || a.title.localeCompare(b.title);
 }
 
 function TrialDetail({ card, href }: { card: TrialCard; href: string }) {

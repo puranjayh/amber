@@ -21,6 +21,7 @@ export type TrialCard = {
   siteCount: number;
   site: string | null;
   blocker: string | null;
+  topics: string[];
 };
 
 const STUB_PATIENT = { id: "panel", age: 0, sex: "unknown" as const, race: "", facts: [] };
@@ -87,6 +88,32 @@ export function commonBlocker(
   return blockerSentence(best, leaves.get(bestId));
 }
 
+/** Coarse condition buckets a physician can filter by. One clause can name more than one. */
+export function trialTopics(condition: string): string[] {
+  const topics = new Set<string>();
+  for (const clause of condition.split(/[;|]/)) {
+    const topic = topicOf(clause);
+    if (topic) topics.add(topic);
+  }
+  return topics.size > 0 ? [...topics] : ["Other"];
+}
+
+function topicOf(clause: string): string | null {
+  const text = clause.toLowerCase();
+  if (/non[-\s]?small[-\s]?cell|\bnsclc\b/.test(text)) return "Non-small cell lung cancer";
+  if (/small[-\s]?cell|\bsclc\b/.test(text)) return "Small cell lung cancer";
+  if (/breast/.test(text)) return "Breast cancer";
+  if (/colorectal|\bcolon\b/.test(text)) return "Colorectal cancer";
+  if (/lymphoma|leukemia|myeloma/.test(text)) return "Blood cancer";
+  if (/head and neck/.test(text)) return "Head and neck cancer";
+  if (/pancrea/.test(text)) return "Pancreatic cancer";
+  if (/melanoma/.test(text)) return "Melanoma";
+  if (/mesothelioma/.test(text)) return "Mesothelioma";
+  if (/lung|pulmonary/.test(text)) return "Lung cancer";
+  if (/solid tumor/.test(text)) return "Solid tumors";
+  return null;
+}
+
 export function phaseWords(phase: string): string {
   const trimmed = phase.trim();
   if (!trimmed || /^(NA|N\/A|NOT_APPLICABLE)$/i.test(trimmed)) return "Phase not listed";
@@ -141,6 +168,7 @@ export function buildTrialCards(args: {
         ? `${near.site.facility}, ${near.site.city} — ${distancePhrase(near.km)}`
         : null,
       blocker: commonBlocker(pairs, leaves),
+      topics: trialTopics(trial?.condition ?? ""),
     });
   }
   return cards.sort(
