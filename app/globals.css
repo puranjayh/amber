@@ -95,24 +95,18 @@ body {
 [data-shown="0"] .beat-min-1,
 [data-shown="0"] .beat-min-2,
 [data-shown="0"] .beat-min-3,
-[data-shown="0"] .beat-min-4,
 [data-shown="1"] .beat-min-2,
 [data-shown="1"] .beat-min-3,
-[data-shown="1"] .beat-min-4,
 [data-shown="2"] .beat-min-3,
-[data-shown="2"] .beat-min-4,
-[data-shown="3"] .beat-min-4,
 [data-shown="2"] .beat-max-1,
-[data-shown="3"] .beat-max-1,
-[data-shown="4"] .beat-max-1 {
+[data-shown="3"] .beat-max-1 {
   display: none;
 }
 
 [data-presenting="1"][data-active="worklist"] #beat-worklist,
-[data-presenting="1"][data-active="criteria"] #beat-criteria,
+[data-presenting="1"][data-active="hcp"] #beat-hcp,
 [data-presenting="1"][data-active="elasticity"] #beat-elasticity,
-[data-presenting="1"][data-active="equity"] #beat-equity,
-[data-presenting="1"][data-active="market"] #beat-market {
+[data-presenting="1"][data-active="payer"] #beat-payer {
   box-shadow: 0 0 0 2px var(--ink);
   border-radius: 6px;
 }

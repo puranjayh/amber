@@ -11,25 +11,9 @@ function readJson(path: string): unknown {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-function sourceFromLabels(raw: unknown): string {
-  if (!Array.isArray(raw)) return "model-draft";
-  const labellers = raw.map((row) =>
-    row && typeof row === "object" && "labeller" in row ? String((row as { labeller: unknown }).labeller) : "",
-  );
-  const reviewed = raw.every(
-    (row) =>
-      row &&
-      typeof row === "object" &&
-      "reviewedBy" in row &&
-      (row as { reviewedBy: unknown }).reviewedBy,
-  );
-  if (reviewed && labellers.every((l) => l && !l.includes("model"))) return "human";
-  return labellers.find((l) => l.includes("model")) || labellers[0] || "model-draft";
-}
-
 export { isHumanValidated };
 
-/** Prefer the compiler's results.json; otherwise run the harness over labels.json. */
+/** Model-draft agreement only. The route reads data/eval/results.human.json itself. */
 export function buildEvalReport(
   root: string,
   patients: Patient[],
@@ -39,15 +23,11 @@ export function buildEvalReport(
   const resultsPath = root + RESULTS;
   if (existsSync(resultsPath)) {
     const raw = readJson(resultsPath);
-    const parsed = EvalReport.safeParse(raw);
+    const parsed = EvalReport.safeParse({
+      ...(typeof raw === "object" && raw ? raw : {}),
+      labelSource: "model-draft",
+    });
     if (parsed.success) return parsed.data;
-    if (raw && typeof raw === "object") {
-      const wrapped = EvalReport.safeParse({
-        labelSource: sourceFromLabels((raw as { labels?: unknown }).labels),
-        ...(raw as object),
-      });
-      if (wrapped.success) return wrapped.data;
-    }
   }
 
   const labelsPath = root + LABELS;
@@ -59,7 +39,7 @@ export function buildEvalReport(
     asOf,
   });
   return {
-    labelSource: sourceFromLabels(rawLabels),
+    labelSource: "model-draft",
     ...JSON.parse(JSON.stringify(report)),
   };
 }

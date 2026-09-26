@@ -1,0 +1,272 @@
+[
+ {
+  "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-2",
+  "expected": "FAIL",
+  "expectedReason": "contradicted",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-2",
+  "expected": "FAIL",
+  "expectedReason": "contradicted",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-2",
+  "expected": "UNKNOWN",
+  "expectedReason": "stale",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-2",
+  "expected": "UNKNOWN",
+  "expectedReason": "stale",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-1",
+  "expected": "PASS",
+  "expectedReason": "satisfied",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-4",
+  "expected": "UNKNOWN",
+  "expectedReason": "absent",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-6",
+  "expected": "UNKNOWN",
+  "expectedReason": "absent",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-2",
+  "expected": "UNKNOWN",
+  "expectedReason": "absent",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+  "nctId": "NCT07001002",
+  "criterionId": "INC-3",
+  "expected": "UNKNOWN",
+  "expectedReason": "absent",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+  "nctId": "NCT07001001",
+  "criterionId": "INC-6",
+  "expected": "UNKNOWN",
+  "expectedReason": "stale",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ },
+ {
+  "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+  "nctId": "NCT07001002",
+  "criterionId": "EXC-1",
+  "expected": "UNKNOWN",
+  "expectedReason": "absent",
+  "labeller": "Puranjay",
+  "labelledAt": "2026-09-26T13:02:45.332Z"
+ }
+]

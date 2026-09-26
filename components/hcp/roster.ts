@@ -14,6 +14,17 @@ export const PHYSICIANS: readonly Physician[] = [
 export const DEFAULT_PHYSICIAN_ID = PHYSICIANS[0].id;
 
 /** Hand-built fixture patients stay on the presentation physician. */
+export function doctorTalk(name: string): string {
+  const last = name.replace(/, MD$/, "").trim().split(/\s+/).at(-1);
+  return last ? `Dr ${last}` : "your doctor";
+}
+
+export function doctorFor(patientId: string): { id: string; name: string; talk: string; site: string } {
+  const id = assignPhysician(patientId);
+  const physician = PHYSICIANS.find((p) => p.id === id) ?? PHYSICIANS[0];
+  return { id: physician.id, name: physician.name, talk: doctorTalk(physician.name), site: physician.site };
+}
+
 export function assignPhysician(patientId: string): string {
   if (/^PT-\d+$/.test(patientId)) return DEFAULT_PHYSICIAN_ID;
   let hash = 0;

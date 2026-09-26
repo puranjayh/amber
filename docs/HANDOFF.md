@@ -21,7 +21,11 @@ The app cube now consumes the 133 demo-ready compiled trials (citation flags do 
 
 Compiled trees still reuse leaf ids (`INC-1` twice in one trial). The criteria table keys rows by tree path, not `leaf.id`. Do not key React lists by `criterionId` alone.
 
-`Patient` has no treating-physician field and `PatientPreferences` has no driver. `/hcp` assigns a deterministic Impiricus roster in the app lane; `/patient-portal` stores driver (and the other three answers) in `localStorage` and overlays them on the doctor’s ranking. Do not put either on the frozen contract unless all four lanes agree.
+`/eval` reads `data/eval/results.human.json` only for the human-validated numbers (30 cells, 83.3% / 91.7%, two SYN-19ad9612 INC-2 disagreements). `app/_data/eval.json` is the model-draft run and must stay labelled that way. Never merge the two.
+
+The live loop store is `preferences`, `nudges` (now with optional `batch_id`), and `physician_notes` — defined in `app/_data/loop.sql`. API routes talk to PostgREST with the service role; no new npm dependency. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` and run the SQL once (including the `batch_id` alter and `physician_notes` table). Without them the three portals still share `.data/loop.json` on one `next dev`. Reset from `/preflight` clears prefs/nudges and keeps coordinator notes. Fixture `Patient.preferences` are not live state.
+
+`Patient` has no treating-physician field and `PatientPreferences` has no driver. Treating physician is observed from optional `data/synthea/providers.json`, `data/claims/providers.json`, or `app/_data/providers.json` (`patientId` + `npi`/`providerId`). Published `patients.json` has neither; the UI assigns Rahman / Okonkwo / Vasquez deterministically and labels the row **assigned**. Do not silently fabricate an attribution. `/hcp` is the doctor's logged-in view, not a trial-portal tab. `/patient-portal` still stores driver (and the other three answers) in `localStorage`. Do not put either on the frozen contract unless all four lanes agree.
 
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 

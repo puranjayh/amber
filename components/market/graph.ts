@@ -35,6 +35,29 @@ export const GRAPH = { width: 320, rowHeight: 56, padY: 28, patientX: 70, trialX
 export const edgeKey = (patientId: string, nctId: string) => `${patientId}→${nctId}`;
 
 /** Trials the published cube can actually draw for these patients — not the full 133. */
+/** Six patients, three trials — the cut the elasticity page can hold. */
+export function marketCut(
+  fixtureIds: string[],
+  assignments: Assignment[],
+  pinNctId: string,
+): { patientIds: string[]; nctIds: string[] } {
+  const assigned = assignments.flatMap((a) => a.pairs);
+  const extra = assigned.map((p) => p.patientId).filter((id) => !fixtureIds.includes(id));
+  const patientIds = [...fixtureIds, ...[...new Set(extra)]].slice(0, 6);
+  const shown = new Set(patientIds);
+  const counts = new Map<string, number>();
+  for (const pair of assigned) {
+    if (!shown.has(pair.patientId)) continue;
+    counts.set(pair.nctId, (counts.get(pair.nctId) ?? 0) + 1);
+  }
+  const others = [...counts.entries()]
+    .filter(([id]) => id !== pinNctId)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([id]) => id);
+  const nctIds = [pinNctId, ...others].filter((id, i, all) => all.indexOf(id) === i).slice(0, 3);
+  return { patientIds, nctIds };
+}
+
 export function graphTrials(
   patientIds: string[],
   trials: { nctId: string; slots: number }[],
@@ -87,19 +110,25 @@ export function buildGraph(
     }));
   const candidateKeys = new Set(candidates.map((e) => e.key));
 
+  const shownTrials = new Set(trials.map((t) => t.nctId));
   const modes: Graph["modes"] = {};
   for (const a of assignments) {
     const load: Record<string, number> = Object.fromEntries(trials.map((t) => [t.nctId, 0]));
     const assigned: string[] = [];
     const invalid: { patientId: string; nctId: string }[] = [];
-    for (const pair of a.pairs) {
+    const visible = a.pairs.filter((pair) => shown.has(pair.patientId) && shownTrials.has(pair.nctId));
+    for (const pair of visible) {
       load[pair.nctId] = (load[pair.nctId] ?? 0) + 1;
-      if (!shown.has(pair.patientId)) continue;
       const key = edgeKey(pair.patientId, pair.nctId);
       if (candidateKeys.has(key)) assigned.push(key);
       else invalid.push(pair);
     }
-    modes[a.mode] = { assignment: a, assigned, invalid, load };
+    modes[a.mode] = {
+      assignment: { ...a, pairs: visible, enrolled: visible.length },
+      assigned,
+      invalid,
+      load,
+    };
   }
 
   return {

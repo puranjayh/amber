@@ -1,4 +1,4 @@
-export const BEATS = ["worklist", "criteria", "elasticity", "equity", "market"] as const;
+export const BEATS = ["worklist", "hcp", "elasticity", "payer"] as const;
 export type Beat = (typeof BEATS)[number];
 
 export function advance(beat: number): number {

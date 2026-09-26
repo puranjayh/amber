@@ -54,3 +54,6 @@ data/raw/
 
 # generated: too large for git, rebuilt by the generation script
 app/_data/cube.json
+
+# live loop file-store fallback (Supabase when env is set)
+.data/

@@ -1,27 +1,30 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 11:40 ET
+Last updated: 2026-09-26 12:12 ET
 
 ## Done
 
 Previous queue (landscape → README) still stands.
 
-9. **`/demo`** — one scroll, no nine-item menu. Worklist (featured 6, hero pinned) → criteria for PT-4401 × NCT07001001 with both amber rows open → “what does that one number cost?” → elasticity → equity → market. Reuses Worklist, CriteriaTable, ElasticityView, EquityBars, MarketGraph.
-10. **Presenter** — space / → advances, ← back, esc exits (page stays, whole story visible). Fixed beat chip. Click any worklist row or the cost button to jump a beat.
-11. **`/preflight`** — exists / parses / contract-valid / non-zero for every file the demo reads. Optional upstream listed separately (`n/a` if missing). Does not import `source.ts`. Currently 15/15 required once `hcp.json` is generated.
-12. **Empty states** — `source.ts` safeParse; every route that needs a file renders `MissingData` instead of crashing or `notFound()`.
-13. **First paint** — `/demo` is `force-static`. Later beats are in the first HTML and hidden with CSS (`display: none`). No `loading.tsx`, no spinner, no client fetch.
+9. **`/demo`** — four beats: worklist → HCP criteria → elasticity (slider + corpus + market cut) → payer.
+10. **Presenter** — space / → advances, ← back, esc exits.
+11. **`/preflight`** — deep dive. Exists / parses / contract-valid / non-zero for every file the demo reads.
+12. **Empty states** — `source.ts` safeParse; missing files render `MissingData`.
+13. **First paint** — `/demo` is `force-static`.
 
-14. **Coverage headline on `/payer`** — reads `data/compiled/coverage.json` only. Compile-stats → pending. A claims figure whose leaf count is not 5,103 throws. Never derived from the trees.
-15. **Measured bench on the worklist** — 20,420,000 criterion evaluations in 8.76s · 4,000 patients × 233 trials. Says "measured", not "up to".
-16. **Cube on 133 real protocols** — citation flags no longer gate. `data/compiled/trials.json` demo pool must be 133 or generate throws. NCT07001001 stays pinned. Worklist says "Evaluated against 133 real trial protocols."
-17. **Published cube is a subset** — generate.ts (vite-node, one-off) evaluates the full 203 × 134 and writes only worklist pairs + every patient on the presentation trial. `source.ts` reads that JSON with `fs` so Next never statically imports the cube. `buildReadModels` throws if `NEXT_RUNTIME` is set.
-18. **`/payer` on the real extract** — 1,296 DE-SynPUF beneficiaries × **133 real protocols**. Claims settle **98 of 1,296** (112 drug-fill rows: carboplatin 61, cisplatin 16, pemetrexed 15, docetaxel 20). Only exclusion `==` / `in` cells count. Part B platinum/taxane/pemetrexed alias as `chemotherapy`. Fixture trio is no longer the scoring set.
-19. **Deep-dive smoke** — each route mounts against published `app/_data/*.json`. Compiled trees reuse `INC-1`; row keys are tree paths. Slider/mode/citation state resets when the sweep, assignment, or sections change.
-20. **`/hcp`** — Impiricus physician panel. `rank()` output grouped by a deterministic treating-physician roster (contracts have no physician field). Click a patient: live trials ranked by worth-it-ness (expected value / (tier cost + travel + phase visit load)). Portal answers overlay the ranking; the channel never contacts a patient.
-21. **`/patient-portal`** — four questions only (travel, extra visits, placebo, who drives). No medical facts, no outbound contact. Answers live in `localStorage` and feed `/hcp`.
-
-Nine deep-dive routes are unchanged. HCP + portal are a separate channel.
+14. **Coverage headline on `/payer`** — reads `data/compiled/coverage.json` only.
+15. **Measured bench on the worklist** — 20,420,000 criterion evaluations in 8.76s · 4,000 patients × 233 trials.
+16. **Cube on 133 real protocols** — citation flags do not gate. NCT07001001 stays pinned.
+17. **Published cube is a subset** — worklist pairs + every patient on the presentation trial.
+18. **`/payer` on the real extract** — 1,296 DE-SynPUF × 133 protocols. Claims settle 98 of 1,296.
+19. **Smoke** — main flow mounts against published `app/_data/*.json`.
+20. **Restructure** — trial portal nav is Patients · Physicians · Elasticity · Payer. `/hcp` and `/patient-portal` are separate portals. Eval / Preflight are utility links, not tabs. `/patient`, `/alert`, `/equity` redirect to `/hcp`. `/landscape` and `/market` redirect to `/elasticity`.
+21. **`/hcp`** — Impiricus physician panel. Top 25 by `rank()`, checkboxes + draft outreach (never sent), equity composition vs admitted, per-patient group-hit marks. Click opens the criteria table with both citations. `/patient`, `/alert`, `/equity` redirect here.
+22. **`/elasticity`** — one scroll: analyte picker + precomputed slider, corpus distribution (“233 real protocols, 5,105 criteria, no consensus.”), three-trial / six-patient market cut (first-come vs stable). `/landscape` and `/market` redirect here.
+23. **`/patient-portal`** — four questions only. Off the main nav. Answers live in `localStorage`.
+24. **`/eval`** — reads `data/eval/results.human.json` (30 cells, 83.3% precision, 91.7% recall). Both disagreements named: SYN-19ad9612 INC-2, human UNKNOWN/stale, engine FAIL. Model-draft `app/_data/eval.json` is a separate, labelled section and is never merged in.
+25. **Live loop** — `/` `/patient-portal` `/hcp` share one store (Supabase when `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` are set, otherwise `.data/loop.json`). `rank()` adds `preferenceUnknown` as an explicit UNKNOWN. Seeded 46 two-unknown patients hold the top; PT-4401 starts at #47 and rises into the top 10 when they answer. Poll every 2s. `?demo=static` / `?demo=1` is the old four-screen path. Reset on `/preflight`.
+26. **Trial portal tabs** — `/` and `/worklist` are Patients | Physicians. Patients is the ranked list. Physicians is a roster with a readiness bar (eligible / one unknown / several / eliminated), expand-to-patients, select-all, Ask vs grouped enrol nudge, and a per-physician note that survives Reset. Attribution is observed from optional `providers.json` or assigned and labelled. `/hcp` is a separate Impiricus physician portal (own chrome, not a console tab); live panel filters to that physician; enrol nudges with a shared `batchId` render as one card.
 
 ## Queue
 
@@ -30,10 +33,16 @@ None in this lane.
 ## Blocked
 
 - `data/compiled/coverage.json` is still compile-stats; `/payer` waits for the engine to republish the claims figure (5,103 leaves).
-- Eval is model-draft.
+
+## Do not demo
+
+- ANC / albumin / CrCl as sliders — they are listed as inert: the threshold does not bind on this cohort. Only platelets `NCT03838159` INC-6 moves.
+- Per-patient group-hit marks — none of the top-25 blocking criteria uniquely exclude that patient's group.
+- Coverage chart on `/payer` — pending republish. The 98 / 1,296 settle is real.
 
 ## Do not
 
 - Merge to `main`
+- Present the live loop as human-validated enrolment — it is a preference + nudge store, and the patient never signs up from the portal
 - Import `@/src/engine` from a route (generate.ts / eval.ts only)
 - Import `app/_data/generate.ts` or `buildReadModels` from a Next route

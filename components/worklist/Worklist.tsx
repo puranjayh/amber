@@ -3,11 +3,19 @@ import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
 import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
 import { MEASURED_BENCH, formatBench, formatDollars, formatRealProtocols, type ScreenFailures } from "./strip";
 
+export type WorklistAction = {
+  label: string;
+  disabled?: boolean;
+  onClick: () => void;
+};
+
 export type WorklistItem = WorklistRow & {
   patient?: Patient;
   trial?: Trial;
   favourable: number;
   total: number;
+  reason?: string;
+  action?: WorklistAction;
 };
 
 function Blocking({ row }: { row: WorklistItem }) {
@@ -197,9 +205,24 @@ export function Worklist({
                   {body}
                 </button>
               ) : (
-                <Link href={`/patient?patient=${row.patientId}&trial=${row.nctId}`} className={cls}>
+                <Link href={`/hcp?patient=${row.patientId}`} className={cls}>
                   {body}
                 </Link>
+              )}
+              {(row.reason || row.action) && (
+                <div className="flex flex-wrap items-center justify-between gap-2 px-3 pb-3 sm:px-4">
+                  {row.reason && <p className="text-[12px] text-ink-2">{row.reason}</p>}
+                  {row.action && (
+                    <button
+                      type="button"
+                      disabled={row.action.disabled}
+                      onClick={row.action.onClick}
+                      className="shrink-0 rounded-md bg-ink px-2.5 py-1 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+                    >
+                      {row.action.label}
+                    </button>
+                  )}
+                </div>
               )}
             </li>
           );
