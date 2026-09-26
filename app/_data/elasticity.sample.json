@@ -1,0 +1,9 @@
+[
+  { "threshold": 30, "eligibleCount": 204, "excludedByThisAlone": 6, "bySubgroup": { "White": 118, "Black": 38, "Asian": 22, "Hispanic": 20, "Other": 6 } },
+  { "threshold": 35, "eligibleCount": 198, "excludedByThisAlone": 12, "bySubgroup": { "White": 116, "Black": 35, "Asian": 22, "Hispanic": 19, "Other": 6 } },
+  { "threshold": 40, "eligibleCount": 189, "excludedByThisAlone": 21, "bySubgroup": { "White": 113, "Black": 31, "Asian": 21, "Hispanic": 18, "Other": 6 } },
+  { "threshold": 45, "eligibleCount": 177, "excludedByThisAlone": 33, "bySubgroup": { "White": 109, "Black": 26, "Asian": 20, "Hispanic": 17, "Other": 5 } },
+  { "threshold": 50, "eligibleCount": 163, "excludedByThisAlone": 47, "bySubgroup": { "White": 103, "Black": 21, "Asian": 19, "Hispanic": 15, "Other": 5 } },
+  { "threshold": 55, "eligibleCount": 147, "excludedByThisAlone": 63, "bySubgroup": { "White": 96, "Black": 16, "Asian": 17, "Hispanic": 13, "Other": 5 } },
+  { "threshold": 60, "eligibleCount": 128, "excludedByThisAlone": 82, "bySubgroup": { "White": 87, "Black": 11, "Asian": 15, "Hispanic": 11, "Other": 4 } }
+]
