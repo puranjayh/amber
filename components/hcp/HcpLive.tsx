@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import type { LoopState } from "@/app/_data/schema";
-import { patchNudge, postNudge, useLoop } from "@/components/loop/useLoop";
+import { patchNudge, useLoop } from "@/components/loop/useLoop";
 import { enrolCopy, groupEnrolNudges } from "@/components/worklist/group";
+import { doctorQuery } from "./access";
 import { HcpView, type HcpRosterRow } from "./HcpView";
 
 export function HcpLive({
@@ -13,9 +14,9 @@ export function HcpLive({
   panelShare,
   admittedShare,
   initial,
-  selectedNctId,
   physicianId,
   physicianPatients,
+  demoMode,
 }: {
   rows: HcpRosterRow[];
   selectedId?: string;
@@ -23,23 +24,13 @@ export function HcpLive({
   panelShare: Record<string, number>;
   admittedShare: Record<string, number>;
   initial: LoopState;
-  selectedNctId?: string;
   physicianId: string;
   physicianPatients: string[];
+  demoMode?: "1" | "static";
 }) {
   const { state, apply } = useLoop(initial, true);
   const mine = new Set(physicianPatients);
   const inbox = groupEnrolNudges(state.nudges, mine);
-  const suggested =
-    selectedId &&
-    selectedNctId &&
-    state.nudges.some(
-      (n) =>
-        n.kind === "trial_suggestion" &&
-        n.patientId === selectedId &&
-        n.nctId === selectedNctId &&
-        n.status !== "done",
-    );
 
   return (
     <div className="space-y-3">
@@ -57,7 +48,7 @@ export function HcpLive({
                   <p className="font-mono text-[11px] text-ink-3">{group.patientIds.join(" · ")}</p>
                   {first && (
                     <Link
-                      href={`/hcp?physician=${encodeURIComponent(physicianId)}&patient=${encodeURIComponent(first)}`}
+                      href={doctorQuery({ physicianId, patientId: first, demo: demoMode ?? null })}
                       onClick={() => {
                         void patchNudge(group.ids[0] ?? first, "seen", group.batchId).then(apply);
                       }}
@@ -79,38 +70,8 @@ export function HcpLive({
         panelShare={panelShare}
         admittedShare={admittedShare}
         physicianId={physicianId}
+        demoMode={demoMode}
       />
-      {selectedId && selectedNctId && (
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            disabled={Boolean(suggested)}
-            onClick={() => {
-              void postNudge({
-                kind: "trial_suggestion",
-                fromRole: "physician",
-                toRole: "patient",
-                patientId: selectedId,
-                nctId: selectedNctId,
-              }).then(apply);
-            }}
-            className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
-          >
-            {suggested ? "Suggested to patient" : "Suggest this trial"}
-          </button>
-          <span className="text-[11px] text-ink-3">
-            Sends a note to the patient portal. Never enrols anyone.
-          </span>
-          {suggested && (
-            <Link
-              href={`/patient-portal?patient=${encodeURIComponent(selectedId)}`}
-              className="text-[12px] text-ink underline-offset-2 hover:underline"
-            >
-              Open patient portal
-            </Link>
-          )}
-        </div>
-      )}
     </div>
   );
 }

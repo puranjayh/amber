@@ -3,6 +3,30 @@
 Things one lane noticed that another lane owns. Add a line and keep going
 (docs/CONTRACT.md §5).
 
+## From P3 (app) — `playwright` + `npm run shots` added on `eng/app`
+
+**Who this is for:** P1 (`package.json`).
+
+The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts` → `docs/shots/`). `playwright` is now a devDependency on this branch. Please keep the dep and the `shots` script when you next land `package.json` on `main`. `npx playwright install chromium` is required once per machine.
+
+## From P3 (app) — payer is on the real DE-SynPUF extract
+
+**Who this is for:** P1 (compiler) / P4 (data).
+
+`/payer` evaluates `data/claims/patients.json` against the 133 demo-ready compiled protocols, not the fixture trio. Part B HCPCS fills (J9045 / J9060 / J9305 / J9171) keep their drug names and also alias as `chemotherapy` so `in: [chemotherapy, …]` exclusions can fire. Only exclusion `==` / `in` cells settle — an inclusion FAIL or a `!=` leaf is not a claim ruling someone out. Measured: **98 of 1,296** (112 drug-fill rows: carboplatin 61, cisplatin 16, pemetrexed 15, docetaxel 20). ICD-9 comorbidity codes do not equal the compiler's prose ILD leaves, so those no longer pad the list. Drop the extract at that path; do not expect BENE-* ids.
+
+`data/compiled/coverage.json` is compile-stats (now at `compile-stats.json` on `eng/compiler`). `/payer` will not derive a number from the trees. Republish `data/compiled/coverage.json` as `ClaimsCoverage` with **5,103** leaves (the slide number). Any other leaf count throws.
+
+The app cube now consumes the 133 demo-ready compiled trials (citation flags do not gate). Keep that count stable — a different non-zero pool throws. NCT07001001 is still pinned from fixtures so the presentation pair does not move.
+
+Compiled trees still reuse leaf ids (`INC-1` twice in one trial). The criteria table keys rows by tree path, not `leaf.id`. Do not key React lists by `criterionId` alone.
+
+`/eval` reads `data/eval/results.human.json` only for the human-validated numbers (30 cells, 83.3% / 91.7%, two SYN-19ad9612 INC-2 disagreements). `app/_data/eval.json` is the model-draft run and must stay labelled that way. Never merge the two.
+
+The live loop store is `preferences`, `nudges` (now with optional `batch_id`), and `physician_notes` — defined in `app/_data/loop.sql`. API routes talk to PostgREST with the service role; no new npm dependency. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` and run the SQL once (including the `batch_id` alter and `physician_notes` table). Without them the three portals still share `.data/loop.json` on one `next dev`. Reset from `/preflight` clears prefs/nudges and keeps coordinator notes. Fixture `Patient.preferences` are not live state.
+
+`Patient` has no treating-physician field and `PatientPreferences` has no driver. Treating physician is observed from optional `data/synthea/providers.json`, `data/claims/providers.json`, or `app/_data/providers.json` (`patientId` + `npi`/`providerId`). Published `patients.json` has neither; the UI assigns Rahman / Okonkwo / Vasquez deterministically and labels the row **assigned**. Do not silently fabricate an attribution. `/hcp` is the coordinator roster across physicians. `/doctor` is one doctor's patients only — no cross-panel view. A patient click on the trial portal opens `/worklist/patient/[id]` (coordinator actions only). A patient click on the doctor portal stays on `/doctor` and refuses a patient who is not on that panel. The criteria table is shared. The header switcher is Trial portal · Doctor portal · Patient portal. `/patient-portal` still stores driver (and the other three answers) in `localStorage`. Do not put either on the frozen contract unless all four lanes agree.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
@@ -360,10 +384,18 @@ Until they land the app uses a hand-written, clearly labelled placeholder in
 
 On instruction, every number the app shows now comes from the engine.
 `app/_data/generate.ts` imports `@/src/engine` **read-only** (same terms as
-`src/eval` in §10), runs it over `fixtures/` plus `data/patients.json` when it
-exists, and writes `app/_data/*.json`. The Next app itself still imports only
-`src/contracts` and reads those JSON files. `components/generated.test.ts` fails if
-the committed JSON drifts from a fresh engine run, so it cannot be hand-edited.
+`src/eval` in §10), runs it over `fixtures/`, `data/patients.json` /
+`data/synthea/patients.json` when present, and `data/compiled/trials.json`
+(compiler `{ trial, sourceText, failure }` wrappers are unwrapped; flagged or
+empty trees are dropped per §4). It writes `app/_data/*.json`. The Next app
+itself still imports only `src/contracts` and reads those JSON files.
+`components/generated.test.ts` fails if the committed JSON drifts from a fresh
+engine run, so it cannot be hand-edited.
+
+**Compiled corpus as of this note:** all 300 rows in `data/compiled/trials.json`
+are `needsHumanReview: true` with empty `criteria` (compiler schema-recursion
+errors). They correctly enter the demo pool as zero trials. The 200 Synthea
+patients live at `data/synthea/patients.json`, not `data/patients.json`.
 
 Please:
 
@@ -373,12 +405,3 @@ Please:
   `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
-
-## From P4 (data) — washout is on NCT07001003
-
-The tier-4 washout leaf is `NCT07001003` `EXC-2`, not `NCT07001001`. PT-4402's last dose is 2026-09-14, which is 11 days before asOf 2026-09-25 (the handoff's "5 days" does not match the dates). The exclusion fires, and `calendar()` emits one row: PT-4402 × NCT07001003 becomes eligible 2026-10-05. PT-4401's last dose is 2026-06-01, so that cell is FAIL and the hero pair is unchanged. PT-4408 has no last-dose fact: UNKNOWN / absent, resolution cost +30.
-
-Two tests outside this lane now fail on purpose:
-
-- `src/eval/make-sheet.test.ts` expects 60 leaf rows; the new leaf makes 63.
-- `components/market/graph.test.ts` expects PT-4402 × NCT07001003 to be an eligible candidate. That pair is eliminated until 2026-10-05, and `app/_data/assignments.json` still assigns it, so `modes.invalid` is non-empty. `components/generated.test.ts` is stale until `app/_data` is regenerated from the fixtures.

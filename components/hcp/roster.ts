@@ -3,12 +3,12 @@
  * deterministic demo assignment for the Impiricus channel — not extracted data.
  */
 
-export type Physician = { id: string; name: string; site: string };
+export type Physician = { id: string; name: string; specialty: string; site: string };
 
 export const PHYSICIANS: readonly Physician[] = [
-  { id: "hcp-rahman", name: "Aisha Rahman, MD", site: "Community oncology" },
-  { id: "hcp-okonkwo", name: "James Okonkwo, MD", site: "County cancer clinic" },
-  { id: "hcp-vasquez", name: "Elena Vasquez, MD", site: "Regional medical center" },
+  { id: "hcp-rahman", name: "Aisha Rahman, MD", specialty: "Medical oncology", site: "Community oncology" },
+  { id: "hcp-okonkwo", name: "James Okonkwo, MD", specialty: "Hematology", site: "County cancer clinic" },
+  { id: "hcp-vasquez", name: "Elena Vasquez, MD", specialty: "Thoracic oncology", site: "Regional medical center" },
 ] as const;
 
 export const DEFAULT_PHYSICIAN_ID = PHYSICIANS[0].id;
@@ -19,10 +19,16 @@ export function doctorTalk(name: string): string {
   return last ? `Dr ${last}` : "your doctor";
 }
 
-export function doctorFor(patientId: string): { id: string; name: string; talk: string; site: string } {
+export function doctorFor(patientId: string): { id: string; name: string; talk: string; specialty: string; site: string } {
   const id = assignPhysician(patientId);
   const physician = PHYSICIANS.find((p) => p.id === id) ?? PHYSICIANS[0];
-  return { id: physician.id, name: physician.name, talk: doctorTalk(physician.name), site: physician.site };
+  return {
+    id: physician.id,
+    name: physician.name,
+    talk: doctorTalk(physician.name),
+    specialty: physician.specialty,
+    site: physician.site,
+  };
 }
 
 export function assignPhysician(patientId: string): string {

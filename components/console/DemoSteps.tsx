@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const STEPS = [
-  { key: "worklist", path: "/", label: "Patients" },
-  { key: "hcp", path: "/hcp", label: "Physician" },
+  { key: "worklist", path: "/", label: "Worklist" },
+  { key: "hcp", path: "/hcp", label: "HCP" },
   { key: "elasticity", path: "/elasticity", label: "Elasticity" },
   { key: "payer", path: "/payer", label: "Payer" },
 ] as const;
