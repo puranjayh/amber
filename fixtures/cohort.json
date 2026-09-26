@@ -41513,5 +41513,855 @@
         "provenance": "chart"
       }
     ]
+  },
+  {
+    "id": "PT-4421",
+    "age": 62,
+    "sex": "F",
+    "race": "Asian",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "90012",
+    "travelMinutes": 29,
+    "facts": [
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 19 deletion.",
+        "predicate": "biomarker",
+        "value": "Exon 19 deletion",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history: gefitinib, an EGFR TKI, recorded 1 May 2026.",
+        "predicate": "prior_therapy",
+        "drugClass": "anti-EGFR TKI",
+        "value": "gefitinib",
+        "observedAt": "2026-05-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-09-10"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 2,200/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 2200,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 210000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.7,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 88,
+        "unit": "mL/min",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 412,
+        "unit": "msec",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
+        "predicate": "lab_value",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "SURGERY",
+        "value": "2026-06-01",
+        "unit": "days",
+        "observedAt": "2026-06-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Gefitinib discontinued 1 August 2026, more than 7 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "EGFR_TKI",
+        "value": "2026-08-01",
+        "unit": "days",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
+        "predicate": "washout",
+        "drugClass": "INVESTIGATIONAL_AGENT",
+        "value": 0,
+        "unit": "half-lives",
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-20"
+      }
+    ]
+  },
+  {
+    "id": "PT-4422",
+    "age": 58,
+    "sex": "M",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "90026",
+    "travelMinutes": 25,
+    "facts": [
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 21 L858R.",
+        "predicate": "biomarker",
+        "value": "Exon 21 L858R",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history: erlotinib, an EGFR TKI, recorded 1 May 2026.",
+        "predicate": "prior_therapy",
+        "drugClass": "anti-EGFR TKI",
+        "value": "erlotinib",
+        "observedAt": "2026-05-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-09-10"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,840/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 1840,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 210000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.7,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 88,
+        "unit": "mL/min",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 412,
+        "unit": "msec",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
+        "predicate": "lab_value",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "SURGERY",
+        "value": "2026-06-01",
+        "unit": "days",
+        "observedAt": "2026-06-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Erlotinib discontinued 1 August 2026, more than 7 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "EGFR_TKI",
+        "value": "2026-08-01",
+        "unit": "days",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
+        "predicate": "washout",
+        "drugClass": "INVESTIGATIONAL_AGENT",
+        "value": 0,
+        "unit": "half-lives",
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-20"
+      }
+    ]
+  },
+  {
+    "id": "PT-4423",
+    "age": 71,
+    "sex": "F",
+    "race": "Black or African American",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "90017",
+    "travelMinutes": 21,
+    "facts": [
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 18 G719X.",
+        "predicate": "biomarker",
+        "value": "Exon 18 G719X",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history: afatinib, an EGFR TKI, recorded 1 May 2026.",
+        "predicate": "prior_therapy",
+        "drugClass": "anti-EGFR TKI",
+        "value": "afatinib",
+        "observedAt": "2026-05-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-09-10"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 2,600/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 2600,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 210000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.7,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 88,
+        "unit": "mL/min",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 412,
+        "unit": "msec",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
+        "predicate": "lab_value",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "SURGERY",
+        "value": "2026-06-01",
+        "unit": "days",
+        "observedAt": "2026-06-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Afatinib discontinued 1 August 2026, more than 7 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "EGFR_TKI",
+        "value": "2026-08-01",
+        "unit": "days",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
+        "predicate": "washout",
+        "drugClass": "INVESTIGATIONAL_AGENT",
+        "value": 0,
+        "unit": "half-lives",
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-20"
+      }
+    ]
+  },
+  {
+    "id": "PT-4424",
+    "age": 66,
+    "sex": "M",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "90015",
+    "travelMinutes": 33,
+    "facts": [
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 21 L861Q.",
+        "predicate": "biomarker",
+        "value": "Exon 21 L861Q",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history: gefitinib, an EGFR TKI, recorded 1 May 2026.",
+        "predicate": "prior_therapy",
+        "drugClass": "anti-EGFR TKI",
+        "value": "gefitinib",
+        "observedAt": "2026-05-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-09-10"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,980/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 1980,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 210000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.7,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 88,
+        "unit": "mL/min",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 412,
+        "unit": "msec",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
+        "predicate": "lab_value",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "SURGERY",
+        "value": "2026-06-01",
+        "unit": "days",
+        "observedAt": "2026-06-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Gefitinib discontinued 1 August 2026, more than 7 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "EGFR_TKI",
+        "value": "2026-08-01",
+        "unit": "days",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
+        "predicate": "washout",
+        "drugClass": "INVESTIGATIONAL_AGENT",
+        "value": 0,
+        "unit": "half-lives",
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-20"
+      }
+    ]
+  },
+  {
+    "id": "PT-4425",
+    "age": 54,
+    "sex": "F",
+    "race": "Asian",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "90013",
+    "travelMinutes": 21,
+    "facts": [
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. NGS 1 August 2026: EGFR Exon 20 insertion.",
+        "predicate": "biomarker",
+        "value": "EGFR Exon 20 insertion",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history: afatinib, an EGFR TKI, recorded 1 May 2026.",
+        "predicate": "prior_therapy",
+        "drugClass": "anti-EGFR TKI",
+        "value": "afatinib",
+        "observedAt": "2026-05-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-09-10"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,730/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 1730,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 210000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.7,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 88,
+        "unit": "mL/min",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 412,
+        "unit": "msec",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-15"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
+        "predicate": "lab_value",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "SURGERY",
+        "value": "2026-06-01",
+        "unit": "days",
+        "observedAt": "2026-06-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Afatinib discontinued 1 August 2026, more than 7 days before this screen.",
+        "predicate": "washout",
+        "drugClass": "EGFR_TKI",
+        "value": "2026-08-01",
+        "unit": "days",
+        "observedAt": "2026-08-01"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
+        "predicate": "washout",
+        "drugClass": "INVESTIGATIONAL_AGENT",
+        "value": 0,
+        "unit": "half-lives",
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-20"
+      },
+      {
+        "sourceDoc": "synthetic chart",
+        "provenance": "chart",
+        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-20"
+      }
+    ]
   }
 ]

@@ -7763,9 +7763,9 @@
         "patientId": "PT-4402",
         "nctId": "NCT02496663",
         "eliminated": true,
-        "passCount": 2,
-        "failCount": 12,
-        "unknownCount": 13,
+        "passCount": 4,
+        "failCount": 13,
+        "unknownCount": 10,
         "blocking": [
           {
             "criterionId": "INC-1",
@@ -7810,6 +7810,12 @@
             "tier": 1
           },
           {
+            "criterionId": "EXC-2",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
             "criterionId": "EXC-4",
             "verdict": "FAIL",
             "reason": "contradicted",
@@ -7840,8 +7846,8 @@
             "tier": 0
           }
         ],
-        "resolutionTier": 4,
-        "resolutionCost": 114,
+        "resolutionTier": 2,
+        "resolutionCost": 24,
         "expectedValue": 0
       },
       {
@@ -7933,9 +7939,9 @@
         "patientId": "PT-4401",
         "nctId": "NCT02496663",
         "eliminated": true,
-        "passCount": 2,
-        "failCount": 7,
-        "unknownCount": 18,
+        "passCount": 3,
+        "failCount": 9,
+        "unknownCount": 15,
         "blocking": [
           {
             "criterionId": "INC-1",
@@ -7948,6 +7954,18 @@
             "verdict": "FAIL",
             "reason": "contradicted",
             "tier": 1
+          },
+          {
+            "criterionId": "EXC-1",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
+            "criterionId": "EXC-2",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
           },
           {
             "criterionId": "EXC-4",
@@ -7980,8 +7998,8 @@
             "tier": 0
           }
         ],
-        "resolutionTier": 4,
-        "resolutionCost": 119,
+        "resolutionTier": 2,
+        "resolutionCost": 29,
         "expectedValue": 0
       }
     ],
@@ -27498,6 +27516,158 @@
         "expectedValue": 0
       },
       {
+        "patientId": "PT-4401",
+        "nctId": "NCT06281964",
+        "eliminated": true,
+        "passCount": 3,
+        "failCount": 12,
+        "unknownCount": 10,
+        "blocking": [
+          {
+            "criterionId": "INC-3",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 0
+          },
+          {
+            "criterionId": "INC-5",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 2
+          },
+          {
+            "criterionId": "EXC-2",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
+            "criterionId": "EXC-5",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
+            "criterionId": "EXC-6",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
+            "criterionId": "EXC-7",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 2
+          },
+          {
+            "criterionId": "EXC-8",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-9",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-10",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-14",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-16",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-17",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          }
+        ],
+        "resolutionTier": 2,
+        "resolutionCost": 23,
+        "expectedValue": 0
+      },
+      {
+        "patientId": "PT-4402",
+        "nctId": "NCT06281964",
+        "eliminated": true,
+        "passCount": 6,
+        "failCount": 9,
+        "unknownCount": 10,
+        "blocking": [
+          {
+            "criterionId": "INC-3",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 0
+          },
+          {
+            "criterionId": "INC-4",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 0
+          },
+          {
+            "criterionId": "INC-5",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 2
+          },
+          {
+            "criterionId": "EXC-2",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 4
+          },
+          {
+            "criterionId": "EXC-8",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-9",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-10",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-14",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          },
+          {
+            "criterionId": "EXC-16",
+            "verdict": "FAIL",
+            "reason": "contradicted",
+            "tier": 1
+          }
+        ],
+        "resolutionTier": 4,
+        "resolutionCost": 52,
+        "expectedValue": 0
+      },
+      {
         "patientId": "PT-4410",
         "nctId": "NCT06281964",
         "eliminated": true,
@@ -28140,122 +28310,6 @@
         ],
         "resolutionTier": 4,
         "resolutionCost": 148,
-        "expectedValue": 0
-      },
-      {
-        "patientId": "PT-4401",
-        "nctId": "NCT06281964",
-        "eliminated": true,
-        "passCount": 3,
-        "failCount": 7,
-        "unknownCount": 15,
-        "blocking": [
-          {
-            "criterionId": "INC-3",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 0
-          },
-          {
-            "criterionId": "INC-5",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 2
-          },
-          {
-            "criterionId": "EXC-8",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-9",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-10",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-14",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-16",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          }
-        ],
-        "resolutionTier": 4,
-        "resolutionCost": 149,
-        "expectedValue": 0
-      },
-      {
-        "patientId": "PT-4402",
-        "nctId": "NCT06281964",
-        "eliminated": true,
-        "passCount": 2,
-        "failCount": 8,
-        "unknownCount": 15,
-        "blocking": [
-          {
-            "criterionId": "INC-3",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 0
-          },
-          {
-            "criterionId": "INC-4",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 0
-          },
-          {
-            "criterionId": "INC-5",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 2
-          },
-          {
-            "criterionId": "EXC-8",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-9",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-10",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-14",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          },
-          {
-            "criterionId": "EXC-16",
-            "verdict": "FAIL",
-            "reason": "contradicted",
-            "tier": 1
-          }
-        ],
-        "resolutionTier": 4,
-        "resolutionCost": 178,
         "expectedValue": 0
       }
     ]

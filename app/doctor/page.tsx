@@ -126,8 +126,10 @@ export default async function DoctorPage({
           <h1 className="text-[28px] font-semibold text-ink">Trials</h1>
           <DoctorTrials
             items={news}
-            cards={cards}
-            hrefFor={(nctId) => doctorQuery({ physicianId, trialId: nctId, demo: demo ? demoMode : null })}
+            cards={cards.map((card) => ({
+              ...card,
+              href: doctorQuery({ physicianId, trialId: card.nctId, demo: demo ? demoMode : null }),
+            }))}
           />
           {loop ? (
             <DoctorRetention initial={loop} physicianId={physicianId} patientIds={[...mine]} />

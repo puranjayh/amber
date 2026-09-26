@@ -3245,12 +3245,12 @@
         "label": "History of chest CT within the past year preceding the invitation.",
         "exclusionRateBySubgroup": {
           "American Indian or Alaska Native": 1,
-          "Asian": 0.24242424242424243,
+          "Asian": 0.25757575757575757,
           "Black or African American": 0.7857142857142857,
           "Other": 0.9,
-          "White": 0.9111111111111111
+          "White": 0.9222222222222223
         },
-        "maxGapPoints": 75.8
+        "maxGapPoints": 74.2
       },
       {
         "criterionId": "INC-1",
@@ -3270,9 +3270,9 @@
           "Asian": 0,
           "Black or African American": 0,
           "Other": 0,
-          "White": 0.1111111111111111
+          "White": 0.125
         },
-        "maxGapPoints": 11.1
+        "maxGapPoints": 12.5
       },
       {
         "criterionId": "EXC-1",
@@ -3542,6 +3542,18 @@
     "nctId": "NCT04302025",
     "rows": [
       {
+        "criterionId": "EXC-5",
+        "label": "Major surgical procedure within 28 days prior to Cycle 1, Day 1",
+        "exclusionRateBySubgroup": {
+          "American Indian or Alaska Native": 0,
+          "Asian": 0,
+          "Black or African American": 0,
+          "Other": 0,
+          "White": 0.009523809523809525
+        },
+        "maxGapPoints": 1
+      },
+      {
         "criterionId": "EXC-1",
         "label": "NSCLC that is clinically T4 by virtue of mediastinal organ invasion or Stage IIIB by virtue of N3 disease",
         "exclusionRateBySubgroup": {
@@ -3628,18 +3640,6 @@
       {
         "criterionId": "EXC-4",
         "label": "Participants with prior lung cancer",
-        "exclusionRateBySubgroup": {
-          "American Indian or Alaska Native": 0,
-          "Asian": 0,
-          "Black or African American": 0,
-          "Other": 0,
-          "White": 0
-        },
-        "maxGapPoints": 0
-      },
-      {
-        "criterionId": "EXC-5",
-        "label": "Major surgical procedure within 28 days prior to Cycle 1, Day 1",
         "exclusionRateBySubgroup": {
           "American Indian or Alaska Native": 0,
           "Asian": 0,
@@ -13126,28 +13126,36 @@
     "rows": [
       {
         "criterionId": "INC-1",
+        "label": "Age: Must be > 50 years of age",
+        "exclusionRateBySubgroup": {},
+        "maxGapPoints": 0
+      },
+      {
+        "criterionId": "INC-1-2",
         "label": "* Age: 55-74 years old",
+        "exclusionRateBySubgroup": {},
+        "maxGapPoints": 0
+      },
+      {
+        "criterionId": "INC-2",
+        "label": "Cohort 2: ZORALCS-study participants",
         "exclusionRateBySubgroup": {
           "White": 1
         },
         "maxGapPoints": 0
       },
       {
-        "criterionId": "INC-2",
+        "criterionId": "INC-2-2",
         "label": "* Age: 55-74 years old",
-        "exclusionRateBySubgroup": {
-          "White": 1
-        },
+        "exclusionRateBySubgroup": {},
         "maxGapPoints": 0
       },
       {
         "criterionId": "INC-3",
         "label": "* Smoking History: Includes individuals with a smoking history",
         "exclusionRateBySubgroup": {
-          "American Indian or Alaska Native": 1,
           "Asian": 1,
           "Black or African American": 1,
-          "Other": 1,
           "White": 1
         },
         "maxGapPoints": 0
@@ -13165,7 +13173,7 @@
           "Asian": 0.2647058823529412,
           "Black or African American": 0.9545454545454546,
           "Other": 1,
-          "White": 0.9619047619047619
+          "White": 0.9615384615384616
         },
         "maxGapPoints": 73.5
       },

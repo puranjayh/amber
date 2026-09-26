@@ -1349,7 +1349,7 @@
           "resolutionCost": 3,
           "travelMinutes": 25,
           "bestNctId": "NCT07001001",
-          "liveTrials": 7,
+          "liveTrials": 6,
           "portal": {
             "maxTravelMinutes": 90,
             "maxExtraVisitsPerMonth": 2,
@@ -1372,21 +1372,21 @@
               "nctId": "NCT02247453",
               "title": "Plasma microRNA Profiling as First Line Screening Test for Lung Cancer Detection: a Prospective Study",
               "phase": "NA",
-              "unknownCount": 6,
+              "unknownCount": 5,
               "expectedValue": 0,
-              "resolutionCost": 40,
+              "resolutionCost": 10,
               "travelMinutes": 45,
               "visitBurden": 2,
               "likelyPlacebo": false,
               "worth": 0
             },
             {
-              "nctId": "NCT04913155",
-              "title": "HANSE - Holistic Implementation Study Assessing a Northern German Interdisciplinary Lung Cancer Screening Effort",
-              "phase": "NA",
-              "unknownCount": 6,
+              "nctId": "NCT04302025",
+              "title": "A Study of Multiple Therapies in Biomarker-selected Participants With Resectable Stages IB-III Non-small Cell Lung Cancer (NSCLC)",
+              "phase": "PHASE2",
+              "unknownCount": 7,
               "expectedValue": 0,
-              "resolutionCost": 40,
+              "resolutionCost": 42,
               "travelMinutes": 45,
               "visitBurden": 2,
               "likelyPlacebo": false,
@@ -1405,24 +1405,12 @@
               "worth": 0
             },
             {
-              "nctId": "NCT04302025",
-              "title": "A Study of Multiple Therapies in Biomarker-selected Participants With Resectable Stages IB-III Non-small Cell Lung Cancer (NSCLC)",
-              "phase": "PHASE2",
-              "unknownCount": 8,
-              "expectedValue": 0,
-              "resolutionCost": 72,
-              "travelMinutes": 45,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
               "nctId": "NCT04868877",
               "title": "Phase 1/2 Study Evaluating MCLA-129, a Human Anti-EGFR, Anti-c-MET Bispecific Antibody, in Advanced NSCLC and Other Solid Tumors, Alone and in Combination",
               "phase": "PHASE1, PHASE2",
-              "unknownCount": 12,
+              "unknownCount": 10,
               "expectedValue": 0,
-              "resolutionCost": 81,
+              "resolutionCost": 21,
               "travelMinutes": 45,
               "visitBurden": 2,
               "likelyPlacebo": false,
@@ -5971,6 +5959,69 @@
           ]
         },
         {
+          "patientId": "PT-4402",
+          "unknownCount": 5,
+          "expectedValue": 0,
+          "resolutionCost": 10,
+          "travelMinutes": 20,
+          "bestNctId": "NCT02247453",
+          "liveTrials": 4,
+          "portal": {
+            "maxTravelMinutes": 60,
+            "acceptsPlacebo": true
+          },
+          "trials": [
+            {
+              "nctId": "NCT02247453",
+              "title": "Plasma microRNA Profiling as First Line Screening Test for Lung Cancer Detection: a Prospective Study",
+              "phase": "NA",
+              "unknownCount": 5,
+              "expectedValue": 0,
+              "resolutionCost": 10,
+              "travelMinutes": 20,
+              "visitBurden": 2,
+              "likelyPlacebo": false,
+              "worth": 0
+            },
+            {
+              "nctId": "NCT07391280",
+              "title": "Strategy for EArly Recognition of Cancer, COPD & Heart Failure in the Emergency Department",
+              "phase": "NA",
+              "unknownCount": 7,
+              "expectedValue": 0,
+              "resolutionCost": 14,
+              "travelMinutes": 20,
+              "visitBurden": 2,
+              "likelyPlacebo": false,
+              "worth": 0
+            },
+            {
+              "nctId": "NCT04868877",
+              "title": "Phase 1/2 Study Evaluating MCLA-129, a Human Anti-EGFR, Anti-c-MET Bispecific Antibody, in Advanced NSCLC and Other Solid Tumors, Alone and in Combination",
+              "phase": "PHASE1, PHASE2",
+              "unknownCount": 10,
+              "expectedValue": 0,
+              "resolutionCost": 21,
+              "travelMinutes": 20,
+              "visitBurden": 2,
+              "likelyPlacebo": false,
+              "worth": 0
+            },
+            {
+              "nctId": "NCT05286814",
+              "title": "PDS01ADC in Combination With Hepatic Artery Infusion Pump (HAIP) and Systemic Therapy for Subjects With Metastatic Colorectal Cancer, Intrahepatic Cholangiocarcinoma, or Metastatic Adrenocortical Carcinoma",
+              "phase": "PHASE2",
+              "unknownCount": 17,
+              "expectedValue": 0,
+              "resolutionCost": 42,
+              "travelMinutes": 20,
+              "visitBurden": 2,
+              "likelyPlacebo": false,
+              "worth": 0
+            }
+          ]
+        },
+        {
           "patientId": "LC-A-019",
           "unknownCount": 5,
           "expectedValue": 0,
@@ -7344,93 +7395,6 @@
               "expectedValue": 0,
               "resolutionCost": 26,
               "travelMinutes": 145,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            }
-          ]
-        },
-        {
-          "patientId": "PT-4402",
-          "unknownCount": 6,
-          "expectedValue": 0,
-          "resolutionCost": 40,
-          "travelMinutes": 20,
-          "bestNctId": "NCT02247453",
-          "liveTrials": 6,
-          "portal": {
-            "maxTravelMinutes": 60,
-            "acceptsPlacebo": true
-          },
-          "trials": [
-            {
-              "nctId": "NCT02247453",
-              "title": "Plasma microRNA Profiling as First Line Screening Test for Lung Cancer Detection: a Prospective Study",
-              "phase": "NA",
-              "unknownCount": 6,
-              "expectedValue": 0,
-              "resolutionCost": 40,
-              "travelMinutes": 20,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
-              "nctId": "NCT04913155",
-              "title": "HANSE - Holistic Implementation Study Assessing a Northern German Interdisciplinary Lung Cancer Screening Effort",
-              "phase": "NA",
-              "unknownCount": 6,
-              "expectedValue": 0,
-              "resolutionCost": 40,
-              "travelMinutes": 20,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
-              "nctId": "NCT07391280",
-              "title": "Strategy for EArly Recognition of Cancer, COPD & Heart Failure in the Emergency Department",
-              "phase": "NA",
-              "unknownCount": 7,
-              "expectedValue": 0,
-              "resolutionCost": 14,
-              "travelMinutes": 20,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
-              "nctId": "NCT04302025",
-              "title": "A Study of Multiple Therapies in Biomarker-selected Participants With Resectable Stages IB-III Non-small Cell Lung Cancer (NSCLC)",
-              "phase": "PHASE2",
-              "unknownCount": 8,
-              "expectedValue": 0,
-              "resolutionCost": 72,
-              "travelMinutes": 20,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
-              "nctId": "NCT04868877",
-              "title": "Phase 1/2 Study Evaluating MCLA-129, a Human Anti-EGFR, Anti-c-MET Bispecific Antibody, in Advanced NSCLC and Other Solid Tumors, Alone and in Combination",
-              "phase": "PHASE1, PHASE2",
-              "unknownCount": 12,
-              "expectedValue": 0,
-              "resolutionCost": 81,
-              "travelMinutes": 20,
-              "visitBurden": 2,
-              "likelyPlacebo": false,
-              "worth": 0
-            },
-            {
-              "nctId": "NCT05286814",
-              "title": "PDS01ADC in Combination With Hepatic Artery Infusion Pump (HAIP) and Systemic Therapy for Subjects With Metastatic Colorectal Cancer, Intrahepatic Cholangiocarcinoma, or Metastatic Adrenocortical Carcinoma",
-              "phase": "PHASE2",
-              "unknownCount": 17,
-              "expectedValue": 0,
-              "resolutionCost": 42,
-              "travelMinutes": 20,
               "visitBurden": 2,
               "likelyPlacebo": false,
               "worth": 0

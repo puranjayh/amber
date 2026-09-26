@@ -3464,6 +3464,49 @@
     "expectedValue": 0
   },
   {
+    "patientId": "PT-4402",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
     "patientId": "LC-A-041",
     "nctId": "NCT02247453",
     "eliminated": false,
@@ -6041,55 +6084,6 @@
     ],
     "resolutionTier": 1,
     "resolutionCost": 10,
-    "expectedValue": 0
-  },
-  {
-    "patientId": "PT-4402",
-    "nctId": "NCT02247453",
-    "eliminated": false,
-    "passCount": 3,
-    "failCount": 1,
-    "unknownCount": 6,
-    "blocking": [
-      {
-        "criterionId": "INC-1",
-        "verdict": "UNKNOWN",
-        "reason": "absent",
-        "tier": 1
-      },
-      {
-        "criterionId": "INC-2",
-        "verdict": "UNKNOWN",
-        "reason": "unsupported",
-        "tier": 1
-      },
-      {
-        "criterionId": "INC-6",
-        "verdict": "UNKNOWN",
-        "reason": "absent",
-        "tier": 1
-      },
-      {
-        "criterionId": "EXC-1",
-        "verdict": "UNKNOWN",
-        "reason": "unsupported",
-        "tier": 1
-      },
-      {
-        "criterionId": "EXC-2",
-        "verdict": "UNKNOWN",
-        "reason": "unsupported",
-        "tier": 1
-      },
-      {
-        "criterionId": "INC-3",
-        "verdict": "UNKNOWN",
-        "reason": "absent",
-        "tier": 4
-      }
-    ],
-    "resolutionTier": 4,
-    "resolutionCost": 40,
     "expectedValue": 0
   },
   {
