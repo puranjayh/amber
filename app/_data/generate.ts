@@ -9,6 +9,7 @@ import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { buildLandscape } from "@/components/landscape/build";
 import { CLAIMS_STUB } from "@/components/payer/stub";
+import { buildEvalReport } from "./eval";
 import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "./inputs";
 import { buildPayerView } from "./payer";
 import { buildReadModels } from "./readModels";
@@ -51,8 +52,10 @@ const payer = buildPayerView(
   loadCoverage(ROOT),
   claims ? claims.source : "stub",
 );
+const evalReport = buildEvalReport(ROOT, patients, trials, AS_OF);
 write("landscape.json", landscape);
 write("payer.json", payer);
+write("eval.json", evalReport);
 write("meta.json", meta);
 
 console.log(

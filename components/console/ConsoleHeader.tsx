@@ -9,6 +9,7 @@ const NAV = [
   { href: "/market", key: "market", label: "Market" },
   { href: "/landscape", key: "landscape", label: "Landscape" },
   { href: "/payer", key: "payer", label: "Payer" },
+  { href: "/eval", key: "eval", label: "Eval" },
 ] as const;
 
 export type NavKey = (typeof NAV)[number]["key"];

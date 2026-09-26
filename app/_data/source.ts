@@ -6,10 +6,11 @@ import equityJson from "./equity.json";
 import metaJson from "./meta.json";
 import patientsJson from "./patients.json";
 import trialsJson from "./trials.json";
+import evalJson from "./eval.json";
 import landscapeJson from "./landscape.json";
 import payerJson from "./payer.json";
 import worklistJson from "./worklist.json";
-import { Assignments, CriteriaLandscape, ElasticitySweep, EquitySet, Meta, PayerView, WorklistRow } from "./schema";
+import { Assignments, CriteriaLandscape, ElasticitySweep, EquitySet, EvalReport, Meta, PayerView, WorklistRow } from "./schema";
 
 // The only place the app reads data. Every file here is written by generate.ts from engine
 // output, and components/generated.test.ts fails if any of them drifts from a fresh run.
@@ -22,6 +23,7 @@ const equity = EquitySet.array().parse(equityJson);
 const assignments = Assignments.parse(assignmentsJson);
 const landscape = CriteriaLandscape.parse(landscapeJson);
 const payer = PayerView.parse(payerJson);
+const evalReport = EvalReport.parse(evalJson);
 export const meta = Meta.parse(metaJson);
 
 export const asOf = meta.asOf;
@@ -41,6 +43,7 @@ export const getSweeps = () => sweeps;
 export const getAssignments = () => assignments;
 export const getLandscape = () => landscape;
 export const getPayer = () => payer;
+export const getEval = () => evalReport;
 
 export const getTrial = (nctId: string) => trials.find((t) => t.nctId === nctId);
 export const getPatient = (id: string) => patients.find((p) => p.id === id);

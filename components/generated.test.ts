@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "vitest";
 import cubeOracle from "@/fixtures/cube.sample.json";
+import { buildEvalReport } from "@/app/_data/eval";
 import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "@/app/_data/inputs";
 import { buildPayerView } from "@/app/_data/payer";
 import { buildReadModels } from "@/app/_data/readModels";
@@ -52,6 +53,12 @@ test("payer.json is evaluate() over claims patients or the labelled stub", () =>
       ),
     ),
   );
+});
+
+test("eval.json matches a fresh harness run and is never silently marked human", () => {
+  const report = buildEvalReport(ROOT, patients, trials, AS_OF);
+  expect(committed("eval")).toEqual(report);
+  expect(report.labelSource.toLowerCase()).not.toBe("human");
 });
 
 test("the engine's cube over the sample fixtures agrees with the hand-worked oracle", () => {

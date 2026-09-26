@@ -8,6 +8,7 @@ const STEPS = [
   { key: "market", href: "/market?demo=1", label: "Market" },
   { key: "landscape", href: "/landscape?demo=1", label: "Landscape" },
   { key: "payer", href: "/payer?demo=1", label: "Payer" },
+  { key: "eval", href: "/eval?demo=1", label: "Eval" },
 ] as const;
 
 export type DemoStep = (typeof STEPS)[number]["key"];

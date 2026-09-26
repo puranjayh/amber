@@ -1,0 +1,41 @@
+{
+  "labelSource": "model-draft",
+  "evaluatedCells": 130,
+  "issues": [],
+  "confusionMatrix": {
+    "PASS": {
+      "PASS": 20,
+      "FAIL": 0,
+      "UNKNOWN": 0
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 4,
+      "UNKNOWN": 0
+    },
+    "UNKNOWN": {
+      "PASS": 0,
+      "FAIL": 0,
+      "UNKNOWN": 106
+    }
+  },
+  "precision": 1,
+  "recall": 1,
+  "unknownAgreement": 1,
+  "unknownRecall": 1,
+  "byVerdict": {
+    "PASS": {
+      "precision": 1,
+      "recall": 1
+    },
+    "FAIL": {
+      "precision": 1,
+      "recall": 1
+    },
+    "UNKNOWN": {
+      "precision": 1,
+      "recall": 1
+    }
+  },
+  "disagreements": []
+}
