@@ -83,7 +83,18 @@ export function WorklistHeader({ strip, failures }: { strip: WorklistStrip; fail
   );
 }
 
-export function Worklist({ rows }: { rows: WorklistItem[] }) {
+export function Worklist({
+  rows,
+  onSelect,
+  selectedId,
+  advanceTo,
+}: {
+  rows: WorklistItem[];
+  onSelect?: (row: WorklistItem) => void;
+  selectedId?: string;
+  /** When set, rows are buttons that ask DemoShell to reveal this beat. */
+  advanceTo?: number;
+}) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className={`hidden border-b border-line bg-canvas px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3 ${COLS}`}>
@@ -95,12 +106,13 @@ export function Worklist({ rows }: { rows: WorklistItem[] }) {
         <span>Resolution tier</span>
       </div>
       <ol>
-        {rows.map((row, i) => (
-          <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
-            <Link
-              href={`/patient?patient=${row.patientId}&trial=${row.nctId}`}
-              className={`block px-3 py-3 hover:bg-canvas sm:px-4 ${COLS}`}
-            >
+        {rows.map((row, i) => {
+          const selected = selectedId === row.patientId;
+          const cls = `block w-full px-3 py-3 text-left hover:bg-canvas sm:px-4 ${COLS} ${
+            selected ? "bg-canvas" : ""
+          }`;
+          const body = (
+            <>
               <span className="hidden font-mono text-[12px] text-ink-3 md:block">{i + 1}</span>
 
               <span className="flex items-baseline justify-between gap-2 md:block">
@@ -151,9 +163,28 @@ export function Worklist({ rows }: { rows: WorklistItem[] }) {
                   </>
                 )}
               </span>
-            </Link>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
+              {advanceTo !== undefined || onSelect ? (
+                <button
+                  type="button"
+                  data-advance={advanceTo}
+                  onClick={onSelect ? () => onSelect(row) : undefined}
+                  className={cls}
+                  aria-current={selected ? "true" : undefined}
+                >
+                  {body}
+                </button>
+              ) : (
+                <Link href={`/patient?patient=${row.patientId}&trial=${row.nctId}`} className={cls}>
+                  {body}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
