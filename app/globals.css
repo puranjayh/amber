@@ -114,6 +114,20 @@ body {
   outline-offset: 2px;
 }
 
+/* The mark is drawn on black. On a light page it needs that ground; in dark it sits as-is. */
+.amber-mark {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
+html:not([data-theme="dark"]) .amber-mark {
+  height: 32px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: #0b0b0b;
+}
+
 /* /demo progressive reveal — later beats are in the first HTML, hidden until the shell advances. */
 [data-shown="0"] .beat-min-1,
 [data-shown="0"] .beat-min-2,

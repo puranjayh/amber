@@ -17,6 +17,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "AMBER — Screening Console",
   description: "Trial eligibility screening that answers what is missing.",
+  icons: { icon: "/amber-logo.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,15 +1,14 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { readLoop } from "@/app/_data/loop";
 import { syncRegistry } from "@/app/_data/registry-sync";
 import {
-  DEMO,
   asOf,
   getAnchorRows,
   getDemoWorklist,
   getPair,
   getPairsForPatient,
   getPatient,
-  getPatients,
   getTrial,
   getTrials,
   meta,
@@ -17,28 +16,28 @@ import {
 import { fetchStudy } from "@/app/_data/ctgov";
 import type { RegistryStudy } from "@/app/_data/schema";
 import { orderCorresponds, orderFor } from "@/components/alert/alert";
+import { DoctorPatients, type DoctorListRow } from "@/components/console/DoctorPatients";
+import { DoctorRetention } from "@/components/console/DoctorRetention";
+import { DoctorTrials } from "@/components/console/DoctorTrials";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
+import { followUpsByTrial, trialNews } from "@/components/console/trialNews";
 import { isStaticDemo, one } from "@/components/console/params";
-import { collectLeaves } from "@/components/criteria/rows";
-import { toneCounts } from "@/components/criteria/tone";
 import { doctorChartPath, doctorMayOpen, doctorQuery } from "@/components/hcp/access";
 import { DoctorChrome } from "@/components/hcp/DoctorChrome";
-import { DoctorTabs } from "@/components/hcp/DoctorTabs";
-import { HcpLive } from "@/components/hcp/HcpLive";
-import { HcpView, type HcpRosterRow } from "@/components/hcp/HcpView";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
-import { TrialCards } from "@/components/hcp/TrialCards";
 import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
 import { buildTrialCards, rowsForTrial, tierLine } from "@/components/hcp/trialBoard";
 import { attributePatients } from "@/components/worklist/attribution";
 import { draftOutreach } from "@/components/hcp/outreach";
 import { clinicFocus, describeClinic, trialWords } from "@/components/hcp/clinic";
-import { panelComposition, takePanel } from "@/components/hcp/panel";
-import { LOOP_FOCUS, pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
+import { pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
 import { anchorById } from "@/components/console/anchors";
+import { readiness } from "@/components/worklist/readiness";
 
 export const metadata = { title: "Impiricus — Doctor portal" };
+
+const WIDE = "mx-auto w-full max-w-[1600px]";
 
 export default async function DoctorPage({
   searchParams,
@@ -48,7 +47,7 @@ export default async function DoctorPage({
   const sp = await searchParams;
   const demo = isStaticDemo(sp);
   const demoMode = one(sp.demo) === "static" ? "static" : "1";
-  const view = one(sp.view) === "trials" ? "trials" : "patients";
+  const view = one(sp.view) === "patients" ? "patients" : "trials";
   const requestedTrial = one(sp.trial);
   const trialId =
     requestedTrial && /^NCT\d{8}$/.test(requestedTrial) ? requestedTrial : anchorById(undefined).nctId;
@@ -71,110 +70,79 @@ export default async function DoctorPage({
   const mine = new Set(
     attributions.filter((a) => a.physicianId === physicianId).map((a) => a.patientId),
   );
+  const chrome = (
+    <DoctorChrome
+      asOf={asOf}
+      demo={demo}
+      demoMode={demoMode}
+      physicianId={physicianId}
+      trial={trialId}
+    />
+  );
   if (home.length === 0) {
     return (
       <>
-        <DoctorChrome
-          asOf={asOf}
-          demo={demo}
-          demoMode={demoMode}
-          physicianId={physicianId}
-          trial={trialId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+        {chrome}
+        <main className={`${WIDE} flex-1 px-4 py-6 sm:px-8`}>
           <MissingData file="app/_data/anchors.json" />
         </main>
       </>
     );
   }
+
+  const nav = (
+    <DoctorNav
+      physicianId={physicianId}
+      trial={trialId}
+      demo={demo ? demoMode : null}
+      view={view}
+    />
+  );
+
   if (view === "trials") {
     const pairs = [...mine].flatMap((id) => getPairsForPatient(id));
     const studies = new Map((loop?.registry ?? []).map((row) => [row.nctId, row.study] as const));
     const nctIds = [...new Set(pairs.map((pair) => pair.nctId))];
     if (!demo) await fillEnrollment(nctIds, studies);
+    const trials = new Map(getTrials().map((trial) => [trial.nctId, trial]));
     const cards = buildTrialCards({
       pairs,
-      trials: new Map(getTrials().map((trial) => [trial.nctId, trial])),
+      trials,
       studies,
       origin: { lat: physician.lat, lon: physician.lon },
     });
+    const news = trialNews(
+      cards.flatMap((card) => {
+        const study = studies.get(card.nctId);
+        return study ? [{ nctId: card.nctId, title: card.title, study }] : [];
+      }),
+      followUpsByTrial(loop?.nudges ?? [], mine),
+    );
     return (
       <>
-        <DoctorChrome
-          asOf={asOf}
-          demo={demo}
-          demoMode={demoMode}
-          physicianId={physicianId}
-          trial={trialId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
-          <DoctorTabs
-            physicianId={physicianId}
-            trial={trialId}
-            demo={demo ? demoMode : null}
-            view="trials"
-          />
-          <TrialCards
+        {chrome}
+        <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+          {nav}
+          <h1 className="text-[28px] font-semibold text-ink">Trials</h1>
+          <DoctorTrials
+            items={news}
             cards={cards}
-            hrefFor={(nctId) =>
-              doctorQuery({ physicianId, trialId: nctId, demo: demo ? demoMode : null })
-            }
+            hrefFor={(nctId) => doctorQuery({ physicianId, trialId: nctId, demo: demo ? demoMode : null })}
           />
+          {loop ? (
+            <DoctorRetention initial={loop} physicianId={physicianId} patientIds={[...mine]} />
+          ) : null}
           <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
         </main>
       </>
     );
   }
+
   const onTrial = [...mine].flatMap((id) => {
     const pair = getPair(id, trialId);
     return pair ? [pair] : [];
   });
   const scoped = rowsForTrial(mine, ordered, onTrial);
-  const extraIds = new Set(
-    [
-      requested && mine.has(requested) ? requested : undefined,
-      LOOP_FOCUS,
-      DEMO.patientId,
-      ...(loop?.nudges
-        .filter((n) => n.kind === "enrol_patient" && n.status !== "done" && mine.has(n.patientId))
-        .map((n) => n.patientId) ?? []),
-    ].filter((id): id is string => Boolean(id)),
-  );
-  const panel = takePanel(
-    scoped,
-    25,
-    demo && mine.has(DEMO.patientId) ? DEMO.patientId : undefined,
-  );
-  for (const id of extraIds) {
-    if (panel.some((row) => row.patientId === id)) continue;
-    const row = scoped.find((r) => r.patientId === id);
-    if (row) panel.push(row);
-  }
-  if (panel.length === 0) {
-    return (
-      <>
-        <DoctorChrome
-          asOf={asOf}
-          demo={demo}
-          demoMode={demoMode}
-          physicianId={physicianId}
-          trial={trialId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 space-y-6 px-3 py-6 sm:px-6">
-          <DoctorTabs
-            physicianId={physicianId}
-            trial={trialId}
-            demo={demo ? demoMode : null}
-            view="patients"
-          />
-          <p className="text-[15px] text-ink-2">No patients on this trial are on your panel.</p>
-        </main>
-      </>
-    );
-  }
-
-  const patients = getPatients();
-  const composition = panelComposition(panel, scoped, patients);
   const gate = doctorMayOpen(requested, mine);
   if (gate === "open" && requested) {
     redirect(
@@ -187,8 +155,7 @@ export default async function DoctorPage({
     );
   }
   const focusTrial = getTrial(trialId);
-  const leaves = focusTrial ? collectLeaves(focusTrial.criteria) : new Map();
-  const rows: HcpRosterRow[] = panel.map((row) => {
+  const rows: DoctorListRow[] = scoped.map((row, index) => {
     const patient = getPatient(row.patientId);
     const trial = getTrial(row.nctId);
     const pair = getPair(row.patientId, row.nctId);
@@ -199,13 +166,7 @@ export default async function DoctorPage({
     const order = patient && leaf && cell ? orderFor(leaf, cell, patient) : undefined;
     const draft =
       patient && trial && cell && leaf && order && orderCorresponds(leaf, cell, order)
-        ? draftOutreach({
-            patientId: row.patientId,
-            trial,
-            cell,
-            leaf,
-            order,
-          })
+        ? draftOutreach({ patientId: row.patientId, trial, cell, leaf, order })
         : null;
     const card = patient
       ? describeClinic({
@@ -220,72 +181,51 @@ export default async function DoctorPage({
           asOf,
         })
       : describeClinic({
-          patient: {
-            id: row.patientId,
-            age: 0,
-            sex: "unknown",
-            race: "",
-            facts: [],
-          },
+          patient: { id: row.patientId, age: 0, sex: "unknown", race: "", facts: [] },
           nctId: row.nctId,
           trialTitle: trial?.title,
           eliminated: row.eliminated,
           unknownCount: row.unknownCount,
           asOf,
         });
-    const tones = pair ? toneCounts(pair.cells, (id) => leaves.get(id)?.type) : null;
+    const counts = countTrials(row.patientId);
+    const details = patient
+      ? [patient.sex === "unknown" ? "" : patient.sex, patient.race, card.picture].filter(Boolean).join(" · ")
+      : card.picture;
     return {
-      patientId: row.patientId,
-      nctId: row.nctId,
-      ...card,
-      draft,
-      met: tones ? tones.green : null,
-      total: leaves.size || null,
+      key: row.patientId,
+      rank: index + 1,
+      name: card.name,
+      details,
+      trialName: card.trialName,
+      blocker: card.blocker,
       tier: tierLine(row.resolutionTier),
+      blockingType: order?.title ?? card.blocker,
+      close: readiness(row),
+      ...counts,
+      href: doctorChartPath({
+        physicianId,
+        patientId: row.patientId,
+        trialId: row.nctId,
+        demo: demo ? demoMode : null,
+      }),
+      draft,
     };
   });
 
   return (
     <>
-      <DoctorChrome
-        asOf={asOf}
-        demo={demo}
-        demoMode={demoMode}
-        physicianId={physicianId}
-          trial={trialId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
-          <DoctorTabs
-            physicianId={physicianId}
-            trial={trialId}
-            demo={demo ? demoMode : null}
-            view="patients"
-          />
-          <p className="text-[15px] text-ink-2">
-            {trialWords(trialId, focusTrial?.title)}
-          </p>
-        {loop ? (
-          <HcpLive
-            rows={rows}
-            selectedId={undefined}
-            headline={composition.headline}
-            panelShare={composition.panel}
-            admittedShare={composition.admitted}
-            initial={loop}
-            physicianId={physicianId}
-            physicianPatients={[...mine]}
-            demoMode={demo ? demoMode : undefined}
-          />
+      {chrome}
+      <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+        {nav}
+        <div>
+          <h1 className="text-[28px] font-semibold text-ink">My patients</h1>
+          <p className="mt-1 text-[15px] text-ink-2">{trialWords(trialId, focusTrial?.title)}</p>
+        </div>
+        {rows.length === 0 ? (
+          <p className="text-[15px] text-ink-2">No patients on this trial are on your panel.</p>
         ) : (
-          <HcpView
-            rows={rows}
-            selectedId={undefined}
-            headline={composition.headline}
-            panelShare={composition.panel}
-            admittedShare={composition.admitted}
-            physicianId={physicianId}
-            demoMode={demo ? demoMode : undefined}
-          />
+          <DoctorPatients rows={rows} />
         )}
         {gate === "denied" && requested ? <NotYourPatient patientId={requested} /> : null}
         <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
@@ -294,12 +234,63 @@ export default async function DoctorPage({
   );
 }
 
+function DoctorNav({
+  physicianId,
+  trial,
+  demo,
+  view,
+}: {
+  physicianId: string;
+  trial: string;
+  demo: "1" | "static" | null;
+  view: "patients" | "trials";
+}) {
+  const patients = new URLSearchParams();
+  const trials = new URLSearchParams();
+  if (demo) {
+    patients.set("demo", demo);
+    trials.set("demo", demo);
+  }
+  patients.set("physician", physicianId);
+  trials.set("physician", physicianId);
+  if (trial) {
+    patients.set("trial", trial);
+    trials.set("trial", trial);
+  }
+  patients.set("view", "patients");
+  trials.set("view", "trials");
+  const item = (current: boolean) =>
+    `border-b-2 px-1 py-2 text-[15px] ${current ? "border-ink font-medium text-ink" : "border-transparent text-ink-3 hover:text-ink"}`;
+  return (
+    <nav className="flex gap-5" aria-label="Doctor views">
+      <Link href={`/doctor?${trials}`} aria-current={view === "trials" ? "page" : undefined} className={item(view === "trials")}>
+        Trials
+      </Link>
+      <Link href={`/doctor?${patients}`} aria-current={view === "patients" ? "page" : undefined} className={item(view === "patients")}>
+        My patients
+      </Link>
+    </nav>
+  );
+}
+
+function countTrials(patientId: string): { eligible: number; unknown: number; rejected: number } {
+  let eligible = 0;
+  let unknown = 0;
+  let rejected = 0;
+  for (const pair of getPairsForPatient(patientId)) {
+    if (pair.eliminated) rejected += 1;
+    else if (pair.unknownCount === 0) eligible += 1;
+    else unknown += 1;
+  }
+  return { eligible, unknown, rejected };
+}
+
 /** Fill enrollment and sites from ClinicalTrials.gov when the cached snapshot is missing them. */
 async function fillEnrollment(nctIds: string[], studies: Map<string, RegistryStudy>): Promise<void> {
   await Promise.all(
     nctIds.map(async (nctId) => {
       const have = studies.get(nctId);
-      if (have && have.enrollmentCount != null && have.sites.length > 0) return;
+      if (have && have.enrollmentCount != null && have.sites.length > 0 && have.lastUpdatePostDate) return;
       try {
         const fresh = await fetchStudy(nctId);
         if (!fresh) return;
@@ -307,6 +298,8 @@ async function fillEnrollment(nctIds: string[], studies: Map<string, RegistryStu
           ...fresh,
           sites: fresh.sites.length > 0 ? fresh.sites : (have?.sites ?? []),
           enrollmentCount: fresh.enrollmentCount ?? have?.enrollmentCount,
+          lastUpdatePostDate: fresh.lastUpdatePostDate ?? have?.lastUpdatePostDate ?? null,
+          primaryCompletionDate: fresh.primaryCompletionDate ?? have?.primaryCompletionDate ?? null,
         });
       } catch {
         /* the card says the registry record is missing rather than inventing a count */
