@@ -43796,7 +43796,7 @@
           "children": [
             {
               "kind": "leaf",
-              "id": "INC-1",
+              "id": "INC-1-2",
               "type": "inclusion",
               "predicate": "age",
               "operator": ">=",
@@ -43812,7 +43812,7 @@
             },
             {
               "kind": "leaf",
-              "id": "INC-2",
+              "id": "INC-2-2",
               "type": "inclusion",
               "predicate": "age",
               "operator": "<=",
@@ -43846,7 +43846,7 @@
     },
     "sourceText": "Cohort 1: Volunteers\n\nInclusion Criteria:\n\n* Age: Must be \\> 50 years of age\n* Smoking History: Includes individuals with and without a smoking history\n\nCohort 2: ZORALCS-study participants\n\nInclusion Criteria:\n\n* Age: 55-74 years old\n* Smoking History: Includes individuals with a smoking history",
     "citationFlags": [
-      "INC-1 sourceSpan near-verbatim"
+      "INC-1-2 sourceSpan near-verbatim"
     ]
   },
   {

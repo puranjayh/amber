@@ -106,7 +106,7 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
 For prior-therapy drug-class criteria, use operator:"in" with a non-empty resolved members array of concrete drugs. Set value to that same array. Never represent a drug class with == and a bare drugClass; that cannot evaluate a medication history correctly.
-IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. Do not explain your answer.`;
+IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. The batch compiler will suffix a repeated id by source-block position to make it unique across the full trial. Do not explain your answer.`;
 
 function cleanBlock(text: string): string {
   return text.trim().replace(/\r\n/g, "\n");
@@ -150,6 +150,38 @@ function sourceTrial(raw: RawClinicalTrial): Omit<TrialValue, "criteria" | "comp
 function walk(node: CriterionNodeValue, visitor: (value: CriterionNodeValue) => void): void {
   visitor(node);
   if (node.kind === "group") node.children.forEach((child) => walk(child, visitor));
+}
+
+/**
+ * Eligibility headings can repeat for protocol cohorts. The model numbers each
+ * heading locally, but engine cells are keyed trial-wide, so preserve source order
+ * and suffix only subsequent occurrences (INC-1, INC-1-2, INC-1-3, ...).
+ */
+export function uniquifyCriterionNodeIds(
+  node: CriterionNodeValue,
+  usedIds: Set<string>,
+): { node: CriterionNodeValue; renamedIds: Map<string, string> } {
+  const renamedIds = new Map<string, string>();
+  const visit = (current: CriterionNodeValue): CriterionNodeValue => {
+    if (current.kind === "group") return { ...current, children: current.children.map(visit) };
+    const originalId = current.id;
+    let uniqueId = originalId;
+    let suffix = 2;
+    while (usedIds.has(uniqueId)) uniqueId = `${originalId}-${suffix++}`;
+    usedIds.add(uniqueId);
+    if (uniqueId !== originalId) renamedIds.set(originalId, uniqueId);
+    return uniqueId === originalId ? current : { ...current, id: uniqueId };
+  };
+  return { node: visit(node), renamedIds };
+}
+
+function renameFlagIds(reasons: string[], renamedIds: Map<string, string>): string[] {
+  return reasons.map((reason) => {
+    for (const [originalId, uniqueId] of renamedIds) {
+      if (reason.startsWith(`${originalId} `)) return `${uniqueId}${reason.slice(originalId.length)}`;
+    }
+    return reason;
+  });
 }
 
 function containsOr(node: CriterionNodeValue): boolean {
@@ -492,14 +524,16 @@ export async function compileTrial(
   const issues: string[] = [];
   const reviewReasons: string[] = [];
   const citationFlags: string[] = [];
+  const usedIds = new Set<string>();
   for (const block of extractEligibilityBlocks(sourceText)) {
     try {
       const candidate = await compileBlock(block);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
       else {
-        criteria.push(checked.data);
-        const partitioned = partitionReviewFlags(checked.reviewReasons);
+        const unique = uniquifyCriterionNodeIds(checked.data, usedIds);
+        criteria.push(unique.node);
+        const partitioned = partitionReviewFlags(renameFlagIds(checked.reviewReasons, unique.renamedIds));
         reviewReasons.push(...partitioned.semanticReasons);
         citationFlags.push(...partitioned.citationFlags);
       }

@@ -244,3 +244,19 @@ test("records citation granularity without excluding an otherwise valid tree fro
   expect(result.reviewReasons).toBeUndefined();
   expect(result.citationFlags).toEqual(["INC-1 sourceSpan near-verbatim"]);
 });
+
+test("suffixes model-local ids when cohort headings repeat inside one trial", async () => {
+  const cohorts: RawClinicalTrial = {
+    ...raw,
+    protocolSection: {
+      ...raw.protocolSection,
+      eligibilityModule: { eligibilityCriteria: "Cohort 1\nInclusion Criteria:\n- Age at least 50.\n\nCohort 2\nInclusion Criteria:\n- Age at least 55." },
+    },
+  };
+  const result = await compileTrial(cohorts, async (block) => ({
+    kind: "leaf", id: "INC-1", type: block.type === "unknown" ? "inclusion" : block.type,
+    predicate: "age", operator: ">=", value: block.sourceText.includes("55") ? 55 : 50,
+    tier: 1, sweepable: true, sweepRange: [0, 120], sweepStep: 1, sourceSpan: block.sourceText,
+  }));
+  expect(result.trial.criteria.map((node) => node.kind === "leaf" ? node.id : "group")).toEqual(["INC-1", "INC-1-2"]);
+});
