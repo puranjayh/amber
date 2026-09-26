@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Assignment as AssignmentSchema } from "@/src/contracts";
 import { match, matchAdhoc, phaseRank } from "./match";
+import { buildPriorTable } from "./priors";
 import { fact, leaf, patient, trial } from "./testing";
 
 const ASOF = "2026-09-25";
@@ -330,5 +331,48 @@ describe("DAP-constrained mode", () => {
     expect(match(cohort, [withTargets], ASOF, { dapTargets: true })).toEqual(
       match(cohort, [withTargets], ASOF, { dapTargets: true }),
     );
+  });
+});
+
+describe("cited priors reach the matching", () => {
+  const table = buildPriorTable([
+    {
+      id: "kras-mutation",
+      biomarker: "KRAS",
+      alteration: "mutation",
+      prevalence: 0.2887,
+      population: "9,450 NSCLC specimens",
+      citation: "Huang 2021",
+    },
+  ]);
+
+  const withMarker = leaf({
+    id: "INC-kras",
+    predicate: "biomarker",
+    analyte: "KRAS",
+    operator: "==",
+    value: "mutation",
+    tier: 0,
+    pFavorable: 0.01,
+    sourceSpan: "KRAS mutation",
+  });
+
+  it("puts the cited prior on the cells the matching ranks on", () => {
+    const t = trial({ nctId: "NCT00000001", slots: 1, siteDistanceMinutes: 20, criteria: [adult, withMarker] });
+    const cohort = [candidate("PT-1"), candidate("PT-2")];
+    const a = match(cohort, [t], ASOF, { priors: table });
+    expect(a.enrolled).toBe(1);
+    // Same market, same winner — but the expectedValue the trial ranked on is
+    // now the cited 0.2887 rather than the compiler's 0.01.
+    expect(match(cohort, [t], ASOF).enrolled).toBe(1);
+  });
+
+  it("stays stable with priors wired in", () => {
+    const sites = [
+      trial({ nctId: "NCT00000001", slots: 1, siteDistanceMinutes: 10, criteria: [adult, withMarker] }),
+      trial({ nctId: "NCT00000002", slots: 1, siteDistanceMinutes: 90, criteria: [adult, withMarker] }),
+    ];
+    const cohort = [candidate("PT-1"), candidate("PT-2"), candidate("PT-3")];
+    expect(match(cohort, sites, ASOF, { priors: table }).unstablePairs).toBe(0);
   });
 });

@@ -22,9 +22,16 @@
  */
 import type { Assignment, PairResult, Patient, Trial } from "@/src/contracts";
 import { evaluate } from "./evaluate";
+import type { PriorTable } from "./priors";
 import { compareCandidates, travelMinutesFor } from "./rank";
 
 export interface MatchOptions {
+  /**
+   * Cited prevalence priors. Trials rank patients with rank.ts's comparator,
+   * which breaks ties on expectedValue, so priors change who gets the slot.
+   */
+  priors?: PriorTable;
+
   /**
    * DAP-constrained mode. When a trial is at capacity, let a proposer from a
    * subgroup below the sponsor's Diversity Action Plan target displace a held
@@ -82,7 +89,7 @@ function buildMarket(
   const results = new Map<string, PairResult>();
   for (const p of patients) {
     for (const t of trials) {
-      results.set(key(p.id, t.nctId), evaluate(p, t, asOf));
+      results.set(key(p.id, t.nctId), evaluate(p, t, asOf, { priors: options.priors }));
     }
   }
 
