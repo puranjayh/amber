@@ -1,6 +1,6 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 12:12 ET
+Last updated: 2026-09-26 14:10 ET
 
 ## Done
 
@@ -18,8 +18,8 @@ Previous queue (landscape → README) still stands.
 17. **Published cube is a subset** — worklist pairs + every patient on the presentation trial.
 18. **`/payer` on the real extract** — 1,296 DE-SynPUF × 133 protocols. Claims settle 98 of 1,296.
 19. **Smoke** — main flow mounts against published `app/_data/*.json`.
-20. **Restructure** — trial portal nav is Patients · Physicians · Elasticity · Payer. `/hcp` and `/patient-portal` are separate portals. Eval / Preflight are utility links, not tabs. `/patient`, `/alert`, `/equity` redirect to `/hcp`. `/landscape` and `/market` redirect to `/elasticity`.
-21. **`/hcp`** — Impiricus physician panel. Top 25 by `rank()`, checkboxes + draft outreach (never sent), equity composition vs admitted, per-patient group-hit marks. Click opens the criteria table with both citations. `/patient`, `/alert`, `/equity` redirect here.
+20. **Restructure** — switcher above the tabs: Trial portal · Doctor portal · Patient portal. Trial tabs stay Worklist · HCP · Elasticity · Payer. `/hcp` is the coordinator's physician roster. `/doctor` is that doctor's own patients and nudges. `/alert` and `/equity` redirect to `/doctor`. `/patient` redirects to the coordinator patient page. `/landscape` and `/market` redirect to `/elasticity`.
+21. **Patient detail stays in its portal** — `/worklist/patient/[id]` is the coordinator's chart: shared criteria table, both citations, every unknown with its tier and order, the treating physician, Nudge or Ask. No suggest. `/doctor?patient=` is the physician's pane: same criteria table, trials ranked by worth, Suggest / Order / Dismiss. A patient id that is not on the signed-in panel renders "Not your patient" and no chart. The signed-in physician is `?physician=`, never inferred from the patient id.
 22. **`/elasticity`** — one scroll: analyte picker + precomputed slider, corpus distribution (“233 real protocols, 5,105 criteria, no consensus.”), three-trial / six-patient market cut (first-come vs stable). `/landscape` and `/market` redirect here.
 23. **`/patient-portal`** — four questions only. Off the main nav. Answers live in `localStorage`.
 24. **`/eval`** — reads `data/eval/results.human.json` (30 cells, 83.3% precision, 91.7% recall). Both disagreements named: SYN-19ad9612 INC-2, human UNKNOWN/stale, engine FAIL. Model-draft `app/_data/eval.json` is a separate, labelled section and is never merged in.

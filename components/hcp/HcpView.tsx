@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { doctorQuery } from "./access";
 import type { OutreachDraft } from "./outreach";
 import type { GroupHit } from "./panel";
 import { pct } from "./race";
@@ -29,16 +30,16 @@ export function HcpView({
   headline,
   panelShare,
   admittedShare,
-  demo = false,
   physicianId,
+  demoMode,
 }: {
   rows: HcpRosterRow[];
   selectedId?: string;
   headline: string;
   panelShare: Record<string, number>;
   admittedShare: Record<string, number>;
-  demo?: boolean;
-  physicianId?: string;
+  physicianId: string;
+  demoMode?: "1" | "static";
 }) {
   const id = panelKey(rows);
   const [held, setHeld] = useState({ id, checked: [] as string[] });
@@ -144,13 +145,7 @@ export function HcpView({
                   className="mt-1"
                 />
                 <Link
-                  href={
-                    demo
-                      ? `/hcp?demo=1&patient=${encodeURIComponent(row.patientId)}`
-                      : `/hcp?patient=${encodeURIComponent(row.patientId)}${
-                          physicianId ? `&physician=${encodeURIComponent(physicianId)}` : ""
-                        }`
-                  }
+                  href={doctorQuery({ physicianId, patientId: row.patientId, demo: demoMode ?? null })}
                   aria-current={current ? "page" : undefined}
                   className="min-w-0 flex-1 text-left hover:text-ink"
                 >

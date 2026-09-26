@@ -115,12 +115,15 @@ export function Worklist({
   onSelect,
   selectedId,
   advanceTo,
+  demo = false,
 }: {
   rows: WorklistItem[];
   onSelect?: (row: WorklistItem) => void;
   selectedId?: string;
   /** When set, rows are buttons that ask DemoShell to reveal this beat. */
   advanceTo?: number;
+  /** Static demo keeps the coordinator on the trial portal without the live loop. */
+  demo?: boolean;
 }) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
@@ -205,7 +208,10 @@ export function Worklist({
                   {body}
                 </button>
               ) : (
-                <Link href={`/hcp?patient=${row.patientId}`} className={cls}>
+                <Link
+                  href={`/worklist/patient/${encodeURIComponent(row.patientId)}${demo ? "?demo=static" : ""}`}
+                  className={cls}
+                >
                   {body}
                 </Link>
               )}

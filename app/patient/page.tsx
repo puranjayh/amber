@@ -8,8 +8,10 @@ export default async function PatientRedirect({
 }) {
   const sp = await searchParams;
   const patient = one(sp.patient);
+  if (!patient) redirect("/");
   const qs = new URLSearchParams();
-  if (isDemo(sp)) qs.set("demo", "1");
-  if (patient) qs.set("patient", patient);
-  redirect(qs.size ? `/hcp?${qs}` : "/hcp");
+  if (isDemo(sp)) qs.set("demo", one(sp.demo) === "static" ? "static" : "1");
+  const trial = one(sp.trial);
+  if (trial) qs.set("trial", trial);
+  redirect(`/worklist/patient/${encodeURIComponent(patient)}${qs.size ? `?${qs}` : ""}`);
 }

@@ -34,8 +34,9 @@ import { tryBuildSweep } from "@/components/elasticity/sweep";
 import { EvalView } from "@/components/eval/EvalView";
 import { draftOutreach } from "@/components/hcp/outreach";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
-import { HcpChrome } from "@/components/hcp/HcpChrome";
+import { HcpPhysician } from "@/components/hcp/HcpPhysician";
 import { HcpView } from "@/components/hcp/HcpView";
+import { PortalSwitcher } from "@/components/console/PortalSwitcher";
 import { compositionHeadline, raceLabel } from "@/components/hcp/race";
 import { hitForPair, panelComposition, takePanel } from "@/components/hcp/panel";
 import { PortalForm } from "@/components/hcp/PortalForm";
@@ -88,6 +89,8 @@ test("/worklist mounts against published worklist.json", () => {
   );
   expect(markup).toContain("pairs evaluated");
   expect(markup).toContain("PT-4401");
+  expect(markup).toContain("/worklist/patient/");
+  expect(markup).not.toContain("/doctor?patient=");
 });
 
 test("/worklist live first paint ranks the focus patient at #47 until preferences arrive", () => {
@@ -138,7 +141,7 @@ test("/worklist physicians tab mounts a roster with assigned labels and a readin
   expect(attributions.every((a) => a.source === "assigned")).toBe(true);
   const markup = html(
     createElement("div", null, [
-      createElement(ConsoleHeader, { key: "t", asOf: "2026-09-25", active: "physicians" }),
+      createElement(ConsoleHeader, { key: "h", asOf: "2026-09-25", active: "hcp" }),
       createElement(Physicians, {
         key: "p",
         rows,
@@ -148,31 +151,35 @@ test("/worklist physicians tab mounts a roster with assigned labels and a readin
       }),
     ]),
   );
-  expect(markup).toContain("Physicians");
-  expect(markup).toContain("Patients");
+  expect(markup).toContain(">HCP<");
   expect(markup).toContain("Aisha Rahman");
   expect(markup).toContain("trial-ready");
   expect(markup).toContain("assigned");
   expect(markup).toContain("eligible now");
   expect(markup).toContain("Select all");
-  expect(markup).toContain("Open Dr Rahman");
+  expect(markup).toContain("Open in doctor portal");
+  expect(markup).toContain("Medical oncology");
+  expect(markup).toContain("/worklist/patient/");
+  expect(markup).not.toContain("/doctor?patient=");
 });
 
-test("trial portal nav is Patients · Physicians · Elasticity · Payer — not the old Worklist/HCP tabs", () => {
-  const consoleNav = html(createElement(ConsoleHeader, { asOf: "2026-09-25", active: "patients" }));
-  expect(consoleNav).toContain("Trial portal");
-  expect(consoleNav).toContain("Patients");
-  expect(consoleNav).toContain("Physicians");
+test("trial tabs stay Worklist · HCP · Elasticity · Payer; the switcher is a different app", () => {
+  const consoleNav = html(createElement(ConsoleHeader, { asOf: "2026-09-25", active: "worklist" }));
+  expect(consoleNav).toContain("Worklist");
+  expect(consoleNav).toContain("HCP");
   expect(consoleNav).toContain("Elasticity");
   expect(consoleNav).toContain("Payer");
-  expect(consoleNav).not.toContain("Worklist");
+  expect(consoleNav).toContain("Trial portal");
+  expect(consoleNav).toContain("Doctor portal");
+  expect(consoleNav).toContain("Patient portal");
   expect(consoleNav).not.toContain("Deep dives");
-  expect(consoleNav).not.toMatch(/>HCP</);
-  const doctor = html(createElement(HcpChrome, { asOf: "2026-09-25" }));
-  expect(doctor).toContain("IMPIRICUS");
-  expect(doctor).toContain("Physician portal");
-  expect(doctor).not.toContain("Worklist");
-  expect(doctor).not.toContain("Trial portal");
+  const doctor = html(createElement(PortalSwitcher, { current: "doctor" }));
+  expect(doctor).toContain('href="/doctor"');
+  const signedIn = html(createElement(HcpPhysician, { physicianId: "hcp-rahman" }));
+  expect(signedIn).toContain("Signed in as");
+  expect(signedIn).toContain("Aisha Rahman");
+  expect(signedIn).not.toContain("Okonkwo");
+  expect(signedIn).not.toContain("Vasquez");
 });
 
 test("/hcp is the top 25 by rank with equity and drafts", () => {
@@ -218,12 +225,16 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
       headline: composition.headline,
       panelShare: composition.panel,
       admittedShare: composition.admitted,
+      physicianId: "hcp-rahman",
     }),
   );
   expect(markup).toContain("My patients");
   expect(markup).toContain("Impiricus");
   expect(markup).toContain("Draft outreach");
   expect(markup).toContain(DEMO.patientId);
+  expect(markup).toContain("/doctor?physician=hcp-rahman");
+  expect(markup).not.toContain("/hcp?patient=");
+  expect(markup).not.toContain("Suggest this trial");
 });
 
 test("/hcp criteria table still carries both citations on a compiled-trial pair", () => {

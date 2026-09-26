@@ -213,6 +213,20 @@ export const getTrial = (nctId: string) => getTrials().find((t) => t.nctId === n
 export const getPatient = (id: string) => getPatients().find((p) => p.id === id);
 export const getPair = (patientId: string, nctId: string) =>
   getCube().find((p) => p.patientId === patientId && p.nctId === nctId);
+
+let pairsByPatient: Map<string, PairResult[]> | undefined;
+
+export function getPairsForPatient(patientId: string): PairResult[] {
+  if (!pairsByPatient) {
+    pairsByPatient = new Map();
+    for (const pair of getCube()) {
+      const list = pairsByPatient.get(pair.patientId) ?? [];
+      list.push(pair);
+      pairsByPatient.set(pair.patientId, list);
+    }
+  }
+  return pairsByPatient.get(patientId) ?? [];
+}
 export const getSweep = (nctId: string, criterionId: string) =>
   getSweeps().find((s) => s.nctId === nctId && s.criterionId === criterionId);
 export const getEquity = (nctId: string) => loadEquity().find((e) => e.nctId === nctId);

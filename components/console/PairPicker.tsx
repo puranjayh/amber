@@ -56,7 +56,7 @@ export function PairPicker({
                 return (
                   <td key={nct} className="px-1 py-1 text-center">
                     <Link
-                      href={`/patient?patient=${pid}&trial=${nct}`}
+                      href={`/worklist/patient/${encodeURIComponent(pid)}?trial=${encodeURIComponent(nct)}`}
                       aria-current={active ? "page" : undefined}
                       aria-label={`${pid} × ${nct}: ${pairLabel(pair)}`}
                       className={`inline-block w-full min-w-[4.5rem] rounded border px-1.5 py-1 font-mono ${pairTone(pair)} ${

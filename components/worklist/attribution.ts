@@ -15,6 +15,7 @@ export type PatientPhysician = {
   physicianId: string;
   name: string;
   talk: string;
+  specialty?: string;
   site: string;
   source: AttributionSource;
   observedId?: string;
@@ -80,6 +81,7 @@ export function attributeFromObserved(
       physicianId: hit.id,
       name,
       talk: doctorTalk(name),
+      specialty: known?.specialty,
       site: hit.site || known?.site || "Observed from claims / Synthea",
       source: "observed",
       observedId: hit.id,
@@ -92,6 +94,7 @@ export function attributeFromObserved(
     physicianId,
     name: physician.name,
     talk: doctorTalk(physician.name),
+    specialty: physician.specialty,
     site: physician.site,
     source: "assigned",
   };

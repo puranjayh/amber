@@ -24,6 +24,7 @@ const CANDIDATE_PORTS = [PORT, 3100, 3000];
 const ROUTES: { name: string; path: string }[] = [
   { name: "worklist", path: "/" },
   { name: "hcp", path: "/hcp?demo=1" },
+  { name: "doctor", path: "/doctor?demo=1" },
   { name: "elasticity", path: "/elasticity?demo=1" },
   { name: "payer", path: "/payer?demo=1" },
   { name: "eval", path: "/eval" },

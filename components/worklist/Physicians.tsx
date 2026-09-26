@@ -35,11 +35,13 @@ export function Physicians({
   attributions,
   initial,
   live,
+  demoMode,
 }: {
   rows: WorklistItem[];
   attributions: PatientPhysician[];
   initial: LoopState | null;
   live: boolean;
+  demoMode?: "1" | "static";
 }) {
   const { state, apply } = useLoop(initial ?? { backend: "file", preferences: [], nudges: [], notes: [] }, live);
   const prefs = prefsByPatient(state.preferences);
@@ -88,7 +90,10 @@ export function Physicians({
             >
               <span className="flex flex-wrap items-baseline justify-between gap-x-3">
                 <span className="text-[14px] font-medium text-ink">{doc.name}</span>
-                <span className="font-mono text-[11px] text-ink-3">{doc.site}</span>
+                <span className="font-mono text-[11px] text-ink-3">
+                  {doc.specialty ? `${doc.specialty} · ` : ""}
+                  {doc.site}
+                </span>
               </span>
               <span className="text-[12px] text-ink-2">
                 {mine.length} on panel · {ready} trial-ready
@@ -134,10 +139,10 @@ export function Physicians({
                     </button>
                   )}
                   <Link
-                    href={`/hcp?physician=${encodeURIComponent(doc.physicianId)}`}
+                    href={`/doctor?physician=${encodeURIComponent(doc.physicianId)}`}
                     className="text-[12px] text-ink underline-offset-2 hover:underline"
                   >
-                    Open {doc.talk}&apos;s portal
+                    Open in doctor portal
                   </Link>
                 </div>
 
@@ -223,7 +228,14 @@ export function Physicians({
                         <div className="min-w-0 flex-1">
                           <p className="font-mono text-[12px] text-ink">
                             #{(place.get(row.patientId) ?? 0) + 1}{" "}
-                            {row.patientId.length > 18 ? `${row.patientId.slice(0, 16)}…` : row.patientId}
+                            <Link
+                              href={`/worklist/patient/${encodeURIComponent(row.patientId)}${
+                                demoMode ? `?demo=${demoMode}` : ""
+                              }`}
+                              className="hover:underline"
+                            >
+                              {row.patientId.length > 18 ? `${row.patientId.slice(0, 16)}…` : row.patientId}
+                            </Link>
                             <span className="text-ink-3">
                               {" "}
                               · {row.favourable}/{row.total} · {row.unknownCount}?
