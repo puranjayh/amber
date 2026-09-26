@@ -15,6 +15,10 @@
  *   federated   per-site counts and curves, with small-cell suppression
  *   setcover    which tests to order, under a budget
  *
+ * bench.ts holds seeded synthetic data and the cube runner for the scale
+ * benchmark. It is deliberately not re-exported here: those patients measure
+ * throughput and are never demo data (contract §9).
+ *
  * On the polarity of an exclusion cell's verdict, read the header of
  * evaluate.ts and the note in docs/HANDOFF.md before rendering anything: use
  * `eligibilityVerdict()` for display.

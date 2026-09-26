@@ -45,7 +45,7 @@ import {
 } from "@/src/contracts";
 import { combine, not } from "./kleene";
 import { ceilingFor, explainCeiling, type ProvenanceNote } from "./provenance";
-import { ageInDays, daysBetween } from "./time";
+import { ageInDays, daysBetween, parseIsoDate } from "./time";
 
 /* ------------------------------------------------------------------ options */
 
@@ -133,7 +133,93 @@ const norm = (s: string): string => s.trim().toLowerCase();
  * calendar needs the date-bearing facts behind a time-bound criterion.
  */
 export function matchingFacts(leaf: CriterionLeaf, patient: Patient): Fact[] {
-  return patient.facts.filter((f) => factMatchesLeaf(leaf, f));
+  return relevantFacts(leaf, patient).map((e) => e.fact);
+}
+
+/* ------------------------------------------------------------- fact indexing */
+
+/**
+ * A patient's facts bucketed by the questions they answer, newest first.
+ *
+ * Without this, every leaf rescans and re-sorts the whole record: a 300-trial
+ * cube over 20-criterion protocols is ~17 scans of ~13 facts per pair, which
+ * dominates the run. Bucketing once per patient turns that into a map lookup.
+ */
+/** A fact with its observation date already parsed. */
+interface IndexedFact {
+  fact: Fact;
+  /** UTC-midnight millis, or null when `observedAt` is not a date. */
+  at: number | null;
+}
+
+interface FactIndex {
+  byPredicate: Map<Predicate, IndexedFact[]>;
+  /** `predicate|analyte`, lower-cased. */
+  byAnalyte: Map<string, IndexedFact[]>;
+}
+
+/**
+ * Memoised on the patient object. Purely a cache — same patient, same index —
+ * and a WeakMap so a cohort can be collected normally. It pays for itself many
+ * times over because every read model evaluates the same patient against many
+ * trials, and the elasticity sweep does it once per threshold.
+ *
+ * The one requirement: do not mutate `patient.facts` in place after evaluating.
+ * Nothing in the engine does, and the contract treats facts as extracted
+ * evidence rather than mutable state.
+ */
+const FACT_INDEX = new WeakMap<Patient, FactIndex>();
+
+const NO_FACTS: readonly IndexedFact[] = [];
+
+function factIndex(patient: Patient): FactIndex {
+  const cached = FACT_INDEX.get(patient);
+  if (cached !== undefined) return cached;
+
+  // Newest first, undated last: the order every leaf wants, established once.
+  const ordered: IndexedFact[] = patient.facts
+    .map((fact, i) => ({ fact, at: parseIsoDate(fact.observedAt), i }))
+    .sort((a, b) => {
+      if (a.at === null) return b.at === null ? a.i - b.i : 1;
+      if (b.at === null) return -1;
+      return b.at - a.at || a.i - b.i;
+    });
+
+  const index: FactIndex = { byPredicate: new Map(), byAnalyte: new Map() };
+  for (const entry of ordered) {
+    const { fact } = entry;
+    const list = index.byPredicate.get(fact.predicate);
+    if (list === undefined) index.byPredicate.set(fact.predicate, [entry]);
+    else list.push(entry);
+
+    if (fact.analyte !== undefined) {
+      const key = `${fact.predicate}|${norm(fact.analyte)}`;
+      const byKey = index.byAnalyte.get(key);
+      if (byKey === undefined) index.byAnalyte.set(key, [entry]);
+      else byKey.push(entry);
+    }
+  }
+  FACT_INDEX.set(patient, index);
+  return index;
+}
+
+/** The facts that speak to this leaf, newest first. Avoids copying where it can. */
+function relevantFacts(leaf: CriterionLeaf, patient: Patient): readonly IndexedFact[] {
+  const index = factIndex(patient);
+  const key = leafCache(leaf).bucketKey;
+  const bucket =
+    key !== null ? index.byAnalyte.get(key) : index.byPredicate.get(leaf.predicate);
+  if (bucket === undefined) return NO_FACTS;
+
+  // A fact that declares a drug class must match the leaf's; see factMatchesLeaf.
+  const wanted = leafCache(leaf).drugClass;
+  if (wanted === null) return bucket;
+  if (!bucket.some((e) => e.fact.drugClass !== undefined && norm(e.fact.drugClass) !== wanted)) {
+    return bucket;
+  }
+  return bucket.filter(
+    (e) => e.fact.drugClass === undefined || norm(e.fact.drugClass) === wanted,
+  );
 }
 
 function factMatchesLeaf(leaf: CriterionLeaf, fact: Fact): boolean {
@@ -176,10 +262,66 @@ function demographicAgeFact(patient: Patient, asOf: string): Fact {
 
 /* ---------------------------------------------------------- the comparisons */
 
+/**
+ * Everything derived from a leaf that does not depend on the patient, computed
+ * once per criterion instead of once per patient per criterion.
+ *
+ * Lower-casing a drug-class list, building the bucket key and normalising units
+ * were each a measurable share of a full cube run — 300 trials over a few
+ * thousand patients re-derives them millions of times, and they belong to the
+ * criterion, not to the comparison.
+ */
+interface LeafCache {
+  /** `predicate|analyte` for the fact index, or null when the leaf has no analyte. */
+  bucketKey: string | null;
+  drugClass: string | null;
+  unit: string | null;
+  /** Membership list for in / not_in. Null when the compiler gave us no list. */
+  members: ReadonlySet<string> | null;
+}
+
+const LEAF_CACHE = new WeakMap<CriterionLeaf, LeafCache>();
+
+function leafCache(leaf: CriterionLeaf): LeafCache {
+  const cached = LEAF_CACHE.get(leaf);
+  if (cached !== undefined) return cached;
+  const list = Array.isArray(leaf.value) ? leaf.value : leaf.members;
+  const built: LeafCache = {
+    bucketKey: leaf.analyte === undefined ? null : `${leaf.predicate}|${norm(leaf.analyte)}`,
+    drugClass: leaf.drugClass === undefined ? null : norm(leaf.drugClass),
+    unit: leaf.unit === undefined ? null : norm(leaf.unit),
+    members: list === undefined || list.length === 0 ? null : new Set(list.map(norm)),
+  };
+  LEAF_CACHE.set(leaf, built);
+  return built;
+}
+
+/**
+ * `asOf` parsed, remembered one value deep.
+ *
+ * A cube run uses a single `asOf` for millions of staleness checks, and parsing
+ * a date is a regex plus a round-trip through `Date`. The calendar alternates
+ * between two values, which this still handles; anything with no locality just
+ * pays the parse it would have paid anyway.
+ */
+let lastAsOf = "\u0000";
+let lastAsOfMs: number | null = null;
+
+function asOfMillis(asOf: string): number | null {
+  if (asOf !== lastAsOf) {
+    lastAsOf = asOf;
+    lastAsOfMs = parseIsoDate(asOf);
+  }
+  return lastAsOfMs;
+}
+
+const MS_PER_DAY = 86_400_000;
+
 /** A unit mismatch is not converted, it is refused. Contract rule 5. */
 function unitsComparable(leaf: CriterionLeaf, fact: Fact): boolean {
-  if (leaf.unit === undefined || fact.unit === undefined) return true;
-  return norm(leaf.unit) === norm(fact.unit);
+  const wanted = leafCache(leaf).unit;
+  if (wanted === null || fact.unit === undefined) return true;
+  return wanted === norm(fact.unit);
 }
 
 function asNumber(v: unknown): number | null {
@@ -249,18 +391,17 @@ function satisfies(leaf: CriterionLeaf, fact: Fact, asOf: string): boolean | nul
   switch (leaf.operator) {
     case "in":
     case "not_in": {
-      const list = Array.isArray(leaf.value) ? leaf.value : leaf.members;
-      if (list === undefined || list.length === 0) return null;
-      const hay = list.map(norm);
+      const hay = leafCache(leaf).members;
+      if (hay === null) return null;
       // Three ways the fact can land in the class: it names a member drug, it
       // names the class itself, or it declares the class the compiler resolved
       // via RxNorm. Records say "unnamed EGFR TKI" more often than you would
       // like, and that still answers the question.
       const hit =
-        hay.includes(norm(String(fact.value))) ||
+        hay.has(norm(String(fact.value))) ||
         (fact.drugClass !== undefined &&
-          (hay.includes(norm(fact.drugClass)) ||
-            (leaf.drugClass !== undefined && norm(fact.drugClass) === norm(leaf.drugClass))));
+          (hay.has(norm(fact.drugClass)) ||
+            norm(fact.drugClass) === leafCache(leaf).drugClass));
       return leaf.operator === "in" ? hit : !hit;
     }
 
@@ -303,10 +444,11 @@ export function evaluateLeaf(
   patient: Patient,
   asOf: string,
 ): LeafOutcome {
-  let candidates: Fact[] = patient.facts.filter((f) => factMatchesLeaf(leaf, f));
+  let candidates: readonly IndexedFact[] = relevantFacts(leaf, patient);
 
   if (candidates.length === 0 && leaf.predicate === "age") {
-    candidates = [demographicAgeFact(patient, asOf)];
+    const synthetic = demographicAgeFact(patient, asOf);
+    candidates = [{ fact: synthetic, at: parseIsoDate(synthetic.observedAt) }];
   }
 
   // Nothing in the record answers this. The whole project: UNKNOWN, never FAIL.
@@ -314,14 +456,14 @@ export function evaluateLeaf(
     return { verdict: "UNKNOWN", reason: "absent" };
   }
 
-  const dated: DatedFact[] = candidates
-    .map((fact) => ({ fact, ageDays: ageInDays(fact.observedAt, asOf) }))
-    .sort((a, b) => {
-      // Newest first. An undated fact sorts last: it cannot be shown to be recent.
-      if (a.ageDays === null) return b.ageDays === null ? 0 : 1;
-      if (b.ageDays === null) return -1;
-      return a.ageDays - b.ageDays;
-    });
+  // Already newest-first, undated last, from the index — no sort and no date
+  // parsing per leaf. Ages are subtraction, clamped as `ageInDays` clamps.
+  const now = asOfMillis(asOf);
+  const dated: DatedFact[] = candidates.map(({ fact, at }) => ({
+    fact,
+    ageDays:
+      at === null || now === null ? null : Math.max(0, Math.round((now - at) / MS_PER_DAY)),
+  }));
 
   // A fact with no usable date can only count when the leaf has no window at all.
   const fresh = dated.filter(({ ageDays }) => {
