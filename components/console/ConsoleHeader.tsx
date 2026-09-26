@@ -2,18 +2,19 @@ import Link from "next/link";
 
 const NAV = [
   { href: "/", key: "worklist", label: "Worklist" },
-  { href: "/patient", key: "patient", label: "Patient" },
-  { href: "/alert", key: "alert", label: "Alert" },
   { href: "/hcp", key: "hcp", label: "HCP" },
   { href: "/elasticity", key: "elasticity", label: "Elasticity" },
-  { href: "/equity", key: "equity", label: "Equity" },
-  { href: "/market", key: "market", label: "Market" },
-  { href: "/landscape", key: "landscape", label: "Landscape" },
   { href: "/payer", key: "payer", label: "Payer" },
-  { href: "/eval", key: "eval", label: "Eval" },
 ] as const;
 
-export type NavKey = (typeof NAV)[number]["key"];
+/** Reachable, but not part of the demo walkthrough. */
+const DEEP_DIVES = [
+  { href: "/patient-portal", key: "patient-portal", label: "Patient portal" },
+  { href: "/eval", key: "eval", label: "Eval" },
+  { href: "/preflight", key: "preflight", label: "Preflight" },
+] as const;
+
+export type NavKey = (typeof NAV)[number]["key"] | (typeof DEEP_DIVES)[number]["key"] | "patient" | "alert" | "equity" | "market" | "landscape";
 
 export function ConsoleHeader({
   asOf,
@@ -65,6 +66,21 @@ export function ConsoleHeader({
             </Link>
           );
         })}
+        <span className="ml-auto flex shrink-0 items-center gap-2 pl-3">
+          <span className="text-[10px] text-ink-3 sm:text-[11px]">deep dives</span>
+          {DEEP_DIVES.map((item) => (
+            <Link
+              key={item.key}
+              href={item.href}
+              aria-current={item.key === active ? "page" : undefined}
+              className={`shrink-0 whitespace-nowrap text-[10px] sm:text-[11px] ${
+                item.key === active ? "text-ink" : "text-ink-3 hover:text-ink"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </span>
       </nav>
     </header>
   );
