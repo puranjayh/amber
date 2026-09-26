@@ -1,0 +1,282 @@
+
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.4 20241031//EN" "JATS-archivearticle1-4-mathml3.dtd">
+<article id="rcr21277" xml:lang="en" article-type="case-report" dtd-version="1.4"><processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats"><restricted-by>pmc</restricted-by></processing-meta><front><journal-meta><journal-id journal-id-type="nlm-ta">Respirol Case Rep</journal-id><journal-id journal-id-type="iso-abbrev">Respirol Case Rep</journal-id><journal-id journal-id-type="pmc-domain-id">2562</journal-id><journal-id journal-id-type="pmc-domain">respcasrep</journal-id><journal-id journal-id-type="nlm-id">101631052</journal-id><journal-id journal-id-type="publisher-id">RCR2</journal-id><journal-title-group><journal-title>Respirology Case Reports</journal-title></journal-title-group><issn pub-type="epub">2051-3380</issn><?publisher_abbrev blackwell?><publisher><publisher-name>Wiley</publisher-name></publisher></journal-meta><article-meta><article-id pub-id-type="pmcid">PMC10807985</article-id><article-id pub-id-type="pmcid-ver">PMC10807985.1</article-id><article-id pub-id-type="pmcaid">10807985</article-id><article-id pub-id-type="pmcaiid">10807985</article-id><article-id pub-id-type="pmid">38269311</article-id><article-id pub-id-type="doi">10.1002/rcr2.1277</article-id><article-id pub-id-type="publisher-id">RCR21277</article-id><article-version article-version-type="pmc-version">1</article-version><article-categories><subj-group subj-group-type="overline"><subject>Case Report</subject></subj-group><subj-group subj-group-type="heading"><subject>Case Reports</subject></subj-group></article-categories><title-group><article-title>Successful dabrafenib and trametinib combination therapy in a patient with recurrent <italic toggle="no">BRAF</italic>
+<styled-content style="fixed-case" toggle="no">
+<sup>V600E</sup>
+</styled-content>‐mutant non‐small‐cell lung cancer and coexisting radiation pneumonitis</article-title><alt-title alt-title-type="right-running-head">MANAGING <italic toggle="no">BRAF</italic>
+<styled-content style="fixed-case" toggle="no">
+<sup>V600E</sup>
+</styled-content>‐MUTANT LUNG CANCER</alt-title><alt-title alt-title-type="left-running-head">Nakamura et al.</alt-title></title-group><contrib-group><contrib id="rcr21277-cr-0001" contrib-type="author"><name name-style="western"><surname>Nakamura</surname><given-names initials="E">Eriko</given-names></name><contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0003-0913-2475</contrib-id><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="rcr21277-cr-0002" contrib-type="author" corresp="yes"><name name-style="western"><surname>Ota</surname><given-names initials="M">Masahide</given-names></name><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref><xref rid="rcr21277-aff-0002" ref-type="aff">
+<sup>2</sup>
+</xref><address><email>m-ota@naramed-u.ac.jp</email></address></contrib><contrib id="rcr21277-cr-0003" contrib-type="author"><name name-style="western"><surname>Matsuda</surname><given-names initials="R">Ryosuke</given-names></name><xref rid="rcr21277-aff-0003" ref-type="aff">
+<sup>3</sup>
+</xref></contrib><contrib id="rcr21277-cr-0004" contrib-type="author"><name name-style="western"><surname>Takeda</surname><given-names initials="M">Maiko</given-names></name><xref rid="rcr21277-aff-0004" ref-type="aff">
+<sup>4</sup>
+</xref></contrib><contrib id="rcr21277-cr-0005" contrib-type="author"><name name-style="western"><surname>Fujii</surname><given-names initials="T">Tomomi</given-names></name><xref rid="rcr21277-aff-0004" ref-type="aff">
+<sup>4</sup>
+</xref></contrib><contrib id="rcr21277-cr-0006" contrib-type="author"><name name-style="western"><surname>Yamamoto</surname><given-names initials="Y">Yoshifumi</given-names></name><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="rcr21277-cr-0007" contrib-type="author"><name name-style="western"><surname>Hontsu</surname><given-names initials="S">Shigeto</given-names></name><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="rcr21277-cr-0008" contrib-type="author"><name name-style="western"><surname>Yamauchi</surname><given-names initials="M">Motoo</given-names></name><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref><xref rid="rcr21277-aff-0005" ref-type="aff">
+<sup>5</sup>
+</xref></contrib><contrib id="rcr21277-cr-0009" contrib-type="author"><name name-style="western"><surname>Yoshikawa</surname><given-names initials="M">Masanori</given-names></name><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="rcr21277-cr-0010" contrib-type="author"><name name-style="western"><surname>Muro</surname><given-names initials="S">Shigeo</given-names></name><contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0001-7452-9191</contrib-id><xref rid="rcr21277-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib></contrib-group><aff id="rcr21277-aff-0001">
+<label>
+<sup>1</sup>
+</label>
+<named-content content-type="organisation-division">Department of Respiratory Medicine</named-content>
+<institution>Nara Medical University</institution>
+<city>Kashihara</city>
+<country country="JP">Japan</country>
+</aff><aff id="rcr21277-aff-0002">
+<label>
+<sup>2</sup>
+</label>
+<named-content content-type="organisation-division">Department of Cancer Genomics and Medical Oncology</named-content>
+<institution>Nara Medical University</institution>
+<city>Kashihara</city>
+<country country="JP">Japan</country>
+</aff><aff id="rcr21277-aff-0003">
+<label>
+<sup>3</sup>
+</label>
+<named-content content-type="organisation-division">Department of Neurosurgery</named-content>
+<institution>Nara Medical University</institution>
+<city>Kashihara</city>
+<country country="JP">Japan</country>
+</aff><aff id="rcr21277-aff-0004">
+<label>
+<sup>4</sup>
+</label>
+<named-content content-type="organisation-division">Department of Diagnostic Pathology</named-content>
+<institution>Nara Medical University</institution>
+<city>Kashihara</city>
+<country country="JP">Japan</country>
+</aff><aff id="rcr21277-aff-0005">
+<label>
+<sup>5</sup>
+</label>
+<named-content content-type="organisation-division">Department of Clinical and Investigative Medicine</named-content>
+<institution>Faculty of Nursing Nara Medical University</institution>
+<city>Kashihara</city>
+<country country="JP">Japan</country>
+</aff><author-notes><corresp id="correspondenceTo">
+<label>*</label>
+<bold>Correspondence</bold>
+<break/>
+Masahide Ota, Department of Respiratory Medicine, Nara Medical University, 840, Shijyocho, Kashihara, Nara, Japan.<break/>
+Email: <email>m-ota@naramed-u.ac.jp</email>
+<break/>
+</corresp></author-notes><pub-date pub-type="epub"><day>24</day><month>1</month><year>2024</year></pub-date><pub-date pub-type="collection"><month>1</month><year>2024</year></pub-date><volume>12</volume><issue seq="192">1</issue><issue-id pub-id-type="pmc-issue-id">450015</issue-id><issue-id pub-id-type="doi">10.1002/rcr2.v12.1</issue-id><elocation-id>e01277</elocation-id><history>
+<date date-type="received"><day>04</day><month>10</month><year>2023</year></date>
+<date date-type="accepted"><day>25</day><month>12</month><year>2023</year></date>
+</history><pub-history><event event-type="pmc-release"><date><day>24</day><month>01</month><year>2024</year></date></event><event event-type="pmc-live"><date><day>24</day><month>01</month><year>2024</year></date></event><event event-type="pmc-last-change"><date iso-8601-date="2024-10-22 00:25:39.100"><day>22</day><month>10</month><year>2024</year></date></event></pub-history><permissions><copyright-statement content-type="article-copyright">© 2024 The Authors. <italic toggle="yes">Respirology Case Reports</italic> published by John Wiley &amp; Sons Australia, Ltd on behalf of The Asian Pacific Society of Respirology.</copyright-statement><license><ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbylicense">https://creativecommons.org/licenses/by/4.0/</ali:license_ref><license-p>This is an open access article under the terms of the <ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</ext-link> License, which permits use, distribution and reproduction in any medium, provided the original work is properly cited.</license-p></license></permissions><self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="RCR2-12-e01277.pdf"><?pdf-name RCR2-12-e01277.pdf?><?pdf-size 2447412?><?pdf-md5 6dc0f13b199c2870c2dcf62e4e814c34?><?pdf-image-server-status NEVER_LOAD?><?pdf-cloudpmc-urn urn:app:1757/10807985/6dc0f13b199c/RCR2-12-e01277.pdf?></self-uri><self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pdf" xlink:href="file:RCR2-12-e01277.pdf"/><abstract><title>Abstract</title><p>There have been several reports of drug‐induced lung injury caused by molecular‐targeted agents. Additionally, medical history of interstitial lung disease and chest irradiation are established risk factors for the development and progression of drug‐induced lung injury. Moreover, the presence of fibrosis on chest computed tomography before treatment is a predictive factor for the appearance of pneumonia induced by anticancer drugs. Accordingly, patients with a history of interstitial lung disease or pneumonitis were excluded from clinical trials of dabrafenib and trametinib combination therapy for patients with previously treated <italic toggle="no">BRAF</italic>
+<sup>V600E</sup>‐mutant metastatic non‐small‐cell lung cancer. This article presents a case of successful dabrafenib and trametinib combination therapy in a patient with <italic toggle="no">BRAF</italic>
+<sup>V600E</sup>‐mutant non‐small‐cell lung cancer who had a history of radiation pneumonitis and developed recurrence after conventional chemoradiotherapy.</p></abstract><abstract abstract-type="graphical"><p>Drug‐induced lung injury caused by molecular‐targeted agents has been reported. Medical history of interstitial lung disease and chest irradiation are established risk factors for the development and progression of drug‐induced lung injury. A case of successful dabrafenib and trametinib combination therapy in a patient with <italic toggle="no">BRAF</italic>
+<sup>V600E</sup>‐mutant non‐small‐cell lung cancer who had a history of radiation pneumonitis and developed recurrence after conventional chemoradiotherapy is presented in this article.<boxed-text position="anchor" content-type="graphic" id="rcr21277-blkfxd-0001" orientation="portrait"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-1" orientation="portrait" xlink:href="RCR2-12-e01277-g002.jpg"><?image-name RCR2-12-e01277-g002.jpg?><?image-size 5573?><?image-md5 5a9b5d04c3c78f163c95779ec6a3e196?><?image-image-server-status NEVER_LOAD?><?image-original-height 59?><?image-original-width 197?><?image-scaled-height 59?><?image-scaled-width 197?><?image-cloudpmc-urn urn:cdn:blobs/1757/10807985/5a9b5d04c3c7/RCR2-12-e01277-g002.jpg?></graphic></boxed-text>
+</p></abstract><kwd-group kwd-group-type="author-generated"><kwd id="rcr21277-kwd-0001"><italic toggle="no">BRAF</italic></kwd><kwd id="rcr21277-kwd-0002">dabrafenib</kwd><kwd id="rcr21277-kwd-0003">non‐small‐cell lung cancer</kwd><kwd id="rcr21277-kwd-0004">radiation pneumonitis</kwd><kwd id="rcr21277-kwd-0005">trametinib</kwd></kwd-group><counts><fig-count count="3"/><table-count count="0"/><page-count count="4"/><word-count count="2072"/></counts><custom-meta-group><custom-meta><meta-name>pmc-status-qastatus</meta-name><meta-value>0</meta-value></custom-meta><custom-meta><meta-name>pmc-status-live</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-status-embargo</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-status-released</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-open-access</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-olf</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-manuscript</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-legally-suppressed</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-pdf</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-supplement</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-pdf-only</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-suppress-copyright</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-real-version</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-scanned-article</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-preprint</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-in-epmc</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-license-ref</meta-name><meta-value>CC BY</meta-value></custom-meta><custom-meta><meta-name>source-schema-version-number</meta-name><meta-value>2.0</meta-value></custom-meta><custom-meta><meta-name>cover-date</meta-name><meta-value>January 2024</meta-value></custom-meta><custom-meta><meta-name>details-of-publishers-convertor</meta-name><meta-value>Converter:WILEY_ML3GV2_TO_JATSPMC version:6.3.6 mode:remove_FC converted:24.01.2024</meta-value></custom-meta></custom-meta-group></article-meta><notes><p content-type="self-citation">
+<mixed-citation publication-type="journal" id="rcr21277-cit-9001">
+<string-name name-style="western">
+<surname>Nakamura</surname>
+<given-names>E</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Ota</surname>
+<given-names>M</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Matsuda</surname>
+<given-names>R</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Takeda</surname>
+<given-names>M</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Fujii</surname>
+<given-names>T</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Yamamoto</surname>
+<given-names>Y</given-names>
+</string-name>, et al. <article-title>Successful dabrafenib and trametinib combination therapy in a patient with recurrent <italic toggle="no">BRAF</italic>
+<styled-content style="fixed-case" toggle="no">
+<sup>V600E</sup>
+</styled-content>‐mutant non‐small‐cell lung cancer and coexisting radiation pneumonitis</article-title>. <source>Respirology Case Reports</source>. <year>2024</year>;<volume>12</volume>(<issue>1</issue>):<elocation-id>e01277</elocation-id>. <pub-id pub-id-type="doi">10.1002/rcr2.1277</pub-id>
+<pub-id pub-id-type="pmcid">PMC10807985</pub-id><pub-id pub-id-type="pmid">38269311</pub-id></mixed-citation>
+</p><fn-group id="rcr21277-ntgp-0001"><fn id="rcr21277-note-0001"><p>
+<bold>Associate Editor:</bold> Kazuhisa Takahashi</p></fn></fn-group></notes></front><body id="rcr21277-body-0001"><sec id="rcr21277-sec-0001"><title>INTRODUCTION</title><p>A medical history of interstitial lung disease and chest irradiation are established risk factors for the development and progression of drug‐induced lung injury.<xref rid="rcr21277-bib-0001" ref-type="bibr">
+<sup>1</sup>
+</xref> Additionally, the presence of fibrosis on chest computed tomography (CT) before treatment is a predictive factor for pneumonia caused by anticancer drugs.<xref rid="rcr21277-bib-0002" ref-type="bibr">
+<sup>2</sup>
+</xref> There have been several reports of drug‐induced lung injury caused by molecular‐targeted agents.<xref rid="rcr21277-bib-0001" ref-type="bibr">
+<sup>1</sup>
+</xref> Accordingly, patients with a history of interstitial lung disease or pneumonitis were excluded from an open‐label, phase two, trial of dabrafenib and trametinib combination therapy for patients with previously treated <italic toggle="yes">BRAF</italic>
+<sup>V600E</sup>‐mutant metastatic non‐small‐cell lung cancer.<xref rid="rcr21277-bib-0003" ref-type="bibr">
+<sup>3</sup>
+</xref> This report describes the first reported case of successful combination therapy in a patient with recurrent <italic toggle="yes">BRAF</italic>
+<sup>V600E</sup>‐mutant non‐small‐cell lung cancer who had coexisting radiation pneumonitis.</p></sec><sec id="rcr21277-sec-0002"><title>CASE REPORT</title><p>A 60‐year‐old man with a smoking history presented to our department in November 2019 with a tumour in the left upper lung lobe and a swollen lymph node in the left hilar region. Bronchoscopy and cytology findings established a diagnosis of non‐small cell lung cancer; however, we could not collect sufficient tissue specimen for histology examination. Accordingly, chemoradiotherapy (CRT) for left upper lobe non‐small cell lung cancer (cT3N3M0, Stage IIIC) was started in December 2019. The CRT involved radiotherapy and concomitant weekly administration of nab‐paclitaxel and carboplatin. A CT scan obtained on February 2020 revealed lung tumour shrinkage; however, the patient presented symptomatic epilepsy due to metastatic brain tumours in March 2020. Accordingly, the patient underwent brain tumour resection, with genomic testing of the pathology sample revealing a <italic toggle="yes">BRAF</italic>
+<sup>V600E</sup>mutation. After surgery, the patient underwent stereotactic radiation therapy (SRT) for the brain metastasis. Subsequently, the patient developed radiation pneumonitis and was started on prednisolone (PSL) at 30 mg/day in April 2020, which was subsequently tapered off (Figures <xref rid="rcr21277-fig-0001" ref-type="fig">1A</xref> and <xref rid="rcr21277-fig-0002" ref-type="fig">2A,B</xref>). Though we thought to initiate BRAF inhibitors after SRT, we did not initiate BRAF inhibitors because of radiation pneumonitis at that time. A CT scan performed in July 2020 revealed maintenance of the lung tumour shrinkage; however, contrast‐enhanced magnetic resonance imaging revealed new brain metastases.</p><fig position="float" fig-type="FIGURE" id="rcr21277-fig-0001" orientation="portrait"><label>FIGURE 1</label><caption><p>(A) Chest computed tomography scan obtained at the onset of radiation pneumonitis in April 2020. (B) A chest computed tomography scan was obtained when dabrafenib and trametinib combination therapy was initiated in August 2020.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-3" orientation="portrait" xlink:href="RCR2-12-e01277-g001.jpg"><?image-name RCR2-12-e01277-g001.jpg?><?image-size 51852?><?image-md5 59f48d712fbc4a9eb39cfa9dc969857d?><?image-image-server-status LOAD_COMPLETED?><?image-original-height 319?><?image-original-width 1064?><?image-scaled-height 213?><?image-scaled-width 709?><?image-cloudpmc-urn urn:cdn:blobs/1757/10807985/59f48d712fbc/RCR2-12-e01277-g001.jpg?><?thumb-name RCR2-12-e01277-g001.gif?><?thumb-size 11858?><?thumb-md5 86539d35ec2ad610fadc226f56a3b120?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 60?><?thumb-scaled-width 200?><?thumb-cloudpmc-urn urn:cdn:blobs/1757/10807985/86539d35ec2a/RCR2-12-e01277-g001.gif?></graphic></fig><fig position="float" fig-type="FIGURE" id="rcr21277-fig-0002" orientation="portrait"><label>FIGURE 2</label><caption><p>(A) Chest radiography scan obtained at the onset of radiation pneumonitis in April 2020. (B) Chest radiography scan obtained in July 2020. Radiation pneumonitis was improved by prednisolone. (C) Chest radiography scan obtained when the patient was started on dabrafenib and trametinib combination therapy in August 2020. (D) Chest radiography scan obtained in May 2021. As of 35 weeks after initiation of dabrafenib and trametinib combination therapy, the lung tumour shrinkage was maintained without worsening of interstitial pneumonitis.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-5" orientation="portrait" xlink:href="RCR2-12-e01277-g003.jpg"><?image-name RCR2-12-e01277-g003.jpg?><?image-size 28251?><?image-md5 fd3e8eb267641d56a883e4d731f35d01?><?image-image-server-status LOAD_COMPLETED?><?image-original-height 282?><?image-original-width 1064?><?image-scaled-height 188?><?image-scaled-width 709?><?image-cloudpmc-urn urn:cdn:blobs/1757/10807985/fd3e8eb26764/RCR2-12-e01277-g003.jpg?><?thumb-name RCR2-12-e01277-g003.gif?><?thumb-size 5526?><?thumb-md5 3445dc7c0ce8b70adf3ec027929b7096?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 53?><?thumb-scaled-width 200?><?thumb-cloudpmc-urn urn:cdn:blobs/1757/10807985/3445dc7c0ce8/RCR2-12-e01277-g003.gif?></graphic></fig><p>In August 2020, the patient was admitted to our department for lung cancer treatment. The patient did not have a remarkable medical history or allergies. On admission, physical examination revealed the following vital signs: temperature, 35.9°C; blood pressure, 122/74 mmHg; pulse rate, 82 beats/min with regular cardiac rhythm; and percutaneous O<sub>2</sub> saturation, 95% (on room air). Chest auscultation revealed intermittent inspiratory crackles in the left upper lung field.</p><p>Additionally, chest radiography revealed consolidation mixed with a large glass shadow in the left upper lung field (Figures <xref rid="rcr21277-fig-0001" ref-type="fig">1B</xref> and <xref rid="rcr21277-fig-0002" ref-type="fig">2C</xref>). Chest CT showed an 18 mm nodule shadow in the left upper lung lobe that had maintained its post‐CRT shrinkage. Additionally, there were fibrosis and increased contractile changes from the left upper lung lobe to the superior segment of the lower lobe. There were no findings suggestive of metastasis to other organs within the imaging range.</p><p>Blood tests did not reveal obvious inflammatory findings; moreover, Krebs von den Lungen 6 and surfactant protein D levels were within the normal ranges.</p><p>Following SRT for brain metastasis, the patient underwent oral combination therapy with dabrafenib (150 mg twice daily) and trametinib (2 mg once daily) for <italic toggle="yes">BRAF</italic>
+<sup>V600E</sup>‐mutant metastatic non‐small‐cell lung cancer; additionally, the PSL dose (10 mg/day) for radiation pneumonitis was not altered. We considered tapering PSL down from 10 mg, but due to concerns about the appearance of drug induced pneumonitis and recurrence of radiation pneumonitis, the dose was cautiously considered for reduction. Twelve weeks after dabrafenib plus trametinib was initiated, the dose was reduced to 8 mg due to complaints of moon‐face appearance. Thereafter, after the PSL was reduced to 8 mg, a mild skin rash and cough without significant pneumonitis appeared. Thus, the PSL was continued at 8 mg, and the dose was not reduced thereafter due to concerns about worsening symptoms caused by PSL reduction. As of 35 weeks after initiation of combination therapy with dabrafenib and trametinib, the lung tumour shrinkage was maintained without worsening interstitial pneumonitis or recurrence of brain metastasis (Figure <xref rid="rcr21277-fig-0002" ref-type="fig">2D</xref>).</p></sec><sec sec-type="discussion" id="rcr21277-sec-0003"><title>DISCUSSION</title><p>Mitogen‐activated protein kinase inhibitors, such as trametinib, have been shown to cause pneumonitis induced by targeted molecular therapy.<xref rid="rcr21277-bib-0004" ref-type="bibr">
+<sup>4</sup>
+</xref> Among targeted therapies for non‐small cell lung cancer, pneumonitis has been reported in 5% of patients with gefitinib, 4.5% with erlotinib, 0.7% with ALK inhibitors, such as crizotinib, ceritinib, and 6.5% with osimertinib therapy.<xref rid="rcr21277-bib-0001" ref-type="bibr">
+<sup>1</sup>
+</xref>, <xref rid="rcr21277-bib-0005" ref-type="bibr">
+<sup>5</sup>
+</xref> It has been also reported that 1.1% of patients using dabrafenib plus trametinib developed pneumonitis.<xref rid="rcr21277-bib-0003" ref-type="bibr">
+<sup>3</sup>
+</xref>, <xref rid="rcr21277-bib-0006" ref-type="bibr">
+<sup>6</sup>
+</xref> Although the risk of pneumonitis is not higher with dabrafenib plus trametinib than with other drugs, pneumonitis is sometimes fatal, warranting caution. In the present case, the patient had already developed radiation pneumonitis, which increased the risk of drug‐induced pneumonitis caused by the combination therapy. Therefore, we carefully monitored the interstitial shadows during combination therapy to check for worsening. Fortunately, we did not observe any marked deterioration. Since the patient had <italic toggle="yes">BRAF</italic>
+<sup>V600E</sup>‐mutation‐positive lung cancer, there were concerns that the radiation pneumonitis might worsen and impede the administration of dabrafenib and trametinib combination therapy. PSL was administered to treat radiation pneumonitis since the pneumonia was predicted to worsen due to extensive irradiation of both the lung tumour and normal lung fields as well as due to atelectasis and G3 radiation pneumonia requiring oxygen administration. During follow‐up without treatment for lung cancer after the development of radiation pneumonitis, we only observed exacerbation of the brain metastasis; accordingly, brain tumour resection and SRT were performed to remove the brain metastasis. There was no subsequent worsening of the radiation pneumonitis; moreover, CT did not reveal significant ground‐glass shadows. This indicated that the radiation pneumonitis had stabilized. For the treatment of malignant melanoma, BRAF inhibitors can induce radiation sensitization, with reports of radiation recall dermatitis often occurring when BRAF inhibitors are started after radiation therapy.<xref rid="rcr21277-bib-0007" ref-type="bibr">
+<sup>7</sup>
+</xref> Radiation sensitization during radiotherapy and BRAF inhibitor combination therapy is not limited to the skin; radiation pneumonitis has also been reported. Such side effects have been reported with sequential as well as concurrent radiotherapy. Given that the combination of radiotherapy and BRAF inhibitors for brain metastases of melanoma may increase cutaneous radiation‐induced reactions,<xref rid="rcr21277-bib-0007" ref-type="bibr">
+<sup>7</sup>
+</xref> and the exclusion from a clinical trial of patients who had been treated with radiotherapy within 14 days,<xref rid="rcr21277-bib-0003" ref-type="bibr">
+<sup>3</sup>
+</xref> BRAF inhibitors were started at least 2 weeks after SRT. Trametinib has been reported to cause interstitial lung disease in real‐world clinical practice,<xref rid="rcr21277-bib-0004" ref-type="bibr">
+<sup>4</sup>
+</xref> accordingly, dabrafenib and trametinib combination therapy was initiated under PSL therapy, which did not worsen the interstitial pneumonitis. When the PSL dose was reduced to 8 mg, there was a worsening of symptoms. However, it was challenging to distinguish whether this deterioration was attributable to RP or was drug‐related. Consequently, the PSL dose was carefully maintained, considering the possibility that it was drug‐related. However, if the course of radiation pneumonitis remains stable, we believe that a reduction in the PSL dose should be contemplated to mitigate the side effects. However, since the severity of radiation pneumonitis varies across cases, it is necessary to make careful considerations regarding the safety of administering dabrafenib and trametinib combination therapy on a case‐to‐case basis, with close monitoring during treatment.</p></sec><sec id="rcr21277-sec-0004"><title>AUTHOR CONTRIBUTIONS</title><p>Eriko Nakamura wrote the first draft of this manuscript. Masahide Ota, Ryosuke Matsuda, Maiko Takeda, Tomomi Fujii, Yoshifumi Yamamoto, Shigeto Hontsu, Motoo Yamauchi, Masanori Yoshikawa, and Shigeo Muro revised the article for intellectual content. All authors approved the final version of the manuscript.</p></sec><sec sec-type="COI-statement" id="rcr21277-sec-0006"><title>CONFLICT OF INTEREST STATEMENT</title><p>None declared.</p></sec><sec id="rcr21277-sec-0007"><title>ETHICS STATEMENT</title><p>The authors declare that appropriate written informed consent was obtained for the publication of this manuscript and the accompanying images.</p></sec></body><back><ack id="rcr21277-sec-0005"><title>ACKNOWLEDGMENTS</title><p>This case was presented as an abstract at the APSR congress 2021 in Kyoto.</p></ack><sec sec-type="data-availability" id="rcr21277-sec-0009"><title>DATA AVAILABILITY STATEMENT</title><p>Data sharing is not applicable to this article as no new data were created or analyzed in this study.</p></sec><ref-list content-type="cited-references" id="rcr21277-bibl-0001"><title>REFERENCES</title><ref id="rcr21277-bib-0001"><label>1</label><mixed-citation publication-type="journal" id="rcr21277-cit-0001">
+<string-name name-style="western">
+<surname>Takano</surname>
+<given-names>T</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Ohe</surname>
+<given-names>Y</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Kusumoto</surname>
+<given-names>M</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Tateishi</surname>
+<given-names>U</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Yamamoto</surname>
+<given-names>S</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Nokihara</surname>
+<given-names>H</given-names>
+</string-name>, et al. <article-title>Risk factors for interstitial lung disease and predictive factors for tumor response in patients with advanced non‐small cell lung cancer treated with gefitinib</article-title>. <source>Lung Cancer</source>. <year>2004</year>;<volume>45</volume>:<fpage>93</fpage>–<lpage>104</lpage>.<pub-id pub-id-type="pmid">15196739</pub-id>
+<pub-id pub-id-type="doi" assigning-authority="pmc">10.1016/j.lungcan.2004.01.010</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0002"><label>2</label><mixed-citation publication-type="journal" id="rcr21277-cit-0002">
+<string-name name-style="western">
+<surname>Gyotoku</surname>
+<given-names>H</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Yamaguchi</surname>
+<given-names>H</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Ishimoto</surname>
+<given-names>H</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Sato</surname>
+<given-names>S</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Taniguchi</surname>
+<given-names>H</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Senju</surname>
+<given-names>H</given-names>
+</string-name>, et al. <article-title>Prediction of anti‐cancer drug‐induced pneumonia in lung cancer patients: novel high‐resolution computed tomography fibrosis scoring</article-title>. <source>J Clin Med</source>. <year>2020</year>;<volume>9</volume>:<fpage>9</fpage>.<pub-id pub-id-type="doi" assigning-authority="pmc">10.3390/jcm9041045</pub-id><pub-id pub-id-type="pmcid">PMC7230276</pub-id><pub-id pub-id-type="pmid">32272762</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0003"><label>3</label><mixed-citation publication-type="journal" id="rcr21277-cit-0003">
+<string-name name-style="western">
+<surname>Planchard</surname>
+<given-names>D</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Besse</surname>
+<given-names>B</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Groen</surname>
+<given-names>HJM</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Souquet</surname>
+<given-names>PJ</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Quoix</surname>
+<given-names>E</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Baik</surname>
+<given-names>CS</given-names>
+</string-name>, et al. <article-title>Dabrafenib plus trametinib in patients with previously treated BRAF(V600E)‐mutant metastatic non‐small cell lung cancer: an open‐label, multicentre phase 2 trial</article-title>. <source>Lancet Oncol</source>. <year>2016</year>;<volume>17</volume>:<fpage>984</fpage>–<lpage>993</lpage>.<pub-id pub-id-type="pmid">27283860</pub-id>
+<pub-id pub-id-type="doi" assigning-authority="pmc">10.1016/S1470-2045(16)30146-2</pub-id><pub-id pub-id-type="pmcid">PMC4993103</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0004"><label>4</label><mixed-citation publication-type="journal" id="rcr21277-cit-0004">
+<string-name name-style="western">
+<surname>Guaitoli</surname>
+<given-names>G</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Zullo</surname>
+<given-names>L</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Tiseo</surname>
+<given-names>M</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Dankner</surname>
+<given-names>M</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Rose</surname>
+<given-names>AA</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Facchinetti</surname>
+<given-names>F</given-names>
+</string-name>. <article-title>Non‐small‐cell lung cancer: how to manage BRAF‐mutated disease. Drugs</article-title>. <source>Context</source>. <year>2023</year>;<volume>12</volume>:<fpage>12</fpage>–<lpage>19</lpage>.<pub-id pub-id-type="doi" assigning-authority="pmc">10.7573/dic.2022-11-3</pub-id><pub-id pub-id-type="pmcid">PMC10166262</pub-id><pub-id pub-id-type="pmid">37168877</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0005"><label>5</label><mixed-citation publication-type="journal" id="rcr21277-cit-0005">
+<string-name name-style="western">
+<surname>Henning</surname>
+<given-names>JW</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Brezden‐Masley</surname>
+<given-names>C</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Gelmon</surname>
+<given-names>K</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Chia</surname>
+<given-names>S</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Shapera</surname>
+<given-names>S</given-names>
+</string-name>, <string-name name-style="western">
+<surname>McInnis</surname>
+<given-names>M</given-names>
+</string-name>, et al. <article-title>Managing the risk of lung toxicity with trastuzumab deruxtecan (T‐DXd): a Canadian perspective</article-title>. <source>Curr Oncol</source>. <year>2023</year>;<volume>30</volume>:<fpage>8019</fpage>–<lpage>8038</lpage>.<pub-id pub-id-type="pmid">37754497</pub-id>
+<pub-id pub-id-type="doi" assigning-authority="pmc">10.3390/curroncol30090582</pub-id><pub-id pub-id-type="pmcid">PMC10529919</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0006"><label>6</label><mixed-citation publication-type="journal" id="rcr21277-cit-0006">
+<string-name name-style="western">
+<surname>Planchard</surname>
+<given-names>D</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Smit</surname>
+<given-names>EF</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Groen</surname>
+<given-names>HJM</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Mazieres</surname>
+<given-names>J</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Besse</surname>
+<given-names>B</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Helland</surname>
+<given-names>Å</given-names>
+</string-name>, et al. <article-title>Dabrafenib plus trametinib in patients with previously untreated BRAF<sup>V600E_</sup> mutant metastatic non‐small‐cell lung cancer: an open‐label, phase 2 trial</article-title>. <source>Lancet Oncol</source>. <year>2017</year>;<volume>18</volume>:<fpage>1307</fpage>–<lpage>1316</lpage>.<pub-id pub-id-type="pmid">28919011</pub-id>
+<pub-id pub-id-type="doi" assigning-authority="pmc">10.1016/S1470-2045(17)30679-4</pub-id></mixed-citation></ref><ref id="rcr21277-bib-0007"><label>7</label><mixed-citation publication-type="journal" id="rcr21277-cit-0007">
+<string-name name-style="western">
+<surname>Strobel</surname>
+<given-names>SB</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Pätzold</surname>
+<given-names>S</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Zimmer</surname>
+<given-names>L</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Jensen</surname>
+<given-names>A</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Enk</surname>
+<given-names>A</given-names>
+</string-name>, <string-name name-style="western">
+<surname>Hassel</surname>
+<given-names>JC</given-names>
+</string-name>. <article-title>Radiosensitization by BRAF inhibitors</article-title>. <source>J Dtsch Dermatol Ges</source>. <year>2017</year>;<volume>15</volume>:<fpage>703</fpage>–<lpage>708</lpage>.<pub-id pub-id-type="doi" assigning-authority="pmc">10.1111/ddg.12672</pub-id><pub-id pub-id-type="pmid">28557366</pub-id></mixed-citation></ref></ref-list></back></article>
