@@ -8,6 +8,8 @@ import { evaluate } from "@/src/engine";
 
 const VERDICTS = ["PASS", "FAIL", "UNKNOWN"] as const satisfies readonly Verdict[];
 
+export type LabelSource = "fixture" | "model-draft" | "human";
+
 export interface HumanCellLabel {
   patientId: string;
   nctId: string;
@@ -42,6 +44,8 @@ export interface EvaluationIssue {
 export type ConfusionMatrix = Record<Verdict, Record<Verdict, number>>;
 
 export interface EvaluationReport {
+  /** Never present model-draft agreement as human-validated performance. */
+  labelSource: LabelSource;
   evaluatedCells: number;
   issues: EvaluationIssue[];
   confusionMatrix: ConfusionMatrix;
@@ -94,11 +98,13 @@ export function evaluateHumanLabels({
   patients,
   trials,
   asOf,
+  labelSource = "human",
 }: {
   labels: HumanCellLabel[];
   patients: unknown;
   trials: unknown;
   asOf: string;
+  labelSource?: LabelSource;
 }): EvaluationReport {
   const patientById = new Map(Patient.array().parse(patients).map((patient) => [patient.id, patient]));
   const trialById = new Map(Trial.array().parse(trials).map((trial) => [trial.nctId, trial]));
@@ -162,6 +168,7 @@ export function evaluateHumanLabels({
   })) as EvaluationReport["byVerdict"];
 
   return {
+    labelSource,
     evaluatedCells: labels.length - issues.length,
     issues,
     confusionMatrix,
@@ -183,6 +190,7 @@ export function formatEvaluationReport(report: EvaluationReport): string {
     ? report.disagreements.map((item) => `  ${item.patientId} × ${item.trialTitle} / ${item.criterionId}: expected ${item.expected}, got ${item.actual}`).join("\n")
     : "  none";
   return [
+    `Label source: ${report.labelSource}`,
     `Evaluated ${report.evaluatedCells} labelled cells; ${report.issues.length} unresolved labels.`,
     `Precision: ${score(report.precision)} | Recall: ${score(report.recall)} | UNKNOWN agreement: ${score(report.unknownAgreement)}`,
     "Confusion matrix (human rows, engine columns):",

@@ -7,9 +7,10 @@ import { evaluateHumanLabels, normalizeHumanLabels } from "@/src/eval";
 describe("evaluation harness", () => {
   it("matches the hand-authored fixture cube and produces app-ready metrics", () => {
     const labels = normalizeHumanLabels(cube);
-    const report = evaluateHumanLabels({ labels, patients, trials, asOf: "2026-09-25" });
+    const report = evaluateHumanLabels({ labels, patients, trials, asOf: "2026-09-25", labelSource: "fixture" });
 
     expect(report.issues).toEqual([]);
+    expect(report.labelSource).toBe("fixture");
     expect(report.evaluatedCells).toBe(labels.length);
     expect(report.disagreements).toEqual([]);
     expect(report.confusionMatrix.PASS.PASS).toBeGreaterThan(0);
@@ -23,9 +24,10 @@ describe("evaluation harness", () => {
   it("retains both citations on every reported disagreement", () => {
     const labels = normalizeHumanLabels(cube);
     labels[0] = { ...labels[0], expected: "FAIL" };
-    const report = evaluateHumanLabels({ labels, patients, trials, asOf: "2026-09-25" });
+    const report = evaluateHumanLabels({ labels, patients, trials, asOf: "2026-09-25", labelSource: "model-draft" });
 
     expect(report.disagreements).toHaveLength(1);
+    expect(report.labelSource).toBe("model-draft");
     expect(report.disagreements[0]).toMatchObject({
       patientId: "PT-4401",
       criterionId: "INC-1",

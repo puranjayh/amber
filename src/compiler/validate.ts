@@ -1,6 +1,6 @@
 /** Reporting-only final gate for the offline compiler batch. */
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import { Trial } from "@/src/contracts";
 import type { CriterionLeaf, CriterionNode } from "@/src/contracts";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
@@ -17,6 +17,32 @@ export interface CompilerReport {
   flagged: number;
   invalidOutput: number;
   thresholdHistogram: Record<string, ThresholdBucket[]>;
+}
+
+export interface LandscapeThreshold {
+  threshold: number;
+  count: number;
+  /** Share of all compiled trials using this analyte, not just this operator. */
+  percentage: number;
+}
+
+export interface LandscapeOperator {
+  operator: CriterionLeaf["operator"];
+  totalTrials: number;
+  flaggedTrials: number;
+  thresholds: LandscapeThreshold[];
+}
+
+export interface LandscapeAnalyte {
+  analyte: string;
+  totalTrials: number;
+  flaggedTrials: number;
+  operators: LandscapeOperator[];
+}
+
+export interface CriteriaLandscape {
+  generatedFromTrials: number;
+  analytes: LandscapeAnalyte[];
 }
 
 function leaves(nodes: CriterionNode[]): CriterionLeaf[] {
@@ -47,6 +73,68 @@ export function buildThresholdHistogram(results: CompiledTrialResult[]): Record<
     .map(([analyte, buckets]) => [analyte, [...buckets.entries()]
       .sort(([left], [right]) => left - right)
       .map(([threshold, count]) => ({ threshold, count }))]));
+}
+
+/**
+ * App-ready criteria landscape. Counts are de-duplicated by trial, so one
+ * protocol that happens to repeat an ANC threshold cannot inflate the slide.
+ */
+export function buildCriteriaLandscape(results: CompiledTrialResult[]): CriteriaLandscape {
+  const analytes = new Map<string, {
+    trials: Set<string>;
+    flaggedTrials: Set<string>;
+    operators: Map<CriterionLeaf["operator"], { trials: Set<string>; flaggedTrials: Set<string>; thresholds: Map<number, Set<string>> }>;
+  }>();
+
+  for (const result of results) {
+    for (const leaf of leaves(result.trial.criteria)) {
+      if (typeof leaf.value !== "number") continue;
+      const analyte = leaf.analyte || leaf.predicate;
+      const entry = analytes.get(analyte) ?? { trials: new Set(), flaggedTrials: new Set(), operators: new Map() };
+      entry.trials.add(result.trial.nctId);
+      if (result.trial.needsHumanReview) entry.flaggedTrials.add(result.trial.nctId);
+
+      const operator = entry.operators.get(leaf.operator) ?? { trials: new Set(), flaggedTrials: new Set(), thresholds: new Map() };
+      operator.trials.add(result.trial.nctId);
+      if (result.trial.needsHumanReview) operator.flaggedTrials.add(result.trial.nctId);
+      const thresholdTrials = operator.thresholds.get(leaf.value) ?? new Set<string>();
+      thresholdTrials.add(result.trial.nctId);
+      operator.thresholds.set(leaf.value, thresholdTrials);
+      entry.operators.set(leaf.operator, operator);
+      analytes.set(analyte, entry);
+    }
+  }
+
+  return {
+    generatedFromTrials: results.length,
+    analytes: [...analytes.entries()]
+      .map(([analyte, entry]) => ({
+        analyte,
+        totalTrials: entry.trials.size,
+        flaggedTrials: entry.flaggedTrials.size,
+        operators: [...entry.operators.entries()]
+          .sort(([left], [right]) => left.localeCompare(right))
+          .map(([operator, values]) => ({
+            operator,
+            totalTrials: values.trials.size,
+            flaggedTrials: values.flaggedTrials.size,
+            thresholds: [...values.thresholds.entries()]
+              .sort(([left], [right]) => left - right)
+              .map(([threshold, trials]) => ({
+                threshold,
+                count: trials.size,
+                percentage: entry.trials.size ? trials.size / entry.trials.size : 0,
+              })),
+          })),
+      }))
+      .sort((left, right) => right.totalTrials - left.totalTrials || left.analyte.localeCompare(right.analyte)),
+  };
+}
+
+export async function writeCriteriaLandscape(landscape: CriteriaLandscape, outputPath = "data/compiled/landscape.json"): Promise<void> {
+  const path = resolve(outputPath);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, `${JSON.stringify(landscape, null, 2)}\n`, "utf8");
 }
 
 export function validateCompilationResults(results: CompiledTrialResult[]): CompilerReport {
@@ -87,8 +175,10 @@ export function printReport(report: CompilerReport, write: (line: string) => voi
 
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/compiled/trials.backtranslated.json");
+  const landscapePath = process.argv[3] || "data/compiled/landscape.json";
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const report = validateCompilationResults(results);
+  await writeCriteriaLandscape(buildCriteriaLandscape(results), landscapePath);
   printReport(report);
   printHumanVerificationPairs(results);
   if (report.invalidOutput > 0) process.exitCode = 1;
