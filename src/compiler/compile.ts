@@ -534,7 +534,9 @@ export function createGrokBlockCompiler({
   model = process.env.XAI_MODEL || "grok-4",
 }: { apiKey?: string; model?: string } = {}): BlockCompiler {
   if (!apiKey) throw new Error("XAI_API_KEY is required to compile eligibility criteria");
-  const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1" });
+  // Individual stalled responses must not hold a pilot (or the full batch)
+  // indefinitely. Transient timeouts flow through the bounded retry policy below.
+  const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1", timeout: 90_000, maxRetries: 0 });
 
   return async (block) => {
     try {
