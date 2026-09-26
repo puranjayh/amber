@@ -96,8 +96,14 @@ function LeafLine({
   );
 }
 
-export function CriteriaTable({ sections }: { sections: CriteriaSection[] }) {
-  const [open, setOpen] = useState<Set<string>>(() => new Set());
+export function CriteriaTable({
+  sections,
+  initialOpen = [],
+}: {
+  sections: CriteriaSection[];
+  initialOpen?: string[];
+}) {
+  const [open, setOpen] = useState<Set<string>>(() => new Set(initialOpen));
   const leafIds = sections.flatMap((s) =>
     s.rows.filter((r): r is LeafRow => r.kind === "leaf").map((r) => r.leaf.id),
   );

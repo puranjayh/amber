@@ -1,41 +1,49 @@
-import { notFound } from "next/navigation";
-import { HERO, asOf, getCube, getPair, getPatient, getPatients, getTrial, getTrials } from "@/app/_data/source";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { DEMO, asOf, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
-import { PairPicker } from "@/components/console/PairPicker";
-import { CriteriaTable } from "@/components/criteria/CriteriaTable";
-import { PairSummary, PatientStrip } from "@/components/criteria/PairSummary";
-import { buildSections, collectLeaves } from "@/components/criteria/rows";
+import { Provenance } from "@/components/console/Provenance";
+import { isDemo } from "@/components/console/params";
+import { collectLeaves } from "@/components/criteria/rows";
+import { toneCounts } from "@/components/criteria/tone";
+import { Worklist, type WorklistItem } from "@/components/worklist/Worklist";
 
-function one(v: string | string[] | undefined) {
-  return Array.isArray(v) ? v[0] : v;
-}
+export default async function WorklistPage({ searchParams }: PageProps<"/">) {
+  if (isDemo(await searchParams)) redirect("/patient?demo=1");
 
-export default async function Home({ searchParams }: PageProps<"/">) {
-  const sp = await searchParams;
-  const patientId = one(sp.patient) ?? HERO.patientId;
-  const nctId = one(sp.trial) ?? HERO.nctId;
-
-  const patient = getPatient(patientId);
-  const trial = getTrial(nctId);
-  const pair = getPair(patientId, nctId);
-  if (!patient || !trial || !pair) notFound();
-
-  const sections = buildSections(trial.criteria, pair.cells);
-  const leaves = collectLeaves(trial.criteria);
+  const rows: WorklistItem[] = getWorklist().map((row) => {
+    const trial = getTrial(row.nctId);
+    const leaves = trial ? collectLeaves(trial.criteria) : new Map();
+    const cells = getPair(row.patientId, row.nctId)?.cells ?? [];
+    return {
+      ...row,
+      patient: getPatient(row.patientId),
+      trial,
+      favourable: toneCounts(cells, (id) => leaves.get(id)?.type).green,
+      total: leaves.size,
+    };
+  });
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="patient" />
+      <ConsoleHeader asOf={asOf} active="worklist" />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
-        <PairPicker
-          patientIds={getPatients().map((p) => p.id)}
-          nctIds={getTrials().map((t) => t.nctId)}
-          cube={getCube()}
-          current={{ patientId, nctId }}
-        />
-        <PatientStrip patient={patient} />
-        <PairSummary trial={trial} pair={pair} leaves={leaves} />
-        <CriteriaTable key={`${patientId}:${nctId}`} sections={sections} />
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="text-[16px] font-medium text-ink">Worklist</h1>
+            <p className="mt-0.5 text-[12px] text-ink-2">
+              Every patient&apos;s best trial, ranked: fewest unknowns first, then expected value, then travel.
+            </p>
+          </div>
+          <Link
+            href="/patient?demo=1"
+            className="rounded-md bg-ink px-3.5 py-2 text-[13px] font-medium text-surface hover:bg-ink-2"
+          >
+            Start demo — {DEMO.patientId} × {DEMO.nctId} →
+          </Link>
+        </div>
+        <Worklist rows={rows} />
+        <Provenance meta={meta} call="rank(evaluate(patient × trial))" />
       </main>
     </>
   );

@@ -180,7 +180,7 @@ export function AlertCard({
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-ink-3">
           <span>Nothing is transmitted from this screen.</span>
           <Link
-            href={`/?patient=${patient.id}&trial=${trial.nctId}`}
+            href={`/patient?patient=${patient.id}&trial=${trial.nctId}`}
             className="font-mono text-ink-2 underline-offset-2 hover:text-ink hover:underline"
           >
             All criteria →
