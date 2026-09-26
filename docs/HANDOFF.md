@@ -18,6 +18,17 @@ subset, the report should include cohort count, racial and state distributions, 
 and TKI fills, plus the structural limits of claims: no labs, 2008–2010 vintage,
 ICD-9 coding, and CMS synthetic longitudinal incoherence.
 
+## From compiler — model-draft evaluation result ready for data integration
+
+The compiler eval harness produced `data/eval/results.json` locally from all 130
+`model-draft` labels, `data/synthea/patients.json`, and the two fixture trials. It
+reports `labelSource: "model-draft"`, 130 evaluated cells, macro precision 1.0,
+macro recall 1.0, UNKNOWN agreement 1.0, and no disagreements. The result is not
+committed because `data/**` belongs to P4 under CONTRACT §1; P4 can rerun the exact
+command: `npx tsx src/eval/run.ts --labels data/eval/labels.json --patients
+data/synthea/patients.json --trials fixtures/trials.sample.json --as-of 2026-09-25
+--out data/eval/results.json`.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
