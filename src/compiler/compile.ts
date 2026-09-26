@@ -43,6 +43,7 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
+For prior-therapy drug-class criteria, use operator:"in" with a non-empty resolved members array of concrete drugs. Set value to that same array. Never represent a drug class with == and a bare drugClass; that cannot evaluate a medication history correctly.
 IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. Do not explain your answer.`;
 
 function cleanBlock(text: string): string {
@@ -132,6 +133,18 @@ export function validateCompiledTree(
       }
     } else if (node.sweepable || node.sweepRange || node.sweepStep) {
       issues.push(`${node.id}: non-numeric leaf has sweep metadata`);
+    }
+
+    if (node.predicate === "prior_therapy" && node.drugClass !== undefined) {
+      if (node.operator !== "in") {
+        issues.push(`${node.id}: drug-class therapy leaves must use the in operator`);
+      }
+      if (!node.members?.length) {
+        issues.push(`${node.id}: drug-class therapy leaves require resolved members`);
+      }
+      if (!Array.isArray(node.value) || node.value.length === 0 || node.value.join("\u0000") !== node.members?.join("\u0000")) {
+        issues.push(`${node.id}: drug-class therapy leaf value must equal its resolved members`);
+      }
     }
   });
 

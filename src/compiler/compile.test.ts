@@ -55,3 +55,28 @@ test("keeps a nested OR as a group node", async () => {
   expect(result.trial.criteria[0].kind).toBe("group");
   expect((result.trial.criteria[0] as { op: string }).op).toBe("OR");
 });
+
+test("rejects a drug class represented as a bare boolean equality", async () => {
+  const therapy: RawClinicalTrial = {
+    ...raw,
+    protocolSection: {
+      ...raw.protocolSection,
+      eligibilityModule: { eligibilityCriteria: "Inclusion Criteria:\n- Prior treatment with an EGFR TKI." },
+    },
+  };
+  const result = await compileTrial(therapy, async () => ({
+    kind: "leaf",
+    id: "INC-1",
+    type: "inclusion",
+    predicate: "prior_therapy",
+    operator: "==",
+    value: true,
+    drugClass: "EGFR_TKI",
+    tier: 1,
+    sweepable: false,
+    sourceSpan: "Prior treatment with an EGFR TKI.",
+  }));
+  expect(result.trial.needsHumanReview).toBe(true);
+  expect(result.failure!.issues.join("\n")).toMatch(/must use the in operator/);
+  expect(result.failure!.issues.join("\n")).toMatch(/require resolved members/);
+});
