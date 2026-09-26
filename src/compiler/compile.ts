@@ -25,6 +25,12 @@ export interface CompiledTrialResult {
 
 export type BlockCompiler = (block: EligibilityBlock) => Promise<CriterionNodeValue>;
 
+export interface CompileBatchOptions {
+  /** xAI permits far more, but 8 keeps spend and retries bounded. */
+  concurrency?: number;
+  onProgress?: (completed: number, total: number) => void;
+}
+
 const responseSchema = z.object({ root: CriterionNode });
 const responseJsonSchema = z.toJSONSchema(responseSchema, { target: "draft-7" });
 
@@ -146,26 +152,57 @@ export function createGrokBlockCompiler({
   const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1" });
 
   return async (block) => {
-    const completion = await client.chat.completions.create({
-      model,
-      temperature: 0,
-      messages: [
-        { role: "developer", content: COMPILER_INSTRUCTIONS },
-        { role: "user", content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
-      ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "criterion_node",
-          strict: true,
-          schema: responseJsonSchema,
+    const completion = await withRetry(() =>
+      client.chat.completions.create({
+        model,
+        temperature: 0,
+        messages: [
+          { role: "developer", content: COMPILER_INSTRUCTIONS },
+          { role: "user", content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "criterion_node",
+            strict: true,
+            schema: responseJsonSchema,
+          },
         },
-      },
-    });
+      }),
+    );
     const content = completion.choices[0]?.message.content;
     if (!content) throw new Error("Grok returned no structured compilation");
     return responseSchema.parse(JSON.parse(content)).root;
   };
+}
+
+function retryable(error: unknown): boolean {
+  const status = typeof error === "object" && error !== null && "status" in error
+    ? (error as { status?: unknown }).status
+    : undefined;
+  return status === 408 || status === 409 || status === 429 || (typeof status === "number" && status >= 500);
+}
+
+function backoffMilliseconds(attempt: number): number {
+  // Deterministic jitter avoids synchronized retries while retaining reproducible tests.
+  return 250 * 2 ** attempt + attempt * 37;
+}
+
+/** Retry only transient provider failures; invalid schemas must fail immediately. */
+export async function withRetry<T>(
+  operation: () => Promise<T>,
+  { attempts = 4, sleep = (milliseconds: number) => new Promise<void>((resolveSleep) => setTimeout(resolveSleep, milliseconds)) }:
+    { attempts?: number; sleep?: (milliseconds: number) => Promise<void> } = {},
+): Promise<T> {
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (!retryable(error) || attempt === attempts - 1) throw error;
+      await sleep(backoffMilliseconds(attempt));
+    }
+  }
+  throw new Error("unreachable retry state");
 }
 
 export async function compileTrial(
@@ -208,10 +245,26 @@ export async function compileTrial(
 export async function compileRawTrials(
   rawTrials: RawClinicalTrial[],
   compileBlock: BlockCompiler,
+  { concurrency = 8, onProgress }: CompileBatchOptions = {},
 ): Promise<CompiledTrialResult[]> {
-  const results: CompiledTrialResult[] = [];
-  // Serial execution makes the API spend predictable and respects provider limits.
-  for (const raw of rawTrials) results.push(await compileTrial(raw, compileBlock));
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 10) {
+    throw new Error("concurrency must be an integer from 1 through 10");
+  }
+
+  const results = new Array<CompiledTrialResult>(rawTrials.length);
+  let nextIndex = 0;
+  let completed = 0;
+  const worker = async (): Promise<void> => {
+    while (true) {
+      const index = nextIndex;
+      nextIndex += 1;
+      if (index >= rawTrials.length) return;
+      results[index] = await compileTrial(rawTrials[index], compileBlock);
+      completed += 1;
+      onProgress?.(completed, rawTrials.length);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, rawTrials.length) }, worker));
   return results;
 }
 
@@ -219,7 +272,10 @@ async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
   const outputPath = resolve(process.argv[3] || "data/compiled/trials.json");
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
-  const results = await compileRawTrials(rawTrials, createGrokBlockCompiler());
+  const results = await compileRawTrials(rawTrials, createGrokBlockCompiler(), {
+    concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
+    onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
+  });
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(results, null, 2)}\n`, "utf8");
   console.log(`Compiled ${results.length - results.filter((result) => result.failure).length}; rejected ${results.filter((result) => result.failure).length}`);

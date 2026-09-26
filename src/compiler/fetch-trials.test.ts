@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { fetchRecruitingLungCancerTrials } from "@/src/compiler/fetch-trials";
 
 test("fetchRecruitingLungCancerTrials follows page tokens and keeps interventional studies", async () => {
@@ -24,7 +23,7 @@ test("fetchRecruitingLungCancerTrials follows page tokens and keeps intervention
   }) as typeof fetch;
 
   const trials = await fetchRecruitingLungCancerTrials({ limit: 2, fetchImpl });
-  assert.deepEqual(trials.map((trial) => trial.protocolSection.identificationModule.nctId), ["NCT00000001", "NCT00000003"]);
-  assert.match(requested[0], /filter\.advanced=AREA%5BStudyType%5DINTERVENTIONAL/);
-  assert.match(requested[1], /pageToken=next/);
+  expect(trials.map((trial) => trial.protocolSection.identificationModule.nctId)).toEqual(["NCT00000001", "NCT00000003"]);
+  expect(requested[0]).toMatch(/filter\.advanced=AREA%5BStudyType%5DINTERVENTIONAL/);
+  expect(requested[1]).toMatch(/pageToken=next/);
 });

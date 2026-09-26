@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { buildThresholdHistogram, validateCompilationResults } from "@/src/compiler/validate";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
 
@@ -13,8 +12,8 @@ const accepted: CompiledTrialResult = {
 
 test("reports numeric thresholds by analyte and excludes review-only trials", () => {
   const flagged: CompiledTrialResult = { ...accepted, trial: { ...accepted.trial, nctId: "NCT00000002", needsHumanReview: true } };
-  assert.deepEqual(buildThresholdHistogram([accepted, flagged]), { ANC: [{ threshold: 1500, count: 1 }] });
-  assert.deepEqual(validateCompilationResults([accepted, flagged]), {
+  expect(buildThresholdHistogram([accepted, flagged])).toEqual({ ANC: [{ threshold: 1500, count: 1 }] });
+  expect(validateCompilationResults([accepted, flagged])).toEqual({
     total: 2, compiled: 2, rejected: 0, flagged: 1, invalidOutput: 0,
     thresholdHistogram: { ANC: [{ threshold: 1500, count: 1 }] },
   });

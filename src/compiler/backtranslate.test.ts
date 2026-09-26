@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { backtranslateTrial, diffSourceSpan } from "@/src/compiler/backtranslate";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
 import type { CriterionLeaf } from "@/src/contracts";
@@ -11,7 +10,7 @@ const leaf: CriterionLeaf = {
 
 test("flags a backtranslation that flips an exclusion's polarity", () => {
   const issues = diffSourceSpan(leaf, { id: "EXC-1", type: "exclusion", text: "Prior osimertinib treatment is required." });
-  assert.match(issues.join("\n"), /polarity divergence/);
+  expect(issues.join("\n")).toMatch(/polarity divergence/);
 });
 
 test("marks a trial for review when backtranslation diverges", async () => {
@@ -20,6 +19,6 @@ test("marks a trial for review when backtranslation diverges", async () => {
     sourceText: leaf.sourceSpan,
   };
   const checked = await backtranslateTrial(result, async () => [{ id: "EXC-1", type: "exclusion", text: "Prior osimertinib treatment is required." }]);
-  assert.equal(checked.trial.needsHumanReview, true);
-  assert.match(checked.failure!.issues.join("\n"), /polarity divergence/);
+  expect(checked.trial.needsHumanReview).toBe(true);
+  expect(checked.failure!.issues.join("\n")).toMatch(/polarity divergence/);
 });

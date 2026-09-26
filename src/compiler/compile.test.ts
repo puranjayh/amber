@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { compileTrial, extractEligibilityBlocks } from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
 
@@ -13,7 +12,7 @@ const raw: RawClinicalTrial = {
 };
 
 test("splits source eligibility headings without changing their words", () => {
-  assert.deepEqual(extractEligibilityBlocks(raw.protocolSection.eligibilityModule!.eligibilityCriteria!), [
+  expect(extractEligibilityBlocks(raw.protocolSection.eligibilityModule!.eligibilityCriteria!)).toEqual([
     { type: "inclusion", sourceText: "- Age 18 years or older.\n- ANC >= 1500 /uL." },
     { type: "exclusion", sourceText: "- Prior osimertinib or gefitinib." },
   ]);
@@ -31,9 +30,9 @@ test("rejects a numeric tree that omits elasticity metadata", async () => {
     sweepable: false,
     sourceSpan: block.sourceText,
   }));
-  assert.equal(result.trial.needsHumanReview, true);
-  assert.equal(result.trial.criteria.length, 0);
-  assert.match(result.failure!.issues.join("\n"), /numeric leaf is missing sweep metadata/);
+  expect(result.trial.needsHumanReview).toBe(true);
+  expect(result.trial.criteria).toHaveLength(0);
+  expect(result.failure!.issues.join("\n")).toMatch(/numeric leaf is missing sweep metadata/);
 });
 
 test("keeps a nested OR as a group node", async () => {
@@ -52,7 +51,7 @@ test("keeps a nested OR as a group node", async () => {
       { kind: "leaf", id: "INC-2", type: "inclusion", predicate: "biomarker", operator: "==", value: "ROS1-positive", tier: 0, sweepable: false, sourceSpan: "ROS1-positive" },
     ],
   }));
-  assert.equal(result.trial.needsHumanReview, false);
-  assert.equal(result.trial.criteria[0].kind, "group");
-  assert.equal((result.trial.criteria[0] as { op: string }).op, "OR");
+  expect(result.trial.needsHumanReview).toBe(false);
+  expect(result.trial.criteria[0].kind).toBe("group");
+  expect((result.trial.criteria[0] as { op: string }).op).toBe("OR");
 });
