@@ -9,11 +9,11 @@ Things one lane noticed that another lane owns. Add a line and keep going
 
 The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts` → `docs/shots/`). `playwright` is now a devDependency on this branch. Please keep the dep and the `shots` script when you next land `package.json` on `main`. `npx playwright install chromium` is required once per machine.
 
-## From P3 (app) — payer is on a labelled CMS stub
+## From P3 (app) — payer is on the real DE-SynPUF extract
 
 **Who this is for:** P1 (compiler) / P4 (data).
 
-`/payer` evaluates `data/claims/patients.json` when it exists. It is not in this tree, so the screen runs `components/payer/stub.ts` (4 synthetic BENE-* records, DE-SynPUF-shaped claim lines). Drop the real extract at `data/claims/patients.json` (contract `Patient[]`, `provenance: "claims"`) and regenerate — no route change.
+`/payer` evaluates `data/claims/patients.json` when it exists. Claim lines are ICD-9 / HCPCS coded (`ICD-9 1623`, `pemetrexed` / `PLATINUM`). Fixture leaves still ask for the stub shapes (`non-small cell lung cancer`, `ILD: true`, `EGFR_TKI` / osimertinib). The app rewrites 162.x → NSCLC and 515/516.x → ILD before `evaluate()`. Sample 1 has **0** oral EGFR-TKI fills, so the first-line exclusion does not fire. After the rewrite, claims settle 33 of 1,296 (ILD). Drop the extract at that path; do not expect BENE-* ids.
 
 `data/compiled/coverage.json` is compile-stats (now at `compile-stats.json` on `eng/compiler`). `/payer` will not derive a number from the trees. Republish `data/compiled/coverage.json` as `ClaimsCoverage` with **5,103** leaves (the slide number). Any other leaf count throws.
 

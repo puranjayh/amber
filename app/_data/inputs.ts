@@ -200,9 +200,16 @@ export function loadLandscape(root: string): { landscape: CriteriaLandscape; sou
 export function loadClaims(root: string): { patients: PatientT[]; source: "data/claims/patients.json" } | null {
   const path = root + CLAIMS;
   if (!existsSync(path)) return null;
-  const parsed = PatientsFixture.safeParse(readJson(path));
-  if (!parsed.success || parsed.data.length === 0) return null;
-  return { patients: parsed.data, source: CLAIMS };
+  const raw = readJson(path);
+  const whole = PatientsFixture.safeParse(raw);
+  if (whole.success && whole.data.length > 0) return { patients: whole.data, source: CLAIMS };
+  if (!Array.isArray(raw)) return null;
+  try {
+    const patients = acceptPatients(raw, CLAIMS);
+    return patients.length > 0 ? { patients, source: CLAIMS } : null;
+  } catch {
+    return null;
+  }
 }
 
 /**

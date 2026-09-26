@@ -15,6 +15,7 @@ export function countRows(data: unknown): number {
     const rec = data as Record<string, unknown>;
     if (Array.isArray(rec.analytes)) return rec.analytes.length;
     if (typeof rec.evaluatedCells === "number") return rec.evaluatedCells;
+    if (typeof rec.beneficiaries === "number") return rec.beneficiaries;
     if (Array.isArray(rec.settled) || Array.isArray(rec.needs)) {
       return (rec.settled?.length ?? 0) + (rec.needs?.length ?? 0);
     }

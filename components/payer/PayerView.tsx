@@ -3,7 +3,12 @@ import { CoverageChart } from "./CoverageChart";
 
 function Settled({ rows }: { rows: SettledExclusion[] }) {
   if (rows.length === 0) {
-    return <p className="text-[13px] text-ink-2">No claim has settled an exclusion in this extract.</p>;
+    return (
+      <p className="text-[13px] text-ink-2">
+        No claim in this extract answered an exclusion the fixture trials can fire — prior EGFR TKI
+        fill or an ILD diagnosis code.
+      </p>
+    );
   }
   return (
     <ul className="divide-y divide-line-2">
@@ -63,8 +68,12 @@ export function PayerSplit({ view }: { view: PayerModel }) {
       )}
       <header>
         <h1 className="text-[16px] font-medium text-ink">{view.headline}</h1>
-        <p className="mt-1 text-[12px] text-ink-2">
-          {view.beneficiaries} beneficiaries · {view.settled.length} settled by a claim ·{" "}
+        <p className="mt-1 text-[13px] text-ink">
+          Claims settled {new Set(view.settled.map((row) => row.patientId)).size.toLocaleString("en-US")} of{" "}
+          {view.beneficiaries.toLocaleString("en-US")}
+        </p>
+        <p className="mt-0.5 text-[12px] text-ink-2">
+          {view.settled.length} eliminating claim line{view.settled.length === 1 ? "" : "s"} ·{" "}
           {view.needs.length} kinds of UNKNOWN a chart has to close.
         </p>
       </header>

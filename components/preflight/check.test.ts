@@ -44,6 +44,7 @@ test("countRows understands landscape and eval shapes", () => {
   expect(countRows({ analytes: [1, 2, 3] })).toBe(3);
   expect(countRows({ evaluatedCells: 130 })).toBe(130);
   expect(countRows({ settled: [1], needs: [2, 3] })).toBe(3);
+  expect(countRows({ beneficiaries: 1296, settled: [], needs: [] })).toBe(1296);
   expect(countRows({ patients: 203 })).toBe(203);
 });
 
