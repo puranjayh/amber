@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { Patient, PatientsFixture, Trial, TrialsFixture, type Patient as PatientT, type Trial as TrialT } from "@/src/contracts";
-import { CriteriaLandscape } from "./schema";
+import { CoverageFigure, CriteriaLandscape } from "./schema";
 
 /** The evaluation date the fixtures are written against (fixtures/ORACLE.md). */
 export const AS_OF = "2026-09-25";
@@ -11,6 +11,8 @@ const POPULATION = "data/patients.json";
 const SYNTHEA = "data/synthea/patients.json";
 const COMPILED = "data/compiled/trials.json";
 const LANDSCAPE = "data/compiled/landscape.json";
+const CLAIMS = "data/claims/patients.json";
+const COVERAGE = "data/compiled/coverage.json";
 
 function readJson(path: string): unknown {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -112,4 +114,20 @@ export function loadLandscape(root: string): { landscape: CriteriaLandscape; sou
   const parsed = CriteriaLandscape.safeParse(readJson(path));
   if (!parsed.success || parsed.data.analytes.length === 0) return null;
   return { landscape: parsed.data, source: LANDSCAPE };
+}
+
+/** CMS DE-SynPUF extract when the compiler has written it. */
+export function loadClaims(root: string): { patients: PatientT[]; source: "data/claims/patients.json" } | null {
+  const path = root + CLAIMS;
+  if (!existsSync(path)) return null;
+  const parsed = PatientsFixture.safeParse(readJson(path));
+  if (!parsed.success || parsed.data.length === 0) return null;
+  return { patients: parsed.data, source: CLAIMS };
+}
+
+export function loadCoverage(root: string): CoverageFigure | null {
+  const path = root + COVERAGE;
+  if (!existsSync(path)) return null;
+  const parsed = CoverageFigure.safeParse(readJson(path));
+  return parsed.success ? parsed.data : null;
 }

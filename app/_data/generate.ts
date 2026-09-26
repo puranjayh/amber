@@ -8,7 +8,9 @@ import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { buildLandscape } from "@/components/landscape/build";
-import { AS_OF, loadInputs, loadLandscape } from "./inputs";
+import { CLAIMS_STUB } from "@/components/payer/stub";
+import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "./inputs";
+import { buildPayerView } from "./payer";
 import { buildReadModels } from "./readModels";
 import type { Meta } from "./schema";
 
@@ -41,7 +43,16 @@ write("worklist.json", models.worklist);
 write("elasticity.json", models.elasticity, !compact);
 write("equity.json", models.equity);
 write("assignments.json", models.assignments);
+const claims = loadClaims(ROOT);
+const payer = buildPayerView(
+  claims?.patients ?? CLAIMS_STUB,
+  trials.filter((t) => /^NCT07001\d+$/.test(t.nctId)),
+  AS_OF,
+  loadCoverage(ROOT),
+  claims ? claims.source : "stub",
+);
 write("landscape.json", landscape);
+write("payer.json", payer);
 write("meta.json", meta);
 
 console.log(

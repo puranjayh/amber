@@ -3,6 +3,14 @@
 Things one lane noticed that another lane owns. Add a line and keep going
 (docs/CONTRACT.md §5).
 
+## From P3 (app) — payer is on a labelled CMS stub
+
+**Who this is for:** P1 (compiler) / P4 (data).
+
+`/payer` evaluates `data/claims/patients.json` when it exists. It is not in this tree, so the screen runs `components/payer/stub.ts` (4 synthetic BENE-* records, DE-SynPUF-shaped claim lines). Drop the real extract at `data/claims/patients.json` (contract `Patient[]`, `provenance: "claims"`) and regenerate — no route change.
+
+`data/compiled/coverage.json` is also missing. Any JSON object with optional `beneficiaries` / `years` / `caption` / `source` / `figure` will render in the header. Until then the caption says the figure is pending.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are

@@ -80,3 +80,80 @@ export const Meta = z.object({
   engineTree: z.string(),
 });
 export type Meta = z.infer<typeof Meta>;
+
+export const CoverageFigure = z
+  .object({
+    beneficiaries: z.number().optional(),
+    years: z.string().optional(),
+    caption: z.string().optional(),
+    source: z.string().optional(),
+    figure: z.union([z.string(), z.number()]).optional(),
+  })
+  .passthrough();
+export type CoverageFigure = z.infer<typeof CoverageFigure>;
+
+export const SettledExclusion = z.object({
+  patientId: z.string(),
+  nctId: z.string(),
+  criterionId: z.string(),
+  predicate: z.string(),
+  kind: z.enum(["drug fill", "comorbidity", "concomitant fill"]),
+  claimLine: z.string(),
+  sourceDoc: z.string().optional(),
+});
+export type SettledExclusion = z.infer<typeof SettledExclusion>;
+
+export const ChartNeed = z.object({
+  need: z.string(),
+  predicate: z.string(),
+  analyte: z.string().optional(),
+  why: z.string(),
+  criterionIds: z.array(z.string()),
+  patientIds: z.array(z.string()),
+});
+export type ChartNeed = z.infer<typeof ChartNeed>;
+
+export const PayerView = z.object({
+  headline: z.string(),
+  beneficiaries: z.number().int(),
+  settled: z.array(SettledExclusion),
+  needs: z.array(ChartNeed),
+  coverage: CoverageFigure.nullable(),
+  source: z.enum(["data/claims/patients.json", "stub"]),
+});
+export type PayerView = z.infer<typeof PayerView>;
+
+export const EvalReport = z.object({
+  labelSource: z.string(),
+  evaluatedCells: z.number().int(),
+  issues: z.array(
+    z.object({
+      patientId: z.string(),
+      nctId: z.string(),
+      criterionId: z.string(),
+      message: z.string(),
+    }),
+  ),
+  confusionMatrix: z.record(z.string(), z.record(z.string(), z.number())),
+  precision: z.number().nullable(),
+  recall: z.number().nullable(),
+  unknownAgreement: z.number().nullable(),
+  unknownRecall: z.number().nullable(),
+  byVerdict: z.record(
+    z.string(),
+    z.object({ precision: z.number().nullable(), recall: z.number().nullable() }),
+  ),
+  disagreements: z.array(
+    z.object({
+      patientId: z.string(),
+      trialTitle: z.string(),
+      nctId: z.string(),
+      criterionId: z.string(),
+      expected: Verdict,
+      actual: Verdict,
+      criterionCitation: z.string(),
+      chartCitation: z.string().optional(),
+    }),
+  ),
+});
+export type EvalReport = z.infer<typeof EvalReport>;

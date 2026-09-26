@@ -5,10 +5,10 @@ Last updated: 2026-09-26 03:37 ET
 ## Done
 
 1. **Landscape** — `/landscape` reads `data/compiled/landscape.json` (300 compiled trials, 150 analytes). Dominant operator per analyte; ink bar = leading threshold. Callout lists the splits (performance_status ≤ 37/32, ANC ≥ 1.5 vs 1500, Hemoglobin 9 vs 90). Fallback `buildLandscape(trials)` if the compiler file is empty.
+2. **Payer** — `/payer` split: claims that settle (osimertinib PDE, ILD ICD) vs UNKNOWNs a chart must close. Header: "Claims can rule patients out. Only a chart can rule them in." Stub DE-SynPUF beneficiaries until `data/claims/patients.json` lands; coverage.json is shown when present. Notification card: physician only, never patient/sponsor; no biomarker data to a payer (GINA).
 
 ## Queue
 
-2. `/payer` — CMS claims split (stub if `data/claims/patients.json` is missing)
 3. `?demo=1` — hero pair, one click from landing (wired; add payer + eval)
 4. Screen-failures-avoided — 62% × $2,000 (wired on worklist)
 5. `/eval` — confusion matrix from `data/eval/results.json`, labelled as model-draft until human
