@@ -1,5 +1,65 @@
 [
   {
+    "patientId": "PT-4423",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 17,
+    "unknownCount": 0,
+    "blocking": [],
+    "resolutionTier": null,
+    "resolutionCost": 0,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4425",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 17,
+    "unknownCount": 0,
+    "blocking": [],
+    "resolutionTier": null,
+    "resolutionCost": 0,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4422",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 17,
+    "unknownCount": 0,
+    "blocking": [],
+    "resolutionTier": null,
+    "resolutionCost": 0,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4421",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 17,
+    "unknownCount": 0,
+    "blocking": [],
+    "resolutionTier": null,
+    "resolutionCost": 0,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4424",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 17,
+    "unknownCount": 0,
+    "blocking": [],
+    "resolutionTier": null,
+    "resolutionCost": 0,
+    "expectedValue": 0
+  },
+  {
     "patientId": "LC-A-051",
     "nctId": "NCT02496663",
     "eliminated": false,

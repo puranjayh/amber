@@ -15,10 +15,10 @@ import { fileURLToPath } from "node:url";
 import { buildLandscape } from "@/components/landscape/build";
 import { CLAIMS_STUB } from "@/components/payer/stub";
 import { buildEvalReport } from "./eval";
-import { AS_OF, DEMO_POOL, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "./inputs";
+import { ANCHOR_TRIALS, AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "./inputs";
 import { buildHcpPanel } from "./hcp";
 import { buildPayerView } from "./payer";
-import { buildReadModels, publishCube } from "./readModels";
+import { buildReadModels, publishCube, rowsOnTrial } from "./readModels";
 import type { Meta } from "./schema";
 
 if (process.env.NEXT_RUNTIME) {
@@ -48,10 +48,32 @@ const meta: Meta = {
 };
 
 const compact = patients.length > 20;
+const hcp = buildHcpPanel(models.cube, patients, trials);
+const doctor = ANCHOR_TRIALS.flatMap((nctId) => {
+  const trial = trials.find((row) => row.nctId === nctId);
+  return trial ? rowsOnTrial(models.cube, trial) : [];
+});
+const demoPatientIds = patients
+  .filter((patient) => patient.id === PRESENTATION_PAIR.patientId || patient.id.startsWith("PT-441"))
+  .map((patient) => patient.id);
+const cube = publishCube(models.cube, {
+  worklist: models.worklist,
+  hcp: hcp.physicians.flatMap((doc) => doc.patients),
+  doctor,
+  demoPatientIds,
+});
 write("trials.json", trials);
 write("patients.json", patients, !compact);
-write("cube.json", publishCube(models.cube, models.worklist, PRESENTATION_TRIAL), !compact);
+write("cube.json", cube, !compact);
 write("worklist.json", models.worklist);
+write(
+  "anchors.json",
+  {
+    trials: [...ANCHOR_TRIALS],
+    rows: Object.fromEntries(ANCHOR_TRIALS.map((nctId) => [nctId, doctor.filter((row) => row.nctId === nctId)])),
+  },
+  true,
+);
 write("elasticity.json", models.elasticity, !compact);
 write("equity.json", models.equity);
 write("assignments.json", models.assignments);
@@ -67,7 +89,7 @@ const evalReport = buildEvalReport(ROOT, patients, trials, AS_OF);
 write("landscape.json", landscape);
 write("payer.json", payer);
 write("eval.json", evalReport);
-write("hcp.json", buildHcpPanel(models.cube, patients, trials));
+write("hcp.json", hcp);
 write("meta.json", meta);
 
 console.log(

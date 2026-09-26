@@ -12373,6 +12373,7 @@
             "operator": "<=",
             "value": 21,
             "unit": "days",
+            "drugClass": "SURGERY",
             "tier": 4,
             "sweepable": true,
             "sweepRange": [
@@ -12390,6 +12391,7 @@
             "operator": "<=",
             "value": 7,
             "unit": "days",
+            "drugClass": "EGFR_TKI",
             "tier": 4,
             "sweepable": true,
             "sweepRange": [
@@ -12407,6 +12409,7 @@
             "operator": ">=",
             "value": 5,
             "unit": "half-lives",
+            "drugClass": "INVESTIGATIONAL_AGENT",
             "tier": 4,
             "sweepable": true,
             "sweepRange": [

@@ -11,6 +11,26 @@
         "nctId": "NCT07001001"
       },
       {
+        "patientId": "PT-4421",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4422",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4423",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4424",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4425",
+        "nctId": "NCT07001001"
+      },
+      {
         "patientId": "PT-4410",
         "nctId": "NCT07001001"
       },
@@ -29,35 +49,15 @@
       {
         "patientId": "SEED-01",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-02",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-03",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-04",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-05",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-06",
-        "nctId": "NCT07001001"
       }
     ],
     "enrolled": 12,
     "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.75,
-      "Black or African American": 0.08333333333333333,
-      "White": 0.16666666666666666
+      "Asian": 0.49999999999999994,
+      "Black or African American": 0.16666666666666666,
+      "White": 0.3333333333333333
     }
   },
   {
@@ -72,6 +72,26 @@
         "nctId": "NCT07001001"
       },
       {
+        "patientId": "PT-4421",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4422",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4423",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4424",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4425",
+        "nctId": "NCT07001001"
+      },
+      {
         "patientId": "PT-4410",
         "nctId": "NCT07001001"
       },
@@ -90,35 +110,15 @@
       {
         "patientId": "SEED-01",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-02",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-03",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-04",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-05",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-06",
-        "nctId": "NCT07001001"
       }
     ],
     "enrolled": 12,
     "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.75,
-      "Black or African American": 0.08333333333333333,
-      "White": 0.16666666666666666
+      "Asian": 0.49999999999999994,
+      "Black or African American": 0.16666666666666666,
+      "White": 0.3333333333333333
     }
   },
   {
@@ -133,6 +133,26 @@
         "nctId": "NCT07001001"
       },
       {
+        "patientId": "PT-4421",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4422",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4423",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4424",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "PT-4425",
+        "nctId": "NCT07001001"
+      },
+      {
         "patientId": "PT-4410",
         "nctId": "NCT07001001"
       },
@@ -151,35 +171,15 @@
       {
         "patientId": "SEED-01",
         "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-02",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-03",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-04",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-05",
-        "nctId": "NCT07001001"
-      },
-      {
-        "patientId": "SEED-06",
-        "nctId": "NCT07001001"
       }
     ],
     "enrolled": 12,
     "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.75,
-      "Black or African American": 0.08333333333333333,
-      "White": 0.16666666666666666
+      "Asian": 0.49999999999999994,
+      "Black or African American": 0.16666666666666666,
+      "White": 0.3333333333333333
     }
   }
 ]
