@@ -11,6 +11,7 @@
  *   equity      exclusion rate per criterion, grouped by race
  *   match       stable many-to-one assignment under capacity
  *   calendar    forward schedule: who becomes enrollable, and when
+ *   federated   per-site counts and curves, with small-cell suppression
  *
  * On the polarity of an exclusion cell's verdict, read the header of
  * evaluate.ts and the note in docs/HANDOFF.md before rendering anything: use
@@ -47,6 +48,22 @@ export {
   withLeafValue,
 } from "./elasticity";
 export { equityAudit, equityAuditAcross } from "./equity";
+export {
+  DEFAULT_MIN_CELL_SIZE,
+  complementarySuppression,
+  federate,
+  isSuppressed,
+  suppress,
+  type FederateOptions,
+  type FederatedCounts,
+  type FederatedElasticityCurve,
+  type FederatedElasticityPoint,
+  type FederatedReport,
+  type FederatedTrialReport,
+  type SiteCohort,
+  type SuppressedCount,
+  type SuppressionMarker,
+} from "./federated";
 export {
   actionableEntries,
   calendar,
