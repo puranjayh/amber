@@ -50,7 +50,7 @@
         "value": 0.65,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.65 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.65 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -60,7 +60,7 @@
         "value": 0.31,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.31 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.31 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -381,7 +381,7 @@
         "value": 0.27,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.27 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.27 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -391,7 +391,7 @@
         "value": 0.97,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.97 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.97 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -717,7 +717,7 @@
         "value": 0.56,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -727,7 +727,7 @@
         "value": 0.31,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.31 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.31 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -1046,7 +1046,7 @@
         "value": 0.82,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.82 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.82 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -1220,7 +1220,7 @@
         "value": 0.27,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.27 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.27 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -1230,7 +1230,7 @@
         "value": 1.15,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.15 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.15 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -1531,7 +1531,7 @@
         "value": 0.55,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.55 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.55 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -1541,7 +1541,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -1696,7 +1696,7 @@
         "value": 0.51,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -1706,7 +1706,7 @@
         "value": 0.45,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.45 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.45 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -1991,7 +1991,7 @@
         "value": 0.67,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.67 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.67 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -2166,7 +2166,7 @@
         "value": 1.02,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.02 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.02 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -2176,7 +2176,7 @@
         "value": 0.75,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.75 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.75 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -2487,7 +2487,7 @@
         "value": 0.39,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.39 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.39 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, academic centre",
         "provenance": "chart"
       },
@@ -2817,7 +2817,7 @@
         "value": 0.33,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.33 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.33 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -2827,7 +2827,7 @@
         "value": 0.85,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.85 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.85 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -3174,7 +3174,7 @@
         "value": 0.2,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -3184,7 +3184,7 @@
         "value": 1.55,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.55 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.55 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -3513,7 +3513,7 @@
         "value": 0.48,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -3523,7 +3523,7 @@
         "value": 0.6,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.6 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.6 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -3851,7 +3851,7 @@
         "value": 0.42,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.42 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.42 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -3861,7 +3861,7 @@
         "value": 0.6,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.6 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.6 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -4208,7 +4208,7 @@
         "value": 0.39,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.39 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.39 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -4371,7 +4371,7 @@
         "value": 0.81,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -4381,7 +4381,7 @@
         "value": 0.71,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.71 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.71 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -4692,7 +4692,7 @@
         "value": 0.6,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.6 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.6 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -4702,7 +4702,7 @@
         "value": 0.75,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.75 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.75 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -5040,7 +5040,7 @@
         "value": 1.07,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.07 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.07 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -5387,7 +5387,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -5397,7 +5397,7 @@
         "value": 0.91,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.91 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.91 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -5702,7 +5702,7 @@
         "value": 0.35,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.35 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.35 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -5712,7 +5712,7 @@
         "value": 1.05,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.05 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.05 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -6043,7 +6043,7 @@
         "value": 0.2,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -6053,7 +6053,7 @@
         "value": 0.51,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.51 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.51 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -6389,7 +6389,7 @@
         "value": 0.64,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -6399,7 +6399,7 @@
         "value": 1.16,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.16 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.16 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -6564,7 +6564,7 @@
         "value": 0.43,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.43 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.43 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -6729,7 +6729,7 @@
         "value": 0.31,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.31 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.31 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -6739,7 +6739,7 @@
         "value": 1.65,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.65 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.65 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -7075,7 +7075,7 @@
         "value": 0.57,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -7085,7 +7085,7 @@
         "value": 0.52,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.52 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.52 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -7423,7 +7423,7 @@
         "value": 0.87,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.87 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.87 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -7433,7 +7433,7 @@
         "value": 1.52,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.52 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.52 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -7763,7 +7763,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -7773,7 +7773,7 @@
         "value": 0.54,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.54 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.54 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -8103,7 +8103,7 @@
         "value": 0.5,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -8113,7 +8113,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -8434,7 +8434,7 @@
         "value": 0.56,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -8444,7 +8444,7 @@
         "value": 0.41,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.41 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.41 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -8773,7 +8773,7 @@
         "value": 0.49,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.49 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.49 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -8783,7 +8783,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -9121,7 +9121,7 @@
         "value": 2.62,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 2.62 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 2.62 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -9131,7 +9131,7 @@
         "value": 1.1,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.1 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.1 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -9451,7 +9451,7 @@
         "value": 0.47,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.47 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.47 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -9461,7 +9461,7 @@
         "value": 1.06,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.06 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.06 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -9775,7 +9775,7 @@
         "value": 1.07,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.07 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.07 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -9785,7 +9785,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.78 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.78 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -10086,7 +10086,7 @@
         "value": 0.5,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -10096,7 +10096,7 @@
         "value": 1.01,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.01 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.01 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -10432,7 +10432,7 @@
         "value": 0.64,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -10442,7 +10442,7 @@
         "value": 0.89,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.89 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.89 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -10780,7 +10780,7 @@
         "value": 0.93,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.93 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.93 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -10952,7 +10952,7 @@
         "value": 0.74,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -10962,7 +10962,7 @@
         "value": 1.03,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.03 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.03 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -11301,7 +11301,7 @@
         "value": 0.62,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -11473,7 +11473,7 @@
         "value": 0.55,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.55 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.55 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, academic centre",
         "provenance": "chart"
       },
@@ -11605,7 +11605,7 @@
         "value": 0.7,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -11615,7 +11615,7 @@
         "value": 0.58,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.58 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.58 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -11926,7 +11926,7 @@
         "value": 2.85,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 2.85 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 2.85 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -11936,7 +11936,7 @@
         "value": 0.48,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.48 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.48 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -12258,7 +12258,7 @@
         "value": 0.85,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.85 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.85 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, academic centre",
         "provenance": "chart"
       },
@@ -12421,7 +12421,7 @@
         "value": 0.76,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.76 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.76 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -12431,7 +12431,7 @@
         "value": 1.14,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.14 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.14 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -12751,7 +12751,7 @@
         "value": 0.66,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.66 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.66 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, academic centre",
         "provenance": "chart"
       },
@@ -12761,7 +12761,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.9 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.9 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, academic centre",
         "provenance": "chart"
       },
@@ -13090,7 +13090,7 @@
         "value": 0.58,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.58 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.58 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -13411,7 +13411,7 @@
         "value": 0.43,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.43 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.43 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -13421,7 +13421,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -13750,7 +13750,7 @@
         "value": 0.52,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.52 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.52 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -13760,7 +13760,7 @@
         "value": 1.11,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.11 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.11 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -14079,7 +14079,7 @@
         "value": 0.38,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.38 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.38 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -14409,7 +14409,7 @@
         "value": 0.48,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -14419,7 +14419,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.68 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.68 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -14748,7 +14748,7 @@
         "value": 0.37,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.37 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.37 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -14758,7 +14758,7 @@
         "value": 0.6,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.6 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.6 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, academic centre",
         "provenance": "chart"
       },
@@ -15069,7 +15069,7 @@
         "value": 0.8,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -15079,7 +15079,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.9 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.9 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, academic centre",
         "provenance": "chart"
       },
@@ -15400,7 +15400,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -15410,7 +15410,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, academic centre",
         "provenance": "chart"
       },
@@ -15739,7 +15739,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -15749,7 +15749,7 @@
         "value": 0.86,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.86 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.86 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, academic centre",
         "provenance": "chart"
       },
@@ -16068,7 +16068,7 @@
         "value": 0.63,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.63 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.63 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -16078,7 +16078,7 @@
         "value": 0.38,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.38 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.38 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -16391,7 +16391,7 @@
         "value": 0.22,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.22 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.22 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -16401,7 +16401,7 @@
         "value": 0.99,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.99 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.99 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, academic centre",
         "provenance": "chart"
       },
@@ -16696,7 +16696,7 @@
         "value": 0.29,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.29 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.29 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -16706,7 +16706,7 @@
         "value": 0.44,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.44 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.44 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -17015,7 +17015,7 @@
         "value": 0.37,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.37 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.37 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -17025,7 +17025,7 @@
         "value": 0.53,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.53 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.53 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -17191,7 +17191,7 @@
         "value": 0.46,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.46 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.46 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -17201,7 +17201,7 @@
         "value": 0.89,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.89 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.89 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, academic centre",
         "provenance": "chart"
       },
@@ -17330,7 +17330,7 @@
         "value": 0.62,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -17340,7 +17340,7 @@
         "value": 0.8,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.8 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, academic centre",
         "provenance": "chart"
       },
@@ -17654,7 +17654,7 @@
         "value": 0.99,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.99 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.99 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, academic centre",
         "provenance": "chart"
       },
@@ -17984,7 +17984,7 @@
         "value": 0.74,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -17994,7 +17994,7 @@
         "value": 1.02,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.02 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.02 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -18341,7 +18341,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -18351,7 +18351,7 @@
         "value": 1.14,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.14 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.14 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -18679,7 +18679,7 @@
         "value": 0.88,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.88 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.88 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -18689,7 +18689,7 @@
         "value": 0.72,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.72 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.72 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -19019,7 +19019,7 @@
         "value": 0.54,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.54 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.54 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -19139,7 +19139,7 @@
         "value": 0.8,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -19149,7 +19149,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -19242,7 +19242,7 @@
         "value": 0.73,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -19372,7 +19372,7 @@
         "value": 0.56,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -19693,7 +19693,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -19703,7 +19703,7 @@
         "value": 1,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -20032,7 +20032,7 @@
         "value": 0.57,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -20042,7 +20042,7 @@
         "value": 0.55,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.55 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.55 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -20361,7 +20361,7 @@
         "value": 0.61,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -20484,7 +20484,7 @@
         "value": 1.15,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.15 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.15 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -20494,7 +20494,7 @@
         "value": 0.81,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.81 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.81 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -20823,7 +20823,7 @@
         "value": 0.2,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -20833,7 +20833,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -21153,7 +21153,7 @@
         "value": 0.51,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -21163,7 +21163,7 @@
         "value": 1.07,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.07 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.07 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -21464,7 +21464,7 @@
         "value": 0.53,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.53 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.53 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -21474,7 +21474,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.78 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.78 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -21795,7 +21795,7 @@
         "value": 0.79,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.79 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.79 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -21805,7 +21805,7 @@
         "value": 1.06,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.06 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.06 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -22271,7 +22271,7 @@
         "value": 0.73,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -22281,7 +22281,7 @@
         "value": 0.39,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.39 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.39 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -22601,7 +22601,7 @@
         "value": 0.86,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.86 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.86 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -22611,7 +22611,7 @@
         "value": 1.03,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.03 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.03 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -22932,7 +22932,7 @@
         "value": 1.17,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.17 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.17 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -22942,7 +22942,7 @@
         "value": 0.82,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.82 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.82 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -23252,7 +23252,7 @@
         "value": 0.81,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -23262,7 +23262,7 @@
         "value": 1.64,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.64 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.64 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -23582,7 +23582,7 @@
         "value": 0.92,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.92 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.92 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -23592,7 +23592,7 @@
         "value": 1.1,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.1 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.1 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -23912,7 +23912,7 @@
         "value": 0.62,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -23922,7 +23922,7 @@
         "value": 1.35,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.35 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.35 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -24252,7 +24252,7 @@
         "value": 0.4,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -24262,7 +24262,7 @@
         "value": 1.18,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.18 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.18 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -24407,7 +24407,7 @@
         "value": 0.69,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.69 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.69 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -24417,7 +24417,7 @@
         "value": 1.79,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.79 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.79 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -24747,7 +24747,7 @@
         "value": 0.85,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.85 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.85 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -24757,7 +24757,7 @@
         "value": 1.45,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.45 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.45 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -25087,7 +25087,7 @@
         "value": 0.26,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.26 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.26 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -25097,7 +25097,7 @@
         "value": 1,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -25443,7 +25443,7 @@
         "value": 0.24,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.24 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.24 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -25453,7 +25453,7 @@
         "value": 1.26,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.26 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.26 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -25774,7 +25774,7 @@
         "value": 0.72,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.72 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.72 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -25784,7 +25784,7 @@
         "value": 0.83,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.83 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.83 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -26094,7 +26094,7 @@
         "value": 0.92,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.92 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.92 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -26248,7 +26248,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -26258,7 +26258,7 @@
         "value": 0.66,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.66 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.66 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -26716,7 +26716,7 @@
         "value": 0.5,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.5 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -26726,7 +26726,7 @@
         "value": 0.44,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.44 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.44 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -27056,7 +27056,7 @@
         "value": 0.7,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -27066,7 +27066,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -27404,7 +27404,7 @@
         "value": 0.64,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.64 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -27414,7 +27414,7 @@
         "value": 1.01,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.01 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.01 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -27742,7 +27742,7 @@
         "value": 1.49,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.49 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.49 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -28053,7 +28053,7 @@
         "value": 0.73,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.73 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -28200,7 +28200,7 @@
         "value": 0.81,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.81 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -28210,7 +28210,7 @@
         "value": 1.37,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.37 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.37 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -28540,7 +28540,7 @@
         "value": 1.28,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.28 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.28 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -28704,7 +28704,7 @@
         "value": 0.59,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.59 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.59 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -28714,7 +28714,7 @@
         "value": 0.54,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.54 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.54 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -29033,7 +29033,7 @@
         "value": 0.8,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -29186,7 +29186,7 @@
         "value": 0.29,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.29 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.29 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -29196,7 +29196,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.68 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.68 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -29332,7 +29332,7 @@
         "value": 0.74,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.74 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -29342,7 +29342,7 @@
         "value": 0.71,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.71 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.71 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -29669,7 +29669,7 @@
         "value": 0.61,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -29679,7 +29679,7 @@
         "value": 1.1,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.1 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.1 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -30009,7 +30009,7 @@
         "value": 1.04,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.04 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.04 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -30019,7 +30019,7 @@
         "value": 0.39,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.39 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.39 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -30337,7 +30337,7 @@
         "value": 0.2,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.2 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -30482,7 +30482,7 @@
         "value": 0.63,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.63 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.63 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -30492,7 +30492,7 @@
         "value": 1.06,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.06 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.06 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -30797,7 +30797,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.84 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.84 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -30807,7 +30807,7 @@
         "value": 0.92,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.92 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.92 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -31126,7 +31126,7 @@
         "value": 0.65,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.65 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.65 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -31136,7 +31136,7 @@
         "value": 1.09,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.09 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.09 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -31464,7 +31464,7 @@
         "value": 0.62,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.62 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -31474,7 +31474,7 @@
         "value": 0.75,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.75 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.75 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -31621,7 +31621,7 @@
         "value": 0.61,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -31631,7 +31631,7 @@
         "value": 0.86,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.86 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.86 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -31951,7 +31951,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -31961,7 +31961,7 @@
         "value": 0.63,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.63 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.63 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -32087,7 +32087,7 @@
         "value": 0.61,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -32097,7 +32097,7 @@
         "value": 1.22,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.22 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.22 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -32242,7 +32242,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.9 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.9 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -32364,7 +32364,7 @@
         "value": 0.94,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.94 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.94 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -32507,7 +32507,7 @@
         "value": 0.3,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.3 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.3 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -32647,7 +32647,7 @@
         "value": 0.77,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.77 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.77 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -32958,7 +32958,7 @@
         "value": 0.78,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.78 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -32968,7 +32968,7 @@
         "value": 0.76,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.76 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.76 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -33119,7 +33119,7 @@
         "value": 0.49,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.49 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.49 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -33129,7 +33129,7 @@
         "value": 0.71,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.71 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.71 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -33250,7 +33250,7 @@
         "value": 0.66,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.66 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.66 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -33260,7 +33260,7 @@
         "value": 0.92,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.92 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.92 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -33561,7 +33561,7 @@
         "value": 1.27,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.27 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.27 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -33710,7 +33710,7 @@
         "value": 0.53,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.53 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.53 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -33720,7 +33720,7 @@
         "value": 1.26,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.26 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.26 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -34041,7 +34041,7 @@
         "value": 0.61,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.61 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -34051,7 +34051,7 @@
         "value": 1.08,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.08 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.08 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -34359,7 +34359,7 @@
         "value": 0.44,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.44 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.44 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -34481,7 +34481,7 @@
         "value": 0.51,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.51 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -34491,7 +34491,7 @@
         "value": 0.91,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.91 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.91 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -34603,7 +34603,7 @@
         "value": 0.34,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.34 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.34 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -34917,7 +34917,7 @@
         "value": 0.4,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -34927,7 +34927,7 @@
         "value": 1.45,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.45 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.45 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -35264,7 +35264,7 @@
         "value": 0.91,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.91 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.91 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -35274,7 +35274,7 @@
         "value": 0.91,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.91 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.91 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -35384,7 +35384,7 @@
         "value": 0.72,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.72 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.72 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -35394,7 +35394,7 @@
         "value": 1.02,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.02 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.02 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -35715,7 +35715,7 @@
         "value": 1.05,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.05 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.05 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -36044,7 +36044,7 @@
         "value": 0.4,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.4 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -36054,7 +36054,7 @@
         "value": 1.35,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.35 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.35 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -36384,7 +36384,7 @@
         "value": 0.83,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.83 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.83 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -36394,7 +36394,7 @@
         "value": 0.75,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.75 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.75 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -36722,7 +36722,7 @@
         "value": 0.48,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.48 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -36732,7 +36732,7 @@
         "value": 0.55,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.55 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.55 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -37061,7 +37061,7 @@
         "value": 0.9,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.9 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -37071,7 +37071,7 @@
         "value": 1.25,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.25 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.25 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -37398,7 +37398,7 @@
         "value": 0.91,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.91 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.91 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -37408,7 +37408,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -37893,7 +37893,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.68 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -37903,7 +37903,7 @@
         "value": 1.18,
         "unit": "x ULN",
         "observedAt": "2026-09-12",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.18 \u00d7 ULN on 12 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.18 × ULN on 12 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-12, community oncology",
         "provenance": "chart"
       },
@@ -38223,7 +38223,7 @@
         "value": 0.56,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.56 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -38233,7 +38233,7 @@
         "value": 1.07,
         "unit": "x ULN",
         "observedAt": "2026-09-09",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.07 \u00d7 ULN on 9 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.07 × ULN on 9 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-09, community oncology",
         "provenance": "chart"
       },
@@ -38378,7 +38378,7 @@
         "value": 0.99,
         "unit": "x ULN",
         "observedAt": "2026-09-14",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.99 \u00d7 ULN on 14 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.99 × ULN on 14 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-14, community oncology",
         "provenance": "chart"
       },
@@ -38525,7 +38525,7 @@
         "value": 0.68,
         "unit": "x ULN",
         "observedAt": "2026-09-16",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.68 \u00d7 ULN on 16 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.68 × ULN on 16 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-16, community oncology",
         "provenance": "chart"
       },
@@ -38854,7 +38854,7 @@
         "value": 1.11,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.11 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.11 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -39173,7 +39173,7 @@
         "value": 1.34,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.34 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.34 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -39328,7 +39328,7 @@
         "value": 0.98,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.98 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.98 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -39603,7 +39603,7 @@
         "value": 0.85,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.85 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.85 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -39613,7 +39613,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-10",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 10 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 10 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-10, community oncology",
         "provenance": "chart"
       },
@@ -39949,7 +39949,7 @@
         "value": 0.8,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -39959,7 +39959,7 @@
         "value": 1.18,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.18 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.18 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -40087,7 +40087,7 @@
         "value": 1.05,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. Total bilirubin 1.05 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 1.05 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -40097,7 +40097,7 @@
         "value": 1.02,
         "unit": "x ULN",
         "observedAt": "2026-09-13",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.02 \u00d7 ULN on 13 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.02 × ULN on 13 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-13, community oncology",
         "provenance": "chart"
       },
@@ -40402,7 +40402,7 @@
         "value": 0.45,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.45 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.45 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -40412,7 +40412,7 @@
         "value": 0.84,
         "unit": "x ULN",
         "observedAt": "2026-09-11",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.84 \u00d7 ULN on 11 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.84 × ULN on 11 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-11, community oncology",
         "provenance": "chart"
       },
@@ -40751,7 +40751,7 @@
         "value": 0.57,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.57 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -40761,7 +40761,7 @@
         "value": 1.32,
         "unit": "x ULN",
         "observedAt": "2026-09-17",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.32 \u00d7 ULN on 17 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.32 × ULN on 17 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-17, community oncology",
         "provenance": "chart"
       },
@@ -40906,7 +40906,7 @@
         "value": 1.44,
         "unit": "x ULN",
         "observedAt": "2026-09-08",
-        "sourceQuote": "Synthetic chart. AST/ALT 1.44 \u00d7 ULN on 8 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.44 × ULN on 8 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-08, community oncology",
         "provenance": "chart"
       },
@@ -41244,7 +41244,7 @@
         "value": 0.6,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.6 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.6 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -41254,7 +41254,7 @@
         "value": 0.95,
         "unit": "x ULN",
         "observedAt": "2026-09-15",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.95 \u00d7 ULN on 15 September 2026.",
+        "sourceQuote": "Synthetic chart. AST/ALT 0.95 × ULN on 15 September 2026.",
         "sourceDoc": "synthetic lab 2026-09-15, community oncology",
         "provenance": "chart"
       },
@@ -41511,856 +41511,6 @@
         "sourceQuote": "Synthetic chart. NGS 5 July 2026: EGFR negative. No activating EGFR mutation detected.",
         "sourceDoc": "synthetic NGS 2026-07-05, community oncology",
         "provenance": "chart"
-      }
-    ]
-  },
-  {
-    "id": "PT-4421",
-    "age": 62,
-    "sex": "F",
-    "race": "Asian",
-    "ethnicity": "Not Hispanic or Latino",
-    "zip": "90012",
-    "travelMinutes": 29,
-    "facts": [
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
-        "predicate": "staging",
-        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 19 deletion.",
-        "predicate": "biomarker",
-        "value": "Exon 19 deletion",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history: gefitinib, an EGFR TKI, recorded 1 May 2026.",
-        "predicate": "prior_therapy",
-        "drugClass": "anti-EGFR TKI",
-        "value": "gefitinib",
-        "observedAt": "2026-05-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
-        "predicate": "performance_status",
-        "analyte": "ECOG",
-        "value": 1,
-        "unit": "score",
-        "observedAt": "2026-09-10"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 2,200/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Absolute neutrophil count",
-        "value": 2200,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Platelets",
-        "value": 210000,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Total bilirubin",
-        "value": 0.7,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "AST/ALT",
-        "value": 0.8,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Creatinine clearance",
-        "value": 88,
-        "unit": "mL/min",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
-        "predicate": "lab_value",
-        "analyte": "QTcF",
-        "value": 412,
-        "unit": "msec",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
-        "predicate": "lab_value",
-        "analyte": "LVEF",
-        "value": 60,
-        "unit": "%",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
-        "predicate": "lab_value",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "SURGERY",
-        "value": "2026-06-01",
-        "unit": "days",
-        "observedAt": "2026-06-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Gefitinib discontinued 1 August 2026, more than 7 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "EGFR_TKI",
-        "value": "2026-08-01",
-        "unit": "days",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
-        "predicate": "washout",
-        "drugClass": "INVESTIGATIONAL_AGENT",
-        "value": 0,
-        "unit": "half-lives",
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
-        "predicate": "comorbidity",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
-        "predicate": "contraindication",
-        "value": false,
-        "observedAt": "2026-09-20"
-      }
-    ]
-  },
-  {
-    "id": "PT-4422",
-    "age": 58,
-    "sex": "M",
-    "race": "White",
-    "ethnicity": "Not Hispanic or Latino",
-    "zip": "90026",
-    "travelMinutes": 25,
-    "facts": [
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
-        "predicate": "staging",
-        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 21 L858R.",
-        "predicate": "biomarker",
-        "value": "Exon 21 L858R",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history: erlotinib, an EGFR TKI, recorded 1 May 2026.",
-        "predicate": "prior_therapy",
-        "drugClass": "anti-EGFR TKI",
-        "value": "erlotinib",
-        "observedAt": "2026-05-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
-        "predicate": "performance_status",
-        "analyte": "ECOG",
-        "value": 1,
-        "unit": "score",
-        "observedAt": "2026-09-10"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,840/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Absolute neutrophil count",
-        "value": 1840,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Platelets",
-        "value": 210000,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Total bilirubin",
-        "value": 0.7,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "AST/ALT",
-        "value": 0.8,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Creatinine clearance",
-        "value": 88,
-        "unit": "mL/min",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
-        "predicate": "lab_value",
-        "analyte": "QTcF",
-        "value": 412,
-        "unit": "msec",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
-        "predicate": "lab_value",
-        "analyte": "LVEF",
-        "value": 60,
-        "unit": "%",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
-        "predicate": "lab_value",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "SURGERY",
-        "value": "2026-06-01",
-        "unit": "days",
-        "observedAt": "2026-06-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Erlotinib discontinued 1 August 2026, more than 7 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "EGFR_TKI",
-        "value": "2026-08-01",
-        "unit": "days",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
-        "predicate": "washout",
-        "drugClass": "INVESTIGATIONAL_AGENT",
-        "value": 0,
-        "unit": "half-lives",
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
-        "predicate": "comorbidity",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
-        "predicate": "contraindication",
-        "value": false,
-        "observedAt": "2026-09-20"
-      }
-    ]
-  },
-  {
-    "id": "PT-4423",
-    "age": 71,
-    "sex": "F",
-    "race": "Black or African American",
-    "ethnicity": "Not Hispanic or Latino",
-    "zip": "90017",
-    "travelMinutes": 21,
-    "facts": [
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
-        "predicate": "staging",
-        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 18 G719X.",
-        "predicate": "biomarker",
-        "value": "Exon 18 G719X",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history: afatinib, an EGFR TKI, recorded 1 May 2026.",
-        "predicate": "prior_therapy",
-        "drugClass": "anti-EGFR TKI",
-        "value": "afatinib",
-        "observedAt": "2026-05-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
-        "predicate": "performance_status",
-        "analyte": "ECOG",
-        "value": 1,
-        "unit": "score",
-        "observedAt": "2026-09-10"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 2,600/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Absolute neutrophil count",
-        "value": 2600,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Platelets",
-        "value": 210000,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Total bilirubin",
-        "value": 0.7,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "AST/ALT",
-        "value": 0.8,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Creatinine clearance",
-        "value": 88,
-        "unit": "mL/min",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
-        "predicate": "lab_value",
-        "analyte": "QTcF",
-        "value": 412,
-        "unit": "msec",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
-        "predicate": "lab_value",
-        "analyte": "LVEF",
-        "value": 60,
-        "unit": "%",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
-        "predicate": "lab_value",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "SURGERY",
-        "value": "2026-06-01",
-        "unit": "days",
-        "observedAt": "2026-06-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Afatinib discontinued 1 August 2026, more than 7 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "EGFR_TKI",
-        "value": "2026-08-01",
-        "unit": "days",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
-        "predicate": "washout",
-        "drugClass": "INVESTIGATIONAL_AGENT",
-        "value": 0,
-        "unit": "half-lives",
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
-        "predicate": "comorbidity",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
-        "predicate": "contraindication",
-        "value": false,
-        "observedAt": "2026-09-20"
-      }
-    ]
-  },
-  {
-    "id": "PT-4424",
-    "age": 66,
-    "sex": "M",
-    "race": "White",
-    "ethnicity": "Not Hispanic or Latino",
-    "zip": "90015",
-    "travelMinutes": 33,
-    "facts": [
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
-        "predicate": "staging",
-        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. NGS 1 August 2026: Exon 21 L861Q.",
-        "predicate": "biomarker",
-        "value": "Exon 21 L861Q",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history: gefitinib, an EGFR TKI, recorded 1 May 2026.",
-        "predicate": "prior_therapy",
-        "drugClass": "anti-EGFR TKI",
-        "value": "gefitinib",
-        "observedAt": "2026-05-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
-        "predicate": "performance_status",
-        "analyte": "ECOG",
-        "value": 1,
-        "unit": "score",
-        "observedAt": "2026-09-10"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,980/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Absolute neutrophil count",
-        "value": 1980,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Platelets",
-        "value": 210000,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Total bilirubin",
-        "value": 0.7,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "AST/ALT",
-        "value": 0.8,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Creatinine clearance",
-        "value": 88,
-        "unit": "mL/min",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
-        "predicate": "lab_value",
-        "analyte": "QTcF",
-        "value": 412,
-        "unit": "msec",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
-        "predicate": "lab_value",
-        "analyte": "LVEF",
-        "value": 60,
-        "unit": "%",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
-        "predicate": "lab_value",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "SURGERY",
-        "value": "2026-06-01",
-        "unit": "days",
-        "observedAt": "2026-06-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Gefitinib discontinued 1 August 2026, more than 7 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "EGFR_TKI",
-        "value": "2026-08-01",
-        "unit": "days",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
-        "predicate": "washout",
-        "drugClass": "INVESTIGATIONAL_AGENT",
-        "value": 0,
-        "unit": "half-lives",
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
-        "predicate": "comorbidity",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
-        "predicate": "contraindication",
-        "value": false,
-        "observedAt": "2026-09-20"
-      }
-    ]
-  },
-  {
-    "id": "PT-4425",
-    "age": 54,
-    "sex": "F",
-    "race": "Asian",
-    "ethnicity": "Not Hispanic or Latino",
-    "zip": "90013",
-    "travelMinutes": 21,
-    "facts": [
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. PET-CT 1 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
-        "predicate": "staging",
-        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. NGS 1 August 2026: EGFR Exon 20 insertion.",
-        "predicate": "biomarker",
-        "value": "EGFR Exon 20 insertion",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history: afatinib, an EGFR TKI, recorded 1 May 2026.",
-        "predicate": "prior_therapy",
-        "drugClass": "anti-EGFR TKI",
-        "value": "afatinib",
-        "observedAt": "2026-05-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Clinic note 10 September 2026: ECOG performance status 1.",
-        "predicate": "performance_status",
-        "analyte": "ECOG",
-        "value": 1,
-        "unit": "score",
-        "observedAt": "2026-09-10"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: absolute neutrophil count 1,730/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Absolute neutrophil count",
-        "value": 1730,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. CBC 15 September 2026: platelets 210,000/mcL.",
-        "predicate": "lab_value",
-        "analyte": "Platelets",
-        "value": 210000,
-        "unit": "/mcL",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Total bilirubin 0.7 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Total bilirubin",
-        "value": 0.7,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. AST/ALT 0.8 \u00d7 ULN on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "AST/ALT",
-        "value": 0.8,
-        "unit": "x ULN",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Creatinine clearance 88 mL/min on 15 September 2026.",
-        "predicate": "lab_value",
-        "analyte": "Creatinine clearance",
-        "value": 88,
-        "unit": "mL/min",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 15 September 2026: QTcF 412 msec.",
-        "predicate": "lab_value",
-        "analyte": "QTcF",
-        "value": 412,
-        "unit": "msec",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Echocardiogram 15 September 2026: LVEF 60%.",
-        "predicate": "lab_value",
-        "analyte": "LVEF",
-        "value": 60,
-        "unit": "%",
-        "observedAt": "2026-09-15"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. ECG 20 September 2026: no clinically important abnormality in rhythm, conduction, or morphology.",
-        "predicate": "lab_value",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Last major surgery 1 June 2026, more than 21 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "SURGERY",
-        "value": "2026-06-01",
-        "unit": "days",
-        "observedAt": "2026-06-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Afatinib discontinued 1 August 2026, more than 7 days before this screen.",
-        "predicate": "washout",
-        "drugClass": "EGFR_TKI",
-        "value": "2026-08-01",
-        "unit": "days",
-        "observedAt": "2026-08-01"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. Medication history 20 September 2026: never received an investigational agent.",
-        "predicate": "washout",
-        "drugClass": "INVESTIGATIONAL_AGENT",
-        "value": 0,
-        "unit": "half-lives",
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no evidence of interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness, no QTc-risk history, HIV negative.",
-        "predicate": "comorbidity",
-        "value": false,
-        "observedAt": "2026-09-20"
-      },
-      {
-        "sourceDoc": "synthetic chart",
-        "provenance": "chart",
-        "sourceQuote": "Synthetic chart. 20 September 2026: no potent CYP3A4 inducer. Not pregnant.",
-        "predicate": "contraindication",
-        "value": false,
-        "observedAt": "2026-09-20"
       }
     ]
   }

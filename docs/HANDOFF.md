@@ -25,8 +25,6 @@ Compiled trees still reuse leaf ids (`INC-1` twice in one trial). The criteria t
 
 The live loop store is `preferences`, `nudges` (now with optional `batch_id`), and `physician_notes` — defined in `app/_data/loop.sql`. API routes talk to PostgREST with the service role; no new npm dependency. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` and run the SQL once (including the `batch_id` alter and `physician_notes` table). Without them the three portals still share `.data/loop.json` on one `next dev`. Reset from `/preflight` clears prefs/nudges and keeps coordinator notes. Fixture `Patient.preferences` are not live state.
 
-NCT02496663 EXC-1/EXC-2/EXC-3 were given `drugClass` by hand (`SURGERY`, `EGFR_TKI`, `INVESTIGATIONAL_AGENT`) because a targetless washout OR cannot be cleared. `data/compiled/compile-stats.json` records that correction and corpus sha `05f6ce43e8bc0067d0d187a35fa9c23a1b6e1283508589af6a03898dd90e339d`. The published cube keeps only pairs a worklist, HCP, or doctor row can open, plus full detail for the demo patients.
-
 `Patient` has no treating-physician field and `PatientPreferences` has no driver. Treating physician is observed from optional `data/synthea/providers.json`, `data/claims/providers.json`, or `app/_data/providers.json` (`patientId` + `npi`/`providerId`). Published `patients.json` has neither; the UI assigns Rahman / Okonkwo / Vasquez deterministically and labels the row **assigned**. Do not silently fabricate an attribution. `/hcp` is the coordinator roster across physicians. `/doctor` is one doctor's patients only — no cross-panel view. A patient click on the trial portal opens `/worklist/patient/[id]` (coordinator actions only). A patient click on the doctor portal stays on `/doctor` and refuses a patient who is not on that panel. The criteria table is shared. The header switcher is Trial portal · Doctor portal · Patient portal. `/patient-portal` still stores driver (and the other three answers) in `localStorage`. Do not put either on the frozen contract unless all four lanes agree.
 
 ## From P2 (engine) — polarity: RESOLVED, engine complies
@@ -408,16 +406,8 @@ Please:
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
 
+## From P4 (data) — lung cohort replaces Synthea on the worklist
 
-## From P4 (data) — washout is on NCT07001003
+`fixtures/cohort.json` is 150 synthetic advanced-NSCLC charts (60 academic, 90 community). `fixtures/COHORT.md` is what that draw actually produced. The four hand-built charts stay in `fixtures/demo-patients.json` and are merged ahead of the cohort.
 
-The tier-4 washout leaf is `NCT07001003` `EXC-2`, not `NCT07001001`. PT-4402's last dose is 2026-09-14, which is 11 days before asOf 2026-09-25 (the handoff's "5 days" does not match the dates). The exclusion fires, and `calendar()` emits one row: PT-4402 × NCT07001003 becomes eligible 2026-10-05. PT-4401's last dose is 2026-06-01, so that cell is FAIL and the hero pair is unchanged. PT-4408 has no last-dose fact: UNKNOWN / absent, resolution cost +30.
-
-## From P4 — physician day on `eng/doctor`
-
-The screening console stays on `/worklist`. `/` on branch `eng/doctor` is a physician's day built from CMS DE-SynPUF sample 1 (synthetic Medicare claims). `data/claims/build_panel.py` writes the 20-patient extract; `data/claims/score.ts` is a read-only engine import, same terms as `app/_data/generate.ts`, and writes `app/_data/clinic.json`. The page does not import the engine. Claims do not confirm labs, biomarkers, stage, or performance status. That is why the day shows tests still open instead of a referral.
-
-Two tests outside this lane now fail on purpose:
-
-- `src/eval/make-sheet.test.ts` expects 60 leaf rows; the new leaf makes 63.
-- `components/market/graph.test.ts` expects PT-4402 × NCT07001003 to be an eligible candidate. That pair is eliminated until 2026-10-05, and `app/_data/assignments.json` still assigns it, so `modes.invalid` is non-empty. `components/generated.test.ts` is stale until `app/_data` is regenerated from the fixtures.
+`app/_data/inputs.ts` loads `fixtures/cohort.json` instead of `data/synthea/patients.json` when the cohort file is present. On NCT02496663 the top of the worklist is 22/27 with 1 unknown (EXC-3, half-lives). On NCT06281964 every chart is eliminated: the two staging leaves require different strings and the engine keeps one newest stage fact.
