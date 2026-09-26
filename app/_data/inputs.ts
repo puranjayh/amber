@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { Patient, PatientsFixture, Trial, TrialsFixture, type Patient as PatientT, type Trial as TrialT } from "@/src/contracts";
+import { CriteriaLandscape } from "./schema";
 
 /** The evaluation date the fixtures are written against (fixtures/ORACLE.md). */
 export const AS_OF = "2026-09-25";
@@ -9,6 +10,7 @@ const FIXTURE_PATIENTS = "fixtures/patients.sample.json";
 const POPULATION = "data/patients.json";
 const SYNTHEA = "data/synthea/patients.json";
 const COMPILED = "data/compiled/trials.json";
+const LANDSCAPE = "data/compiled/landscape.json";
 
 function readJson(path: string): unknown {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -101,4 +103,13 @@ export function loadInputs(root: string): { trials: TrialT[]; patients: PatientT
     patients: mergeBy((p) => p.id, ...patients),
     sources,
   };
+}
+
+/** Compiler landscape when it has analytes; otherwise null so the app can derive from trials. */
+export function loadLandscape(root: string): { landscape: CriteriaLandscape; source: string } | null {
+  const path = root + LANDSCAPE;
+  if (!existsSync(path)) return null;
+  const parsed = CriteriaLandscape.safeParse(readJson(path));
+  if (!parsed.success || parsed.data.analytes.length === 0) return null;
+  return { landscape: parsed.data, source: LANDSCAPE };
 }

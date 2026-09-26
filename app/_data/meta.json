@@ -3,7 +3,8 @@
   "sources": [
     "fixtures/trials.sample.json",
     "fixtures/patients.sample.json",
-    "data/synthea/patients.json"
+    "data/synthea/patients.json",
+    "data/compiled/landscape.json"
   ],
   "patients": 203,
   "trials": 3,
@@ -11,5 +12,5 @@
   "pairsEvaluated": 609,
   "eligibleNow": 1,
   "oneTier0Away": 0,
-  "engineTree": "e431198"
+  "engineTree": "1a47ed5"
 }

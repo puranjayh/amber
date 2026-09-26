@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Assignment, ElasticityPoint, EquityRow, Reason, Tier, Verdict } from "@/src/contracts";
+import { Assignment, ElasticityPoint, EquityRow, Operator, Reason, Tier, Verdict } from "@/src/contracts";
 
 // Read models the generator writes and the app reads. Contract types where they exist;
 // these wrappers add only the references the bare contract shapes leave out.
@@ -15,6 +15,31 @@ export const EquitySet = z.object({ nctId: z.string(), rows: z.array(EquityRow) 
 export type EquitySet = z.infer<typeof EquitySet>;
 
 export const Assignments = z.array(Assignment);
+
+export const LandscapeThreshold = z.object({
+  threshold: z.number(),
+  count: z.number().int(),
+  percentage: z.number().min(0).max(1),
+});
+export const LandscapeAnalyte = z.object({
+  analyte: z.string(),
+  totalTrials: z.number().int(),
+  flaggedTrials: z.number().int(),
+  operators: z.array(
+    z.object({
+      operator: Operator,
+      totalTrials: z.number().int(),
+      flaggedTrials: z.number().int(),
+      thresholds: z.array(LandscapeThreshold),
+    }),
+  ),
+});
+export const CriteriaLandscape = z.object({
+  generatedFromTrials: z.number().int(),
+  analytes: z.array(LandscapeAnalyte),
+});
+export type LandscapeAnalyte = z.infer<typeof LandscapeAnalyte>;
+export type CriteriaLandscape = z.infer<typeof CriteriaLandscape>;
 
 export const WorklistStrip = z.object({
   pairsEvaluated: z.number().int(),

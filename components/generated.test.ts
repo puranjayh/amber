@@ -2,8 +2,9 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "vitest";
 import cubeOracle from "@/fixtures/cube.sample.json";
-import { AS_OF, loadInputs } from "@/app/_data/inputs";
+import { AS_OF, loadInputs, loadLandscape } from "@/app/_data/inputs";
 import { buildReadModels } from "@/app/_data/readModels";
+import { buildLandscape } from "@/components/landscape/build";
 
 // Proves the committed app/_data/*.json is exactly what the current engine produces.
 // If this fails, run the generator — never edit the JSON by hand.
@@ -26,6 +27,11 @@ test("meta header-strip counts match a fresh engine run", () => {
 test("inputs written for the app are the inputs the engine ran on", () => {
   expect(committed("trials")).toEqual(JSON.parse(JSON.stringify(trials)));
   expect(committed("patients")).toEqual(JSON.parse(JSON.stringify(patients)));
+});
+
+test("landscape.json is the compiler file when it has analytes, else derived from the same trials", () => {
+  const compiled = loadLandscape(ROOT);
+  expect(committed("landscape")).toEqual(compiled?.landscape ?? buildLandscape(trials));
 });
 
 test("the engine's cube over the sample fixtures agrees with the hand-worked oracle", () => {

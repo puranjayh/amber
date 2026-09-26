@@ -6,8 +6,9 @@ import equityJson from "./equity.json";
 import metaJson from "./meta.json";
 import patientsJson from "./patients.json";
 import trialsJson from "./trials.json";
+import landscapeJson from "./landscape.json";
 import worklistJson from "./worklist.json";
-import { Assignments, ElasticitySweep, EquitySet, Meta, WorklistRow } from "./schema";
+import { Assignments, CriteriaLandscape, ElasticitySweep, EquitySet, Meta, WorklistRow } from "./schema";
 
 // The only place the app reads data. Every file here is written by generate.ts from engine
 // output, and components/generated.test.ts fails if any of them drifts from a fresh run.
@@ -18,6 +19,7 @@ const worklist = WorklistRow.array().parse(worklistJson);
 const sweeps = ElasticitySweep.array().parse(elasticityJson);
 const equity = EquitySet.array().parse(equityJson);
 const assignments = Assignments.parse(assignmentsJson);
+const landscape = CriteriaLandscape.parse(landscapeJson);
 export const meta = Meta.parse(metaJson);
 
 export const asOf = meta.asOf;
@@ -35,6 +37,7 @@ export const getCube = (): PairResult[] => cube;
 export const getWorklist = () => worklist;
 export const getSweeps = () => sweeps;
 export const getAssignments = () => assignments;
+export const getLandscape = () => landscape;
 
 export const getTrial = (nctId: string) => trials.find((t) => t.nctId === nctId);
 export const getPatient = (id: string) => patients.find((p) => p.id === id);

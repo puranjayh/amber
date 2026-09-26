@@ -7,7 +7,8 @@
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { AS_OF, loadInputs } from "./inputs";
+import { buildLandscape } from "@/components/landscape/build";
+import { AS_OF, loadInputs, loadLandscape } from "./inputs";
 import { buildReadModels } from "./readModels";
 import type { Meta } from "./schema";
 
@@ -18,6 +19,9 @@ const write = (name: string, value: unknown, pretty = true) =>
 
 const { trials, patients, sources } = loadInputs(ROOT);
 const models = buildReadModels(trials, patients, AS_OF);
+const compiledLandscape = loadLandscape(ROOT);
+const landscape = compiledLandscape?.landscape ?? buildLandscape(trials);
+if (compiledLandscape) sources.push(compiledLandscape.source);
 
 const meta: Meta = {
   asOf: AS_OF,
@@ -37,6 +41,7 @@ write("worklist.json", models.worklist);
 write("elasticity.json", models.elasticity, !compact);
 write("equity.json", models.equity);
 write("assignments.json", models.assignments);
+write("landscape.json", landscape);
 write("meta.json", meta);
 
 console.log(
