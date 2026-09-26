@@ -1,5 +1,11 @@
 import { expect, test } from "vitest";
-import { compileTrial, extractEligibilityBlocks } from "@/src/compiler/compile";
+import {
+  boundedResponseJsonSchema,
+  compileTrial,
+  extractEligibilityBlocks,
+  MAX_GROUP_DEPTH,
+  validateCompiledTree,
+} from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
 
 const raw: RawClinicalTrial = {
@@ -79,4 +85,32 @@ test("rejects a drug class represented as a bare boolean equality", async () => 
   expect(result.trial.needsHumanReview).toBe(true);
   expect(result.failure!.issues.join("\n")).toMatch(/must use the in operator/);
   expect(result.failure!.issues.join("\n")).toMatch(/require resolved members/);
+});
+
+test("inlines bounded group nesting without recursive schema references", () => {
+  expect(JSON.stringify(boundedResponseJsonSchema)).not.toContain("$ref");
+  expect(MAX_GROUP_DEPTH).toBe(3);
+});
+
+test("flags a tree that needs more than the bounded nesting depth", () => {
+  const leaf = {
+    kind: "leaf" as const,
+    id: "INC-1",
+    type: "inclusion" as const,
+    predicate: "biomarker" as const,
+    operator: "==" as const,
+    value: "positive",
+    tier: 0 as const,
+    sweepable: false,
+    sourceSpan: "Biomarker positive.",
+  };
+  const nested = (levels: number): unknown => levels === 0
+    ? leaf
+    : { kind: "group", op: "AND", children: [nested(levels - 1)] };
+  const block = { type: "inclusion" as const, sourceText: "Biomarker positive." };
+  expect(validateCompiledTree(nested(MAX_GROUP_DEPTH), block).success).toBe(true);
+  const tooDeep = validateCompiledTree(nested(MAX_GROUP_DEPTH + 1), block);
+  expect(tooDeep.success).toBe(false);
+  if (tooDeep.success) throw new Error("expected nesting validation failure");
+  expect(tooDeep.issues.join("\n")).toMatch(/exceeds the supported nesting depth/);
 });

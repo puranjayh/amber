@@ -32,7 +32,63 @@ export interface CompileBatchOptions {
 }
 
 const responseSchema = z.object({ root: CriterionNode });
-const responseJsonSchema = z.toJSONSchema(responseSchema, { target: "draft-7" });
+
+/** xAI rejects recursive $ref schemas, so groups are inlined through this depth. */
+export const MAX_GROUP_DEPTH = 3;
+
+const leafJsonSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    kind: { const: "leaf" },
+    id: { type: "string" },
+    type: { enum: ["inclusion", "exclusion"] },
+    predicate: { enum: ["age", "lab_value", "biomarker", "prior_therapy", "performance_status", "diagnosis", "staging", "washout", "comorbidity", "contraindication"] },
+    operator: { enum: [">=", "<=", ">", "<", "==", "!=", "in", "not_in"] },
+    value: { anyOf: [{ type: "number" }, { type: "string" }, { type: "boolean" }, { type: "array", items: { type: "string" } }] },
+    unit: { type: "string" },
+    analyte: { type: "string" },
+    drugClass: { type: "string" },
+    members: { type: "array", items: { type: "string" }, minItems: 1 },
+    maxAgeDays: { type: "integer", minimum: 1 },
+    countingRule: { type: "string" },
+    tier: { enum: [0, 1, 2, 3, 4] },
+    pFavorable: { type: "number", minimum: 0, maximum: 1 },
+    sweepable: { type: "boolean" },
+    sweepRange: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 },
+    sweepStep: { type: "number", exclusiveMinimum: 0 },
+    sourceSpan: { type: "string", minLength: 1 },
+  },
+  required: ["kind", "id", "type", "predicate", "operator", "value", "tier", "sweepable", "sourceSpan"],
+} as const;
+
+function nodeAtDepth(depth: number): Record<string, unknown> {
+  const child = depth === MAX_GROUP_DEPTH ? leafJsonSchema : nodeAtDepth(depth + 1);
+  return {
+    anyOf: [
+      leafJsonSchema,
+      {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          kind: { const: "group" },
+          op: { enum: ["AND", "OR", "NOT"] },
+          children: { type: "array", minItems: 1, items: child },
+          sourceSpan: { type: "string" },
+        },
+        required: ["kind", "op", "children"],
+      },
+    ],
+  };
+}
+
+/** A non-recursive schema: depth-3 group children are leaves, never $ref nodes. */
+export const boundedResponseJsonSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: { root: nodeAtDepth(1) },
+  required: ["root"],
+} as const;
 
 const COMPILER_INSTRUCTIONS = `You compile clinical-trial eligibility protocol prose into ONE CriterionNode JSON object.
 
@@ -95,6 +151,11 @@ function containsOr(node: CriterionNodeValue): boolean {
   return node.kind === "group" && node.children.some(containsOr);
 }
 
+function groupDepth(node: CriterionNodeValue): number {
+  if (node.kind === "leaf") return 0;
+  return 1 + Math.max(...node.children.map(groupDepth));
+}
+
 /**
  * Enforces requirements that are intentionally stricter than the shared zod
  * type. It reports defects; it never fills in, changes, or flattens a tree.
@@ -153,6 +214,9 @@ export function validateCompiledTree(
   if (/\bor\b/i.test(block.sourceText) && !containsOr(parsed.data)) {
     issues.push("source text contains an alternative but compiled tree has no OR group");
   }
+  if (groupDepth(parsed.data) > MAX_GROUP_DEPTH) {
+    issues.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups; needs human review`);
+  }
 
   return issues.length ? { success: false, issues } : { success: true, data: parsed.data };
 }
@@ -165,28 +229,90 @@ export function createGrokBlockCompiler({
   const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1" });
 
   return async (block) => {
-    const completion = await withRetry(() =>
-      client.chat.completions.create({
-        model,
-        temperature: 0,
-        messages: [
-          { role: "developer", content: COMPILER_INSTRUCTIONS },
-          { role: "user", content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
-        ],
-        response_format: {
-          type: "json_schema",
-          json_schema: {
-            name: "criterion_node",
-            strict: true,
-            schema: responseJsonSchema,
-          },
-        },
-      }),
-    );
-    const content = completion.choices[0]?.message.content;
-    if (!content) throw new Error("Grok returned no structured compilation");
-    return responseSchema.parse(JSON.parse(content)).root;
+    try {
+      return await compileWithBoundedSchema(client, model, block);
+    } catch (error) {
+      if (!unsupportedStructuredSchema(error)) throw error;
+      return compileWithJsonMode(client, model, block);
+    }
   };
+}
+
+function messagesFor(block: EligibilityBlock, jsonMode = false) {
+  return [
+    {
+      role: "developer" as const,
+      content: jsonMode
+        ? `${COMPILER_INSTRUCTIONS}\nReturn one JSON object with exactly one key, root. Do not use markdown.`
+        : COMPILER_INSTRUCTIONS,
+    },
+    { role: "user" as const, content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
+  ];
+}
+
+function parseCompilerResponse(content: string): CriterionNodeValue {
+  return responseSchema.parse(JSON.parse(content)).root;
+}
+
+async function compileWithBoundedSchema(
+  client: OpenAI,
+  model: string,
+  block: EligibilityBlock,
+): Promise<CriterionNodeValue> {
+  const completion = await withRetry(() =>
+    client.chat.completions.create({
+      model,
+      temperature: 0,
+      messages: messagesFor(block),
+      response_format: {
+        type: "json_schema",
+        json_schema: {
+          name: "bounded_criterion_node",
+          strict: true,
+          schema: boundedResponseJsonSchema,
+        },
+      },
+    }),
+  );
+  const content = completion.choices[0]?.message.content;
+  if (!content) throw new Error("Grok returned no structured compilation");
+  return parseCompilerResponse(content);
+}
+
+function unsupportedStructuredSchema(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return /unsupported response format|self referenced definition|json.?schema/i.test(message);
+}
+
+/**
+ * Provider fallback: JSON mode has no schema recursion to reject. We still
+ * reject malformed output through the exact recursive Zod schema, retrying a
+ * parse failure once before letting the trial enter human review.
+ */
+async function compileWithJsonMode(
+  client: OpenAI,
+  model: string,
+  block: EligibilityBlock,
+): Promise<CriterionNodeValue> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const completion = await withRetry(() =>
+        client.chat.completions.create({
+          model,
+          temperature: 0,
+          messages: messagesFor(block, true),
+          response_format: { type: "json_object" },
+        }),
+      );
+      const content = completion.choices[0]?.message.content;
+      if (!content) throw new Error("Grok returned no JSON-mode compilation");
+      return parseCompilerResponse(content);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError;
 }
 
 function retryable(error: unknown): boolean {
@@ -283,9 +409,12 @@ export async function compileRawTrials(
 
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
-  const outputPath = resolve(process.argv[3] || "data/compiled/trials.json");
+  const fullBatch = process.argv.includes("--full");
+  const outputPath = resolve(process.argv[3] || (fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
-  const results = await compileRawTrials(rawTrials, createGrokBlockCompiler(), {
+  const batch = fullBatch ? rawTrials : rawTrials.slice(0, 3);
+  if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
+  const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
