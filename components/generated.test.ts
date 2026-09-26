@@ -22,10 +22,10 @@ test("pool is 133 real protocols plus the pinned presentation trial", () => {
   expect(committed("patients")).toEqual(JSON.parse(JSON.stringify(patients)));
   expect(committed("meta").realProtocols).toBe(DEMO_POOL);
   expect(committed("meta").trials).toBe(DEMO_POOL + 1);
-  // meta is the last full 133-trial generate. The demo cohort is pinned onto
-  // the two anchor trials afterwards, not multiplied through every protocol.
+  // generate.ts and pin-demo.ts both load the same patient list, including the
+  // lung cohort. meta.patients is that count.
   expect(committed("meta").pairsEvaluated).toBe(committed("meta").patients * trials.length);
-  expect(patients.length).toBeGreaterThan(committed("meta").patients);
+  expect(patients.length).toBe(committed("meta").patients);
 });
 
 test("worklist pins the hero to the presentation pair", () => {
