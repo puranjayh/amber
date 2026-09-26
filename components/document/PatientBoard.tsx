@@ -1,0 +1,203 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import type { LoopState } from "@/app/_data/schema";
+import type { PairResult, Patient, Trial } from "@/src/contracts";
+import { CriteriaTable } from "@/components/criteria/CriteriaTable";
+import { buildSections, listLeaves } from "@/components/criteria/rows";
+import { DoctorActions, type DoctorOrder } from "@/components/hcp/DoctorActions";
+import { trialBlocks, unknownLabel, type BoardEntry } from "./board";
+
+export type BoardDetail = {
+  nctId: string;
+  trial: Trial;
+  pair: PairResult;
+  documentHref: string;
+  order?: DoctorOrder;
+};
+
+export function PatientBoard({
+  patient,
+  entries,
+  details,
+  initialNctId,
+  loop,
+  live,
+}: {
+  patient: Patient;
+  entries: BoardEntry[];
+  details: BoardDetail[];
+  initialNctId: string;
+  loop: LoopState;
+  live: boolean;
+}) {
+  const [nctId, setNctId] = useState(initialNctId);
+  const [moved, setMoved] = useState(false);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const byId = new Map(details.map((row) => [row.nctId, row]));
+  const selected = byId.get(nctId) ?? details[0];
+
+  useEffect(() => {
+    if (!moved) return;
+    const node = heading.current;
+    if (!node) return;
+    node.scrollIntoView({ block: "start" });
+    node.focus();
+  }, [nctId, moved]);
+
+  if (!selected) return null;
+
+  return (
+    <div className="space-y-8">
+      <section aria-label="Trials this patient could go for">
+        <h2 className="text-[18px] font-medium text-ink">Trials</h2>
+        <ol className="mt-3 overflow-hidden rounded-md border border-line bg-surface">
+          {entries.map((row) => {
+            const current = row.nctId === selected.nctId;
+            return (
+              <li key={row.nctId} className="border-b border-line-2 last:border-b-0">
+                <button
+                  type="button"
+                  aria-pressed={current}
+                  aria-controls="trial-detail"
+                  onClick={() => {
+                    setNctId(row.nctId);
+                    setMoved(true);
+                  }}
+                  className={`flex w-full flex-col gap-2 border-l-[3px] px-4 py-4 text-left hover:bg-canvas sm:flex-row sm:items-baseline sm:gap-5 ${
+                    current ? "border-l-ink bg-canvas" : "border-l-transparent"
+                  }`}
+                >
+                  <span className="flex items-baseline justify-between gap-3 sm:contents">
+                    <span className="shrink-0 font-mono text-[28px] font-medium leading-none text-ink">
+                      {row.total > 0 ? (
+                        <>
+                          {row.met}
+                          <span className="font-normal text-ink-3">/</span>
+                          {row.total}
+                        </>
+                      ) : (
+                        <span className="text-ink-3">—</span>
+                      )}
+                    </span>
+                    <span className="text-right text-[15px] leading-tight sm:order-3 sm:shrink-0">
+                      <span className={row.unknownCount > 0 ? "font-medium text-unknown" : "text-ink-3"}>
+                        {unknownLabel(row.unknownCount)}
+                      </span>
+                      {row.eliminated ? <span className="mt-0.5 block text-[13px] text-fail">Ruled out</span> : null}
+                    </span>
+                  </span>
+                  <span className="min-w-0 sm:flex-1">
+                    <span className="block text-[22px] font-semibold leading-snug text-ink">{row.title}</span>
+                    <span className="mt-0.5 block font-mono text-[11px] text-ink-3">{row.nctId}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+      <TrialPane
+        key={selected.nctId}
+        patient={patient}
+        detail={selected}
+        headingRef={heading}
+        loop={loop}
+        live={live}
+      />
+    </div>
+  );
+}
+
+function TrialPane({
+  patient,
+  detail,
+  headingRef,
+  loop,
+  live,
+}: {
+  patient: Patient;
+  detail: BoardDetail;
+  headingRef: RefObject<HTMLHeadingElement | null>;
+  loop: LoopState;
+  live: boolean;
+}) {
+  const { trial, pair } = detail;
+  const blocks = trialBlocks(patient, trial, pair);
+  const sections = buildSections(trial.criteria, pair.cells);
+  const leaves = listLeaves(trial.criteria);
+  const unknownIds = pair.cells.filter((cell) => cell.verdict === "UNKNOWN").map((cell) => cell.criterionId);
+
+  return (
+    <section id="trial-detail" aria-label={trial.title} className="scroll-mt-6 space-y-6">
+      <div>
+        <h2
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-[28px] font-semibold leading-tight text-ink outline-none sm:text-[32px]"
+        >
+          {trial.title}
+        </h2>
+        <p className="mt-2 font-mono text-[13px] text-ink-3">
+          {trial.nctId} · {trial.phase}
+        </p>
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <section aria-label="Blocking">
+          <h3 className="text-[18px] font-medium text-ink">Blocking</h3>
+          {blocks.length === 0 ? (
+            <p className="mt-2 text-[15px] text-pass">Nothing open.</p>
+          ) : (
+            <ul className="mt-2 space-y-3">
+              {blocks.map((block) => (
+                <li key={`block-${block.criterionId}`}>
+                  <p className="text-[15px] leading-snug text-ink">{block.blocking}</p>
+                  <p className="mt-0.5 font-mono text-[11px] text-ink-3">{block.criterionId}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+        <section aria-label="To resolve">
+          <h3 className="text-[18px] font-medium text-ink">To resolve</h3>
+          {blocks.length === 0 ? (
+            <p className="mt-2 text-[15px] text-ink-2">Nothing to order.</p>
+          ) : (
+            <ul className="mt-2 space-y-3">
+              {blocks.map((block) => (
+                <li key={`resolve-${block.criterionId}`}>
+                  <p className="text-[15px] leading-snug text-ink">{block.resolve}</p>
+                  <p className="mt-0.5 font-mono text-[11px] text-ink-3">{block.criterionId}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+
+      <CriteriaTable
+        sections={sections}
+        initialOpen={unknownIds}
+        patient={patient}
+        leaves={leaves}
+      />
+
+      <DoctorActions
+        patientId={patient.id}
+        nctId={trial.nctId}
+        order={detail.order}
+        initial={loop}
+        live={live}
+      />
+
+      <Link
+        href={detail.documentHref}
+        className="flex min-h-14 w-full items-center justify-center rounded-md bg-ink px-6 text-center text-[18px] font-medium text-surface hover:bg-ink-2"
+      >
+        Download patient document
+      </Link>
+    </section>
+  );
+}

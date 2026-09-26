@@ -4,26 +4,33 @@ import { syncRegistry } from "@/app/_data/registry-sync";
 import {
   asOf,
   getDemoWorklist,
-  getPair,
+  getPairsForPatient,
   getPatient,
   getTrial,
   getWorklist,
   meta,
 } from "@/app/_data/source";
-import { orderCorresponds, orderFor } from "@/components/alert/alert";
 import { anchorById, isAnchor } from "@/components/console/anchors";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { isStaticDemo, one } from "@/components/console/params";
-import { doctorChartPath, doctorMayOpen, documentQuery } from "@/components/hcp/access";
-import { clinicFocus, displayName } from "@/components/hcp/clinic";
-import { DoctorActions, type DoctorOrder } from "@/components/hcp/DoctorActions";
+import { boardEntries, focusOrder } from "@/components/document/board";
+import { PatientBoard, type BoardDetail } from "@/components/document/PatientBoard";
+import { doctorMayOpen, documentQuery } from "@/components/hcp/access";
+import { displayName } from "@/components/hcp/clinic";
 import { DoctorChrome } from "@/components/hcp/DoctorChrome";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
 import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
-import { listedTrials, panelSuggestions } from "@/components/patient/assemble";
-import { PatientRecord } from "@/components/patient/PatientRecord";
 import { attributePatients } from "@/components/worklist/attribution";
+
+const EMPTY_LOOP = {
+  backend: "file" as const,
+  preferences: [],
+  nudges: [],
+  notes: [],
+  registry: [],
+  releases: [],
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -75,23 +82,34 @@ export default async function DoctorPatientPage({
   if (!demo) await syncRegistry();
   const loop = demo ? null : await readLoop(getDemoWorklist());
   const patient = getPatient(patientId);
-  const trials = listedTrials(patientId);
+  const pairs = getPairsForPatient(patientId);
+  const entries = patient ? boardEntries(pairs, getTrial) : [];
   const requestedTrial = one(sp.trial);
-  const nctId = trials.some((row) => row.nctId === requestedTrial)
+  const initialNctId = entries.some((row) => row.nctId === requestedTrial)
     ? requestedTrial!
-    : trials[0]?.nctId;
-  const trial = nctId ? getTrial(nctId) : undefined;
-  const pair = nctId ? getPair(patientId, nctId) : undefined;
-  const focus = pair && trial ? clinicFocus(pair, trial) : undefined;
-  const cell = focus && pair && !pair.eliminated ? focus.cell : undefined;
-  const leaf = focus && pair && !pair.eliminated ? focus.leaf : undefined;
-  const built = patient && leaf && cell ? orderFor(leaf, cell, patient) : undefined;
-  const order: DoctorOrder | undefined =
-    built && leaf && cell && orderCorresponds(leaf, cell, built)
-      ? { title: built.title, detail: built.detail, criterionId: cell.criterionId, tier: cell.tier }
-      : undefined;
-  const suggestions = panelSuggestions(patientId, nctId ?? "", physicianId);
-  const back = `/doctor?physician=${encodeURIComponent(physicianId)}${demo ? `&demo=${demoMode}` : ""}`;
+    : (entries[0]?.nctId ?? "");
+  const details: BoardDetail[] =
+    patient === undefined
+      ? []
+      : entries.flatMap((entry) => {
+          const trial = getTrial(entry.nctId);
+          const pair = pairs.find((row) => row.nctId === entry.nctId);
+          if (!trial || !pair) return [];
+          return [
+            {
+              nctId: entry.nctId,
+              trial,
+              pair,
+              documentHref: documentQuery({
+                physicianId,
+                patientId,
+                trialId: trial.nctId,
+                demo: demo ? demoMode : null,
+              }),
+              order: focusOrder(patient, trial, pair),
+            },
+          ];
+        });
 
   return (
     <>
@@ -103,75 +121,28 @@ export default async function DoctorPatientPage({
         trial={anchor.nctId}
       />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
-        <PatientRecord
-          backHref={back}
-          backLabel="My patients"
-          kicker="Doctor portal · your patient"
-          title={patient ? displayName(patient) : patientId}
-          blurb="You suggest, order, or dismiss. A coordinator does not."
-          showRace={false}
-          actions={
-            patient && trial && pair ? (
-              <>
-                <p className="text-[13px] text-ink-2">
-                  <Link
-                    href={documentQuery({
-                      physicianId,
-                      patientId,
-                      trialId: trial.nctId,
-                      demo: demo ? demoMode : null,
-                    })}
-                    className="font-medium text-ink underline-offset-2 hover:underline"
-                  >
-                    Generate patient information
-                  </Link>
-                  <span className="text-ink-3">
-                    {" "}
-                    — a note for them to take home. It does not enrol them.
-                  </span>
-                </p>
-                <DoctorActions
-                  patientId={patientId}
-                  nctId={trial.nctId}
-                  order={order}
-                  initial={
-                    loop ?? {
-                      backend: "file",
-                      preferences: [],
-                      nudges: [],
-                      notes: [],
-                      registry: [],
-                      releases: [],
-                    }
-                  }
-                  live={Boolean(loop)}
-                />
-              </>
-            ) : null
-          }
-          patient={patient}
-          trial={trial}
-          pair={pair}
-          trials={trials}
-          trialHref={(next) =>
-            doctorChartPath({
-              physicianId,
-              patientId,
-              trialId: next,
-              demo: demo ? demoMode : null,
-            })
-          }
-          suggestions={suggestions}
-          suggestionHref={(peer) =>
-            doctorChartPath({
-              physicianId,
-              patientId: peer.patientId,
-              trialId: peer.nctId,
-              demo: demo ? demoMode : null,
-            })
-          }
-        />
-        {!(patient && trial && pair) && (
+        <div>
+          <Link
+            href={`/doctor?physician=${encodeURIComponent(physicianId)}${demo ? `&demo=${demoMode}` : ""}`}
+            className="text-[13px] text-ink-2 hover:text-ink"
+          >
+            ← My patients
+          </Link>
+          <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+            <h1 className="text-[24px] font-medium text-ink">{patient ? displayName(patient) : patientId}</h1>
+            <span className="text-[11px] text-ink-3">synthetic</span>
+          </div>
+        </div>
+        {patient && entries.length > 0 ? (
+          <PatientBoard
+            patient={patient}
+            entries={entries}
+            details={details}
+            initialNctId={initialNctId}
+            loop={loop ?? EMPTY_LOOP}
+            live={Boolean(loop)}
+          />
+        ) : (
           <MissingData file="app/_data/cube.json" detail={`No pair for ${patientId}.`} />
         )}
         <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
