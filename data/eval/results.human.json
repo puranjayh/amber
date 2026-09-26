@@ -1,0 +1,64 @@
+{
+  "labelSource": "human",
+  "reportClass": "HUMAN_LABELLED_EVALUATION",
+  "labelSourceNotice": "HUMAN-LABELLED EVALUATION — this report is separate from the model-draft agreement report.",
+  "evaluatedCells": 30,
+  "issues": [],
+  "confusionMatrix": {
+    "PASS": {
+      "PASS": 20,
+      "FAIL": 0,
+      "UNKNOWN": 0
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 2,
+      "UNKNOWN": 0
+    },
+    "UNKNOWN": {
+      "PASS": 0,
+      "FAIL": 2,
+      "UNKNOWN": 6
+    }
+  },
+  "precision": 0.8333333333333334,
+  "recall": 0.9166666666666666,
+  "unknownAgreement": 1,
+  "unknownRecall": 0.75,
+  "byVerdict": {
+    "PASS": {
+      "precision": 1,
+      "recall": 1
+    },
+    "FAIL": {
+      "precision": 0.5,
+      "recall": 1
+    },
+    "UNKNOWN": {
+      "precision": 1,
+      "recall": 0.75
+    }
+  },
+  "disagreements": [
+    {
+      "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+      "trialTitle": "DEMO-FL: First-line therapy for untreated EGFR-mutant advanced NSCLC",
+      "nctId": "NCT07001001",
+      "criterionId": "INC-2",
+      "expected": "UNKNOWN",
+      "actual": "FAIL",
+      "criterionCitation": "Histologically or cytologically confirmed non-small cell lung cancer.",
+      "chartCitation": "Synthea condition 126906006 \"Neoplasm of prostate\" onset 2013-05-22."
+    },
+    {
+      "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+      "trialTitle": "DEMO-POST: Next-line therapy after progression on osimertinib",
+      "nctId": "NCT07001002",
+      "criterionId": "INC-2",
+      "expected": "UNKNOWN",
+      "actual": "FAIL",
+      "criterionCitation": "Histologically confirmed non-small cell lung cancer.",
+      "chartCitation": "Synthea condition 126906006 \"Neoplasm of prostate\" onset 2013-05-22."
+    }
+  ]
+}
