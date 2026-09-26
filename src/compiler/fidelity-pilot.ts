@@ -44,7 +44,7 @@ function sourceForProbe(nctId: string, row: FidelitySheetRow): string {
   if (!ENUMERATED.has(nctId)) return row.sourceSpans[0];
   // Some rows keep one complete clause; others retain a heading plus distinct
   // leaves. Do not feed both, which would duplicate thresholds in the prompt.
-  return row.sourceSpans.find((span) => thresholdCount(span) > 1)
+  return row.sourceSpans.find((span) => thresholdCount(span) >= 3)
     ?? row.sourceSpans.join("\n");
 }
 
