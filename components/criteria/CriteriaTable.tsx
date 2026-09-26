@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CitationPanel } from "./CitationPanel";
 import type { CriteriaSection, GroupRow, LeafRow } from "./rows";
+import { displayTone, type CriterionType, type Tone } from "./tone";
 import { VerdictBadge } from "./VerdictBadge";
 
 const GROUP_LABEL: Record<GroupRow["op"], string> = {
@@ -11,18 +12,18 @@ const GROUP_LABEL: Record<GroupRow["op"], string> = {
   NOT: "NOT",
 };
 
-const ACCENT = {
-  PASS: "before:bg-pass",
-  FAIL: "before:bg-fail",
-  UNKNOWN: "before:bg-unknown-line",
+const ACCENT: Record<Tone | "none", string> = {
+  green: "before:bg-pass",
+  red: "before:bg-fail",
+  amber: "before:bg-unknown-line",
   none: "before:bg-ink-3",
-} as const;
+};
 
 function indent(depth: number) {
   return { paddingLeft: `${12 + depth * 18}px` };
 }
 
-function GroupLine({ row }: { row: GroupRow }) {
+function GroupLine({ row, type }: { row: GroupRow; type: CriterionType }) {
   return (
     <div
       className="flex items-start gap-3 border-b border-line-2 bg-canvas/70 py-2 pr-3"
@@ -34,7 +35,7 @@ function GroupLine({ row }: { row: GroupRow }) {
       <span className="min-w-0 flex-1 text-[12px] leading-snug text-ink-2">
         {row.sourceSpan ?? "Grouped criteria"}
       </span>
-      <VerdictBadge verdict={row.verdict} size="sm" />
+      <VerdictBadge verdict={row.verdict} type={type} size="sm" />
     </div>
   );
 }
@@ -49,6 +50,7 @@ function LeafLine({
   onToggle: () => void;
 }) {
   const verdict = row.cell?.verdict ?? null;
+  const tone = row.cell ? displayTone(row.cell, row.leaf.type) : "none";
   const panelId = `cite-${row.leaf.id}`;
   return (
     <div className="border-b border-line-2 last:border-b-0">
@@ -58,11 +60,11 @@ function LeafLine({
         aria-expanded={open}
         aria-controls={panelId}
         className={`relative flex w-full items-start gap-3 py-2.5 pr-3 text-left transition-colors hover:bg-canvas before:absolute before:inset-y-0 before:left-0 before:w-[3px] ${
-          ACCENT[verdict ?? "none"]
+          ACCENT[tone]
         }`}
         style={indent(row.depth)}
       >
-        <VerdictBadge verdict={verdict} />
+        <VerdictBadge verdict={verdict} type={row.leaf.type} />
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-baseline gap-x-2">
             <span className="font-mono text-[12px] font-medium text-ink">{row.leaf.id}</span>
@@ -128,13 +130,13 @@ export function CriteriaTable({ sections }: { sections: CriteriaSection[] }) {
               {section.type === "inclusion" ? "Inclusion" : "Exclusion"}
               {section.type === "exclusion" && (
                 <span className="ml-2 normal-case tracking-normal">
-                  — PASS means the patient clears the exclusion
+                  — green means the patient clears this exclusion
                 </span>
               )}
             </h3>
             {section.rows.map((row) =>
               row.kind === "group" ? (
-                <GroupLine key={row.key} row={row} />
+                <GroupLine key={row.key} row={row} type={section.type} />
               ) : (
                 <LeafLine
                   key={row.key}

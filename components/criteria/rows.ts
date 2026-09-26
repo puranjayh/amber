@@ -5,9 +5,6 @@ import type {
   Verdict,
 } from "@/src/contracts";
 
-// Type-only imports: this module runs under `node --test` with type stripping,
-// so it must not pull runtime values from path aliases.
-
 export type GroupOp = "AND" | "OR" | "NOT";
 
 export type LeafRow = {

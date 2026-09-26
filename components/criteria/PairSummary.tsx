@@ -6,6 +6,7 @@ import {
   type Trial,
 } from "@/src/contracts";
 import { unknownCells } from "./rows";
+import { toneCounts } from "./tone";
 
 function Stat({ label, value, className }: { label: string; value: number; className: string }) {
   return (
@@ -55,6 +56,7 @@ export function PairSummary({
   leaves: Map<string, CriterionLeaf>;
 }) {
   const unknowns = unknownCells(pair.cells);
+  const tones = toneCounts(pair.cells, (id) => leaves.get(id)?.type);
   return (
     <div className="rounded-md border border-line bg-surface">
       <div className="px-3 py-3 sm:px-4">
@@ -68,11 +70,11 @@ export function PairSummary({
         <p className="mt-0.5 text-[12px] text-ink-2">{trial.condition}</p>
 
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <Stat label="pass" value={pair.passCount} className="border-pass-line bg-pass-bg text-pass" />
-          <Stat label="fail" value={pair.failCount} className="border-fail-line bg-fail-bg text-fail" />
+          <Stat label="favourable" value={tones.green} className="border-pass-line bg-pass-bg text-pass" />
+          <Stat label="unfavourable" value={tones.red} className="border-fail-line bg-fail-bg text-fail" />
           <Stat
             label="unknown"
-            value={pair.unknownCount}
+            value={tones.amber}
             className="border-unknown-line bg-unknown-bg text-unknown"
           />
           <div className="ml-1 min-w-0 flex-1 basis-40">

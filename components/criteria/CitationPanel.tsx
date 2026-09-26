@@ -1,8 +1,9 @@
 import { TIER_LABEL, type CriterionLeaf, type CubeCell } from "@/src/contracts";
+import { toneMeaning } from "./tone";
 
 const REASON_COPY: Record<CubeCell["reason"], string> = {
-  satisfied: "A fact in the record satisfies this criterion within its recency window.",
-  contradicted: "A fact in the record directly contradicts this criterion.",
+  satisfied: "A fact in the record shows this condition holds, within its recency window.",
+  contradicted: "A fact in the record shows this condition does not hold.",
   absent: "Nothing in the record answers this. Absence of evidence is not evidence of absence.",
   stale: "The record has a fact, but it is older than this criterion allows.",
   unsupported: "The engine cannot evaluate this criterion type yet.",
@@ -85,6 +86,9 @@ export function CitationPanel({ leaf, cell }: { leaf: CriterionLeaf; cell?: Cube
 
       {cell && (
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-ink-2 sm:col-span-2">
+          <span className="w-full font-medium text-ink">
+            {cell.verdict} — {toneMeaning(cell.verdict, leaf.type)}
+          </span>
           <span>
             <span className="font-mono text-ink-3">reason</span> {cell.reason} —{" "}
             {REASON_COPY[cell.reason]}

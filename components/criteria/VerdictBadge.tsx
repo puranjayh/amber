@@ -1,16 +1,20 @@
 import type { Verdict } from "@/src/contracts";
+import { displayTone, toneMeaning, type CriterionType, type Tone } from "./tone";
 
-const STYLE: Record<Verdict, { glyph: string; className: string }> = {
-  PASS: { glyph: "✓", className: "bg-pass-bg text-pass border-pass-line" },
-  FAIL: { glyph: "✕", className: "bg-fail-bg text-fail border-fail-line" },
-  UNKNOWN: { glyph: "?", className: "bg-unknown-bg text-unknown border-unknown-line" },
+const TONE_STYLE: Record<Tone, { glyph: string; className: string }> = {
+  green: { glyph: "✓", className: "bg-pass-bg text-pass border-pass-line" },
+  red: { glyph: "✕", className: "bg-fail-bg text-fail border-fail-line" },
+  amber: { glyph: "?", className: "bg-unknown-bg text-unknown border-unknown-line" },
 };
 
+/** Text is the stored, criterion-oriented verdict; colour and glyph are the derived tone. */
 export function VerdictBadge({
   verdict,
+  type,
   size = "md",
 }: {
   verdict: Verdict | null;
+  type: CriterionType;
   size?: "sm" | "md";
 }) {
   const sizing =
@@ -25,10 +29,13 @@ export function VerdictBadge({
       </span>
     );
   }
-  const { glyph, className } = STYLE[verdict];
+  const { glyph, className } = TONE_STYLE[displayTone({ verdict }, type)];
+  const meaning = toneMeaning(verdict, type);
   return (
     <span
       className={`inline-flex shrink-0 items-center rounded border font-mono font-medium tracking-wide ${className} ${sizing}`}
+      title={`${verdict} — ${meaning}`}
+      aria-label={`${verdict}, ${meaning}`}
     >
       <span aria-hidden>{glyph}</span>
       {verdict}

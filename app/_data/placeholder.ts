@@ -1,7 +1,7 @@
 // Hand-built stand-in until fixtures/*.json land. Synthetic patient, placeholder trial ID.
 // Shapes match src/contracts exactly; source.ts validates them with zod on load.
-// Cell verdicts are patient-oriented: an exclusion the patient clears is PASS, a matching
-// exclusion is FAIL (the engine's polarity suite, CONTRACT §8).
+// Cell verdicts are criterion-oriented (CONTRACT §4 ruling): an exclusion the patient
+// clears is FAIL, a matched exclusion is PASS and eliminates the trial.
 
 export const AS_OF = "2026-09-25";
 
@@ -250,8 +250,8 @@ export const placeholderCube = [
     patientId: "PT-4417",
     nctId: "NCT09900001",
     eliminated: false,
-    passCount: 11,
-    failCount: 1,
+    passCount: 7,
+    failCount: 5,
     unknownCount: 2,
     resolutionCost: 3,
     expectedValue: 0.43,
@@ -373,8 +373,8 @@ export const placeholderCube = [
       {
         ...cellBase,
         criterionId: "EXC-1",
-        verdict: "PASS",
-        reason: "satisfied",
+        verdict: "FAIL",
+        reason: "contradicted",
         criterionCitation: "Prior treatment with any third-generation EGFR TKI.",
         chartCitation:
           "Treatment history: erlotinib 150 mg daily from 2025-11-20; progression on restaging CT 2026-09-10. No other systemic therapy.",
@@ -385,8 +385,8 @@ export const placeholderCube = [
       {
         ...cellBase,
         criterionId: "EXC-2",
-        verdict: "PASS",
-        reason: "satisfied",
+        verdict: "FAIL",
+        reason: "contradicted",
         criterionCitation:
           "History of interstitial lung disease, drug-induced ILD, or radiation pneumonitis requiring steroids.",
         chartCitation: "No history of interstitial lung disease or pneumonitis.",
@@ -397,8 +397,8 @@ export const placeholderCube = [
       {
         ...cellBase,
         criterionId: "EXC-3",
-        verdict: "PASS",
-        reason: "satisfied",
+        verdict: "FAIL",
+        reason: "contradicted",
         criterionCitation: "Mean resting corrected QT interval (QTcF) > 470 ms on screening ECG.",
         chartCitation: "ECG: sinus rhythm, QTcF 432 ms.",
         tier: 1,
@@ -408,8 +408,8 @@ export const placeholderCube = [
       {
         ...cellBase,
         criterionId: "EXC-4",
-        verdict: "PASS",
-        reason: "satisfied",
+        verdict: "FAIL",
+        reason: "contradicted",
         criterionCitation:
           "Treatment with an EGFR TKI within 8 days before the first dose of study drug.",
         chartCitation: "Erlotinib discontinued 2026-09-12 at progression.",
