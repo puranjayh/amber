@@ -267,6 +267,14 @@ export function normalizeSweepMetadata(candidate: unknown): unknown {
   }
   if (node.kind !== "leaf") return node;
 
+  // A slider only has clinical meaning for a numeric threshold. This is a
+  // presentation hint, so discard model-emitted sweep fields on string,
+  // boolean, and member-list leaves without altering the criterion itself.
+  if (typeof node.value !== "number") {
+    const { sweepRange: _range, sweepStep: _step, ...withoutSweepMetadata } = node;
+    return { ...withoutSweepMetadata, sweepable: false };
+  }
+
   const range = node.sweepRange;
   const step = node.sweepStep;
   const validRange = Array.isArray(range) && range.length === 2 &&
@@ -534,13 +542,31 @@ export async function compileRawTrials(
   return results;
 }
 
+/** Select exactly the requested trials for a bounded retry; never rerun the corpus by accident. */
+export function selectRawTrialsByNctIds(rawTrials: RawClinicalTrial[], nctIds: string[]): RawClinicalTrial[] {
+  const byNctId = new Map(rawTrials.map((trial) => [trial.protocolSection.identificationModule.nctId, trial]));
+  const missing = nctIds.filter((nctId) => !byNctId.has(nctId));
+  if (missing.length) throw new Error(`Requested retry trials are absent from the raw cache: ${missing.join(", ")}`);
+  return nctIds.map((nctId) => byNctId.get(nctId)!);
+}
+
+function cliArgument(name: string): string | undefined {
+  const index = process.argv.indexOf(name);
+  return index < 0 ? undefined : process.argv[index + 1];
+}
+
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
   const fullBatch = process.argv.includes("--full");
-  const outputPath = resolve(process.argv[3] || (fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
+  const retryIdsPath = cliArgument("--nct-ids");
+  const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
-  const batch = fullBatch ? rawTrials : rawTrials.slice(0, 3);
-  if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
+  const retryNctIds = retryIdsPath
+    ? z.array(z.string().regex(/^NCT\d{8}$/)).parse(JSON.parse(await readFile(resolve(retryIdsPath), "utf8")))
+    : undefined;
+  const batch = retryNctIds ? selectRawTrialsByNctIds(rawTrials, retryNctIds) : fullBatch ? rawTrials : rawTrials.slice(0, 3);
+  if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
+  else if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),

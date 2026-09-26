@@ -7,6 +7,7 @@ import {
   nearVerbatimSimilarity,
   normalizeSweepMetadata,
   normalizeSourceText,
+  selectRawTrialsByNctIds,
   validateCompiledTree,
 } from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
@@ -134,6 +135,21 @@ test("drops invalid sweep metadata without changing the clinical leaf", () => {
   expect(normalized).toMatchObject({ sweepable: false, value: 1, sourceSpan: "ECOG 0 or 1." });
   expect(normalized).not.toHaveProperty("sweepRange");
   expect(normalized).not.toHaveProperty("sweepStep");
+});
+
+test("drops sweep metadata from non-numeric leaves without changing their clinical meaning", () => {
+  const normalized = normalizeSweepMetadata({
+    kind: "leaf", id: "EXC-1", value: "pembrolizumab", sweepable: true, sweepRange: [0, 1], sweepStep: 1,
+  }) as Record<string, unknown>;
+  expect(normalized).toMatchObject({ kind: "leaf", id: "EXC-1", value: "pembrolizumab", sweepable: false });
+  expect(normalized).not.toHaveProperty("sweepRange");
+  expect(normalized).not.toHaveProperty("sweepStep");
+});
+
+test("selects only explicitly requested raw trials for a retry", () => {
+  const second = { ...raw, protocolSection: { ...raw.protocolSection, identificationModule: { nctId: "NCT00000002", briefTitle: "Second trial" } } };
+  expect(selectRawTrialsByNctIds([raw, second], ["NCT00000002"])).toEqual([second]);
+  expect(() => selectRawTrialsByNctIds([raw], ["NCT99999999"])).toThrow(/absent from the raw cache/);
 });
 
 test("only flags explicit structural alternatives and retains their tree", async () => {
