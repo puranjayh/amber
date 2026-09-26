@@ -17,6 +17,34 @@ export interface CompilerReport {
   flagged: number;
   invalidOutput: number;
   thresholdHistogram: Record<string, ThresholdBucket[]>;
+  reviewFlags: ReviewFlagSummary;
+}
+
+export type ReviewFlagSeverity = "citation_granularity" | "semantic";
+
+export interface ReviewFlagClass {
+  /** Unique trials carrying at least one flag in this class. */
+  trials: number;
+  /** Total reasons, including multiple criteria in one trial. */
+  flags: number;
+  reasons: Record<string, number>;
+}
+
+export interface ReviewFlagSummary {
+  citationGranularity: ReviewFlagClass;
+  semantic: ReviewFlagClass;
+}
+
+/** Morning-review payload: only logic-risk flags, never citation granularity. */
+export interface SemanticReviewQueue {
+  generatedFromTrials: number;
+  reviews: Array<{
+    nctId: string;
+    title: string;
+    semanticReasons: string[];
+    sourceText: string;
+    compiledTree: CriterionNode[];
+  }>;
 }
 
 export interface LandscapeThreshold {
@@ -53,6 +81,57 @@ function leaves(nodes: CriterionNode[]): CriterionLeaf[] {
   };
   nodes.forEach(visit);
   return result;
+}
+
+/** Coarser-but-verbatim citations are not semantic extraction failures. */
+export function classifyReviewFlag(reason: string): ReviewFlagSeverity {
+  if (/\bsourceSpan near-verbatim\b|\bsourceSpan not verifiable; full source block retained\b/.test(reason)) {
+    return "citation_granularity";
+  }
+  // Unknown future review reasons are conservative: never hide a possible logic error.
+  return "semantic";
+}
+
+function emptyReviewFlagClass(): ReviewFlagClass {
+  return { trials: 0, flags: 0, reasons: {} };
+}
+
+export function summarizeReviewFlags(results: CompiledTrialResult[]): ReviewFlagSummary {
+  const citationGranularity = emptyReviewFlagClass();
+  const semantic = emptyReviewFlagClass();
+  const citationTrials = new Set<string>();
+  const semanticTrials = new Set<string>();
+
+  for (const result of results) {
+    for (const reason of result.reviewReasons ?? []) {
+      const severity = classifyReviewFlag(reason);
+      const target = severity === "citation_granularity" ? citationGranularity : semantic;
+      const trials = severity === "citation_granularity" ? citationTrials : semanticTrials;
+      target.flags += 1;
+      target.reasons[reason] = (target.reasons[reason] ?? 0) + 1;
+      trials.add(result.trial.nctId);
+    }
+  }
+  citationGranularity.trials = citationTrials.size;
+  semantic.trials = semanticTrials.size;
+  return { citationGranularity, semantic };
+}
+
+export function buildSemanticReviewQueue(results: CompiledTrialResult[]): SemanticReviewQueue {
+  return {
+    generatedFromTrials: results.length,
+    reviews: results.flatMap((result) => {
+      const semanticReasons = (result.reviewReasons ?? []).filter((reason) => classifyReviewFlag(reason) === "semantic");
+      if (!semanticReasons.length || !result.trial.criteria.length) return [];
+      return [{
+        nctId: result.trial.nctId,
+        title: result.trial.title,
+        semanticReasons,
+        sourceText: result.sourceText,
+        compiledTree: result.trial.criteria,
+      }];
+    }),
+  };
 }
 
 /** Distribution of numeric eligibility thresholds for the criteria-landscape chart. */
@@ -137,6 +216,12 @@ export async function writeCriteriaLandscape(landscape: CriteriaLandscape, outpu
   await writeFile(path, `${JSON.stringify(landscape, null, 2)}\n`, "utf8");
 }
 
+export async function writeSemanticReviewQueue(queue: SemanticReviewQueue, outputPath = "data/compiled/review-queue.json"): Promise<void> {
+  const path = resolve(outputPath);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, `${JSON.stringify(queue, null, 2)}\n`, "utf8");
+}
+
 export function validateCompilationResults(results: CompiledTrialResult[]): CompilerReport {
   let invalidOutput = 0;
   for (const result of results) {
@@ -149,6 +234,7 @@ export function validateCompilationResults(results: CompiledTrialResult[]): Comp
     flagged: results.filter((result) => result.trial.needsHumanReview).length,
     invalidOutput,
     thresholdHistogram: buildThresholdHistogram(results),
+    reviewFlags: summarizeReviewFlags(results),
   };
 }
 
@@ -166,6 +252,11 @@ export function printHumanVerificationPairs(
 
 export function printReport(report: CompilerReport, write: (line: string) => void = console.log): void {
   write(`Trials: ${report.total} total | ${report.compiled} compiled | ${report.rejected} rejected | ${report.flagged} flagged | ${report.invalidOutput} invalid output`);
+  write(`Review flags: ${report.reviewFlags.citationGranularity.trials} citation-granularity trials (${report.reviewFlags.citationGranularity.flags} flags) | ${report.reviewFlags.semantic.trials} semantic trials (${report.reviewFlags.semantic.flags} flags)`);
+  for (const [severity, flags] of Object.entries(report.reviewFlags) as Array<[keyof ReviewFlagSummary, ReviewFlagClass]>) {
+    const reasons = Object.entries(flags.reasons).sort(([left], [right]) => left.localeCompare(right));
+    if (reasons.length) write(`  ${severity}: ${reasons.map(([reason, count]) => `${reason} (${count})`).join("; ")}`);
+  }
   write("Numeric threshold distribution by analyte:");
   for (const [analyte, buckets] of Object.entries(report.thresholdHistogram)) {
     const labels = buckets.map(({ threshold, count }) => `${threshold}: ${"█".repeat(count)} (${count})`).join("  ");
@@ -176,9 +267,11 @@ export function printReport(report: CompilerReport, write: (line: string) => voi
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/compiled/trials.backtranslated.json");
   const landscapePath = process.argv[3] || "data/compiled/landscape.json";
+  const reviewQueuePath = process.argv[4] || "data/compiled/review-queue.json";
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const report = validateCompilationResults(results);
   await writeCriteriaLandscape(buildCriteriaLandscape(results), landscapePath);
+  await writeSemanticReviewQueue(buildSemanticReviewQueue(results), reviewQueuePath);
   printReport(report);
   printHumanVerificationPairs(results);
   if (report.invalidOutput > 0) process.exitCode = 1;

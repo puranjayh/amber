@@ -22,6 +22,21 @@ Do not present the 46 quota failures as a clinical or model-quality finding. The
 external budget interruption. The underlying source cache is complete, and no patient
 or trial content was dropped to work around the limit.
 
+## Review-flag severity
+
+Compiler review flags are not all equally concerning. The validation report now separates
+them instead of treating every `needsHumanReview` trial as a possible logic failure.
+
+| Severity | Current batch | Meaning | Morning action |
+| --- | ---: | --- | --- |
+| Citation granularity | 636 flags across 167 trials | A leaf is grounded in real protocol text, but its citation is near-verbatim or uses the full source block rather than the ideal sub-clause. | No logic review required solely for this reason. |
+| Semantic | 37 flags across 37 trials | An explicit alternative (`either … or`, `unless`, `whichever`, or `in which case`) has no preserved OR group. | Review the compiled tree against its source text. |
+
+There are no depth-limit semantic flags in the current batch. The offline validator writes
+`data/compiled/review-queue.json` with only semantic cases, their complete source text,
+and the compiled tree. Citation-granularity flags are deliberately excluded from that
+morning queue.
+
 ## Morning action
 
 `XAI_API_KEY` was unavailable during this run, so no retry was attempted. Create the
