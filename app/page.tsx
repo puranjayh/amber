@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} />
+      <ConsoleHeader asOf={asOf} active="patient" />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
         <PatientStrip patient={patient} />
         <PairSummary trial={trial} pair={pair} leaves={leaves} />

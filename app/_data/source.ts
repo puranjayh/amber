@@ -1,11 +1,13 @@
 import {
   CubeFixture,
+  ElasticityPoint,
   PatientsFixture,
   TrialsFixture,
   type PairResult,
   type Patient,
   type Trial,
 } from "@/src/contracts";
+import elasticitySample from "./elasticity.sample.json";
 import {
   AS_OF,
   placeholderCube,
@@ -18,6 +20,13 @@ import {
 const trials = TrialsFixture.parse(placeholderTrials);
 const patients = PatientsFixture.parse(placeholderPatients);
 const cube = CubeFixture.parse(placeholderCube);
+
+// ElasticityPoint[] carries no criterion reference, so the binding lives here.
+const elasticity = {
+  nctId: "NCT09900001",
+  criterionId: "INC-6c",
+  points: ElasticityPoint.array().parse(elasticitySample),
+};
 
 export const asOf = AS_OF;
 
@@ -39,6 +48,10 @@ export function getPatient(id: string): Patient | undefined {
 
 export function getPair(patientId: string, nctId: string): PairResult | undefined {
   return cube.find((p) => p.patientId === patientId && p.nctId === nctId);
+}
+
+export function getElasticity() {
+  return elasticity;
 }
 
 export function getPairsForPatient(patientId: string): PairResult[] {
