@@ -322,3 +322,78 @@ export function runCube(
     unknowns,
   };
 }
+
+/**
+ * Grow a cohort to `times` its size by deep-cloning it with fresh ids.
+ *
+ * For measuring throughput only. It adds no clinical diversity and the report
+ * says so — it exists because the real Synthea cohort is 200 patients and a
+ * stage claim wants a number with more zeros in it.
+ *
+ * The deep clone is not incidental, it is the whole point. `evaluate` memoises a
+ * patient's fact index on the patient object, so handing the same object back N
+ * times would measure the cache instead of the engine and report a throughput we
+ * could not reproduce on real data. Every clone is a distinct object that pays
+ * for its own index exactly as a real patient would.
+ */
+export function replicateCohort(patients: readonly Patient[], times: number): Patient[] {
+  if (!Number.isInteger(times) || times < 1) {
+    throw new RangeError(`replicateCohort: times must be a positive integer, got ${times}`);
+  }
+  const out: Patient[] = [];
+  for (let copy = 0; copy < times; copy++) {
+    for (const patient of patients) {
+      out.push({
+        ...patient,
+        id: copy === 0 ? patient.id : `${patient.id}#${copy}`,
+        // Fresh fact objects too: a shared array would still be a shared index key.
+        facts: patient.facts.map((f) => ({ ...f })),
+      });
+    }
+  }
+  return out;
+}
+
+export interface BenchmarkRow extends CubeRun {
+  mode: "full" | "short-circuit";
+  seconds: number;
+  cellsPerSecond: number;
+  pairsPerSecond: number;
+}
+
+/**
+ * Time one cube run. The clock lives here rather than in any engine module
+ * (contract rule 1) — `bench.ts` is a harness, and nothing in `index.ts` exports
+ * it.
+ *
+ * A warm-up pass runs first and is not timed, so JIT compilation is not charged
+ * to the measurement. That is the difference between a number that reproduces and
+ * one that looks good once.
+ */
+export function timeCube(
+  patients: readonly Patient[],
+  trials: readonly Trial[],
+  asOf: string,
+  mode: "full" | "short-circuit",
+): BenchmarkRow {
+  const options: EvaluateOptions = mode === "short-circuit" ? { shortCircuit: true } : {};
+
+  runCube(
+    patients.slice(0, Math.min(10, patients.length)),
+    trials.slice(0, Math.min(10, trials.length)),
+    asOf,
+    options,
+  );
+
+  const started = performance.now();
+  const run = runCube(patients, trials, asOf, options);
+  const seconds = (performance.now() - started) / 1000;
+
+  return {
+    ...run,
+    mode,
+    seconds: Number(seconds.toFixed(3)),
+    cellsPerSecond: Math.round(run.cellsEvaluated / seconds),
+    pairsPerSecond: Math.round(run.pairs / seconds),
+  };
+}

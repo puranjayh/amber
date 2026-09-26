@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-09-26T08:06:51.679Z",
+  "generatedBy": "src/engine/bench.ts via AMBER_EMIT=1",
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpus": 10,
+    "cpuModel": "Apple M5",
+    "node": "v26.3.1"
+  },
+  "asOf": "2026-09-26",
+  "trials": {
+    "path": "/Users/puranjayhaldankar/Desktop/amber-compiler/data/compiled/trials.backtranslated.json",
+    "sha256": "9df33cee2a893f4befa2688b81c1cc69811b6d70ad5fdf41e54c5e2dd8e7dd44",
+    "records": 300,
+    "withCriteria": 233,
+    "criteria": 5103,
+    "rejected": 0,
+    "envelope": "array of { trial, reviewReasons, sourceText }"
+  },
+  "cohort": {
+    "path": "/Users/puranjayhaldankar/Desktop/amber-engine/data/synthea/patients.json",
+    "sha256": "99dadc7e51186aa7371dd1f408e5e7926778faf4394722a5307cb41b7665421b",
+    "patients": 200,
+    "facts": 12848,
+    "rejected": 0
+  },
+  "headline": "20,420,000 criterion evaluations across 4,000 patients and 233 real trials in 9.09s (2,245,988 per second).",
+  "realCohortHeadline": "The real 200-patient Synthea cohort against 233 trials is 1,021,000 evaluations in 0.46s.",
+  "notes": [
+    "Wall clock on the machine named above, single-threaded, after an untimed warm-up pass so JIT compilation is not charged to the run.",
+    "Cohorts larger than the real one are that cohort deep-cloned with fresh ids. That adds throughput, not clinical diversity, and every clone pays for its own fact index exactly as a real patient would.",
+    "`full` emits every cell, which is what the product needs — the criteria table is the deliverable. `short-circuit` stops at the first eliminating criterion and reaches the same eliminated set, which the identical `eliminated` counts across modes demonstrate."
+  ],
+  "rows": [
+    {
+      "patients": 200,
+      "trials": 300,
+      "pairs": 60000,
+      "cellsEvaluated": 1021000,
+      "cellsPossible": 1020600,
+      "eliminated": 29690,
+      "unknowns": 706775,
+      "mode": "full",
+      "seconds": 0.458,
+      "cellsPerSecond": 2229286,
+      "pairsPerSecond": 131006
+    },
+    {
+      "patients": 200,
+      "trials": 300,
+      "pairs": 60000,
+      "cellsEvaluated": 680900,
+      "cellsPossible": 1020600,
+      "eliminated": 29690,
+      "unknowns": 488206,
+      "mode": "short-circuit",
+      "seconds": 0.251,
+      "cellsPerSecond": 2717813,
+      "pairsPerSecond": 239490
+    },
+    {
+      "patients": 1000,
+      "trials": 300,
+      "pairs": 300000,
+      "cellsEvaluated": 5105000,
+      "cellsPossible": 5103000,
+      "eliminated": 148450,
+      "unknowns": 3533875,
+      "mode": "full",
+      "seconds": 2.223,
+      "cellsPerSecond": 2296022,
+      "pairsPerSecond": 134928
+    },
+    {
+      "patients": 1000,
+      "trials": 300,
+      "pairs": 300000,
+      "cellsEvaluated": 3404500,
+      "cellsPossible": 5103000,
+      "eliminated": 148450,
+      "unknowns": 2441030,
+      "mode": "short-circuit",
+      "seconds": 1.256,
+      "cellsPerSecond": 2710544,
+      "pairsPerSecond": 238850
+    },
+    {
+      "patients": 4000,
+      "trials": 300,
+      "pairs": 1200000,
+      "cellsEvaluated": 20420000,
+      "cellsPossible": 20412000,
+      "eliminated": 593800,
+      "unknowns": 14135500,
+      "mode": "full",
+      "seconds": 9.092,
+      "cellsPerSecond": 2245988,
+      "pairsPerSecond": 131988
+    },
+    {
+      "patients": 4000,
+      "trials": 300,
+      "pairs": 1200000,
+      "cellsEvaluated": 13618000,
+      "cellsPossible": 20412000,
+      "eliminated": 593800,
+      "unknowns": 9764120,
+      "mode": "short-circuit",
+      "seconds": 5.105,
+      "cellsPerSecond": 2667740,
+      "pairsPerSecond": 235078
+    }
+  ]
+}

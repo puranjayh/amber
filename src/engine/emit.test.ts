@@ -19,15 +19,28 @@
  * came from — and so a stale report is obvious rather than plausible.
  */
 import { createHash } from "node:crypto";
+import { cpus } from "node:os";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { replicateCohort, timeCube, type BenchmarkRow } from "./bench";
 import { claimsCoverage } from "./coverage";
-import { loadTrials } from "./load";
+import { indexLeaves } from "./evaluate";
+import { loadPatients, loadTrials } from "./load";
 
 const EMIT = process.env.AMBER_EMIT === "1";
 
 const TRIALS = process.env.AMBER_TRIALS ?? resolve(process.cwd(), "data/compiled/trials.json");
+const COHORT = process.env.AMBER_COHORT ?? resolve(process.cwd(), "data/synthea/patients.json");
+
+/** The date every report is computed against. Fixed, never `new Date()`. */
+const ASOF = process.env.AMBER_ASOF ?? "2026-09-26";
+
+/** Cohort multipliers for the scale run. Override to go bigger or smaller. */
+const SCALES = (process.env.AMBER_BENCH_SCALES ?? "1,5,20")
+  .split(",")
+  .map((s) => Number(s.trim()))
+  .filter((n) => Number.isInteger(n) && n > 0);
 
 interface SourceBlock {
   path: string;
@@ -121,5 +134,102 @@ if (!EMIT) {
       expect(all.overall.criteria).toBeGreaterThan(0);
       expect(existsSync(resolve(process.cwd(), "data/compiled/coverage.json"))).toBe(true);
     });
+
+    it("writes data/compiled/benchmark.json", () => {
+      expect(existsSync(TRIALS), `no compiled trials at ${TRIALS}`).toBe(true);
+      expect(existsSync(COHORT), `no cohort at ${COHORT}`).toBe(true);
+
+      const trialsFile = readJson(TRIALS);
+      const cohortFile = readJson(COHORT);
+      const trials = loadTrials(trialsFile.raw);
+      const cohort = loadPatients(cohortFile.raw);
+
+      const withCriteria = trials.records.filter((t) => t.criteria.length > 0);
+      const leaves = withCriteria.reduce((n, t) => n + indexLeaves(t).size, 0);
+
+      const rows: BenchmarkRow[] = [];
+      for (const times of SCALES) {
+        // Deep-cloned, so each copy pays for its own fact index. Handing the same
+        // object back would measure the cache instead of the engine.
+        const patients = replicateCohort(cohort.records, times);
+        for (const mode of ["full", "short-circuit"] as const) {
+          rows.push(timeCube(patients, trials.records, ASOF, mode));
+        }
+      }
+
+      const headlineRow = rows
+        .filter((r) => r.mode === "full")
+        .reduce((best, r) => (r.cellsEvaluated > best.cellsEvaluated ? r : best));
+      const realRow = rows.find((r) => r.mode === "full" && r.patients === cohort.records.length)!;
+
+      writeJson("data/compiled/benchmark.json", {
+        generatedAt: new Date().toISOString(),
+        generatedBy: "src/engine/bench.ts via AMBER_EMIT=1",
+        machine: {
+          platform: process.platform,
+          arch: process.arch,
+          cpus: cpus().length,
+          cpuModel: cpus()[0]?.model,
+          node: process.version,
+        },
+        asOf: ASOF,
+        trials: {
+          path: TRIALS,
+          sha256: trialsFile.sha256,
+          records: trials.records.length,
+          withCriteria: withCriteria.length,
+          criteria: leaves,
+          rejected: trials.rejected.length,
+          envelope: trials.envelope,
+        },
+        cohort: {
+          path: COHORT,
+          sha256: cohortFile.sha256,
+          patients: cohort.records.length,
+          facts: cohort.records.reduce((n, p) => n + p.facts.length, 0),
+          rejected: cohort.rejected.length,
+        },
+        headline:
+          `${headlineRow.cellsEvaluated.toLocaleString()} criterion evaluations across ` +
+          `${headlineRow.patients.toLocaleString()} patients and ${withCriteria.length} ` +
+          `real trials in ${headlineRow.seconds.toFixed(2)}s ` +
+          `(${headlineRow.cellsPerSecond.toLocaleString()} per second).`,
+        realCohortHeadline:
+          `The real ${cohort.records.length}-patient Synthea cohort against ` +
+          `${withCriteria.length} trials is ${realRow.cellsEvaluated.toLocaleString()} ` +
+          `evaluations in ${realRow.seconds.toFixed(2)}s.`,
+        notes: [
+          "Wall clock on the machine named above, single-threaded, after an " +
+            "untimed warm-up pass so JIT compilation is not charged to the run.",
+          "Cohorts larger than the real one are that cohort deep-cloned with fresh " +
+            "ids. That adds throughput, not clinical diversity, and every clone " +
+            "pays for its own fact index exactly as a real patient would.",
+          "`full` emits every cell, which is what the product needs — the criteria " +
+            "table is the deliverable. `short-circuit` stops at the first " +
+            "eliminating criterion and reaches the same eliminated set, which the " +
+            "identical `eliminated` counts across modes demonstrate.",
+        ],
+        rows,
+      });
+
+      console.log(`\n${headlineRow.cellsEvaluated.toLocaleString()} cells in ${headlineRow.seconds}s`);
+      for (const r of rows) {
+        console.log(
+          `  n=${String(r.patients).padStart(6)} ${r.mode.padEnd(14)} ` +
+            `cells=${r.cellsEvaluated.toLocaleString().padStart(12)} ` +
+            `${String(r.seconds).padStart(8)}s ` +
+            `${r.cellsPerSecond.toLocaleString().padStart(12)}/s ` +
+            `eliminated=${r.eliminated}`,
+        );
+      }
+
+      // The claim that matters: short-circuiting changes cost, never the answer.
+      const byScale = new Map<number, BenchmarkRow[]>();
+      for (const r of rows) byScale.set(r.patients, [...(byScale.get(r.patients) ?? []), r]);
+      for (const [, pair] of byScale) {
+        if (pair.length === 2) expect(pair[0].eliminated).toBe(pair[1].eliminated);
+      }
+      expect(rows.length).toBe(SCALES.length * 2);
+    }, 900_000);
   });
 }

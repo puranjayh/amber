@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
-import type { Predicate, Provenance } from "@/src/contracts";
+import type { Predicate } from "@/src/contracts";
 import { claimsCoverage } from "./coverage";
-import { answerableBy, ceilingFor, explainAnswerability } from "./provenance";
+import {
+  answerableBy,
+  ceilingFor,
+  explainAnswerability,
+  type Provenance,
+} from "./provenance";
 import { group, leaf, trial } from "./testing";
 
 const ALL_PREDICATES: Predicate[] = [
