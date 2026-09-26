@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
-import { buildThresholdHistogram, validateCompilationResults } from "@/src/compiler/validate";
+import { buildCriteriaLandscape, buildThresholdHistogram, validateCompilationResults } from "@/src/compiler/validate";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
+import type { CriterionLeaf } from "@/src/contracts";
 
 const accepted: CompiledTrialResult = {
   sourceText: "ANC >= 1500 /uL.",
@@ -16,5 +17,40 @@ test("reports numeric thresholds by analyte and excludes review-only trials", ()
   expect(validateCompilationResults([accepted, flagged])).toEqual({
     total: 2, compiled: 2, rejected: 0, flagged: 1, invalidOutput: 0,
     thresholdHistogram: { ANC: [{ threshold: 1500, count: 1 }] },
+  });
+});
+
+test("exports a trial-deduplicated landscape with flagged context and percentages", () => {
+  const ancLeaf = accepted.trial.criteria[0] as CriterionLeaf;
+  const sameTrialDifferentLeaf: CompiledTrialResult = {
+    ...accepted,
+    trial: {
+      ...accepted.trial,
+      criteria: [
+        ancLeaf,
+        { ...ancLeaf, id: "INC-2", value: 1000 },
+      ],
+    },
+  };
+  const flagged: CompiledTrialResult = {
+    ...accepted,
+    trial: { ...accepted.trial, nctId: "NCT00000002", needsHumanReview: true },
+  };
+  expect(buildCriteriaLandscape([sameTrialDifferentLeaf, flagged])).toEqual({
+    generatedFromTrials: 2,
+    analytes: [{
+      analyte: "ANC",
+      totalTrials: 2,
+      flaggedTrials: 1,
+      operators: [{
+        operator: ">=",
+        totalTrials: 2,
+        flaggedTrials: 1,
+        thresholds: [
+          { threshold: 1000, count: 1, percentage: 0.5 },
+          { threshold: 1500, count: 2, percentage: 1 },
+        ],
+      }],
+    }],
   });
 });
