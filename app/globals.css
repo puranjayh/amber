@@ -1,32 +1,55 @@
 @import "tailwindcss";
 
 /*
- * Amber means UNKNOWN and nothing else. The `unknown` tokens are the only warm hue in
- * the palette — do not introduce yellow/orange/amber anywhere else (focus rings,
- * warnings, highlights, brand). Errors and bugs use `fail` or neutral ink.
+ * Light is the default. Dark is opt-in via data-theme on <html>.
+ * Amber means UNKNOWN and nothing else. The unknown tokens are the only warm hue.
  */
 :root {
-  color-scheme: light dark;
-  --ink: #14171c;
-  --ink-2: #4a5160;
-  --ink-3: #7b8291;
-  --line: #e3e5ea;
-  --line-2: #eef0f3;
+  color-scheme: light;
+  --ink: #1c2430;
+  --ink-2: #3e4c5e;
+  --ink-3: #6a7788;
+  --line: #e2e6ed;
+  --line-2: #eef1f5;
   --surface: #ffffff;
-  --canvas: #f6f7f9;
-  --focus: #2f5bd3;
+  --canvas: #f7f8fa;
+  --focus: #2c5aa0;
 
-  --pass: #17694b;
-  --pass-bg: #e7f3ed;
-  --pass-line: #b6dcc8;
+  --pass: #1d6b4a;
+  --pass-bg: #e8f3ec;
+  --pass-line: #c5ddd0;
 
-  --fail: #b3261e;
-  --fail-bg: #fbeceb;
-  --fail-line: #f0c2be;
+  --fail: #9e2b2b;
+  --fail-bg: #f8ecec;
+  --fail-line: #e4c8c8;
 
-  --unknown: #9a5b00;
-  --unknown-bg: #fff4dc;
-  --unknown-line: #f2b53c;
+  --unknown: #8a5a12;
+  --unknown-bg: #f8f1e4;
+  --unknown-line: #e6d3a8;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e7ecf2;
+  --ink-2: #b7c0cc;
+  --ink-3: #8b97a6;
+  --line: #2c3542;
+  --line-2: #232b36;
+  --surface: #1a2028;
+  --canvas: #12161c;
+  --focus: #8eadd8;
+
+  --pass: #7dcea8;
+  --pass-bg: #173026;
+  --pass-line: #2c5644;
+
+  --fail: #f0aaa4;
+  --fail-bg: #3a2222;
+  --fail-line: #6e3a38;
+
+  --unknown: #e4c07a;
+  --unknown-bg: #332818;
+  --unknown-line: #6e5830;
 }
 
 @theme inline {
@@ -53,28 +76,26 @@
   --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #e8eaee;
-    --ink-2: #b4b9c4;
-    --ink-3: #8b909c;
-    --line: #2c313c;
-    --line-2: #22262e;
-    --surface: #16181d;
-    --canvas: #0f1114;
-    --focus: #7b96ff;
+@media print {
+  .no-print {
+    display: none !important;
+  }
 
-    --pass: #3dba86;
-    --pass-bg: #123226;
-    --pass-line: #2a5c45;
+  body {
+    background: var(--surface);
+    color: var(--ink);
+  }
 
-    --fail: #f07169;
-    --fail-bg: #3a1a18;
-    --fail-line: #7a3530;
+  .letter,
+  .letter * {
+    color: var(--ink) !important;
+    background: var(--surface) !important;
+    box-shadow: none !important;
+  }
 
-    --unknown: #e8a84a;
-    --unknown-bg: #3a2a10;
-    --unknown-line: #c48a2a;
+  .letter {
+    max-width: none;
+    padding: 0;
   }
 }
 
@@ -82,6 +103,8 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -107,6 +130,6 @@ body {
 [data-presenting="1"][data-active="hcp"] #beat-hcp,
 [data-presenting="1"][data-active="elasticity"] #beat-elasticity,
 [data-presenting="1"][data-active="payer"] #beat-payer {
-  box-shadow: 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 2px var(--ink);
   border-radius: 6px;
 }

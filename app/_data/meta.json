@@ -3,8 +3,9 @@
   "sources": [
     "data/compiled/trials.json",
     "fixtures/patients.sample.json",
+    "fixtures/demo-patients.json",
     "fixtures/trials.sample.json",
-    "data/synthea/patients.json",
+    "fixtures/cohort.json",
     "data/compiled/landscape.json"
   ],
   "patients": 203,

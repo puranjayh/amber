@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { readLoop } from "@/app/_data/loop";
+import { syncRegistry } from "@/app/_data/registry-sync";
 import {
   DEMO,
   asOf,
@@ -21,13 +22,15 @@ import { Provenance } from "@/components/console/Provenance";
 import { one } from "@/components/console/params";
 import { collectLeaves } from "@/components/criteria/rows";
 import { toneCounts } from "@/components/criteria/tone";
+import { trialPatientPath } from "@/components/hcp/access";
 import { Worklist, WorklistHeader, type WorklistItem } from "@/components/worklist/Worklist";
 import { WorklistLive } from "@/components/worklist/WorklistLive";
 import { screenFailures } from "@/components/worklist/strip";
 
 export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   const sp = await searchParams;
-  if (one(sp.tab) === "physicians") redirect(one(sp.demo) === "static" ? "/hcp?demo=static" : "/hcp");
+  if (one(sp.tab) === "physicians")
+    redirect(one(sp.demo) === "static" ? "/hcp?demo=static" : "/hcp");
 
   const requested = one(sp.trial);
   const anchor = anchorById(isAnchor(requested) ? requested : undefined);
@@ -79,11 +82,14 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
       note: note ?? undefined,
     };
   });
+  if (!staticDemo) await syncRegistry();
   const loop = staticDemo ? null : await readLoop(getDemoWorklist());
   const strip = {
     pairsEvaluated: rows.length,
     eligibleNow: rows.filter((row) => !row.eliminated && row.unknownCount === 0).length,
-    oneTier0Away: rows.filter((row) => !row.eliminated && row.unknownCount === 1 && row.resolutionTier === 0).length,
+    oneTier0Away: rows.filter(
+      (row) => !row.eliminated && row.unknownCount === 1 && row.resolutionTier === 0,
+    ).length,
   };
 
   return (
@@ -95,12 +101,12 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
         demoMode={staticDemo ? "static" : "1"}
         trial={anchor.nctId}
       />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         {staticDemo && <DemoSteps current="worklist" mode="static" />}
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 className="text-[16px] font-medium text-ink">Worklist</h1>
-            <p className="mt-0.5 max-w-2xl text-[12px] text-ink-2">
+            <h1 className="text-[24px] font-medium text-ink">Worklist</h1>
+            <p className="mt-0.5 max-w-2xl text-[13px] text-ink-2">
               Ranked on {anchor.short}, {anchor.line}. {anchor.note} The four highlighted charts are
               synthetic. Every criterion is a sentence from the compiled protocol.
               {realProtocols > 0 ? ` ${realProtocols} other real protocols stay in the cube.` : ""}
@@ -109,19 +115,29 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
             </p>
           </div>
           <Link
-            href={`/worklist/patient/${DEMO.patientId}?trial=${anchor.nctId}${staticDemo ? "&demo=static" : ""}`}
-            className="shrink-0 rounded-md bg-ink px-3 py-2 text-[12px] font-medium text-surface hover:bg-ink-2 sm:text-[13px]"
+            href={trialPatientPath(DEMO.patientId, {
+              trialId: anchor.nctId,
+              demo: staticDemo ? "static" : null,
+            })}
+            className="shrink-0 rounded-md bg-ink px-3 py-2 text-[13px] font-medium text-surface hover:bg-ink-2 sm:text-[13px]"
           >
             {DEMO.patientId} × {anchor.nctId} →
           </Link>
         </div>
-        <WorklistHeader strip={strip} failures={screenFailures(rows)} realProtocols={realProtocols} />
+        <WorklistHeader
+          strip={strip}
+          failures={screenFailures(rows)}
+          realProtocols={realProtocols}
+        />
         {loop ? (
           <WorklistLive rows={rows} initial={loop} trial={anchor.nctId} />
         ) : (
           <Worklist rows={rows} demo={staticDemo} trial={anchor.nctId} />
         )}
-        <Provenance meta={meta} call={loop ? "rank(evaluate + preferenceUnknown)" : "rank(evaluate(patient × trial))"} />
+        <Provenance
+          meta={meta}
+          call={loop ? "rank(evaluate + preferenceUnknown)" : "rank(evaluate(patient × trial))"}
+        />
       </main>
     </>
   );

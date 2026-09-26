@@ -4,6 +4,10 @@
  * pool does not belong in the dev-server module graph.
  *
  *   npx vite-node --config vitest.config.ts app/_data/generate.ts
+ *
+ * Patient source is loadInputs: fixture charts, the four hand-built demo
+ * patients, then fixtures/cohort.json. That cohort replaces Synthea when the
+ * file is present.
  */
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";

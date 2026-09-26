@@ -15,14 +15,12 @@ export function TrialSelect({
   if (trials.length === 0) return null;
   return (
     <label className="block">
-      <span className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-        Trial
-      </span>
+      <span className="text-[11px] font-medium text-ink-3">Trial</span>
       <select
         value={current}
         aria-label="Trial"
         onChange={(e) => router.push(`${path}?trial=${e.target.value}`)}
-        className="mt-1 w-full max-w-md rounded-md border border-line bg-surface px-2 py-1.5 font-mono text-[12px] text-ink"
+        className="mt-1 w-full max-w-md rounded-md border border-line bg-surface px-2 py-1.5 font-mono text-[13px] text-ink"
       >
         {trials.map((id) => (
           <option key={id} value={id}>

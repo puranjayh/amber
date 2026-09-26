@@ -1,5 +1,13 @@
 import { readLoop } from "@/app/_data/loop";
-import { asOf, getDemoWorklist, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
+import {
+  asOf,
+  getDemoWorklist,
+  getPair,
+  getPatient,
+  getTrial,
+  getWorklist,
+  meta,
+} from "@/app/_data/source";
 import { anchorById, isAnchor } from "@/components/console/anchors";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { DemoSteps } from "@/components/console/DemoSteps";
@@ -27,7 +35,13 @@ export default async function HcpRosterPage({
   if (worklist.length === 0) {
     return (
       <>
-        <ConsoleHeader asOf={asOf} active="hcp" demo={demo} demoMode={demoMode} trial={anchor.nctId} />
+        <ConsoleHeader
+          asOf={asOf}
+          active="hcp"
+          demo={demo}
+          demoMode={demoMode}
+          trial={anchor.nctId}
+        />
         <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
           <MissingData file="app/_data/worklist.json" />
         </main>
@@ -52,14 +66,21 @@ export default async function HcpRosterPage({
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="hcp" demo={demo} demoMode={demoMode} trial={anchor.nctId} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
+      <ConsoleHeader
+        asOf={asOf}
+        active="hcp"
+        demo={demo}
+        demoMode={demoMode}
+        trial={anchor.nctId}
+      />
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         {demo && <DemoSteps current="hcp" mode={demoMode} />}
         <div>
-          <h1 className="text-[16px] font-medium text-ink">Physicians</h1>
-          <p className="mt-0.5 text-[12px] text-ink-2">
-            Coordinator view — you see across physicians. A physician, in the doctor portal, sees only
-            their own patients. Assigned means the record had no provider, so the id was hashed.
+          <h1 className="text-[24px] font-medium text-ink">Physicians</h1>
+          <p className="mt-0.5 text-[13px] text-ink-2">
+            Coordinator view — you see across physicians. A physician, in the doctor portal, sees
+            only their own patients. Assigned means the record had no provider, so the id was
+            hashed.
           </p>
         </div>
         <Physicians

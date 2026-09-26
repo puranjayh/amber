@@ -26,9 +26,23 @@ test("takePanel is the first 25 of rank() order", () => {
   expect(takePanel(rows).map((r) => r.patientId)).toEqual(rows.slice(0, 25).map((r) => r.patientId));
 });
 
-test("compositionHeadline names the widest gap", () => {
+test("compositionHeadline leads with the group left out", () => {
   const line = compositionHeadline({ Black: 0.22, White: 0.78 }, { Black: 0.09, White: 0.91 });
-  expect(line.text).toBe("Your panel is 22% Black; the patients these criteria admit are 9%.");
+  expect(line.group).toBe("Black");
+  expect(line.text).toBe(
+    "Black patients are 22% of your panel and 9% of the patients these criteria admit.",
+  );
+});
+
+test("a group admitted at 0% leads over a larger over-representation", () => {
+  const line = compositionHeadline(
+    { Asian: 0.76, Black: 0.04, White: 0.2 },
+    { Asian: 0.87, Black: 0, White: 0.13 },
+  );
+  expect(line.group).toBe("Black");
+  expect(line.text).toBe(
+    "Black patients are 4% of your panel and 0% of the patients these criteria admit.",
+  );
 });
 
 test("blockingHitsGroup fires only when this group is strictly worst", () => {

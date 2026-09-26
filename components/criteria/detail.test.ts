@@ -13,7 +13,7 @@ vi.mock("next/link", () => ({
     createElement("a", { href }, children as never),
 }));
 
-const empty = { backend: "file" as const, preferences: [], nudges: [], notes: [] };
+const empty = { backend: "file" as const, preferences: [], nudges: [], notes: [], registry: [], releases: [] };
 
 test("coordinator and physician wrap the same criteria table with different actions", () => {
   const patient = getPatient(DEMO.patientId);

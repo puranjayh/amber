@@ -2,23 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { doctorQuery } from "./access";
+import { DensityToggle, LabelledRows } from "@/components/roster/LabelledRows";
+import { doctorChartPath } from "./access";
+import { CLINIC_BUCKETS, type ClinicCard } from "./clinic";
 import type { OutreachDraft } from "./outreach";
-import type { GroupHit } from "./panel";
 import { pct } from "./race";
 
-export type HcpRosterRow = {
+export type HcpRosterRow = ClinicCard & {
   patientId: string;
   nctId: string;
-  unknownCount: number;
-  race: string;
-  groupHit?: GroupHit;
   draft: OutreachDraft | null;
+  met?: number | null;
+  total?: number | null;
+  tier?: string;
 };
-
-function shortId(id: string): string {
-  return id.length > 18 ? `${id.slice(0, 16)}…` : id;
-}
 
 function panelKey(rows: HcpRosterRow[]): string {
   return rows.map((r) => r.patientId).join(",");
@@ -44,6 +41,7 @@ export function HcpView({
   const id = panelKey(rows);
   const [held, setHeld] = useState({ id, checked: [] as string[] });
   const [open, setOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
     setHeld((prev) => (prev.id === id ? prev : { id, checked: [] }));
@@ -58,119 +56,148 @@ export function HcpView({
   if (rows.length === 0) {
     return (
       <div className="rounded-md border border-line bg-surface px-4 py-6">
-        <p className="text-[14px] font-medium text-ink">Not generated yet</p>
-        <p className="mt-1 text-[12px] text-ink-2">app/_data/worklist.json has no ranked patients.</p>
+        <p className="text-[15px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[13px] text-ink-2">
+          app/_data/worklist.json has no ranked patients.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3">
-      <div>
-        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink-3">
-          Impiricus · your panel
-        </p>
-        <h1 className="mt-0.5 text-[16px] font-medium text-ink">My patients</h1>
-        <p className="mt-0.5 text-[12px] text-ink-2">
-          Top {rows.length} by rank() — fewest unknowns, then expected value, then travel. Click a
-          row for both citations. Checkboxes draft outreach. Nothing is sent.
-        </p>
+    <div className="space-y-8">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-[13px] text-ink-3">Impiricus</p>
+          <h1 className="mt-1 text-[24px] font-medium text-ink">My patients</h1>
+        </div>
+        <DensityToggle compact={compact} onChange={setCompact} />
       </div>
+        {CLINIC_BUCKETS.map((bucket) => {
+          const group = rows
+            .filter((row) => row.bucket === bucket.id)
+            .sort((a, b) => a.name.localeCompare(b.name) || a.patientId.localeCompare(b.patientId));
+          if (group.length === 0) return null;
+          return (
+            <section key={bucket.id} aria-label={bucket.label}>
+              <h2 className="mb-2 flex items-baseline gap-2 text-[18px] font-medium text-ink">
+                {bucket.label}
+                <span className="font-mono text-[11px] font-normal text-ink-3">{group.length}</span>
+              </h2>
+              <LabelledRows
+                label={bucket.label}
+                compact={compact}
+                showToggle={false}
+                rows={group.map((row, index) => {
+                  const on = checked.includes(row.patientId);
+                  return {
+                    key: row.patientId,
+                    rank: index + 1,
+                    selected: selectedId === row.patientId,
+                    patient: (
+                      <span className="inline-flex items-start gap-2">
+                        <input
+                          type="checkbox"
+                          checked={on}
+                          aria-label={`Select ${row.name}`}
+                          onChange={() => {
+                            const next = on
+                              ? checked.filter((pid) => pid !== row.patientId)
+                              : [...checked, row.patientId];
+                            setHeld({ id, checked: next });
+                          }}
+                        />
+                        <Link
+                          href={doctorChartPath({
+                            physicianId,
+                            patientId: row.patientId,
+                            trialId: row.nctId,
+                            demo: demoMode ?? null,
+                          })}
+                          className="font-medium hover:underline"
+                        >
+                          {row.name}
+                        </Link>
+                      </span>
+                    ),
+                    trial: row.trialName,
+                    met: row.met ?? null,
+                    total: row.total ?? null,
+                    blocking: row.blocker,
+                    tier: row.tier ?? "—",
+                  };
+                })}
+              />
+            </section>
+          );
+        })}
 
-      <aside className="rounded-md border border-line bg-surface px-3 py-2.5 sm:px-4">
-        <p className="text-[13px] font-medium text-ink">{headline}</p>
-        <dl className="mt-2 grid grid-cols-3 gap-2 font-mono text-[11px] sm:grid-cols-4">
-          {groups.map((g) => (
-            <div key={g}>
-              <dt className="text-ink-3">{g}</dt>
-              <dd className="text-ink">
-                {pct(panelShare[g] ?? 0)} / {pct(admittedShare[g] ?? 0)}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-1.5 font-mono text-[10px] text-ink-3">panel share / admitted share</p>
-      </aside>
-
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           disabled={drafts.length === 0}
           onClick={() => setOpen(true)}
-          className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+          className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
         >
           Draft outreach{drafts.length ? ` (${drafts.length})` : ""}
         </button>
-        <span className="text-[11px] text-ink-3">Draft only — never send.</span>
+        <span className="text-[13px] text-ink-3">Draft only — never send.</span>
       </div>
 
       {open && (
-        <section className="space-y-2 rounded-md border border-line bg-surface px-3 py-3 sm:px-4" aria-label="Outreach drafts">
+        <section
+          className="space-y-2 rounded-md border border-line bg-surface px-3 py-3 sm:px-4"
+          aria-label="Outreach drafts"
+        >
           <div className="flex items-baseline justify-between gap-2">
-            <h2 className="text-[13px] font-medium text-ink">
+            <h2 className="text-[18px] font-medium text-ink">
               {drafts.length} draft{drafts.length === 1 ? "" : "s"}
             </h2>
-            <button type="button" onClick={() => setOpen(false)} className="font-mono text-[11px] text-ink-2 hover:text-ink">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="text-[11px] text-ink-2 hover:text-ink"
+            >
               Close
             </button>
           </div>
           {drafts.length === 0 ? (
-            <p className="text-[12px] text-ink-2">Select patients that still have an open unknown.</p>
+            <p className="text-[13px] text-ink-2">
+              Select patients that still have an open unknown.
+            </p>
           ) : (
             drafts.map((d) => (
-              <article key={`${d.patientId}:${d.nctId}`} className="rounded border border-line-2 px-3 py-2">
-                <h3 className="font-mono text-[12px] font-medium text-ink">{d.subject}</h3>
-                <pre className="mt-1 whitespace-pre-wrap font-sans text-[12px] leading-relaxed text-ink-2">{d.body}</pre>
+              <article
+                key={`${d.patientId}:${d.nctId}`}
+                className="rounded border border-line-2 px-3 py-2"
+              >
+                <h3 className="text-[13px] font-medium text-ink">{d.subject}</h3>
+                <pre className="mt-1 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-ink-2">
+                  {d.body}
+                </pre>
               </article>
             ))
           )}
         </section>
       )}
 
-      <ol className="overflow-hidden rounded-md border border-line bg-surface">
-        {rows.map((row, i) => {
-          const current = selectedId === row.patientId;
-          const on = checked.includes(row.patientId);
-          return (
-            <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
-              <div className={`flex items-start gap-2 px-3 py-2.5 sm:px-4 ${current ? "bg-canvas" : ""}`}>
-                <input
-                  type="checkbox"
-                  checked={on}
-                  aria-label={`Select ${row.patientId}`}
-                  onChange={() => {
-                    const next = on ? checked.filter((id) => id !== row.patientId) : [...checked, row.patientId];
-                    setHeld({ id, checked: next });
-                  }}
-                  className="mt-1"
-                />
-                <Link
-                  href={doctorQuery({ physicianId, patientId: row.patientId, demo: demoMode ?? null })}
-                  aria-current={current ? "page" : undefined}
-                  className="min-w-0 flex-1 text-left hover:text-ink"
-                >
-                  <span className="flex flex-wrap items-baseline justify-between gap-x-2">
-                    <span className="font-mono text-[13px] font-medium text-ink">
-                      <span className="mr-1.5 text-ink-3">{i + 1}.</span>
-                      {shortId(row.patientId)}
-                    </span>
-                    <span className="font-mono text-[11px] text-ink-3">
-                      {row.nctId} · {row.unknownCount}?
-                    </span>
-                  </span>
-                  <span className="mt-0.5 block text-[11px] text-ink-2">{row.race}</span>
-                  {row.groupHit && (
-                    <span className="mt-1 block text-[11px] text-ink">
-                      {row.groupHit.criterionId} excludes {row.groupHit.group} at{" "}
-                      {pct(row.groupHit.rate)} — higher than other groups.
-                    </span>
-                  )}
-                </Link>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+      <details className="rounded-md border border-line bg-surface px-3 py-2.5 sm:px-4">
+        <summary className="cursor-pointer text-[13px] font-medium text-ink">
+          Who this panel leaves out
+        </summary>
+        <p className="mt-2 text-[15px] leading-[1.55] text-ink">{headline}</p>
+        <dl className="mt-3 grid grid-cols-2 gap-3 text-[13px] sm:grid-cols-4">
+          {groups.map((g) => (
+            <div key={g}>
+              <dt className="text-ink-3">{g}</dt>
+              <dd className="font-mono text-ink">
+                {pct(panelShare[g] ?? 0)} / {pct(admittedShare[g] ?? 0)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2 text-[13px] text-ink-3">Panel share / admitted share</p>
+      </details>
     </div>
   );
 }

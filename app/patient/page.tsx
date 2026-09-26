@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { isDemo, one } from "@/components/console/params";
+import { trialPatientPath } from "@/components/hcp/access";
 
 export default async function PatientRedirect({
   searchParams,
@@ -9,9 +10,10 @@ export default async function PatientRedirect({
   const sp = await searchParams;
   const patient = one(sp.patient);
   if (!patient) redirect("/");
-  const qs = new URLSearchParams();
-  if (isDemo(sp)) qs.set("demo", one(sp.demo) === "static" ? "static" : "1");
-  const trial = one(sp.trial);
-  if (trial) qs.set("trial", trial);
-  redirect(`/worklist/patient/${encodeURIComponent(patient)}${qs.size ? `?${qs}` : ""}`);
+  redirect(
+    trialPatientPath(patient, {
+      trialId: one(sp.trial),
+      demo: isDemo(sp) ? (one(sp.demo) === "static" ? "static" : "1") : null,
+    }),
+  );
 }

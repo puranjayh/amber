@@ -3,12 +3,41 @@
  * deterministic demo assignment for the Impiricus channel — not extracted data.
  */
 
-export type Physician = { id: string; name: string; specialty: string; site: string };
+export type Physician = {
+  id: string;
+  name: string;
+  specialty: string;
+  site: string;
+  /** Demo practice point, used only to measure distance to registry sites. */
+  lat: number;
+  lon: number;
+};
 
 export const PHYSICIANS: readonly Physician[] = [
-  { id: "hcp-rahman", name: "Aisha Rahman, MD", specialty: "Medical oncology", site: "Community oncology" },
-  { id: "hcp-okonkwo", name: "James Okonkwo, MD", specialty: "Hematology", site: "County cancer clinic" },
-  { id: "hcp-vasquez", name: "Elena Vasquez, MD", specialty: "Thoracic oncology", site: "Regional medical center" },
+  {
+    id: "hcp-rahman",
+    name: "Aisha Rahman, MD",
+    specialty: "Medical oncology",
+    site: "Community oncology",
+    lat: 34.0522,
+    lon: -118.2437,
+  },
+  {
+    id: "hcp-okonkwo",
+    name: "James Okonkwo, MD",
+    specialty: "Hematology",
+    site: "County cancer clinic",
+    lat: 41.8781,
+    lon: -87.6298,
+  },
+  {
+    id: "hcp-vasquez",
+    name: "Elena Vasquez, MD",
+    specialty: "Thoracic oncology",
+    site: "Regional medical center",
+    lat: 29.7604,
+    lon: -95.3698,
+  },
 ] as const;
 
 export const DEFAULT_PHYSICIAN_ID = PHYSICIANS[0].id;

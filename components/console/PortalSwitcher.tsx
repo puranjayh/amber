@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export type PortalId = "trial" | "doctor" | "patient";
 
@@ -25,9 +26,8 @@ export function PortalSwitcher({
 }) {
   return (
     <div className="border-b border-line bg-canvas">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 px-3 py-2 sm:px-6">
-        <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-3">Switch app</span>
-        <div className="flex flex-wrap gap-1" role="navigation" aria-label="Portals">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 py-2 sm:px-6">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1" role="navigation" aria-label="Portals">
           {PORTALS.map((portal) => {
             const on = portal.id === current;
             return (
@@ -35,15 +35,14 @@ export function PortalSwitcher({
                 key={portal.id}
                 href={withDemo(portal.href, demo, demoMode)}
                 aria-current={on ? "page" : undefined}
-                className={`rounded-full px-2.5 py-1 text-[12px] ${
-                  on ? "bg-ink font-medium text-surface" : "border border-line text-ink-2 hover:text-ink"
-                }`}
+                className={`text-[13px] ${on ? "font-medium text-ink" : "text-ink-3 hover:text-ink"}`}
               >
                 {portal.label}
               </Link>
             );
           })}
         </div>
+        <ThemeToggle />
       </div>
     </div>
   );

@@ -212,7 +212,7 @@ export type HcpPanel = z.infer<typeof HcpPanel>;
 export const LoopRole = z.enum(["coordinator", "patient", "physician"]);
 export type LoopRole = z.infer<typeof LoopRole>;
 
-export const NudgeKind = z.enum(["fill_preferences", "enrol_patient", "trial_suggestion"]);
+export const NudgeKind = z.enum(["fill_preferences", "enrol_patient", "trial_suggestion", "trial_update"]);
 export type NudgeKind = z.infer<typeof NudgeKind>;
 
 export const NudgeStatus = z.enum(["pending", "seen", "done"]);
@@ -240,8 +240,55 @@ export const LoopNudge = z.object({
   createdAt: z.string(),
   /** One coordinator action → many patients. HCP renders one card per batch. */
   batchId: z.string().optional(),
+  /**
+   * Doctor-only account of a registry change. Never render this on the patient
+   * portal, and strip it from patient responses.
+   */
+  detail: z.string().optional(),
+  /** True until the physician releases it. Automatic mode writes false. */
+  held: z.boolean().optional(),
+  /** Identity of the registry change, so the same fact is not sent twice. */
+  changeKey: z.string().optional(),
 });
 export type LoopNudge = z.infer<typeof LoopNudge>;
+
+export const ReleaseMode = z.enum(["review", "auto"]);
+export type ReleaseMode = z.infer<typeof ReleaseMode>;
+
+export const ReleaseSetting = z.object({
+  physicianId: z.string(),
+  mode: ReleaseMode,
+});
+export type ReleaseSetting = z.infer<typeof ReleaseSetting>;
+
+export const RegistrySite = z.object({
+  facility: z.string(),
+  city: z.string(),
+  state: z.string().optional(),
+  country: z.string().optional(),
+  lat: z.number().optional(),
+  lon: z.number().optional(),
+});
+export type RegistrySite = z.infer<typeof RegistrySite>;
+
+/** One ClinicalTrials.gov study, as last fetched. Not a patient fact. */
+export const RegistryStudy = z.object({
+  nctId: z.string(),
+  overallStatus: z.string(),
+  lastUpdatePostDate: z.string().nullable(),
+  primaryCompletionDate: z.string().nullable(),
+  /** enrollmentInfo.count. Absent on snapshots fetched before this field existed. */
+  enrollmentCount: z.number().int().nonnegative().optional(),
+  sites: z.array(RegistrySite),
+});
+export type RegistryStudy = z.infer<typeof RegistryStudy>;
+
+export const RegistrySnapshot = z.object({
+  nctId: z.string(),
+  fetchedAt: z.string(),
+  study: RegistryStudy,
+});
+export type RegistrySnapshot = z.infer<typeof RegistrySnapshot>;
 
 export const PhysicianNote = z.object({
   physicianId: z.string(),
@@ -255,6 +302,8 @@ export const LoopState = z.object({
   preferences: z.array(LoopPreference),
   nudges: z.array(LoopNudge),
   notes: z.array(PhysicianNote).default([]),
+  registry: z.array(RegistrySnapshot).default([]),
+  releases: z.array(ReleaseSetting).default([]),
 });
 export type LoopState = z.infer<typeof LoopState>;
 

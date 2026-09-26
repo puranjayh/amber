@@ -11,6 +11,7 @@ import {
   rankReason,
 } from "@/components/loop/rank";
 import { postNudge, useLoop } from "@/components/loop/useLoop";
+import { Propagation } from "@/components/loop/Propagation";
 import { Worklist, type WorklistItem } from "./Worklist";
 
 function finiteTravel(minutes: number): number | null {
@@ -50,7 +51,7 @@ export function WorklistLive({
   initial: LoopState;
   trial?: string;
 }) {
-  const { state, apply } = useLoop(initial, true);
+  const { state, apply } = useLoop(initial, true, "coordinator");
   const prefs = prefsByPatient(state.preferences);
   const ranked = rank(rows, prefs, (row) => pairTravel(row.patient, row.trial));
   const focus = ranked.find((row) => row.patientId === LOOP_FOCUS) ?? ranked[0];
@@ -109,8 +110,12 @@ export function WorklistLive({
 
   return (
     <div className="space-y-3">
-      <aside className="rounded-md border border-ink bg-surface px-3 py-3 sm:px-4" aria-label="Live rank">
-        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">Live loop</p>
+      <Propagation nudges={state.nudges} />
+      <aside
+        className="rounded-md border border-ink bg-surface px-3 py-3 sm:px-4"
+        aria-label="Live rank"
+      >
+        <p className="text-[11px] font-medium text-ink-3">Live loop</p>
         <p className="mt-1 font-mono text-[13px] font-medium text-ink">
           {focus.patientId} × {focus.nctId}
         </p>
@@ -131,7 +136,7 @@ export function WorklistLive({
                   nctId: focus.nctId,
                 }).then(apply);
               }}
-              className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+              className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
             >
               {notified ? "Physician notified" : "Notify treating physician"}
             </button>
@@ -148,7 +153,7 @@ export function WorklistLive({
                   nctId: focus.nctId,
                 }).then(apply);
               }}
-              className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+              className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
             >
               {asked ? "Asked — waiting on patient" : "Ask patient for preferences"}
             </button>

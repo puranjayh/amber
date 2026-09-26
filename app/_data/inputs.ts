@@ -9,6 +9,7 @@ export const AS_OF = "2026-09-25";
 const FIXTURE_TRIALS = "fixtures/trials.sample.json";
 const FIXTURE_PATIENTS = "fixtures/patients.sample.json";
 const DEMO_PATIENTS = "fixtures/demo-patients.json";
+const COHORT = "fixtures/cohort.json";
 const POPULATION = "data/patients.json";
 const SYNTHEA = "data/synthea/patients.json";
 const COMPILED = "data/compiled/trials.json";
@@ -225,10 +226,18 @@ export function loadInputs(root: string): { trials: TrialT[]; patients: PatientT
     sources.unshift(FIXTURE_TRIALS);
   }
 
-  for (const rel of [POPULATION, SYNTHEA]) {
-    if (!existsSync(path(rel))) continue;
-    patients.push(acceptPatients(readJson(path(rel)), rel));
-    sources.push(rel);
+  // Lung cohort replaces Synthea on the worklist. Synthea's general population
+  // leaves most oncology leaves absent. The four hand-built charts are already
+  // in `patients` above, so a shared id keeps the hand-built record.
+  if (existsSync(path(COHORT))) {
+    patients.push(acceptPatients(readJson(path(COHORT)), COHORT));
+    sources.push(COHORT);
+  } else {
+    for (const rel of [POPULATION, SYNTHEA]) {
+      if (!existsSync(path(rel))) continue;
+      patients.push(acceptPatients(readJson(path(rel)), rel));
+      sources.push(rel);
+    }
   }
 
   const merged = mergeBy((p) => p.id, ...patients);

@@ -2,6 +2,7 @@ import { getDemoWorklist } from "@/app/_data/source";
 import { savePreferences } from "@/app/_data/loop";
 import { PortalAnswers } from "@/app/_data/schema";
 import { prefsStated } from "@/components/loop/rank";
+import { forAudience } from "@/components/loop/registry";
 
 export const dynamic = "force-dynamic";
 
@@ -23,5 +24,5 @@ export async function POST(request: Request) {
     return Response.json({ error: "all four answers required" }, { status: 400 });
   }
   const state = await savePreferences(getDemoWorklist(), body.patientId, answers.data);
-  return Response.json(state);
+  return Response.json(forAudience(state, "patient"));
 }
