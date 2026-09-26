@@ -19,7 +19,10 @@ export function ElasticityView({
   unit?: string;
 }) {
   const [index, setIndex] = useState(sweep.protocolIndex);
-  const row = sweep.rows[index];
+  // `index` survives a sweep change, so a criterion with fewer thresholds would
+  // index past the end. Clamp rather than crash, and snap back to the protocol.
+  const safeIndex = index < sweep.rows.length ? index : sweep.protocolIndex;
+  const row = sweep.rows[safeIndex];
   const protocol = sweep.rows[sweep.protocolIndex];
   const first = sweep.rows[0];
   const last = sweep.rows[sweep.rows.length - 1];
@@ -36,7 +39,7 @@ export function ElasticityView({
             {label} {operator} {row.threshold}
             {u}
           </span>
-          {index !== sweep.protocolIndex && (
+          {safeIndex !== sweep.protocolIndex && (
             <span className="font-mono text-[11px] text-ink-3">
               protocol: {protocol.threshold}
               {u}
@@ -96,7 +99,7 @@ export function ElasticityView({
           min={0}
           max={sweep.rows.length - 1}
           step={1}
-          value={index}
+          value={safeIndex}
           onChange={(e) => setIndex(Number(e.target.value))}
           aria-label={`${label} threshold`}
           aria-valuetext={`${label} ${operator} ${row.threshold}${u}, ${row.eligibleCount} eligible`}
