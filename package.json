@@ -8,10 +8,17 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "compiler:fetch": "tsx src/compiler/fetch-trials.ts",
+    "compiler:compile": "tsx src/compiler/compile.ts",
+    "compiler:backtranslate": "tsx src/compiler/backtranslate.ts",
+    "compiler:validate": "tsx src/compiler/validate.ts",
+    "compiler:test": "tsx --test src/compiler/**/*.test.ts",
+    "compiler:typecheck": "tsc --noEmit --project src/compiler/tsconfig.json"
   },
   "dependencies": {
     "next": "16.3.6",
+    "openai": "^7.23.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "zod": "^4.6.5"
@@ -25,6 +32,7 @@
     "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "tsx": "^4.23.15",
     "vitest": "^3.2.7"
   }
 }
