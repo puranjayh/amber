@@ -7,6 +7,7 @@ import {
   nearVerbatimSimilarity,
   normalizeSweepMetadata,
   normalizeSourceText,
+  selectRawTrialsByNctIds,
   validateCompiledTree,
 } from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
@@ -136,6 +137,21 @@ test("drops invalid sweep metadata without changing the clinical leaf", () => {
   expect(normalized).not.toHaveProperty("sweepStep");
 });
 
+test("drops sweep metadata from non-numeric leaves without changing their clinical meaning", () => {
+  const normalized = normalizeSweepMetadata({
+    kind: "leaf", id: "EXC-1", value: "pembrolizumab", sweepable: true, sweepRange: [0, 1], sweepStep: 1,
+  }) as Record<string, unknown>;
+  expect(normalized).toMatchObject({ kind: "leaf", id: "EXC-1", value: "pembrolizumab", sweepable: false });
+  expect(normalized).not.toHaveProperty("sweepRange");
+  expect(normalized).not.toHaveProperty("sweepStep");
+});
+
+test("selects only explicitly requested raw trials for a retry", () => {
+  const second = { ...raw, protocolSection: { ...raw.protocolSection, identificationModule: { nctId: "NCT00000002", briefTitle: "Second trial" } } };
+  expect(selectRawTrialsByNctIds([raw, second], ["NCT00000002"])).toEqual([second]);
+  expect(() => selectRawTrialsByNctIds([raw], ["NCT99999999"])).toThrow(/absent from the raw cache/);
+});
+
 test("only flags explicit structural alternatives and retains their tree", async () => {
   const leaf = {
     kind: "leaf" as const,
@@ -215,4 +231,32 @@ test("retains and flags near-verbatim citations, but replaces unverifiable ones 
     expect(unverifiable.data).toMatchObject({ sourceSpan: source });
     expect(unverifiable.reviewReasons).toEqual(["INC-1 sourceSpan not verifiable; full source block retained"]);
   }
+});
+
+test("records citation granularity without excluding an otherwise valid tree from the demo", async () => {
+  const source = "Inclusion Criteria:\n- Participant has histologically confirmed non-small cell lung cancer.";
+  const trial: RawClinicalTrial = { ...raw, protocolSection: { ...raw.protocolSection, eligibilityModule: { eligibilityCriteria: source } } };
+  const result = await compileTrial(trial, async () => ({
+    kind: "leaf", id: "INC-1", type: "inclusion", predicate: "diagnosis", operator: "==", value: "non-small cell lung cancer", tier: 0, sweepable: false,
+    sourceSpan: "Participant has histologically confirmed non-small cell lung canser.",
+  }));
+  expect(result.trial.needsHumanReview).toBe(false);
+  expect(result.reviewReasons).toBeUndefined();
+  expect(result.citationFlags).toEqual(["INC-1 sourceSpan near-verbatim"]);
+});
+
+test("suffixes model-local ids when cohort headings repeat inside one trial", async () => {
+  const cohorts: RawClinicalTrial = {
+    ...raw,
+    protocolSection: {
+      ...raw.protocolSection,
+      eligibilityModule: { eligibilityCriteria: "Cohort 1\nInclusion Criteria:\n- Age at least 50.\n\nCohort 2\nInclusion Criteria:\n- Age at least 55." },
+    },
+  };
+  const result = await compileTrial(cohorts, async (block) => ({
+    kind: "leaf", id: "INC-1", type: block.type === "unknown" ? "inclusion" : block.type,
+    predicate: "age", operator: ">=", value: block.sourceText.includes("55") ? 55 : 50,
+    tier: 1, sweepable: true, sweepRange: [0, 120], sweepStep: 1, sourceSpan: block.sourceText,
+  }));
+  expect(result.trial.criteria.map((node) => node.kind === "leaf" ? node.id : "group")).toEqual(["INC-1", "INC-1-2"]);
 });

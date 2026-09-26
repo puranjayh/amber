@@ -3,6 +3,31 @@
 Things one lane noticed that another lane owns. Add a line and keep going
 (docs/CONTRACT.md §5).
 
+## From compiler — DE-SynPUF claims ingestion: BLOCKED
+
+The unattended queue assigns `src/claims/**` and `data/claims/**` to the compiler,
+but CONTRACT §1 assigns neither path to this lane and reserves `data/**` for P4.
+No claims downloader or transformation was started to avoid a cross-lane conflict.
+The intended implementation is documented in the queue: Sample 1 only, subset ICD-9
+162.x early, claims-only provenance, and no fabricated labs.
+
+## From compiler — claims cohort report: BLOCKED
+
+`data/claims/COHORT.md` is also P4-owned under CONTRACT §1. Once P4 has the claims
+subset, the report should include cohort count, racial and state distributions, platinum
+and TKI fills, plus the structural limits of claims: no labs, 2008–2010 vintage,
+ICD-9 coding, and CMS synthetic longitudinal incoherence.
+
+## From compiler — model-draft evaluation result ready for data integration
+
+The compiler eval harness produced `data/eval/results.json` locally from all 130
+`model-draft` labels, `data/synthea/patients.json`, and the two fixture trials. It
+reports `labelSource: "model-draft"`, 130 evaluated cells, macro precision 1.0,
+macro recall 1.0, UNKNOWN agreement 1.0, and no disagreements. The result is not
+committed because `data/**` belongs to P4 under CONTRACT §1; P4 can rerun the exact
+command: `npx tsx src/eval/run.ts --labels data/eval/labels.json --patients
+data/synthea/patients.json --trials fixtures/trials.sample.json --as-of 2026-09-25
+--out data/eval/results.json`.
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are

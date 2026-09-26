@@ -1,0 +1,1662 @@
+[
+  {
+    "trial": {
+      "nctId": "NCT04655976",
+      "title": "Efficacy Comparison of Cobolimab + Dostarlimab + Docetaxel to Dostarlimab + Docetaxel to Docetaxel Alone in Participants With Advanced Non-small Cell Lung Cancer Who Have Progressed on Prior Anti-PD-(L)1 Therapy and Chemotherapy",
+      "phase": "PHASE2, PHASE3",
+      "condition": "Lung Cancer, Non-Small Cell",
+      "slots": 0,
+      "criteria": [
+        {
+          "kind": "group",
+          "op": "AND",
+          "children": [
+            {
+              "kind": "leaf",
+              "id": "INC-1",
+              "type": "inclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": "histologically or cytologically proven advanced or metastatic NSCLC and only squamous or non-squamous cell carcinoma",
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "* Participant has histologically or cytologically proven advanced or metastatic NSCLC and only squamous or non-squamous cell carcinoma."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-2",
+              "type": "inclusion",
+              "predicate": "prior_therapy",
+              "operator": "in",
+              "value": [
+                "platinum based (e.g., cisplatin, carboplatin) doublet chemotherapy regimen",
+                "anti-PD-1 or an anti-PD-(L)1 antibody"
+              ],
+              "members": [
+                "cisplatin",
+                "carboplatin",
+                "anti-PD-1",
+                "anti-PD-(L)1"
+              ],
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "* Participant has received no more than 2 prior lines of therapy for advanced or metastatic disease, which must only include a platinum based (e.g., cisplatin, carboplatin) doublet chemotherapy regimen and an anti-PD-1 or an anti-PD-(L)1 antibody."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-3",
+              "type": "inclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": "measurable disease",
+              "tier": 2,
+              "sweepable": false,
+              "sourceSpan": "* Participant has measurable disease."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-4",
+              "type": "inclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": "documented radiographic disease progression on prior platinum based chemotherapy and on or after prior anti-PD-(L)1 therapy",
+              "tier": 2,
+              "sweepable": false,
+              "sourceSpan": "* Participant has documented radiographic disease progression on prior platinum based chemotherapy and on or after prior anti-PD-(L)1 therapy."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-5",
+              "type": "inclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": "agrees to submit an archival formalin-fixed paraffin-embedded (FFPE) tumor tissue specimen that was collected on or after diagnosis of metastatic disease. If archival tissue is not available, the participant must undergo biopsy prior to study entry.",
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "* Participant agrees to submit an archival formalin-fixed paraffin-embedded (FFPE) tumor tissue specimen that was collected on or after diagnosis of metastatic disease. If archival tissue is not available, the participant must undergo biopsy prior to study entry."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-6",
+              "type": "inclusion",
+              "predicate": "performance_status",
+              "operator": "==",
+              "value": "ECOG performance status score of 0 or 1",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "* Participant has an ECOG performance status score of 0 or 1."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-7",
+              "type": "inclusion",
+              "predicate": "comorbidity",
+              "operator": ">=",
+              "value": 3,
+              "unit": "months",
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                12
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "* Participant has a life expectancy of at least 3 months."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-8",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "==",
+              "value": "adequate Baseline organ function",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "* Participant has adequate Baseline organ function."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-9",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": "==",
+              "value": "has recovered from any prior treatment related toxicities",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "* Participant has recovered from any prior treatment related toxicities."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-10",
+              "type": "inclusion",
+              "predicate": "contraindication",
+              "operator": "==",
+              "value": "agrees to use contraception",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "* Participant agrees to use contraception."
+            }
+          ],
+          "sourceSpan": "* Participant has histologically or cytologically proven advanced or metastatic NSCLC and only squamous or non-squamous cell carcinoma.\n* Participant has received no more than 2 prior lines of therapy for advanced or metastatic disease, which must only include a platinum based (e.g., cisplatin, carboplatin) doublet chemotherapy regimen and an anti-PD-1 or an anti-PD-(L)1 antibody.\n* Participant has measurable disease.\n* Participant has documented radiographic disease progression on prior platinum based chemotherapy and on or after prior anti-PD-(L)1 therapy.\n* Participant agrees to submit an archival formalin-fixed paraffin-embedded (FFPE) tumor tissue specimen that was collected on or after diagnosis of metastatic disease. If archival tissue is not available, the participant must undergo biopsy prior to study entry.\n* Participant has an ECOG performance status score of 0 or 1.\n* Participant has a life expectancy of at least 3 months.\n* Participant has adequate Baseline organ function.\n* Participant has recovered from any prior treatment related toxicities.\n* Participant agrees to use contraception."
+        },
+        {
+          "kind": "group",
+          "op": "AND",
+          "children": [
+            {
+              "kind": "leaf",
+              "id": "EXC-1",
+              "type": "exclusion",
+              "predicate": "prior_therapy",
+              "operator": "in",
+              "value": [
+                "anti-PD-[L]1",
+                "anti-PD-L2"
+              ],
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant has been previously treated with an anti-PD-[L]1 or anti-programmed death-ligand 2 (anti-PD-[L]2) agent that resulted in permanent discontinuation due to an AE."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-2",
+              "type": "exclusion",
+              "predicate": "prior_therapy",
+              "operator": "in",
+              "value": [
+                "anti-TIM-3",
+                "anti-CTLA-4",
+                "docetaxel"
+              ],
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant has been previously treated with an anti-T cell immunoglobulin and mucin domain containing 3 (anti-TIM-3) or anti-cytotoxic T lymphocyte associated protein 4 (anti-CTLA 4) agent or docetaxel."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-3",
+              "type": "exclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Participant has a documented sensitizing epidermal growth factor receptor (EGFR), anaplastic lymphoma kinase (ALK), or c-ros oncogene 1 (ROS-1) mutation. Participants whose tumors have not been tested for these driver mutations and therefore who have unknown driver mutation status are not eligible. Participants with squamous histology do not need to be tested for these driver mutations."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-4",
+              "type": "exclusion",
+              "predicate": "washout",
+              "operator": "<=",
+              "value": 8,
+              "unit": "weeks",
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                12
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Participant had radiological or clinical disease progression (i.e., worsening performance status, clinical symptoms, and laboratory data) <=8 weeks after initiation of prior anti-programmed cell death protein 1 (anti-PD-1) or anti-PD-L1 antibody. The clinical disease progression should have been confirmed by a subsequent radiological scan."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-5",
+              "type": "exclusion",
+              "predicate": "washout",
+              "operator": "<=",
+              "value": 6,
+              "unit": "months",
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                12
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Participant has received radiation to the lung that is >30 gray (Gy) within 6 months prior to the first dose of study treatment."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-6",
+              "type": "exclusion",
+              "predicate": "washout",
+              "operator": "<=",
+              "value": 7,
+              "unit": "days",
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                14
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Participant has completed palliative radiotherapy within 7 days prior to the first dose of study treatment."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-7",
+              "type": "exclusion",
+              "predicate": "lab_value",
+              "operator": ">",
+              "value": 2.5,
+              "unit": "ULN",
+              "analyte": "ALT",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant is ineligible if any of the following hepatic characteristics are present: a. Alanine aminotransferase (ALT) >2.5 times upper limit normal (ULN) b. ALT and/or aspartate aminotransferase (AST) >1.5 times ULN concomitant with alkaline phosphatase (ALP) >2.5 times ULN; c. Bilirubin >1 times ULN; d. Current active liver or biliary disease (with the exception of Gilbert's syndrome or asymptomatic gallstones, liver metastases, or otherwise stable chronic liver disease per the Investigator's assessment)."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-8",
+              "type": "exclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": true,
+              "tier": 2,
+              "sweepable": false,
+              "sourceSpan": "Participant has known new or progressive brain metastases and/or leptomeningeal metastases. Participants who have received prior therapy for their brain metastases and have radiographically stable central nervous system disease may participate, provided they are neurologically stable for at least 4 weeks before study entry and are off corticosteroids within 3 days prior to the first dose of study treatment."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-9",
+              "type": "exclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Participant has tested positive for the following at Screening or within 3 months before the first dose of study treatment: a. Presence of hepatitis B surface antigen. b. Presence of hepatitis C antibody in the absence of a ribonucleic acid (RNA) test for hepatitis C virus. If a confirmatory RNA test is available, a positive test result will exclude a participant, while a negative test result (indicating absence of active infection) will allow the participant to enter into the study."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-10",
+              "type": "exclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Participant has known human immunodeficiency virus (HIV) (positive for HIV 1 or HIV 2 antibodies)."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-11",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant has active autoimmune disease that required systemic treatment in the past 2 years, is immunocompromised in the opinion of the Investigator, or is receiving systemic immunosuppressive treatment."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-12",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant has symptomatic ascites or pleural effusion. A participant who is clinically stable following treatment of these conditions (including therapeutic thoracentesis or paracentesis) is eligible."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-13",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Participant has current interstitial lung disease, current pneumonitis, or a history of pneumonitis that required the use of glucocorticoids to assist with management."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-14",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": ">=",
+              "value": 2,
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                5
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Participant has pre-existing peripheral neuropathy that is Grade >=2 by National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) version 5.0 criteria."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-15",
+              "type": "exclusion",
+              "predicate": "contraindication",
+              "operator": "<=",
+              "value": 30,
+              "unit": "days",
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                60
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Participant has received a live vaccine within 30 days of the first dose of study treatment. Seasonal flu vaccines that do not contain live virus and Coronavirus Disease 2019 (COVID-19) vaccines."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-16",
+              "type": "exclusion",
+              "predicate": "contraindication",
+              "operator": "==",
+              "value": true,
+              "tier": 3,
+              "sweepable": false,
+              "sourceSpan": "Participant is unable to interrupt aspirin or other non-steroidal anti-inflammatory drugs (NSAIDs) for undergoing a biopsy procedure (in cases when a participant does not have an archival biopsy), other than an aspirin dose <=1.3 grams (g) per day, for a 5-day period (8-day) period for long-acting agents, such as piroxicam)."
+            }
+          ],
+          "sourceSpan": "* Participant has been previously treated with an anti-PD-[L]1 or anti-programmed death-ligand 2 (anti-PD-[L]2) agent that resulted in permanent discontinuation due to an AE.\n* Participant has been previously treated with an anti-T cell immunoglobulin and mucin domain containing 3 (anti-TIM-3) or anti-cytotoxic T lymphocyte associated protein 4 (anti-CTLA 4) agent or docetaxel.\n* Participant has a documented sensitizing epidermal growth factor receptor (EGFR), anaplastic lymphoma kinase (ALK), or c-ros oncogene 1 (ROS-1) mutation. Participants whose tumors have not been tested for these driver mutations and therefore who have unknown driver mutation status are not eligible. Participants with squamous histology do not need to be tested for these driver mutations.\n* Participant had radiological or clinical disease progression (i.e., worsening performance status, clinical symptoms, and laboratory data) <=8 weeks after initiation of prior anti-programmed cell death protein 1 (anti-PD-1) or anti-PD-L1 antibody. The clinical disease progression should have been confirmed by a subsequent radiological scan.\n* Participant has received radiation to the lung that is >30 gray (Gy) within 6 months prior to the first dose of study treatment.\n* Participant has completed palliative radiotherapy within 7 days prior to the first dose of study treatment.\n* Participant is ineligible if any of the following hepatic characteristics are present: a. Alanine aminotransferase (ALT) >2.5 times upper limit normal (ULN) b. ALT and/or aspartate aminotransferase (AST) >1.5 times ULN concomitant with alkaline phosphatase (ALP) >2.5 times ULN; c. Bilirubin >1 times ULN; d. Current active liver or biliary disease (with the exception of Gilbert's syndrome or asymptomatic gallstones, liver metastases, or otherwise stable chronic liver disease per the Investigator's assessment).\n* Participant has known new or progressive brain metastases and/or leptomeningeal metastases. Participants who have received prior therapy for their brain metastases and have radiographically stable central nervous system disease may participate, provided they are neurologically stable for at least 4 weeks before study entry and are off corticosteroids within 3 days prior to the first dose of study treatment.\n* Participant has tested positive for the following at Screening or within 3 months before the first dose of study treatment: a. Presence of hepatitis B surface antigen. b. Presence of hepatitis C antibody in the absence of a ribonucleic acid (RNA) test for hepatitis C virus. If a confirmatory RNA test is available, a positive test result will exclude a participant, while a negative test result (indicating absence of active infection) will allow the participant to enter into the study.\n* Participant has known human immunodeficiency virus (HIV) (positive for HIV 1 or HIV 2 antibodies).\n* Participant has active autoimmune disease that required systemic treatment in the past 2 years, is immunocompromised in the opinion of the Investigator, or is receiving systemic immunosuppressive treatment.\n* Participant has symptomatic ascites or pleural effusion. A participant who is clinically stable following treatment of these conditions (including therapeutic thoracentesis or paracentesis) is eligible.\n* Participant has current interstitial lung disease, current pneumonitis, or a history of pneumonitis that required the use of glucocorticoids to assist with management.\n* Participant has pre-existing peripheral neuropathy that is Grade >=2 by National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) version 5.0 criteria.\n* Participant has received a live vaccine within 30 days of the first dose of study treatment. Seasonal flu vaccines that do not contain live virus and Coronavirus Disease 2019 (COVID-19) vaccines.\n* Participant is unable to interrupt aspirin or other non-steroidal anti-inflammatory drugs (NSAIDs) for undergoing a biopsy procedure (in cases when a participant does not have an archival biopsy), other than an aspirin dose <=1.3 grams (g) per day, for a 5-day period (8-day) period for long-acting agents, such as piroxicam)."
+        }
+      ],
+      "compilerConfidence": 1,
+      "needsHumanReview": true
+    },
+    "sourceText": "Inclusion Criteria:\n\n* Participant has histologically or cytologically proven advanced or metastatic NSCLC and only squamous or non-squamous cell carcinoma.\n* Participant has received no more than 2 prior lines of therapy for advanced or metastatic disease, which must only include a platinum based (e.g., cisplatin, carboplatin) doublet chemotherapy regimen and an anti-PD-1 or an anti-PD-(L)1 antibody.\n* Participant has measurable disease.\n* Participant has documented radiographic disease progression on prior platinum based chemotherapy and on or after prior anti-PD-(L)1 therapy.\n* Participant agrees to submit an archival formalin-fixed paraffin-embedded (FFPE) tumor tissue specimen that was collected on or after diagnosis of metastatic disease. If archival tissue is not available, the participant must undergo biopsy prior to study entry.\n* Participant has an ECOG performance status score of 0 or 1.\n* Participant has a life expectancy of at least 3 months.\n* Participant has adequate Baseline organ function.\n* Participant has recovered from any prior treatment related toxicities.\n* Participant agrees to use contraception.\n\nExclusion Criteria:\n\n* Participant has been previously treated with an anti-PD-\\[L\\]1 or anti-programmed death-ligand 2 (anti-PD-\\[L\\]2) agent that resulted in permanent discontinuation due to an AE.\n* Participant has been previously treated with an anti-T cell immunoglobulin and mucin domain containing 3 (anti-TIM-3) or anti-cytotoxic T lymphocyte associated protein 4 (CTLA 4) agent or docetaxel.\n* Participant has a documented sensitizing epidermal growth factor receptor (EGFR), anaplastic lymphoma kinase (ALK), or c-ros oncogene 1 (ROS-1) mutation. Participants whose tumors have not been tested for these driver mutations and therefore who have unknown driver mutation status are not eligible. Participants with squamous histology do not need to be tested for these driver mutations.\n* Participant had radiological or clinical disease progression (i.e., worsening performance status, clinical symptoms, and laboratory data) \\<=8 weeks after initiation of prior anti-programmed cell death protein 1 (anti-PD-1) or anti-PD-L1 antibody. The clinical disease progression should have been confirmed by a subsequent radiological scan.\n* Participant has received radiation to the lung that is \\>30 gray (Gy) within 6 months prior to the first dose of study treatment.\n* Participant has completed palliative radiotherapy within 7 days prior to the first dose of study treatment.\n* Participant is ineligible if any of the following hepatic characteristics are present: a. Alanine aminotransferase (ALT) \\>2.5 times upper limit normal (ULN) b. ALT and/or aspartate aminotransferase (AST) \\>1.5 times ULN concomitant with alkaline phosphatase (ALP) \\>2.5 times ULN; c. Bilirubin \\>1 times ULN; d. Current active liver or biliary disease (with the exception of Gilbert's syndrome or asymptomatic gallstones, liver metastases, or otherwise stable chronic liver disease per the Investigator's assessment).\n* Participant has known new or progressive brain metastases and/or leptomeningeal metastases. Participants who have received prior therapy for their brain metastases and have radiographically stable central nervous system disease may participate, provided they are neurologically stable for at least 4 weeks before study entry and are off corticosteroids within 3 days prior to the first dose of study treatment.\n* Participant has tested positive for the following at Screening or within 3 months before the first dose of study treatment: a. Presence of hepatitis B surface antigen. b. Presence of hepatitis C antibody in the absence of a ribonucleic acid (RNA) test for hepatitis C virus. If a confirmatory RNA test is available, a positive test result will exclude a participant, while a negative test result (indicating absence of active infection) will allow the participant to enter into the study.\n* Participant has known human immunodeficiency virus (HIV) (positive for HIV 1 or HIV 2 antibodies).\n* Participant has active autoimmune disease that required systemic treatment in the past 2 years, is immunocompromised in the opinion of the Investigator, or is receiving systemic immunosuppressive treatment.\n* Participant has symptomatic ascites or pleural effusion. A participant who is clinically stable following treatment of these conditions (including therapeutic thoracentesis or paracentesis) is eligible.\n* Participant has current interstitial lung disease, current pneumonitis, or a history of pneumonitis that required the use of glucocorticoids to assist with management.\n* Participant has pre-existing peripheral neuropathy that is Grade \\>=2 by National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) version 5.0 criteria.\n* Participant has received a live vaccine within 30 days of the first dose of study treatment. Seasonal flu vaccines that do not contain live virus and Coronavirus Disease 2019 (COVID-19) vaccines.\n* Participant is unable to interrupt aspirin or other non-steroidal anti-inflammatory drugs (NSAIDs) for undergoing a biopsy procedure (in cases when a participant does not have an archival biopsy), other than an aspirin dose \\<=1.3 grams (g) per day, for a 5-day period (8-day) period for long-acting agents, such as piroxicam).",
+    "reviewReasons": [
+      "EXC-1 sourceSpan near-verbatim",
+      "EXC-2 sourceSpan near-verbatim",
+      "EXC-4 sourceSpan near-verbatim",
+      "EXC-5 sourceSpan near-verbatim",
+      "EXC-7 sourceSpan near-verbatim",
+      "EXC-14 sourceSpan near-verbatim",
+      "EXC-16 sourceSpan near-verbatim"
+    ]
+  },
+  {
+    "trial": {
+      "nctId": "NCT07778940",
+      "title": "Thiotepa Administration Via Ommaya Reservoir for Leptomeningeal Metastases in Non-Small Cell Lung Cancer Resistant to EGFR-TKI.",
+      "phase": "PHASE2",
+      "condition": "Leptomeningeal Metastasis",
+      "slots": 0,
+      "criteria": [
+        {
+          "kind": "group",
+          "op": "AND",
+          "children": [
+            {
+              "kind": "group",
+              "op": "AND",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-1",
+                  "type": "inclusion",
+                  "predicate": "age",
+                  "operator": ">=",
+                  "value": 18,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    100
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "Age between 18 and 75 years."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-2",
+                  "type": "inclusion",
+                  "predicate": "age",
+                  "operator": "<=",
+                  "value": 75,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    100
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "Age between 18 and 75 years."
+                }
+              ],
+              "sourceSpan": "Age between 18 and 75 years."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-3",
+              "type": "inclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": "Male or female of non-childbearing potential, or female of childbearing potential who is not pregnant or lactating",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Male or female of non-childbearing potential, or female of childbearing potential who is not pregnant or lactating."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-4",
+              "type": "inclusion",
+              "predicate": "performance_status",
+              "operator": "<=",
+              "value": 2,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "ECOG performance status of 0 to 2, with no deterioration within the past 7 days."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-5",
+              "type": "inclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": "Radiological and/or cerebrospinal fluid (CSF) cytological evidence of leptomeningeal metastases (LM). The diagnosis of non-small cell lung cancer (NSCLC) must be confirmed by histological and/or cytological examination.",
+              "tier": 2,
+              "sweepable": false,
+              "sourceSpan": "Radiological and/or cerebrospinal fluid (CSF) cytological evidence of leptomeningeal metastases (LM). The diagnosis of non-small cell lung cancer (NSCLC) must be confirmed by histological and/or cytological examination."
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-6",
+                  "type": "inclusion",
+                  "predicate": "prior_therapy",
+                  "operator": "in",
+                  "value": [
+                    "first-generation TKI",
+                    "second-generation TKI"
+                  ],
+                  "members": [
+                    "first-generation TKI",
+                    "second-generation TKI"
+                  ],
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "failure of first- or second-generation TKI therapy with T790M mutation negative"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-7",
+                  "type": "inclusion",
+                  "predicate": "prior_therapy",
+                  "operator": "in",
+                  "value": [
+                    "third-generation TKI"
+                  ],
+                  "members": [
+                    "third-generation TKI"
+                  ],
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "failure of third-generation TKI therapy"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-8",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "EGFR mutation negative with failure of first-line therapy",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "EGFR mutation negative with failure of first-line therapy"
+                }
+              ],
+              "sourceSpan": "Patients must meet at least one of the following criteria: failure of first- or second-generation TKI therapy with T790M mutation negative; failure of third-generation TKI therapy; or EGFR mutation negative with failure of first-line therapy."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-9",
+              "type": "inclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": "If concurrent brain parenchymal metastases are present, they must have received appropriate treatment or been evaluated as stable over the past three months. Additionally, extracranial lesions must be evaluated as stable under the current treatment regimen.",
+              "tier": 2,
+              "sweepable": false,
+              "sourceSpan": "If concurrent brain parenchymal metastases are present, they must have received appropriate treatment or been evaluated as stable over the past three months. Additionally, extracranial lesions must be evaluated as stable under the current treatment regimen."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-10",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": ">=",
+              "value": 90,
+              "unit": "g/L",
+              "analyte": "HGB",
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                200
+              ],
+              "sweepStep": 10,
+              "sourceSpan": "HGB ≥ 90 g/L"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-11",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": ">=",
+              "value": 1.5,
+              "unit": "10^9/L",
+              "analyte": "NEUT",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "NEUT ≥ 1.5 × 10⁹/L"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-12",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": ">=",
+              "value": 80,
+              "unit": "10^9/L",
+              "analyte": "PLT",
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                500
+              ],
+              "sweepStep": 10,
+              "sourceSpan": "PLT ≥ 80 × 10⁹/L"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-13",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "<=",
+              "value": 1.5,
+              "unit": "ULN",
+              "analyte": "TBIL",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "TBIL ≤ 1.5 × upper limit of normal (ULN)"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-14",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "<=",
+              "value": 2.5,
+              "unit": "ULN",
+              "analyte": "ALT/AST",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "ALT and AST ≤ 2.5 × ULN (if liver metastases are present, ALT and AST ≤ 5 × ULN)"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-15",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": ">=",
+              "value": 50,
+              "unit": "mL/min",
+              "analyte": "creatinine clearance",
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                150
+              ],
+              "sweepStep": 5,
+              "sourceSpan": "creatinine clearance ≥ 50 mL/min (calculated by the Cockcroft-Gault formula)"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-16",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "<",
+              "value": "++",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "urine protein < (++) or 24-hour urine protein < 1.0 g"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-17",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "<=",
+              "value": 1.5,
+              "unit": "",
+              "analyte": "INR",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "INR ≤ 1.5"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-18",
+              "type": "inclusion",
+              "predicate": "lab_value",
+              "operator": "<=",
+              "value": 1.5,
+              "unit": "ULN",
+              "analyte": "APTT",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "APTT ≤ 1.5 × ULN"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-19",
+              "type": "inclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "Prior Ommaya reservoir implantation",
+              "tier": 3,
+              "sweepable": false,
+              "sourceSpan": "Prior Ommaya reservoir implantation."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-20",
+              "type": "inclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": "Estimated life expectancy of ≥ 12 weeks",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Estimated life expectancy of ≥ 12 weeks."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-21",
+              "type": "inclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "No history of severe neurological diseases or severe hematological abnormalities",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "No history of severe neurological diseases or severe hematological abnormalities."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-22",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": ">=",
+              "value": 7,
+              "maxAgeDays": 7,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                30
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Patients who have received prior brain and/or spinal cord radiotherapy, including stereotactic radiosurgery (SRS) or stereotactic body radiation therapy (SBRT), are eligible, provided that radiotherapy was completed at least 7 days prior to the initiation of study treatment."
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-23",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": ">=",
+              "value": 7,
+              "maxAgeDays": 7,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                30
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "patients who have received prior intrathecal therapy must complete the last treatment at least 7 days before initiating study treatment"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-24",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": ">=",
+              "value": 14,
+              "maxAgeDays": 14,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                60
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "patients who have received systemic chemotherapy must complete the last treatment at least 14 days before initiating study treatment"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-25",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": ">=",
+              "value": 14,
+              "maxAgeDays": 14,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                60
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "patients who have received approved systemic immunotherapy (e.g., anti-PD-1, anti-CTLA-4) must complete the last treatment at least 14 days before initiating study treatment"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-26",
+              "type": "inclusion",
+              "predicate": "washout",
+              "operator": ">=",
+              "value": 14,
+              "maxAgeDays": 14,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                60
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "patients who have received any other investigational drugs must complete the last treatment at least 14 days before initiating study treatment"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-27",
+              "type": "inclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "Ability to provide written informed consent, including compliance with the requirements and restrictions listed in the informed consent form. Patients must have good compliance, voluntarily agree to participate in the clinical study, sign the informed consent form, and be willing to cooperate with follow-up visits.",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Ability to provide written informed consent, including compliance with the requirements and restrictions listed in the informed consent form. Patients must have good compliance, voluntarily agree to participate in the clinical study, sign the informed consent form, and be willing to cooperate with follow-up visits."
+            }
+          ],
+          "sourceSpan": "1. Age between 18 and 75 years.\n2. Male or female of non-childbearing potential, or female of childbearing potential who is not pregnant or lactating.\n3. ECOG performance status of 0 to 2, with no deterioration within the past 7 days.\n4. Radiological and/or cerebrospinal fluid (CSF) cytological evidence of leptomeningeal metastases (LM). The diagnosis of non-small cell lung cancer (NSCLC) must be confirmed by histological and/or cytological examination.\n5. Patients must meet at least one of the following criteria: failure of first- or second-generation TKI therapy with T790M mutation negative; failure of third-generation TKI therapy; or EGFR mutation negative with failure of first-line therapy.\n6. If concurrent brain parenchymal metastases are present, they must have received appropriate treatment or been evaluated as stable over the past three months. Additionally, extracranial lesions must be evaluated as stable under the current treatment regimen.\n7. Adequate organ and bone marrow function, as evidenced by the following laboratory parameters: HGB ≥ 90 g/L; NEUT ≥ 1.5 × 10⁹/L; PLT ≥ 80 × 10⁹/L; TBIL ≤ 1.5 × upper limit of normal (ULN); ALT and AST ≤ 2.5 × ULN (if liver metastases are present, ALT and AST ≤ 5 × ULN); creatinine clearance ≥ 50 mL/min (calculated by the Cockcroft-Gault formula); urine protein < (++) or 24-hour urine protein < 1.0 g; normal coagulation function without active bleeding; INR ≤ 1.5; APTT ≤ 1.5 × ULN.\n8. Women of childbearing potential must have a negative pregnancy test (serum or urine) within 14 days prior to enrollment and must voluntarily use adequate contraception during the study period and for 8 weeks after the last dose of the study drug. Males must be surgically sterilized or agree to use adequate contraception during the study period and for 8 weeks after the last dose of the study drug.\n9. Prior Ommaya reservoir implantation.\n10. Estimated life expectancy of ≥ 12 weeks.\n11. No history of severe neurological diseases or severe hematological abnormalities.\n12. Patients who have received prior brain and/or spinal cord radiotherapy, including stereotactic radiosurgery (SRS) or stereotactic body radiation therapy (SBRT), are eligible, provided that radiotherapy was completed at least 7 days prior to the initiation of study treatment.\n13. Concurrent intrathecal therapy with other agents is prohibited. For patients who have received other systemic therapies, the minimum washout periods are as follows: patients who have received prior intrathecal therapy must complete the last treatment at least 7 days before initiating study treatment; patients who have received systemic chemotherapy must complete the last treatment at least 14 days before initiating study treatment; patients who have received approved systemic immunotherapy (e.g., anti-PD-1, anti-CTLA-4) must complete the last treatment at least 14 days before initiating study treatment; patients who have received any other investigational drugs must complete the last treatment at least 14 days before initiating study treatment.\n14. Ability to provide written informed consent, including compliance with the requirements and restrictions listed in the informed consent form. Patients must have good compliance, voluntarily agree to participate in the clinical study, sign the informed consent form, and be willing to cooperate with follow-up visits."
+        },
+        {
+          "kind": "group",
+          "op": "OR",
+          "children": [
+            {
+              "kind": "leaf",
+              "id": "EXC-1",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "requiring ventriculoperitoneal (VP) shunt placement due to elevated intracranial pressure",
+              "tier": 3,
+              "sweepable": false,
+              "sourceSpan": "Patients requiring ventriculoperitoneal (VP) shunt placement due to elevated intracranial pressure."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-2",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "History of epilepsy unrelated to leptomeningeal metastases",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "History of epilepsy unrelated to leptomeningeal metastases."
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "EXC-3a",
+                  "type": "exclusion",
+                  "predicate": "comorbidity",
+                  "operator": "==",
+                  "value": "severe encephalopathy",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "severe encephalopathy"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-3b",
+                  "type": "exclusion",
+                  "predicate": "staging",
+                  "operator": "==",
+                  "value": "grade 3 or 4 leukoencephalopathy as shown on imaging",
+                  "tier": 2,
+                  "sweepable": false,
+                  "sourceSpan": "grade 3 or 4 leukoencephalopathy as shown on imaging"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-3c",
+                  "type": "exclusion",
+                  "predicate": "performance_status",
+                  "operator": "<",
+                  "value": 11,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    3,
+                    15
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "a Glasgow Coma Scale (GCS) score < 11"
+                }
+              ],
+              "sourceSpan": "Evidence of any neurological functional failure, including severe encephalopathy, grade 3 or 4 leukoencephalopathy as shown on imaging, or a Glasgow Coma Scale (GCS) score < 11."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-4",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "Evidence of any extensive and fatal progressive systemic disease with no effective treatment available",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Evidence of any extensive and fatal progressive systemic disease with no effective treatment available."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-5",
+              "type": "exclusion",
+              "predicate": "prior_therapy",
+              "operator": "in",
+              "value": [
+                "allogeneic bone marrow transplantation",
+                "solid organ transplantation"
+              ],
+              "members": [
+                "allogeneic bone marrow transplantation",
+                "solid organ transplantation"
+              ],
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Prior allogeneic bone marrow transplantation or solid organ transplantation."
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "EXC-5b1",
+                  "type": "exclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 160,
+                  "unit": "mmHg",
+                  "analyte": "systolic blood pressure",
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    80,
+                    220
+                  ],
+                  "sweepStep": 5,
+                  "sourceSpan": "systolic blood pressure ≥ 160 mmHg"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-5b2",
+                  "type": "exclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 90,
+                  "unit": "mmHg",
+                  "analyte": "diastolic blood pressure",
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    40,
+                    140
+                  ],
+                  "sweepStep": 5,
+                  "sourceSpan": "diastolic blood pressure ≥ 90 mmHg"
+                }
+              ],
+              "sourceSpan": "Uncontrolled hypertension prior to enrollment, defined as: systolic blood pressure ≥ 160 mmHg and/or diastolic blood pressure ≥ 90 mmHg."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-6",
+              "type": "exclusion",
+              "predicate": "washout",
+              "operator": "<=",
+              "value": 3,
+              "maxAgeDays": 90,
+              "tier": 4,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                365
+              ],
+              "sweepStep": 30,
+              "sourceSpan": "Surgical procedures involving vital organs within 3 months prior to enrollment."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-7",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "Any disease or condition prior to enrollment that affects drug absorption",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Any disease or condition prior to enrollment that affects drug absorption."
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b1",
+                  "type": "exclusion",
+                  "predicate": "comorbidity",
+                  "operator": "==",
+                  "value": "acute myocardial infarction within 6 months prior to enrollment",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "acute myocardial infarction"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b2",
+                  "type": "exclusion",
+                  "predicate": "comorbidity",
+                  "operator": "==",
+                  "value": "severe/unstable angina within 6 months prior to enrollment",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "severe/unstable angina"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b3",
+                  "type": "exclusion",
+                  "predicate": "prior_therapy",
+                  "operator": "==",
+                  "value": "coronary artery bypass grafting within 6 months prior to enrollment",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "coronary artery bypass grafting within 6 months prior to enrollment"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b4",
+                  "type": "exclusion",
+                  "predicate": "performance_status",
+                  "operator": ">",
+                  "value": 2,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    4
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "congestive heart failure with New York Heart Association (NYHA) classification > Grade 2"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b5",
+                  "type": "exclusion",
+                  "predicate": "comorbidity",
+                  "operator": "==",
+                  "value": "ventricular arrhythmias requiring medication",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "ventricular arrhythmias requiring medication"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-7b6",
+                  "type": "exclusion",
+                  "predicate": "lab_value",
+                  "operator": "<",
+                  "value": 50,
+                  "unit": "%",
+                  "analyte": "LVEF",
+                  "tier": 2,
+                  "sweepable": true,
+                  "sweepRange": [
+                    10,
+                    80
+                  ],
+                  "sweepStep": 5,
+                  "sourceSpan": "left ventricular ejection fraction (LVEF) < 50%"
+                }
+              ],
+              "sourceSpan": "Clinically significant cardiovascular diseases, including but not limited to acute myocardial infarction, severe/unstable angina, or coronary artery bypass grafting within 6 months prior to enrollment; congestive heart failure with New York Heart Association (NYHA) classification > Grade 2; ventricular arrhythmias requiring medication; left ventricular ejection fraction (LVEF) < 50%; or other related diseases such as severe pulmonary, hepatic, or renal dysfunction, severe gastrointestinal ulcers, or coagulation dysfunction."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-8",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": ">=",
+              "value": 2,
+              "tier": 1,
+              "sweepable": true,
+              "sweepRange": [
+                0,
+                5
+              ],
+              "sweepStep": 1,
+              "sourceSpan": "Active or uncontrolled severe infections (≥ Grade 2 infections per CTCAE v5.0)."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-9",
+              "type": "exclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": "Known human immunodeficiency virus (HIV) infection",
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Known human immunodeficiency virus (HIV) infection."
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "EXC-9b1",
+                  "type": "exclusion",
+                  "predicate": "biomarker",
+                  "operator": ">",
+                  "value": 2000,
+                  "unit": "IU/mL",
+                  "analyte": "HBV DNA",
+                  "tier": 0,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    10000
+                  ],
+                  "sweepStep": 500,
+                  "sourceSpan": "HBV DNA positive (>1×10⁴ copies/mL or >2000 IU/mL)"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "EXC-9b2",
+                  "type": "exclusion",
+                  "predicate": "biomarker",
+                  "operator": ">",
+                  "value": 1000,
+                  "unit": "copies/mL",
+                  "analyte": "HCV RNA",
+                  "tier": 0,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    10000
+                  ],
+                  "sweepStep": 500,
+                  "sourceSpan": "HCV RNA positive (>1×10³ copies/mL)"
+                }
+              ],
+              "sourceSpan": "Known history of clinically significant liver disease, including viral hepatitis [Known hepatitis B virus (HBV) carriers must be excluded if they have active HBV infection, defined as HBV DNA positive (>1×10⁴ copies/mL or >2000 IU/mL); known hepatitis C virus (HCV) infection with HCV RNA positive (>1×10³ copies/mL)]."
+            }
+          ],
+          "sourceSpan": "1. Patients requiring ventriculoperitoneal (VP) shunt placement due to elevated intracranial pressure.\n2. History of epilepsy unrelated to leptomeningeal metastases.\n3. Evidence of any neurological functional failure, including severe encephalopathy, grade 3 or 4 leukoencephalopathy as shown on imaging, or a Glasgow Coma Scale (GCS) score < 11.\n4. Evidence of any extensive and fatal progressive systemic disease with no effective treatment available.\n5. Prior allogeneic bone marrow transplantation or solid organ transplantation. Uncontrolled hypertension prior to enrollment, defined as: systolic blood pressure ≥ 160 mmHg and/or diastolic blood pressure ≥ 90 mmHg.\n6. Surgical procedures involving vital organs within 3 months prior to enrollment.\n7. Any disease or condition prior to enrollment that affects drug absorption. Clinically significant cardiovascular diseases, including but not limited to acute myocardial infarction, severe/unstable angina, or coronary artery bypass grafting within 6 months prior to enrollment; congestive heart failure with New York Heart Association (NYHA) classification > Grade 2; ventricular arrhythmias requiring medication; left ventricular ejection fraction (LVEF) < 50%; or other related diseases such as severe pulmonary, hepatic, or renal dysfunction, severe gastrointestinal ulcers, or coagulation dysfunction.\n8. Active or uncontrolled severe infections (≥ Grade 2 infections per CTCAE v5.0).\n9. Known human immunodeficiency virus (HIV) infection. Known history of clinically significant liver disease, including viral hepatitis [Known hepatitis B virus (HBV) carriers must be excluded if they have active HBV infection, defined as HBV DNA positive (>1×10⁴ copies/mL or >2000 IU/mL); known hepatitis C virus (HCV) infection with HCV RNA positive (>1×10³ copies/mL)]."
+        }
+      ],
+      "compilerConfidence": 1,
+      "needsHumanReview": true
+    },
+    "sourceText": "Inclusion Criteria:\n\n1. Age between 18 and 75 years.\n2. Male or female of non-childbearing potential, or female of childbearing potential who is not pregnant or lactating.\n3. ECOG performance status of 0 to 2, with no deterioration within the past 7 days.\n4. Radiological and/or cerebrospinal fluid (CSF) cytological evidence of leptomeningeal metastases (LM). The diagnosis of non-small cell lung cancer (NSCLC) must be confirmed by histological and/or cytological examination.\n5. Patients must meet at least one of the following criteria: failure of first- or second-generation TKI therapy with T790M mutation negative; failure of third-generation TKI therapy; or EGFR mutation negative with failure of first-line therapy.\n6. If concurrent brain parenchymal metastases are present, they must have received appropriate treatment or been evaluated as stable over the past three months. Additionally, extracranial lesions must be evaluated as stable under the current treatment regimen.\n7. Adequate organ and bone marrow function, as evidenced by the following laboratory parameters: HGB ≥ 90 g/L; NEUT ≥ 1.5 × 10⁹/L; PLT ≥ 80 × 10⁹/L; TBIL ≤ 1.5 × upper limit of normal (ULN); ALT and AST ≤ 2.5 × ULN (if liver metastases are present, ALT and AST ≤ 5 × ULN); creatinine clearance ≥ 50 mL/min (calculated by the Cockcroft-Gault formula); urine protein \\< (++) or 24-hour urine protein \\< 1.0 g; normal coagulation function without active bleeding; INR ≤ 1.5; APTT ≤ 1.5 × ULN.\n8. Women of childbearing potential must have a negative pregnancy test (serum or urine) within 14 days prior to enrollment and must voluntarily use adequate contraception during the study period and for 8 weeks after the last dose of the study drug. Males must be surgically sterilized or agree to use adequate contraception during the study period and for 8 weeks after the last dose of the study drug.\n9. Prior Ommaya reservoir implantation.\n10. Estimated life expectancy of ≥ 12 weeks.\n11. No history of severe neurological diseases or severe hematological abnormalities.\n12. Patients who have received prior brain and/or spinal cord radiotherapy, including stereotactic radiosurgery (SRS) or stereotactic body radiation therapy (SBRT), are eligible, provided that radiotherapy was completed at least 7 days prior to the initiation of study treatment.\n13. Concurrent intrathecal therapy with other agents is prohibited. For patients who have received other systemic therapies, the minimum washout periods are as follows: patients who have received prior intrathecal therapy must complete the last treatment at least 7 days before initiating study treatment; patients who have received systemic chemotherapy must complete the last treatment at least 14 days before initiating study treatment; patients who have received approved systemic immunotherapy (e.g., anti-PD-1, anti-CTLA-4) must complete the last treatment at least 14 days before initiating study treatment; patients who have received any other investigational drugs must complete the last treatment at least 14 days before initiating study treatment.\n14. Ability to provide written informed consent, including compliance with the requirements and restrictions listed in the informed consent form. Patients must have good compliance, voluntarily agree to participate in the clinical study, sign the informed consent form, and be willing to cooperate with follow-up visits.\n\nExclusion Criteria:\n\n1. Patients requiring ventriculoperitoneal (VP) shunt placement due to elevated intracranial pressure.\n2. History of epilepsy unrelated to leptomeningeal metastases.\n3. Evidence of any neurological functional failure, including severe encephalopathy, grade 3 or 4 leukoencephalopathy as shown on imaging, or a Glasgow Coma Scale (GCS) score \\< 11.\n4. Evidence of any extensive and fatal progressive systemic disease with no effective treatment available.\n5. Prior allogeneic bone marrow transplantation or solid organ transplantation. Uncontrolled hypertension prior to enrollment, defined as: systolic blood pressure ≥ 160 mmHg and/or diastolic blood pressure ≥ 90 mmHg.\n6. Surgical procedures involving vital organs within 3 months prior to enrollment.\n7. Any disease or condition prior to enrollment that affects drug absorption. Clinically significant cardiovascular diseases, including but not limited to acute myocardial infarction, severe/unstable angina, or coronary artery bypass grafting within 6 months prior to enrollment; congestive heart failure with New York Heart Association (NYHA) classification \\> Grade 2; ventricular arrhythmias requiring medication; left ventricular ejection fraction (LVEF) \\< 50%; or other related diseases such as severe pulmonary, hepatic, or renal dysfunction, severe gastrointestinal ulcers, or coagulation dysfunction.\n8. Active or uncontrolled severe infections (≥ Grade 2 infections per CTCAE v5.0).\n9. Known human immunodeficiency virus (HIV) infection. Known history of clinically significant liver disease, including viral hepatitis \\[Known hepatitis B virus (HBV) carriers must be excluded if they have active HBV infection, defined as HBV DNA positive (\\>1×10⁴ copies/mL or \\>2000 IU/mL); known hepatitis C virus (HCV) infection with HCV RNA positive (\\>1×10³ copies/mL)\\].\n10. Any other disease, clinically significant metabolic abnormalities, physical examination abnormalities, or laboratory abnormalities that, in the investigator's judgment, provide reason to suspect a disease or condition that makes the patient unsuitable for the study drug (e.g., seizures requiring treatment), will affect the interpretation of study results, or place the patient at high risk.\n11. Patients with a prior history of basal cell or squamous cell skin cancer, cervical carcinoma in situ, or other cancers may be considered for enrollment if there is evidence of being disease-free for more than 5 years after treatment.\n12. Severe neurological or psychiatric history; active disseminated intravascular coagulation (DIC); or other concomitant diseases that, in the investigator's judgment, seriously jeopardize patient safety or affect the patient's ability to complete the study.\n13. Participation in other clinical trials, receipt of investigational drugs, or any concomitant treatments containing investigational drugs within 14 days prior to enrollment.\n14. Patients deemed unsuitable for this study by the investigator.",
+    "reviewReasons": [
+      "INC-16 sourceSpan near-verbatim",
+      "EXC-3c sourceSpan near-verbatim",
+      "EXC-7b4 sourceSpan near-verbatim",
+      "EXC-7b6 sourceSpan near-verbatim",
+      "EXC-9b1 sourceSpan near-verbatim",
+      "EXC-9b2 sourceSpan near-verbatim"
+    ]
+  },
+  {
+    "trial": {
+      "nctId": "NCT06563999",
+      "title": "Neoadjuvant Umbrella Trial for Patients With Unresectable Stage III NSCLC Harboring Rare Mutations.",
+      "phase": "PHASE2",
+      "condition": "Lung Cancer Stage III; Mutation",
+      "slots": 0,
+      "criteria": [
+        {
+          "kind": "group",
+          "op": "AND",
+          "children": [
+            {
+              "kind": "leaf",
+              "id": "INC-1",
+              "type": "inclusion",
+              "predicate": "prior_therapy",
+              "operator": "==",
+              "value": false,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Subjects must have treatment-naive unresectable stage III NSCLC according to the AJCC 8th edition staging;"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-2",
+              "type": "inclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": "unresectable stage III",
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Subjects must have treatment-naive unresectable stage III NSCLC according to the AJCC 8th edition staging;"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-3",
+              "type": "inclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": "NSCLC",
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Squamous or non-squamous NSCLC histology;"
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-4",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "EGFR exon20ins",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-5",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "ROS1 fusion",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-6",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "RET fusion",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-7",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "NTRK fusion",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-8",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "MET 14 exon",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-9",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "HER2",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-10",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "BRAF V600E",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-11",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "KRAS G12C",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-12",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "==",
+                  "value": "ALK fusion",
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+                }
+              ],
+              "sourceSpan": "Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion."
+            },
+            {
+              "kind": "group",
+              "op": "NOT",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-13",
+                  "type": "inclusion",
+                  "predicate": "biomarker",
+                  "operator": "in",
+                  "value": [
+                    "EGFR exon 19 deletions",
+                    "exon 21 L858R activating mutation"
+                  ],
+                  "tier": 0,
+                  "sweepable": false,
+                  "sourceSpan": "Subjects should be without EGFR exon 19 deletions or exon 21 L858R activating mutation;"
+                }
+              ],
+              "sourceSpan": "Subjects should be without EGFR exon 19 deletions or exon 21 L858R activating mutation;"
+            },
+            {
+              "kind": "group",
+              "op": "AND",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-14",
+                  "type": "inclusion",
+                  "predicate": "age",
+                  "operator": ">=",
+                  "value": 18,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    100
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "Male and female, aged 18-75 years;"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-15",
+                  "type": "inclusion",
+                  "predicate": "age",
+                  "operator": "<=",
+                  "value": 75,
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    100
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "Male and female, aged 18-75 years;"
+                }
+              ],
+              "sourceSpan": "Male and female, aged 18-75 years;"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-16",
+              "type": "inclusion",
+              "predicate": "performance_status",
+              "operator": "<=",
+              "value": 1,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Eastern Cooperative Oncology Group (ECOG) performance status of 0-1;"
+            },
+            {
+              "kind": "group",
+              "op": "AND",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-17",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 2,
+                  "unit": "x 10^9/L",
+                  "analyte": "ANC",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-18",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 100,
+                  "unit": "x 10^9/L",
+                  "analyte": "Platelet count",
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    200
+                  ],
+                  "sweepStep": 10,
+                  "sourceSpan": "Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-19",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 9,
+                  "unit": "g/dL",
+                  "analyte": "Hemoglobin",
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    20
+                  ],
+                  "sweepStep": 1,
+                  "sourceSpan": "Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);"
+                }
+              ],
+              "sourceSpan": "Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);"
+            },
+            {
+              "kind": "group",
+              "op": "AND",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-20",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": "<=",
+                  "value": 1.5,
+                  "unit": "x ULN",
+                  "analyte": "Total bilirubin",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-21",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": "<=",
+                  "value": 2.5,
+                  "unit": "x ULN",
+                  "analyte": "AST",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-22",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": "<=",
+                  "value": 2.5,
+                  "unit": "x ULN",
+                  "analyte": "ALT",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;"
+                }
+              ],
+              "sourceSpan": "Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;"
+            },
+            {
+              "kind": "group",
+              "op": "OR",
+              "children": [
+                {
+                  "kind": "leaf",
+                  "id": "INC-23",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": "<=",
+                  "value": 1.25,
+                  "unit": "x ULN",
+                  "analyte": "Serum creatinine",
+                  "tier": 1,
+                  "sweepable": false,
+                  "sourceSpan": "Adequate renal function: Serum creatinine ≤ 1.25 x ULN, or ≥ 60 ml/min;"
+                },
+                {
+                  "kind": "leaf",
+                  "id": "INC-24",
+                  "type": "inclusion",
+                  "predicate": "lab_value",
+                  "operator": ">=",
+                  "value": 60,
+                  "unit": "ml/min",
+                  "analyte": "creatinine clearance",
+                  "tier": 1,
+                  "sweepable": true,
+                  "sweepRange": [
+                    0,
+                    150
+                  ],
+                  "sweepStep": 5,
+                  "sourceSpan": "Adequate renal function: Serum creatinine ≤ 1.25 x ULN, or ≥ 60 ml/min;"
+                }
+              ],
+              "sourceSpan": "Adequate renal function: Serum creatinine ≤ 1.25 x ULN, or ≥ 60 ml/min;"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-25",
+              "type": "inclusion",
+              "predicate": "contraindication",
+              "operator": "==",
+              "value": false,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Female subjects should not be pregnant or breast-feeding;"
+            },
+            {
+              "kind": "leaf",
+              "id": "INC-26",
+              "type": "inclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": "willing and able to comply",
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Written informed consent provided. Being willing and able to comply with the visits, treatment plan, laboratory examinations and other study procedures scheduled in the study."
+            }
+          ],
+          "sourceSpan": "* Subjects must have treatment-naive unresectable stage III NSCLC according to the AJCC 8th edition staging;\n* Squamous or non-squamous NSCLC histology;\n* Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion.\n* Subjects should be without EGFR exon 19 deletions or exon 21 L858R activating mutation;\n* Male and female, aged 18-75 years;\n* Blood and specimens before and after treatment must be provided;\n* Eastern Cooperative Oncology Group (ECOG) performance status of 0-1;\n* Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);\n* Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;\n* Adequate renal function: Serum creatinine ≤ 1.25 x ULN, or ≥ 60 ml/min;\n* Female subjects should not be pregnant or breast-feeding;\n* Written informed consent provided. Being willing and able to comply with the visits, treatment plan, laboratory examinations and other study procedures scheduled in the study."
+        },
+        {
+          "kind": "group",
+          "op": "AND",
+          "children": [
+            {
+              "kind": "leaf",
+              "id": "EXC-1",
+              "type": "exclusion",
+              "predicate": "staging",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Not unresectable stage III disease according to the investigator;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-2",
+              "type": "exclusion",
+              "predicate": "biomarker",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Subjects with known EGFR sensitive mutations;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-3",
+              "type": "exclusion",
+              "predicate": "prior_therapy",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Previous treatment with systemic antitumor therapy for NSCLC;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-4",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Eye inflammation or eye infection not fully treated or conditions predisposing the subject to this."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-5",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "History of another malignancy in the last 5 years with the exception of the following: other malignancies cured by surgery alone and having a continuous disease-free interval of 5 years are permitted. Cured basal cell carcinoma of the skin and cured in situ carcinoma of the uterine cervix are permitted."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-6",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Evidence of clinically active interstitial lung disease;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-7",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Known history of testing positive for human immunodeficiency virus (HIV) or known acquired immunodeficiency syndrome (AIDS);"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-8",
+              "type": "exclusion",
+              "predicate": "contraindication",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Inability to comply with protocol or study procedures;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-9",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Any unstable systemic disease (including active infection, active tuberculosis uncontrolled hypertension, unstable angina, congestive heart failure, myocardial infarction within the previous year, serious cardiac arrhythmia requiring medication, hepatic, renal, or metabolic disease);"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-10",
+              "type": "exclusion",
+              "predicate": "contraindication",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "A serious concomitant systemic disorder that, in the opinion of the investigator, would compromise the patient's ability to complete the study and may confuse the study results;"
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-11",
+              "type": "exclusion",
+              "predicate": "comorbidity",
+              "operator": "==",
+              "value": true,
+              "tier": 1,
+              "sweepable": false,
+              "sourceSpan": "Women who are pregnant or nursing."
+            },
+            {
+              "kind": "leaf",
+              "id": "EXC-12",
+              "type": "exclusion",
+              "predicate": "diagnosis",
+              "operator": "==",
+              "value": true,
+              "tier": 0,
+              "sweepable": false,
+              "sourceSpan": "Ingredients mixed with small cell lung cancer patients."
+            }
+          ],
+          "sourceSpan": "* Not unresectable stage III disease according to the investigator;\n* Subjects with known EGFR sensitive mutations;\n* Previous treatment with systemic antitumor therapy for NSCLC;\n* Eye inflammation or eye infection not fully treated or conditions predisposing the subject to this.\n* History of another malignancy in the last 5 years with the exception of the following: other malignancies cured by surgery alone and having a continuous disease-free interval of 5 years are permitted. Cured basal cell carcinoma of the skin and cured in situ carcinoma of the uterine cervix are permitted.\n* Evidence of clinically active interstitial lung disease;\n* Known history of testing positive for human immunodeficiency virus (HIV) or known acquired immunodeficiency syndrome (AIDS);\n* Inability to comply with protocol or study procedures;\n* Any unstable systemic disease (including active infection, active tuberculosis uncontrolled hypertension, unstable angina, congestive heart failure, myocardial infarction within the previous year, serious cardiac arrhythmia requiring medication, hepatic, renal, or metabolic disease);\n* A serious concomitant systemic disorder that, in the opinion of the investigator, would compromise the patient's ability to complete the study and may confuse the study results;\n* Women who are pregnant or nursing.\n* Ingredients mixed with small cell lung cancer patients."
+        }
+      ],
+      "compilerConfidence": 1,
+      "needsHumanReview": false
+    },
+    "sourceText": "Inclusion Criteria:\n\n* Subjects must have treatment-naive unresectable stage III NSCLC according to the AJCC 8th edition staging;\n* Squamous or non-squamous NSCLC histology;\n* Subjects should have a rare mutation based on NGS, including mutations of EGFR exon20ins, ROS1 fusion, RET fusion, NTRK fusion, MET 14 exon, HER2, BRAF V600E, KRAS G12C, and ALK fusion.\n* Subjects should be without EGFR exon 19 deletions or exon 21 L858R activating mutation;\n* Male and female, aged 18-75 years;\n* Blood and specimens before and after treatment must be provided;\n* Eastern Cooperative Oncology Group (ECOG) performance status of 0-1;\n* Adequate hematological function: Absolute neutrophil count (ANC) ≥2.0 x 109/L, and Platelet count ≥100 x 109/L, and Hemoglobin ≥9 g/dL (may be transfused to maintain or exceed this level);\n* Adequate liver function: Total bilirubin ≤ 1.5 x upper limit of normal (ULN), Aspartate aminotransferase (AST), alanine aminotransferase (ALT) ≤ 2.5 x ULN;\n* Adequate renal function: Serum creatinine ≤ 1.25 x ULN, or ≥ 60 ml/min;\n* Female subjects should not be pregnant or breast-feeding;\n* Written informed consent provided. Being willing and able to comply with the visits, treatment plan, laboratory examinations and other study procedures scheduled in the study.\n\nExclusion Criteria:\n\n* Not unresectable stage III disease according to the investigator;\n* Subjects with known EGFR sensitive mutations;\n* Previous treatment with systemic antitumor therapy for NSCLC;\n* Eye inflammation or eye infection not fully treated or conditions predisposing the subject to this.\n* History of another malignancy in the last 5 years with the exception of the following: other malignancies cured by surgery alone and having a continuous disease-free interval of 5 years are permitted. Cured basal cell carcinoma of the skin and cured in situ carcinoma of the uterine cervix are permitted.\n* Evidence of clinically active interstitial lung disease;\n* Known history of testing positive for human immunodeficiency virus (HIV) or known acquired immunodeficiency syndrome (AIDS);\n* Inability to comply with protocol or study procedures;\n* Any unstable systemic disease (including active infection, active tuberculosis uncontrolled hypertension, unstable angina, congestive heart failure, myocardial infarction within the previous year, serious cardiac arrhythmia requiring medication, hepatic, renal, or metabolic disease);\n* A serious concomitant systemic disorder that, in the opinion of the investigator, would compromise the patient's ability to complete the study and may confuse the study results;\n* Women who are pregnant or nursing.\n* Ingredients mixed with small cell lung cancer patients."
+  }
+]

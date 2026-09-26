@@ -27,6 +27,15 @@ deterministic code with no model inference in the scoring path.
 Discord and P1 adds it on `main`. **Test runner is vitest for every lane** — installed on
 `main`, run with `npm test`.
 
+### Generated filename ownership
+
+| Filename | Sole writer | Contents |
+|---|---|---|
+| `data/compiled/coverage.json` | Engine | Claims-answerability coverage figures |
+| `data/compiled/compile-stats.json` | Compiler | Corpus compilation, rejection, demo-pool, and review counts |
+
+No lane may reuse a filename in this table for a different read model.
+
 `src/contracts` is **FROZEN AT 00:00 Saturday.** Before then, announce any change in
 Discord. After then, a change needs all four people to agree.
 

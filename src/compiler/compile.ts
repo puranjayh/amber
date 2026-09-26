@@ -1,11 +1,13 @@
 /** Offline, batch-only eligibility compiler. Never import this from the app. */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { CriterionNode, Trial } from "@/src/contracts";
 import type { CriterionNode as CriterionNodeValue, Trial as TrialValue } from "@/src/contracts";
 import { RawClinicalTrial } from "@/src/compiler/fetch-trials";
+import { publishCompilationResults } from "@/src/compiler/publish";
+import { partitionReviewFlags } from "@/src/compiler/review-flags";
 
 export interface EligibilityBlock {
   type: "inclusion" | "exclusion" | "unknown";
@@ -20,8 +22,10 @@ export interface CompileFailure {
 export interface CompiledTrialResult {
   trial: TrialValue;
   failure?: CompileFailure;
-  /** A usable tree with a semantic concern that a human must inspect. */
+  /** A usable tree with a semantic concern that a human must inspect. Never citation-only. */
   reviewReasons?: string[];
+  /** Verbatim but coarse source citations; retained for audit, never demo-gating. */
+  citationFlags?: string[];
   sourceText: string;
 }
 
@@ -102,7 +106,7 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
 For prior-therapy drug-class criteria, use operator:"in" with a non-empty resolved members array of concrete drugs. Set value to that same array. Never represent a drug class with == and a bare drugClass; that cannot evaluate a medication history correctly.
-IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. Do not explain your answer.`;
+IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. The batch compiler will suffix a repeated id by source-block position to make it unique across the full trial. Do not explain your answer.`;
 
 function cleanBlock(text: string): string {
   return text.trim().replace(/\r\n/g, "\n");
@@ -146,6 +150,38 @@ function sourceTrial(raw: RawClinicalTrial): Omit<TrialValue, "criteria" | "comp
 function walk(node: CriterionNodeValue, visitor: (value: CriterionNodeValue) => void): void {
   visitor(node);
   if (node.kind === "group") node.children.forEach((child) => walk(child, visitor));
+}
+
+/**
+ * Eligibility headings can repeat for protocol cohorts. The model numbers each
+ * heading locally, but engine cells are keyed trial-wide, so preserve source order
+ * and suffix only subsequent occurrences (INC-1, INC-1-2, INC-1-3, ...).
+ */
+export function uniquifyCriterionNodeIds(
+  node: CriterionNodeValue,
+  usedIds: Set<string>,
+): { node: CriterionNodeValue; renamedIds: Map<string, string> } {
+  const renamedIds = new Map<string, string>();
+  const visit = (current: CriterionNodeValue): CriterionNodeValue => {
+    if (current.kind === "group") return { ...current, children: current.children.map(visit) };
+    const originalId = current.id;
+    let uniqueId = originalId;
+    let suffix = 2;
+    while (usedIds.has(uniqueId)) uniqueId = `${originalId}-${suffix++}`;
+    usedIds.add(uniqueId);
+    if (uniqueId !== originalId) renamedIds.set(originalId, uniqueId);
+    return uniqueId === originalId ? current : { ...current, id: uniqueId };
+  };
+  return { node: visit(node), renamedIds };
+}
+
+function renameFlagIds(reasons: string[], renamedIds: Map<string, string>): string[] {
+  return reasons.map((reason) => {
+    for (const [originalId, uniqueId] of renamedIds) {
+      if (reason.startsWith(`${originalId} `)) return `${uniqueId}${reason.slice(originalId.length)}`;
+    }
+    return reason;
+  });
 }
 
 function containsOr(node: CriterionNodeValue): boolean {
@@ -266,6 +302,14 @@ export function normalizeSweepMetadata(candidate: unknown): unknown {
     return { ...node, children: node.children.map(normalizeSweepMetadata) };
   }
   if (node.kind !== "leaf") return node;
+
+  // A slider only has clinical meaning for a numeric threshold. This is a
+  // presentation hint, so discard model-emitted sweep fields on string,
+  // boolean, and member-list leaves without altering the criterion itself.
+  if (typeof node.value !== "number") {
+    const { sweepRange: _range, sweepStep: _step, ...withoutSweepMetadata } = node;
+    return { ...withoutSweepMetadata, sweepable: false };
+  }
 
   const range = node.sweepRange;
   const step = node.sweepStep;
@@ -479,14 +523,19 @@ export async function compileTrial(
   const criteria: CriterionNodeValue[] = [];
   const issues: string[] = [];
   const reviewReasons: string[] = [];
+  const citationFlags: string[] = [];
+  const usedIds = new Set<string>();
   for (const block of extractEligibilityBlocks(sourceText)) {
     try {
       const candidate = await compileBlock(block);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
       else {
-        criteria.push(checked.data);
-        reviewReasons.push(...checked.reviewReasons);
+        const unique = uniquifyCriterionNodeIds(checked.data, usedIds);
+        criteria.push(unique.node);
+        const partitioned = partitionReviewFlags(renameFlagIds(checked.reviewReasons, unique.renamedIds));
+        reviewReasons.push(...partitioned.semanticReasons);
+        citationFlags.push(...partitioned.citationFlags);
       }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
@@ -505,6 +554,7 @@ export async function compileTrial(
     trial: Trial.parse({ ...base, criteria, compilerConfidence: 1, needsHumanReview: reviewReasons.length > 0 }),
     sourceText,
     ...(reviewReasons.length ? { reviewReasons } : {}),
+    ...(citationFlags.length ? { citationFlags } : {}),
   };
 }
 
@@ -534,20 +584,37 @@ export async function compileRawTrials(
   return results;
 }
 
+/** Select exactly the requested trials for a bounded retry; never rerun the corpus by accident. */
+export function selectRawTrialsByNctIds(rawTrials: RawClinicalTrial[], nctIds: string[]): RawClinicalTrial[] {
+  const byNctId = new Map(rawTrials.map((trial) => [trial.protocolSection.identificationModule.nctId, trial]));
+  const missing = nctIds.filter((nctId) => !byNctId.has(nctId));
+  if (missing.length) throw new Error(`Requested retry trials are absent from the raw cache: ${missing.join(", ")}`);
+  return nctIds.map((nctId) => byNctId.get(nctId)!);
+}
+
+function cliArgument(name: string): string | undefined {
+  const index = process.argv.indexOf(name);
+  return index < 0 ? undefined : process.argv[index + 1];
+}
+
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
   const fullBatch = process.argv.includes("--full");
-  const outputPath = resolve(process.argv[3] || (fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
+  const retryIdsPath = cliArgument("--nct-ids");
+  const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
-  const batch = fullBatch ? rawTrials : rawTrials.slice(0, 3);
-  if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
+  const retryNctIds = retryIdsPath
+    ? z.array(z.string().regex(/^NCT\d{8}$/)).parse(JSON.parse(await readFile(resolve(retryIdsPath), "utf8")))
+    : undefined;
+  const batch = retryNctIds ? selectRawTrialsByNctIds(rawTrials, retryNctIds) : fullBatch ? rawTrials : rawTrials.slice(0, 3);
+  if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
+  else if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, `${JSON.stringify(results, null, 2)}\n`, "utf8");
-  console.log(`Compiled ${results.length - results.filter((result) => result.failure).length}; rejected ${results.filter((result) => result.failure).length}`);
+  const published = await publishCompilationResults(results, outputPath);
+  console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {

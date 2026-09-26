@@ -1,0 +1,5234 @@
+{
+  "generatedFromTrials": 300,
+  "analytes": [
+    {
+      "analyte": "age",
+      "totalTrials": 186,
+      "flaggedTrials": 76,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 8,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 18,
+              "count": 3,
+              "percentage": 0.016129032258064516
+            },
+            {
+              "threshold": 65,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 75,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 80,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 59,
+          "flaggedTrials": 24,
+          "thresholds": [
+            {
+              "threshold": 49,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 65,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            },
+            {
+              "threshold": 70,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            },
+            {
+              "threshold": 74,
+              "count": 4,
+              "percentage": 0.021505376344086023
+            },
+            {
+              "threshold": 75,
+              "count": 37,
+              "percentage": 0.1989247311827957
+            },
+            {
+              "threshold": 79,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            },
+            {
+              "threshold": 80,
+              "count": 10,
+              "percentage": 0.053763440860215055
+            },
+            {
+              "threshold": 85,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            }
+          ]
+        },
+        {
+          "operator": "==",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 13,
+          "flaggedTrials": 4,
+          "thresholds": [
+            {
+              "threshold": 18,
+              "count": 11,
+              "percentage": 0.05913978494623656
+            },
+            {
+              "threshold": 50,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 172,
+          "flaggedTrials": 73,
+          "thresholds": [
+            {
+              "threshold": 10,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 16,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 18,
+              "count": 154,
+              "percentage": 0.8279569892473119
+            },
+            {
+              "threshold": 20,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 21,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 22,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 25,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 40,
+              "count": 3,
+              "percentage": 0.016129032258064516
+            },
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 0.005376344086021506
+            },
+            {
+              "threshold": 50,
+              "count": 8,
+              "percentage": 0.043010752688172046
+            },
+            {
+              "threshold": 55,
+              "count": 2,
+              "percentage": 0.010752688172043012
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "washout",
+      "totalTrials": 102,
+      "flaggedTrials": 39,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 6,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 7,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 28,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 85,
+          "flaggedTrials": 31,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            },
+            {
+              "threshold": 2,
+              "count": 4,
+              "percentage": 0.0392156862745098
+            },
+            {
+              "threshold": 3,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            },
+            {
+              "threshold": 4,
+              "count": 11,
+              "percentage": 0.10784313725490197
+            },
+            {
+              "threshold": 6,
+              "count": 7,
+              "percentage": 0.06862745098039216
+            },
+            {
+              "threshold": 7,
+              "count": 7,
+              "percentage": 0.06862745098039216
+            },
+            {
+              "threshold": 8,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 10,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            },
+            {
+              "threshold": 12,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 14,
+              "count": 26,
+              "percentage": 0.2549019607843137
+            },
+            {
+              "threshold": 15,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 21,
+              "count": 8,
+              "percentage": 0.0784313725490196
+            },
+            {
+              "threshold": 28,
+              "count": 31,
+              "percentage": 0.30392156862745096
+            },
+            {
+              "threshold": 30,
+              "count": 13,
+              "percentage": 0.12745098039215685
+            },
+            {
+              "threshold": 56,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 90,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 180,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            },
+            {
+              "threshold": 365,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 28,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 27,
+          "flaggedTrials": 15,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 5,
+              "count": 3,
+              "percentage": 0.029411764705882353
+            },
+            {
+              "threshold": 12,
+              "count": 2,
+              "percentage": 0.0196078431372549
+            },
+            {
+              "threshold": 14,
+              "count": 8,
+              "percentage": 0.0784313725490196
+            },
+            {
+              "threshold": 21,
+              "count": 4,
+              "percentage": 0.0392156862745098
+            },
+            {
+              "threshold": 28,
+              "count": 6,
+              "percentage": 0.058823529411764705
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 42,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 120,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            },
+            {
+              "threshold": 180,
+              "count": 1,
+              "percentage": 0.00980392156862745
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "performance_status",
+      "totalTrials": 79,
+      "flaggedTrials": 28,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            },
+            {
+              "threshold": 11,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 56,
+          "flaggedTrials": 21,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 29,
+              "percentage": 0.3670886075949367
+            },
+            {
+              "threshold": 2,
+              "count": 25,
+              "percentage": 0.31645569620253167
+            },
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.02531645569620253
+            }
+          ]
+        },
+        {
+          "operator": "==",
+          "totalTrials": 11,
+          "flaggedTrials": 4,
+          "thresholds": [
+            {
+              "threshold": 0,
+              "count": 11,
+              "percentage": 0.13924050632911392
+            },
+            {
+              "threshold": 1,
+              "count": 11,
+              "percentage": 0.13924050632911392
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 8,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 2,
+              "percentage": 0.02531645569620253
+            },
+            {
+              "threshold": 2,
+              "count": 3,
+              "percentage": 0.0379746835443038
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            },
+            {
+              "threshold": 70,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 12,
+          "flaggedTrials": 6,
+          "thresholds": [
+            {
+              "threshold": 0,
+              "count": 2,
+              "percentage": 0.02531645569620253
+            },
+            {
+              "threshold": 2,
+              "count": 5,
+              "percentage": 0.06329113924050633
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            },
+            {
+              "threshold": 60,
+              "count": 3,
+              "percentage": 0.0379746835443038
+            },
+            {
+              "threshold": 70,
+              "count": 1,
+              "percentage": 0.012658227848101266
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "comorbidity",
+      "totalTrials": 71,
+      "flaggedTrials": 29,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 7,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 6,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 15,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 4,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 6,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 15,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 22,
+          "flaggedTrials": 9,
+          "thresholds": [
+            {
+              "threshold": 0.5,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 1,
+              "count": 4,
+              "percentage": 0.056338028169014086
+            },
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 3,
+              "count": 7,
+              "percentage": 0.09859154929577464
+            },
+            {
+              "threshold": 7,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 10,
+              "count": 6,
+              "percentage": 0.08450704225352113
+            },
+            {
+              "threshold": 12,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 20,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 24,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 38.5,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 45,
+          "flaggedTrials": 19,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 10,
+              "percentage": 0.14084507042253522
+            },
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 3,
+              "count": 14,
+              "percentage": 0.19718309859154928
+            },
+            {
+              "threshold": 4,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 6,
+              "count": 2,
+              "percentage": 0.028169014084507043
+            },
+            {
+              "threshold": 10,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            },
+            {
+              "threshold": 12,
+              "count": 14,
+              "percentage": 0.19718309859154928
+            },
+            {
+              "threshold": 20,
+              "count": 4,
+              "percentage": 0.056338028169014086
+            },
+            {
+              "threshold": 150,
+              "count": 1,
+              "percentage": 0.014084507042253521
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ANC",
+      "totalTrials": 33,
+      "flaggedTrials": 12,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 4,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 4,
+              "percentage": 0.12121212121212122
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 30,
+          "flaggedTrials": 10,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 20,
+              "percentage": 0.6060606060606061
+            },
+            {
+              "threshold": 500,
+              "count": 1,
+              "percentage": 0.030303030303030304
+            },
+            {
+              "threshold": 750,
+              "count": 1,
+              "percentage": 0.030303030303030304
+            },
+            {
+              "threshold": 1000,
+              "count": 3,
+              "percentage": 0.09090909090909091
+            },
+            {
+              "threshold": 1500,
+              "count": 5,
+              "percentage": 0.15151515151515152
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "creatinine clearance",
+      "totalTrials": 23,
+      "flaggedTrials": 4,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 4,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            },
+            {
+              "threshold": 41,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            },
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 17,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.043478260869565216
+            },
+            {
+              "threshold": 50,
+              "count": 11,
+              "percentage": 0.4782608695652174
+            },
+            {
+              "threshold": 60,
+              "count": 5,
+              "percentage": 0.21739130434782608
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AST/ALT",
+      "totalTrials": 22,
+      "flaggedTrials": 4,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 20,
+          "flaggedTrials": 4,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 2.5,
+              "count": 12,
+              "percentage": 0.5454545454545454
+            },
+            {
+              "threshold": 3,
+              "count": 7,
+              "percentage": 0.3181818181818182
+            },
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "prior_therapy",
+      "totalTrials": 22,
+      "flaggedTrials": 4,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 4,
+              "count": 2,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 9,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 4,
+              "percentage": 0.18181818181818182
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 4,
+              "count": 3,
+              "percentage": 0.13636363636363635
+            },
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 14,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 28,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        },
+        {
+          "operator": "==",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 7,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 2,
+              "percentage": 0.09090909090909091
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 360,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 5,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 0.5,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 1,
+              "count": 3,
+              "percentage": 0.13636363636363635
+            },
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            },
+            {
+              "threshold": 24,
+              "count": 1,
+              "percentage": 0.045454545454545456
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Hemoglobin",
+      "totalTrials": 21,
+      "flaggedTrials": 3,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 2,
+              "percentage": 0.09523809523809523
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 19,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 8,
+              "count": 4,
+              "percentage": 0.19047619047619047
+            },
+            {
+              "threshold": 9,
+              "count": 7,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 9.5,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 90,
+              "count": 7,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "staging",
+      "totalTrials": 21,
+      "flaggedTrials": 8,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 5,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.09523809523809523
+            },
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.09523809523809523
+            },
+            {
+              "threshold": 7,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 4,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.09523809523809523
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 13,
+          "flaggedTrials": 6,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 6,
+              "percentage": 0.2857142857142857
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.09523809523809523
+            },
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 8,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 20,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            },
+            {
+              "threshold": 25,
+              "count": 1,
+              "percentage": 0.047619047619047616
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "platelets",
+      "totalTrials": 18,
+      "flaggedTrials": 3,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 6,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.05555555555555555
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.05555555555555555
+            },
+            {
+              "threshold": 100,
+              "count": 2,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 100000,
+              "count": 2,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 450000,
+              "count": 1,
+              "percentage": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 13,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 75,
+              "count": 2,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.05555555555555555
+            },
+            {
+              "threshold": 100,
+              "count": 7,
+              "percentage": 0.3888888888888889
+            },
+            {
+              "threshold": 50000,
+              "count": 1,
+              "percentage": 0.05555555555555555
+            },
+            {
+              "threshold": 100000,
+              "count": 2,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "hemoglobin",
+      "totalTrials": 17,
+      "flaggedTrials": 4,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 8,
+              "count": 2,
+              "percentage": 0.11764705882352941
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 2,
+              "percentage": 0.11764705882352941
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.058823529411764705
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 12,
+          "flaggedTrials": 4,
+          "thresholds": [
+            {
+              "threshold": 8,
+              "count": 1,
+              "percentage": 0.058823529411764705
+            },
+            {
+              "threshold": 9,
+              "count": 4,
+              "percentage": 0.23529411764705882
+            },
+            {
+              "threshold": 90,
+              "count": 7,
+              "percentage": 0.4117647058823529
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "QTcF",
+      "totalTrials": 17,
+      "flaggedTrials": 4,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 470,
+              "count": 1,
+              "percentage": 0.058823529411764705
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 13,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 470,
+              "count": 12,
+              "percentage": 0.7058823529411765
+            },
+            {
+              "threshold": 480,
+              "count": 2,
+              "percentage": 0.11764705882352941
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 470,
+              "count": 2,
+              "percentage": 0.11764705882352941
+            },
+            {
+              "threshold": 480,
+              "count": 1,
+              "percentage": 0.058823529411764705
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "lab_value",
+      "totalTrials": 15,
+      "flaggedTrials": 5,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 0.06,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 50,
+              "count": 2,
+              "percentage": 0.13333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.13333333333333333
+            },
+            {
+              "threshold": 3.5,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 160,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 470,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 480,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 9,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 0.45,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 3,
+              "count": 3,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 12,
+              "count": 2,
+              "percentage": 0.13333333333333333
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            },
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Total bilirubin",
+      "totalTrials": 15,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 14,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 12,
+              "percentage": 0.8
+            },
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.13333333333333333
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.06666666666666667
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Platelets",
+      "totalTrials": 14,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 75000,
+              "count": 1,
+              "percentage": 0.07142857142857142
+            },
+            {
+              "threshold": 100000,
+              "count": 1,
+              "percentage": 0.07142857142857142
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 12,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 75,
+              "count": 1,
+              "percentage": 0.07142857142857142
+            },
+            {
+              "threshold": 100,
+              "count": 6,
+              "percentage": 0.42857142857142855
+            },
+            {
+              "threshold": 100000,
+              "count": 5,
+              "percentage": 0.35714285714285715
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "LVEF",
+      "totalTrials": 13,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            },
+            {
+              "threshold": 50,
+              "count": 2,
+              "percentage": 0.15384615384615385
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 7,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 7,
+              "percentage": 0.5384615384615384
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PLT",
+      "totalTrials": 13,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 13,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 75,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            },
+            {
+              "threshold": 80,
+              "count": 2,
+              "percentage": 0.15384615384615385
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            },
+            {
+              "threshold": 100,
+              "count": 8,
+              "percentage": 0.6153846153846154
+            },
+            {
+              "threshold": 100000,
+              "count": 1,
+              "percentage": 0.07692307692307693
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALT/AST",
+      "totalTrials": 11,
+      "flaggedTrials": 5,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 9,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 6,
+              "percentage": 0.5454545454545454
+            },
+            {
+              "threshold": 3,
+              "count": 3,
+              "percentage": 0.2727272727272727
+            },
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.18181818181818182
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "creatinine",
+      "totalTrials": 11,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 7,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 7,
+              "percentage": 0.6363636363636364
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 0.18181818181818182
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "diagnosis",
+      "totalTrials": 11,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 6,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 5,
+              "count": 2,
+              "percentage": 0.18181818181818182
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 6,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 6,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 2,
+              "percentage": 0.18181818181818182
+            },
+            {
+              "threshold": 3,
+              "count": 3,
+              "percentage": 0.2727272727272727
+            },
+            {
+              "threshold": 12,
+              "count": 1,
+              "percentage": 0.09090909090909091
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALT",
+      "totalTrials": 10,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.1
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 5,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.1
+            },
+            {
+              "threshold": 2.5,
+              "count": 2,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.1
+            },
+            {
+              "threshold": 2.5,
+              "count": 2,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Absolute neutrophil count",
+      "totalTrials": 9,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 9,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 1.5,
+              "count": 5,
+              "percentage": 0.5555555555555556
+            },
+            {
+              "threshold": 1000,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 1500,
+              "count": 2,
+              "percentage": 0.2222222222222222
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "bilirubin",
+      "totalTrials": 9,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 6,
+              "percentage": 0.6666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 0.2222222222222222
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "contraindication",
+      "totalTrials": 9,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 7,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 14,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 28,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            },
+            {
+              "threshold": 30,
+              "count": 3,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 180,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 10,
+              "count": 1,
+              "percentage": 0.1111111111111111
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "TBIL",
+      "totalTrials": 9,
+      "flaggedTrials": 3,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 9,
+          "flaggedTrials": 3,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 9,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AST",
+      "totalTrials": 8,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 5,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.125
+            },
+            {
+              "threshold": 2.5,
+              "count": 2,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 3,
+              "count": 2,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.125
+            },
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Platelet count",
+      "totalTrials": 8,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 7,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.125
+            },
+            {
+              "threshold": 100,
+              "count": 3,
+              "percentage": 0.375
+            },
+            {
+              "threshold": 60000,
+              "count": 1,
+              "percentage": 0.125
+            },
+            {
+              "threshold": 100000,
+              "count": 2,
+              "percentage": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "QTc",
+      "totalTrials": 8,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 470,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 6,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 450,
+              "count": 2,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 470,
+              "count": 3,
+              "percentage": 0.375
+            },
+            {
+              "threshold": 480,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 500,
+              "count": 1,
+              "percentage": 0.125
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CrCl",
+      "totalTrials": 7,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 5,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 3,
+              "percentage": 0.42857142857142855
+            },
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Creatinine",
+      "totalTrials": 7,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 1.5,
+              "count": 5,
+              "percentage": 0.7142857142857143
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "FEV1",
+      "totalTrials": 7,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 800,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 4,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.2,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            },
+            {
+              "threshold": 800,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR",
+      "totalTrials": 7,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.4,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 6,
+              "percentage": 0.8571428571428571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Serum creatinine",
+      "totalTrials": 7,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 6,
+              "percentage": 0.8571428571428571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "total bilirubin",
+      "totalTrials": 7,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 6,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 6,
+              "percentage": 0.8571428571428571
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.14285714285714285
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "APTT",
+      "totalTrials": 6,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 5,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 5,
+              "percentage": 0.8333333333333334
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Creatinine clearance",
+      "totalTrials": 6,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 5,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 50,
+              "count": 2,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PD-L1 TPS",
+      "totalTrials": 6,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 5,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 3,
+              "percentage": 0.5
+            },
+            {
+              "threshold": 50,
+              "count": 2,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "systolic blood pressure",
+      "totalTrials": 6,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 150,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 160,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 180,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 140,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 160,
+              "count": 2,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "WBC",
+      "totalTrials": 6,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2000,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 4,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            },
+            {
+              "threshold": 4,
+              "count": 2,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 3500,
+              "count": 1,
+              "percentage": 0.16666666666666666
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "biomarker",
+      "totalTrials": 5,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 0.5,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.34,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 0.25,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 8,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 75,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "eGFR",
+      "totalTrials": 5,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 3,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 25,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "HGB",
+      "totalTrials": 5,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 4,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 70,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.2
+            },
+            {
+              "threshold": 100,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Neutrophils",
+      "totalTrials": 5,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 5,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 3,
+              "percentage": 0.6
+            },
+            {
+              "threshold": 1500,
+              "count": 2,
+              "percentage": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "platelet count",
+      "totalTrials": 5,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 100000,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 50000,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 80,
+              "count": 1,
+              "percentage": 0.2
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 100,
+              "count": 2,
+              "percentage": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AST/ALT/ALP",
+      "totalTrials": 4,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 4,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 3,
+              "percentage": 0.75
+            },
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Cr",
+      "totalTrials": 4,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 4,
+          "flaggedTrials": 2,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 1.5,
+              "count": 3,
+              "percentage": 0.75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "haemoglobin",
+      "totalTrials": 4,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "HBV DNA",
+      "totalTrials": 4,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 100,
+              "count": 1,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 500,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 500,
+              "count": 1,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 2000,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PD-L1",
+      "totalTrials": 4,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.25
+            },
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "absolute neutrophil count",
+      "totalTrials": 3,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 0.6666666666666666
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Bilirubin",
+      "totalTrials": 3,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "GFR",
+      "totalTrials": 3,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 70,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Hb",
+      "totalTrials": 3,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            },
+            {
+              "threshold": 90,
+              "count": 2,
+              "percentage": 0.6666666666666666
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "NEUT#",
+      "totalTrials": 3,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 3,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "neutrophils",
+      "totalTrials": 3,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 0.6666666666666666
+            },
+            {
+              "threshold": 1500,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "serum creatinine",
+      "totalTrials": 3,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 3,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 3,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "weight",
+      "totalTrials": 3,
+      "flaggedTrials": 2,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 0.3333333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "albumin",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Alkaline phosphatase",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        },
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALT or AST",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 10,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "body weight",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Ccr",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "diastolic blood pressure",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.5
+            },
+            {
+              "threshold": 100,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Haemoglobin",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 9,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR/APTT/PT",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR/PT",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ionized calcium",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "life expectancy",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 12,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "lymphocyte count",
+      "totalTrials": 2,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1000,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0.6,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "survival",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 0.5
+            },
+            {
+              "threshold": 6,
+              "count": 1,
+              "percentage": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Total Bilirubin",
+      "totalTrials": 2,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 2,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 2,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "24-hour urinary protein",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "24-hour urine creatinine clearance",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Activated partial thromboplastin time",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AFP",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 100,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALB",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 25,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Albumin",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 25,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALP",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 1
+            },
+            {
+              "threshold": 4.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ALT/AST+ALP",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "amylase",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AP",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "aPTT",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AST ALT alkaline phosphatase",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "AST/ALT/Alkaline phosphatase",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "blood oxygen",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 93,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Bun",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "BUN/creatinine",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CCr",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CCR",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 60,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CD4 count",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 250,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CD4+ T-cell count",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 350,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "CLcr",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 45,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "coagulation",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "creatinine clearance by MDRD",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "daily hemoptysis",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "diameter",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "DLCO",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "DLCO/TLCO",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "DLL3",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "EF",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ejection fraction",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Extracranial lesion",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "FBG",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 126,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "FEV1 post-resection",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 800,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "future liver remnant",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 40,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "granulocyte",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1500,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "HB",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "HBV-DNA",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 500,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "hematocrit",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 34,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        },
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 55,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Hgb",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 8,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "ILD/pneumonitis grade",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR/aPTT",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR/PT/aPTT",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "INR/PT/PTT",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Khorana score",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "LC",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "lesion diameter",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 10,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Leukocytes",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2500,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Linc malignancy probability",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 75,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "lipase",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Lymphocyte count",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "lymphocytes",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0.7,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Mirels score",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 7,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "NE#",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 0.75,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Neut",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "neutrophil count",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Neutrophil count",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Oxygen saturation",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 90,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PaO₂/FiO₂",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 200,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PLCOM2012",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.58,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "pleural effusion grade",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PPD induration",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "proteinuria",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PT",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PT/APTT",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "PT/INR/aPTT",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "RUC",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 4,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "SBP",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 150,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "serum albumin",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Serum bilirubin",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Serum total bilirubin",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 2,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "SINS",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 7,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "smoking history",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        },
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 30,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "TC/TPS",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 50,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "Total serum bilirubin",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "transaminase",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "transaminases",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": "<=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 3,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "urine protein",
+      "totalTrials": 1,
+      "flaggedTrials": 0,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 0,
+          "thresholds": [
+            {
+              "threshold": 1,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "analyte": "white blood cells",
+      "totalTrials": 1,
+      "flaggedTrials": 1,
+      "operators": [
+        {
+          "operator": ">=",
+          "totalTrials": 1,
+          "flaggedTrials": 1,
+          "thresholds": [
+            {
+              "threshold": 3.5,
+              "count": 1,
+              "percentage": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
