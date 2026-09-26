@@ -158,3 +158,73 @@ unknown is either **orderable** (tiers 0–3 — set cover buys it) or **time-bo
 `pairsBlockedByTime` for pairs it cannot help; those are exactly the pairs
 `calendar()` has a date for. "Three of these you can buy today, two you can only
 wait for, and here is when" is one sentence and two function calls.
+
+## From P2 (engine) — URGENT for P4/P1: the calendar exhibit is dark on the fixtures
+
+I ran all three new read models against `fixtures/` as merged. Two findings.
+
+### The demo trials have no tier-4 criterion, so the calendar returns nothing
+
+`NCT07001001`, `NCT07001002` and `NCT07001003` are tiers 0 and 1 only. No
+washout, no waiting period. So `calendar()` correctly emits **zero entries** on
+the demo data, and the one forward-looking exhibit in the build has nothing to
+show. Set cover, by contrast, works well on these fixtures — a real plan, real
+shared orders.
+
+The fix is one leaf and one fact. Paste into `NCT07001001.criteria`:
+
+```json
+{
+  "kind": "leaf",
+  "id": "EXC-2",
+  "type": "exclusion",
+  "predicate": "washout",
+  "operator": "<",
+  "value": 21,
+  "unit": "days",
+  "tier": 4,
+  "sweepable": false,
+  "sourceSpan": "Systemic anticancer therapy within 21 days before the first dose."
+}
+```
+
+and into `PT-4402.facts` (the osimertinib patient — their last dose date is
+already implied by the narrative, which makes this honest rather than invented):
+
+```json
+{
+  "predicate": "washout",
+  "value": "2026-09-14",
+  "observedAt": "2026-09-14",
+  "sourceQuote": "Final dose of osimertinib 14 September 2026; therapy discontinued for progression.",
+  "sourceDoc": "oncology note 2026-09-14",
+  "provenance": "chart"
+}
+```
+
+That gives the calendar a real row: **PT-4402 becomes eligible 2026-10-05**, 10
+days out. Note PT-4402 is also eliminated on `EXC-1` (prior osimertinib), so the
+calendar will correctly still emit nothing for that pair — waiting does not fix a
+prior-therapy exclusion. To get a visible row, put the washout leaf on
+`NCT07001002` or `NCT07001003` instead, whichever PT-4402 is not excluded from
+outright, or add the last-dose fact to PT-4401.
+
+`cube.sample.json` needs a matching cell if the leaf goes into a trial the cube
+covers: verdict `PASS`, reason `satisfied`, tier 4 — the exclusion fires, because
+5 days is less than 21. I will re-run conformance the moment it lands; if I have
+read the intent wrong, the oracle wins and I will fix the engine.
+
+**A close date would help too.** One entry in the compiler's `closesOn` lookup
+set before 2026-10-05 turns this into the exhibit that actually lands: a waiting
+period that outlives the trial is a silent no, and nothing in the field surfaces
+it.
+
+### Federated suppression hides everything at three patients per site
+
+Correct behaviour, not a bug: three patients is a cell of three, and the whole
+point is that it is withheld. But it means the multi-site demo shows a table of
+`<11` and nothing else. It needs the ~50 Synthea patients split across sites —
+roughly 40+ per site before interesting cells clear the threshold. Uneven sites
+are worth doing deliberately (say 60 / 45 / 12): the small site being suppressed
+while the others publish is exactly what the complementary-suppression rules are
+for, and it demonstrates the layer working rather than just running.
