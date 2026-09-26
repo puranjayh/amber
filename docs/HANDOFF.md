@@ -254,3 +254,23 @@ their output as fixtures, computed by the engine over the sample cohort:
 
 Until they land the app uses a hand-written, clearly labelled placeholder in
 `app/_data/`.
+
+## From P3 (app) — generation step imports the engine; needs a build hook
+
+**Who this is for:** P1, who owns `package.json` and `docs/CONTRACT.md`.
+
+On instruction at 21:43, every number the app shows now comes from the engine.
+`app/_data/generate.ts` imports `@/src/engine` **read-only** (same terms as
+`src/eval` in §10), runs it over `fixtures/` plus `data/patients.json` when it
+exists, and writes `app/_data/*.json`. The Next app itself still imports only
+`src/contracts` and reads those JSON files. `components/generated.test.ts` fails if
+the committed JSON drifts from a fresh engine run, so it cannot be hand-edited.
+
+Please:
+
+- amend §10 to list `app/_data/generate.ts` alongside `src/eval` as a permitted
+  read-only engine import;
+- add to `package.json` scripts:
+  `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
+  `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
+  dependency).
