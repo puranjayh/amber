@@ -42,3 +42,6 @@ next-env.d.ts
 
 # compiler output
 data/raw/
+
+# raw CMS DE-SynPUF archives and extracted CSVs
+data/claims/raw/
