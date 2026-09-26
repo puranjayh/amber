@@ -6,11 +6,14 @@ Generated from CMS 2008–2010 Data Entrepreneurs' Synthetic Public Use File (DE
 
 - Beneficiaries: 1296
 - Lung-cancer inpatient claims: 1327
-- Beneficiaries with a mapped platinum fill: 0
-- Beneficiaries with a mapped EGFR-TKI fill: 0
-- PDE rows in cohort without an exact oncology NDC mapping: 78489
+- Part B mapped chemotherapy administrations (carrier and outpatient): 114
+- Beneficiaries with Part B platinum administration: 80
+- Beneficiaries with Part D oral EGFR-TKI fill: 0
+- PDE rows in cohort not mapped to erlotinib/gefitinib by openFDA: 78489
 
-Only exact NDC-to-drug mappings are emitted as prior-therapy facts. An unresolved synthetic NDC is not silently treated as an anticancer treatment.
+Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, and J9171 docetaxel. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
+
+The 0 mapped oral EGFR-TKI beneficiaries reflect the 2008–2010 era and this synthetic Sample 1 subset. Targeted therapy was much less prevalent than later eras; this is not evidence that an individual had no targeted treatment.
 
 ## Race distribution
 

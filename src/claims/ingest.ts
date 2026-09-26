@@ -16,10 +16,15 @@ export const CLAIMS_AS_OF = "2010-12-31";
 export const BENEFICIARY_SOURCE = "CMS DE-SynPUF Sample 1 Beneficiary Summary";
 export const INPATIENT_SOURCE = "CMS DE-SynPUF Sample 1 Inpatient Claims";
 export const PDE_SOURCE = "CMS DE-SynPUF Sample 1 Prescription Drug Events";
+export const OUTPATIENT_SOURCE = "CMS DE-SynPUF Sample 1 Outpatient Claims";
+export const CARRIER_SOURCE = "CMS DE-SynPUF Sample 1 Carrier Claims";
+const OPENFDA_NDC_ENDPOINT = "https://api.fda.gov/drug/ndc.json";
 
 export interface IngestionPaths {
   beneficiarySummaryPaths: string[];
   inpatientClaimsPath: string;
+  outpatientClaimsPath: string;
+  carrierClaimsPaths: string[];
   prescriptionDrugEventsPath: string;
   patientsOutputPath: string;
   cohortOutputPath: string;
@@ -31,6 +36,11 @@ export const defaultIngestionPaths = (): IngestionPaths => ({
     "data/claims/raw/DE1_0_2009_Beneficiary_Summary_File_Sample_1.csv",
   ],
   inpatientClaimsPath: "data/claims/raw/DE1_0_2008_to_2010_Inpatient_Claims_Sample_1.csv",
+  outpatientClaimsPath: "data/claims/raw/DE1_0_2008_to_2010_Outpatient_Claims_Sample_1.csv",
+  carrierClaimsPaths: [
+    "data/claims/raw/DE1_0_2008_to_2010_Carrier_Claims_Sample_1A.csv",
+    "data/claims/raw/DE1_0_2008_to_2010_Carrier_Claims_Sample_1B.csv",
+  ],
   prescriptionDrugEventsPath: "data/claims/raw/DE1_0_2008_to_2010_Prescription_Drug_Events_Sample_1.csv",
   patientsOutputPath: "data/claims/patients.json",
   cohortOutputPath: "data/claims/COHORT.md",
@@ -42,9 +52,17 @@ export interface ClaimsPatientBuild {
   patients: PatientRecord[];
   cohortIds: Set<string>;
   lungCancerClaimCount: number;
+  mappedPartBFacts: number;
   mappedPdeFacts: number;
   unresolvedPdeRows: number;
 }
+
+export interface ResolvedDrug {
+  drug: string;
+  drugClass: string;
+}
+
+export type NdcResolver = () => Promise<Map<string, ResolvedDrug>>;
 
 /** Minimal RFC-4180 parser; DE-SynPUF rows are comma-delimited but headers are quoted. */
 export function parseCsvLine(line: string): string[] {
@@ -86,8 +104,8 @@ async function eachCsvRow(path: string, visit: (row: CsvRow, rawLine: string) =>
   }
 }
 
-function isoDate(value: string): string | undefined {
-  const digits = value.replace(/\D/g, "");
+function isoDate(value: string | undefined): string | undefined {
+  const digits = (value ?? "").replace(/\D/g, "");
   if (!/^\d{8}$/.test(digits)) return undefined;
   const year = Number(digits.slice(0, 4));
   const month = Number(digits.slice(4, 6));
@@ -138,17 +156,58 @@ function claimsFact(fact: Omit<Fact, "provenance">): Fact {
   return { ...fact, provenance: "claims" };
 }
 
-/**
- * The only NDC classes we emit are exact, independently curated mappings.  Unknown
- * synthetic NDCs are deliberately omitted rather than guessed as cancer therapy.
- */
-export const ONCOLOGY_NDC_CLASSES: Record<string, { drug: string; drugClass: string }> = {
-  "00078062815": { drug: "gefitinib", drugClass: "EGFR_TKI" },
-  "50242006401": { drug: "erlotinib", drugClass: "EGFR_TKI" },
-  "00078069415": { drug: "osimertinib", drugClass: "EGFR_TKI" },
-  "63323010202": { drug: "carboplatin", drugClass: "PLATINUM" },
-  "07030030501": { drug: "cisplatin", drugClass: "PLATINUM" },
+/** Infused oncology agents are Part B HCPCS line items, not Part D PDE fills. */
+export const PART_B_HCPCS_DRUGS: Record<string, ResolvedDrug> = {
+  J9045: { drug: "carboplatin", drugClass: "PLATINUM" },
+  J9060: { drug: "cisplatin", drugClass: "PLATINUM" },
+  J9305: { drug: "pemetrexed", drugClass: "ANTIFOLATE" },
+  J9171: { drug: "docetaxel", drugClass: "TAXANE" },
 };
+
+const ORAL_EGFR_TKIS: readonly ResolvedDrug[] = [
+  { drug: "erlotinib", drugClass: "EGFR_TKI" },
+  { drug: "gefitinib", drugClass: "EGFR_TKI" },
+];
+
+/** Convert hyphenated FDA package NDCs and 11-digit PDE NDCs to 5-4-2 form. */
+export function normalizeNdc(value: string): string | undefined {
+  const parts = value.trim().split("-").map((part) => part.replace(/\D/g, "")).filter(Boolean);
+  if (parts.length === 3) {
+    const [labeler, product, packageCode] = parts;
+    if (labeler.length > 5 || product.length > 4 || packageCode.length > 2) return undefined;
+    return `${labeler.padStart(5, "0")}${product.padStart(4, "0")}${packageCode.padStart(2, "0")}`;
+  }
+  const digits = value.replace(/\D/g, "");
+  return /^\d{10,11}$/.test(digits) ? digits.padStart(11, "0") : undefined;
+}
+
+interface OpenFdaNdcResponse {
+  results?: Array<{ packaging?: Array<{ package_ndc?: string }> }>;
+}
+
+/**
+ * Resolve package NDCs from openFDA at ingestion time. The directory supplies
+ * the NDC mapping; this code only supplies the clinically narrow class mapping.
+ */
+export async function resolveOpenFdaOralEgfrTkiNdc(
+  fetcher: typeof fetch = fetch,
+): Promise<Map<string, ResolvedDrug>> {
+  const resolved = new Map<string, ResolvedDrug>();
+  for (const drug of ORAL_EGFR_TKIS) {
+    const query = new URLSearchParams({ search: `generic_name:"${drug.drug}"`, limit: "100" });
+    const response = await fetcher(`${OPENFDA_NDC_ENDPOINT}?${query}`);
+    if (response.status === 404) continue;
+    if (!response.ok) throw new Error(`openFDA NDC lookup for ${drug.drug} failed: ${response.status} ${response.statusText}`);
+    const payload = await response.json() as OpenFdaNdcResponse;
+    for (const product of payload.results ?? []) {
+      for (const packaging of product.packaging ?? []) {
+        const ndc = packaging.package_ndc && normalizeNdc(packaging.package_ndc);
+        if (ndc) resolved.set(ndc, drug);
+      }
+    }
+  }
+  return resolved;
+}
 
 function patientId(desynpufId: string): string {
   return `CMS-S1-${desynpufId}`;
@@ -180,11 +239,14 @@ Generated from CMS 2008–2010 Data Entrepreneurs' Synthetic Public Use File (DE
 
 - Beneficiaries: ${build.patients.length}
 - Lung-cancer inpatient claims: ${build.lungCancerClaimCount}
-- Beneficiaries with a mapped platinum fill: ${platinum}
-- Beneficiaries with a mapped EGFR-TKI fill: ${tki}
-- PDE rows in cohort without an exact oncology NDC mapping: ${build.unresolvedPdeRows}
+- Part B mapped chemotherapy administrations (carrier and outpatient): ${build.mappedPartBFacts}
+- Beneficiaries with Part B platinum administration: ${platinum}
+- Beneficiaries with Part D oral EGFR-TKI fill: ${tki}
+- PDE rows in cohort not mapped to erlotinib/gefitinib by openFDA: ${build.unresolvedPdeRows}
 
-Only exact NDC-to-drug mappings are emitted as prior-therapy facts. An unresolved synthetic NDC is not silently treated as an anticancer treatment.
+Part B HCPCS J-codes identify infused administrations: J9045 carboplatin, J9060 cisplatin, J9305 pemetrexed, and J9171 docetaxel. Oral erlotinib/gefitinib NDCs are resolved from the openFDA NDC Directory at batch time. Any NDC or HCPCS code outside those exact mappings is not silently treated as anticancer therapy.
+
+${tki <= 5 ? `The ${tki} mapped oral EGFR-TKI beneficiaries reflect the 2008–2010 era and this synthetic Sample 1 subset. Targeted therapy was much less prevalent than later eras; this is not evidence that an individual had no targeted treatment.` : ""}
 
 ## Race distribution
 
@@ -210,7 +272,16 @@ ${reportDistribution(build.patients, (patient) => patient.zip?.slice(0, 2) ?? "U
 `;
 }
 
-export async function ingestClaims(paths: Partial<IngestionPaths> = {}): Promise<ClaimsPatientBuild> {
+function hcpcsCodes(row: CsvRow): string[] {
+  return Object.entries(row)
+    .filter(([column]) => column.startsWith("HCPCS_CD_"))
+    .map(([, code]) => code.trim().toUpperCase())
+    .filter((code) => Boolean(code));
+}
+
+export async function ingestClaims(
+  { ndcResolver = resolveOpenFdaOralEgfrTkiNdc, ...paths }: Partial<IngestionPaths> & { ndcResolver?: NdcResolver } = {},
+): Promise<ClaimsPatientBuild> {
   const config = { ...defaultIngestionPaths(), ...paths };
   const cohortIds = new Set<string>();
   const inpatientFacts = new Map<string, Fact[]>();
@@ -247,12 +318,39 @@ export async function ingestClaims(paths: Partial<IngestionPaths> = {}): Promise
     });
   }
 
+  const partBFacts = new Map<string, Fact[]>();
+  let mappedPartBFacts = 0;
+  const addPartBTherapyFacts = async (path: string, sourceDoc: string): Promise<void> => {
+    await eachCsvRow(path, (row, rawLine) => {
+      if (!cohortIds.has(row.DESYNPUF_ID)) return;
+      const facts = partBFacts.get(row.DESYNPUF_ID) ?? [];
+      for (const code of hcpcsCodes(row)) {
+        const resolved = PART_B_HCPCS_DRUGS[code];
+        if (!resolved) continue;
+        facts.push(claimsFact({
+          predicate: "prior_therapy",
+          value: resolved.drug,
+          drugClass: resolved.drugClass,
+          observedAt: claimDate(row),
+          sourceQuote: rawLine,
+          sourceDoc,
+        }));
+        mappedPartBFacts += 1;
+      }
+      if (facts.length) partBFacts.set(row.DESYNPUF_ID, facts);
+    });
+  };
+  await addPartBTherapyFacts(config.outpatientClaimsPath, OUTPATIENT_SOURCE);
+  for (const carrierPath of config.carrierClaimsPaths) await addPartBTherapyFacts(carrierPath, CARRIER_SOURCE);
+
   const pdeFacts = new Map<string, Fact[]>();
+  const ndcDrugs = await ndcResolver();
   let mappedPdeFacts = 0;
   let unresolvedPdeRows = 0;
   await eachCsvRow(config.prescriptionDrugEventsPath, (row, rawLine) => {
     if (!cohortIds.has(row.DESYNPUF_ID)) return;
-    const resolved = ONCOLOGY_NDC_CLASSES[row.PROD_SRVC_ID];
+    const ndc = normalizeNdc(row.PROD_SRVC_ID);
+    const resolved = ndc ? ndcDrugs.get(ndc) : undefined;
     if (!resolved) {
       unresolvedPdeRows += 1;
       return;
@@ -285,6 +383,7 @@ export async function ingestClaims(paths: Partial<IngestionPaths> = {}): Promise
         sourceDoc: BENEFICIARY_SOURCE,
       }),
       ...(inpatientFacts.get(id) ?? []),
+      ...(partBFacts.get(id) ?? []),
       ...(pdeFacts.get(id) ?? []),
     ];
     return [{
@@ -299,7 +398,7 @@ export async function ingestClaims(paths: Partial<IngestionPaths> = {}): Promise
     }];
   });
   const parsedPatients = Patient.array().parse(patients);
-  const build = { patients: parsedPatients, cohortIds, lungCancerClaimCount, mappedPdeFacts, unresolvedPdeRows };
+  const build = { patients: parsedPatients, cohortIds, lungCancerClaimCount, mappedPartBFacts, mappedPdeFacts, unresolvedPdeRows };
   await mkdir(dirname(resolve(config.patientsOutputPath)), { recursive: true });
   await writeFile(resolve(config.patientsOutputPath), `${JSON.stringify(parsedPatients, null, 2)}\n`, "utf8");
   await mkdir(dirname(resolve(config.cohortOutputPath)), { recursive: true });
@@ -309,6 +408,6 @@ export async function ingestClaims(paths: Partial<IngestionPaths> = {}): Promise
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
   void ingestClaims().then((build) => {
-    console.log(`Wrote ${build.patients.length} claims-derived patients; ${build.mappedPdeFacts} exact PDE drug-class mappings.`);
+    console.log(`Wrote ${build.patients.length} claims-derived patients; ${build.mappedPartBFacts} Part B and ${build.mappedPdeFacts} Part D therapy facts.`);
   });
 }
