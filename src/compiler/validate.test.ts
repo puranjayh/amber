@@ -27,8 +27,8 @@ test("reports numeric thresholds by analyte and excludes review-only trials", ()
 test("separates citation granularity from semantic review risk and queues only semantics", () => {
   const citation = {
     ...accepted,
-    trial: { ...accepted.trial, nctId: "NCT00000002", needsHumanReview: true },
-    reviewReasons: ["INC-1 sourceSpan near-verbatim", "INC-2 sourceSpan not verifiable; full source block retained"],
+    trial: { ...accepted.trial, nctId: "NCT00000002", needsHumanReview: false },
+    citationFlags: ["INC-1 sourceSpan near-verbatim", "INC-2 sourceSpan not verifiable; full source block retained"],
   } satisfies CompiledTrialResult;
   const semantic = {
     ...accepted,
@@ -54,6 +54,7 @@ test("separates citation granularity from semantic review risk and queues only s
       reasons: { "possible structural alternative has no OR group": 1 },
     },
   });
+  expect(buildCompilationCoverage([citation, semantic]).demoPoolTrials).toBe(1);
   expect(buildSemanticReviewQueue([citation, semantic])).toEqual({
     generatedFromTrials: 2,
     reviews: [{

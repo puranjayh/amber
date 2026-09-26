@@ -1,11 +1,13 @@
 /** Offline, batch-only eligibility compiler. Never import this from the app. */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { CriterionNode, Trial } from "@/src/contracts";
 import type { CriterionNode as CriterionNodeValue, Trial as TrialValue } from "@/src/contracts";
 import { RawClinicalTrial } from "@/src/compiler/fetch-trials";
+import { publishCompilationResults } from "@/src/compiler/publish";
+import { partitionReviewFlags } from "@/src/compiler/review-flags";
 
 export interface EligibilityBlock {
   type: "inclusion" | "exclusion" | "unknown";
@@ -20,8 +22,10 @@ export interface CompileFailure {
 export interface CompiledTrialResult {
   trial: TrialValue;
   failure?: CompileFailure;
-  /** A usable tree with a semantic concern that a human must inspect. */
+  /** A usable tree with a semantic concern that a human must inspect. Never citation-only. */
   reviewReasons?: string[];
+  /** Verbatim but coarse source citations; retained for audit, never demo-gating. */
+  citationFlags?: string[];
   sourceText: string;
 }
 
@@ -487,6 +491,7 @@ export async function compileTrial(
   const criteria: CriterionNodeValue[] = [];
   const issues: string[] = [];
   const reviewReasons: string[] = [];
+  const citationFlags: string[] = [];
   for (const block of extractEligibilityBlocks(sourceText)) {
     try {
       const candidate = await compileBlock(block);
@@ -494,7 +499,9 @@ export async function compileTrial(
       if (!checked.success) issues.push(...checked.issues);
       else {
         criteria.push(checked.data);
-        reviewReasons.push(...checked.reviewReasons);
+        const partitioned = partitionReviewFlags(checked.reviewReasons);
+        reviewReasons.push(...partitioned.semanticReasons);
+        citationFlags.push(...partitioned.citationFlags);
       }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
@@ -513,6 +520,7 @@ export async function compileTrial(
     trial: Trial.parse({ ...base, criteria, compilerConfidence: 1, needsHumanReview: reviewReasons.length > 0 }),
     sourceText,
     ...(reviewReasons.length ? { reviewReasons } : {}),
+    ...(citationFlags.length ? { citationFlags } : {}),
   };
 }
 
@@ -571,9 +579,8 @@ async function main(): Promise<void> {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, `${JSON.stringify(results, null, 2)}\n`, "utf8");
-  console.log(`Compiled ${results.length - results.filter((result) => result.failure).length}; rejected ${results.filter((result) => result.failure).length}`);
+  const published = await publishCompilationResults(results, outputPath);
+  console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {

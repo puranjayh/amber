@@ -4,12 +4,12 @@
     {
       "analyte": "age",
       "totalTrials": 186,
-      "flaggedTrials": 186,
+      "flaggedTrials": 76,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 8,
-          "flaggedTrials": 8,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 18,
@@ -41,7 +41,7 @@
         {
           "operator": "<=",
           "totalTrials": 59,
-          "flaggedTrials": 59,
+          "flaggedTrials": 24,
           "thresholds": [
             {
               "threshold": 49,
@@ -93,7 +93,7 @@
         {
           "operator": "==",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 80,
@@ -105,7 +105,7 @@
         {
           "operator": ">",
           "totalTrials": 13,
-          "flaggedTrials": 13,
+          "flaggedTrials": 4,
           "thresholds": [
             {
               "threshold": 18,
@@ -122,7 +122,7 @@
         {
           "operator": ">=",
           "totalTrials": 172,
-          "flaggedTrials": 172,
+          "flaggedTrials": 73,
           "thresholds": [
             {
               "threshold": 10,
@@ -191,12 +191,12 @@
     {
       "analyte": "washout",
       "totalTrials": 102,
-      "flaggedTrials": 102,
+      "flaggedTrials": 39,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 2,
@@ -228,7 +228,7 @@
         {
           "operator": "<=",
           "totalTrials": 85,
-          "flaggedTrials": 85,
+          "flaggedTrials": 31,
           "thresholds": [
             {
               "threshold": 1,
@@ -342,7 +342,7 @@
         {
           "operator": ">=",
           "totalTrials": 27,
-          "flaggedTrials": 27,
+          "flaggedTrials": 15,
           "thresholds": [
             {
               "threshold": 3,
@@ -411,12 +411,12 @@
     {
       "analyte": "performance_status",
       "totalTrials": 79,
-      "flaggedTrials": 79,
+      "flaggedTrials": 28,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -433,7 +433,7 @@
         {
           "operator": "<=",
           "totalTrials": 56,
-          "flaggedTrials": 56,
+          "flaggedTrials": 21,
           "thresholds": [
             {
               "threshold": 1,
@@ -455,7 +455,7 @@
         {
           "operator": "==",
           "totalTrials": 11,
-          "flaggedTrials": 11,
+          "flaggedTrials": 4,
           "thresholds": [
             {
               "threshold": 0,
@@ -472,7 +472,7 @@
         {
           "operator": ">",
           "totalTrials": 8,
-          "flaggedTrials": 8,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1,
@@ -504,7 +504,7 @@
         {
           "operator": ">=",
           "totalTrials": 12,
-          "flaggedTrials": 12,
+          "flaggedTrials": 6,
           "thresholds": [
             {
               "threshold": 0,
@@ -543,12 +543,12 @@
     {
       "analyte": "comorbidity",
       "totalTrials": 71,
-      "flaggedTrials": 71,
+      "flaggedTrials": 29,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 3,
@@ -580,7 +580,7 @@
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 4,
           "thresholds": [
             {
               "threshold": 1,
@@ -617,7 +617,7 @@
         {
           "operator": ">",
           "totalTrials": 22,
-          "flaggedTrials": 22,
+          "flaggedTrials": 9,
           "thresholds": [
             {
               "threshold": 0.5,
@@ -674,7 +674,7 @@
         {
           "operator": ">=",
           "totalTrials": 45,
-          "flaggedTrials": 45,
+          "flaggedTrials": 19,
           "thresholds": [
             {
               "threshold": 2,
@@ -728,12 +728,12 @@
     {
       "analyte": "ANC",
       "totalTrials": 33,
-      "flaggedTrials": 33,
+      "flaggedTrials": 12,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -745,7 +745,7 @@
         {
           "operator": ">=",
           "totalTrials": 30,
-          "flaggedTrials": 30,
+          "flaggedTrials": 10,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -779,12 +779,12 @@
     {
       "analyte": "creatinine clearance",
       "totalTrials": 23,
-      "flaggedTrials": 23,
+      "flaggedTrials": 4,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 40,
@@ -801,7 +801,7 @@
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 40,
@@ -813,7 +813,7 @@
         {
           "operator": ">",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 30,
@@ -840,7 +840,7 @@
         {
           "operator": ">=",
           "totalTrials": 17,
-          "flaggedTrials": 17,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 30,
@@ -864,12 +864,12 @@
     {
       "analyte": "AST/ALT",
       "totalTrials": 22,
-      "flaggedTrials": 22,
+      "flaggedTrials": 4,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -881,7 +881,7 @@
         {
           "operator": "<=",
           "totalTrials": 20,
-          "flaggedTrials": 20,
+          "flaggedTrials": 4,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -908,7 +908,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -922,12 +922,12 @@
     {
       "analyte": "prior_therapy",
       "totalTrials": 22,
-      "flaggedTrials": 22,
+      "flaggedTrials": 4,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 4,
@@ -939,7 +939,7 @@
         {
           "operator": "<=",
           "totalTrials": 9,
-          "flaggedTrials": 9,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 2,
@@ -981,7 +981,7 @@
         {
           "operator": "==",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0,
@@ -998,7 +998,7 @@
         {
           "operator": ">",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1,
@@ -1040,7 +1040,7 @@
         {
           "operator": ">=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 0.5,
@@ -1069,12 +1069,12 @@
     {
       "analyte": "Hemoglobin",
       "totalTrials": 21,
-      "flaggedTrials": 21,
+      "flaggedTrials": 3,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -1086,7 +1086,7 @@
         {
           "operator": ">=",
           "totalTrials": 19,
-          "flaggedTrials": 19,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 8,
@@ -1115,12 +1115,12 @@
     {
       "analyte": "staging",
       "totalTrials": 21,
-      "flaggedTrials": 21,
+      "flaggedTrials": 8,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -1142,7 +1142,7 @@
         {
           "operator": "<=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 2,
@@ -1174,7 +1174,7 @@
         {
           "operator": ">",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 2,
@@ -1196,7 +1196,7 @@
         {
           "operator": ">=",
           "totalTrials": 13,
-          "flaggedTrials": 13,
+          "flaggedTrials": 6,
           "thresholds": [
             {
               "threshold": 1,
@@ -1240,12 +1240,12 @@
     {
       "analyte": "platelets",
       "totalTrials": 18,
-      "flaggedTrials": 18,
+      "flaggedTrials": 3,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -1272,7 +1272,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 450000,
@@ -1284,7 +1284,7 @@
         {
           "operator": ">=",
           "totalTrials": 13,
-          "flaggedTrials": 13,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 75,
@@ -1318,12 +1318,12 @@
     {
       "analyte": "hemoglobin",
       "totalTrials": 17,
-      "flaggedTrials": 17,
+      "flaggedTrials": 4,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 8,
@@ -1335,7 +1335,7 @@
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -1352,7 +1352,7 @@
         {
           "operator": ">=",
           "totalTrials": 12,
-          "flaggedTrials": 12,
+          "flaggedTrials": 4,
           "thresholds": [
             {
               "threshold": 8,
@@ -1376,12 +1376,12 @@
     {
       "analyte": "QTcF",
       "totalTrials": 17,
-      "flaggedTrials": 17,
+      "flaggedTrials": 4,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 470,
@@ -1393,7 +1393,7 @@
         {
           "operator": ">",
           "totalTrials": 13,
-          "flaggedTrials": 13,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 470,
@@ -1410,7 +1410,7 @@
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 470,
@@ -1429,12 +1429,12 @@
     {
       "analyte": "lab_value",
       "totalTrials": 15,
-      "flaggedTrials": 15,
+      "flaggedTrials": 5,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 0.06,
@@ -1451,7 +1451,7 @@
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 3,
@@ -1483,7 +1483,7 @@
         {
           "operator": ">=",
           "totalTrials": 9,
-          "flaggedTrials": 9,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 0.45,
@@ -1522,12 +1522,12 @@
     {
       "analyte": "Total bilirubin",
       "totalTrials": 15,
-      "flaggedTrials": 15,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 14,
-          "flaggedTrials": 14,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1563,12 +1563,12 @@
     {
       "analyte": "Platelets",
       "totalTrials": 14,
-      "flaggedTrials": 14,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 75000,
@@ -1585,7 +1585,7 @@
         {
           "operator": ">=",
           "totalTrials": 12,
-          "flaggedTrials": 12,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 75,
@@ -1609,12 +1609,12 @@
     {
       "analyte": "LVEF",
       "totalTrials": 13,
-      "flaggedTrials": 13,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 40,
@@ -1631,7 +1631,7 @@
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 40,
@@ -1648,7 +1648,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -1660,7 +1660,7 @@
         {
           "operator": ">=",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -1674,12 +1674,12 @@
     {
       "analyte": "PLT",
       "totalTrials": 13,
-      "flaggedTrials": 13,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 13,
-          "flaggedTrials": 13,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 75,
@@ -1713,12 +1713,12 @@
     {
       "analyte": "ALT/AST",
       "totalTrials": 11,
-      "flaggedTrials": 11,
+      "flaggedTrials": 5,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 9,
-          "flaggedTrials": 9,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -1754,12 +1754,12 @@
     {
       "analyte": "creatinine",
       "totalTrials": 11,
-      "flaggedTrials": 11,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1771,7 +1771,7 @@
         {
           "operator": "<=",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1783,7 +1783,7 @@
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1802,12 +1802,12 @@
     {
       "analyte": "diagnosis",
       "totalTrials": 11,
-      "flaggedTrials": 11,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 6,
@@ -1819,7 +1819,7 @@
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 5,
@@ -1831,7 +1831,7 @@
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 6,
@@ -1848,7 +1848,7 @@
         {
           "operator": ">=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 2,
@@ -1872,12 +1872,12 @@
     {
       "analyte": "ALT",
       "totalTrials": 10,
-      "flaggedTrials": 10,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -1889,7 +1889,7 @@
         {
           "operator": "<=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1911,7 +1911,7 @@
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -1928,7 +1928,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -1942,12 +1942,12 @@
     {
       "analyte": "Absolute neutrophil count",
       "totalTrials": 9,
-      "flaggedTrials": 9,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 9,
-          "flaggedTrials": 9,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1,
@@ -1976,12 +1976,12 @@
     {
       "analyte": "bilirubin",
       "totalTrials": 9,
-      "flaggedTrials": 9,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -1993,7 +1993,7 @@
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2010,7 +2010,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -2024,12 +2024,12 @@
     {
       "analyte": "contraindication",
       "totalTrials": 9,
-      "flaggedTrials": 9,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 4,
@@ -2041,7 +2041,7 @@
         {
           "operator": "<=",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 3,
@@ -2073,7 +2073,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 180,
@@ -2085,7 +2085,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 10,
@@ -2099,12 +2099,12 @@
     {
       "analyte": "TBIL",
       "totalTrials": 9,
-      "flaggedTrials": 9,
+      "flaggedTrials": 3,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 9,
-          "flaggedTrials": 9,
+          "flaggedTrials": 3,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2118,12 +2118,12 @@
     {
       "analyte": "AST",
       "totalTrials": 8,
-      "flaggedTrials": 8,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -2135,7 +2135,7 @@
         {
           "operator": "<=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2157,7 +2157,7 @@
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -2176,7 +2176,7 @@
     {
       "analyte": "Platelet count",
       "totalTrials": 8,
-      "flaggedTrials": 8,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
@@ -2193,7 +2193,7 @@
         {
           "operator": ">=",
           "totalTrials": 7,
-          "flaggedTrials": 7,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 80,
@@ -2222,12 +2222,12 @@
     {
       "analyte": "QTc",
       "totalTrials": 8,
-      "flaggedTrials": 8,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 470,
@@ -2239,7 +2239,7 @@
         {
           "operator": ">",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 450,
@@ -2261,7 +2261,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 500,
@@ -2275,12 +2275,12 @@
     {
       "analyte": "CrCl",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 45,
@@ -2297,7 +2297,7 @@
         {
           "operator": ">=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 40,
@@ -2326,12 +2326,12 @@
     {
       "analyte": "Creatinine",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2343,7 +2343,7 @@
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -2362,12 +2362,12 @@
     {
       "analyte": "FEV1",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -2384,7 +2384,7 @@
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -2401,7 +2401,7 @@
         {
           "operator": ">=",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.2,
@@ -2430,12 +2430,12 @@
     {
       "analyte": "INR",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.4,
@@ -2447,7 +2447,7 @@
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2461,12 +2461,12 @@
     {
       "analyte": "Serum creatinine",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2478,7 +2478,7 @@
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2492,12 +2492,12 @@
     {
       "analyte": "total bilirubin",
       "totalTrials": 7,
-      "flaggedTrials": 7,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 6,
-          "flaggedTrials": 6,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2509,7 +2509,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2523,12 +2523,12 @@
     {
       "analyte": "APTT",
       "totalTrials": 6,
-      "flaggedTrials": 6,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2540,7 +2540,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2554,7 +2554,7 @@
     {
       "analyte": "Creatinine clearance",
       "totalTrials": 6,
-      "flaggedTrials": 6,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
@@ -2571,7 +2571,7 @@
         {
           "operator": ">=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -2600,12 +2600,12 @@
     {
       "analyte": "PD-L1 TPS",
       "totalTrials": 6,
-      "flaggedTrials": 6,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -2617,7 +2617,7 @@
         {
           "operator": ">=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1,
@@ -2636,12 +2636,12 @@
     {
       "analyte": "systolic blood pressure",
       "totalTrials": 6,
-      "flaggedTrials": 6,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 150,
@@ -2663,7 +2663,7 @@
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 140,
@@ -2682,12 +2682,12 @@
     {
       "analyte": "WBC",
       "totalTrials": 6,
-      "flaggedTrials": 6,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2000,
@@ -2711,7 +2711,7 @@
         {
           "operator": ">=",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -2735,12 +2735,12 @@
     {
       "analyte": "biomarker",
       "totalTrials": 5,
-      "flaggedTrials": 5,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 0.5,
@@ -2762,7 +2762,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.34,
@@ -2774,7 +2774,7 @@
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 0.25,
@@ -2803,12 +2803,12 @@
     {
       "analyte": "eGFR",
       "totalTrials": 5,
-      "flaggedTrials": 5,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 25,
@@ -2830,7 +2830,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 60,
@@ -2856,12 +2856,12 @@
     {
       "analyte": "HGB",
       "totalTrials": 5,
-      "flaggedTrials": 5,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 60,
@@ -2873,7 +2873,7 @@
         {
           "operator": ">=",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -2902,12 +2902,12 @@
     {
       "analyte": "Neutrophils",
       "totalTrials": 5,
-      "flaggedTrials": 5,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 5,
-          "flaggedTrials": 5,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -2926,12 +2926,12 @@
     {
       "analyte": "platelet count",
       "totalTrials": 5,
-      "flaggedTrials": 5,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 100000,
@@ -2955,7 +2955,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 80,
@@ -2967,7 +2967,7 @@
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 100,
@@ -2981,12 +2981,12 @@
     {
       "analyte": "AST/ALT/ALP",
       "totalTrials": 4,
-      "flaggedTrials": 4,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -3005,12 +3005,12 @@
     {
       "analyte": "Cr",
       "totalTrials": 4,
-      "flaggedTrials": 4,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 4,
-          "flaggedTrials": 4,
+          "flaggedTrials": 2,
           "thresholds": [
             {
               "threshold": 1,
@@ -3029,12 +3029,12 @@
     {
       "analyte": "haemoglobin",
       "totalTrials": 4,
-      "flaggedTrials": 4,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -3051,7 +3051,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -3077,12 +3077,12 @@
     {
       "analyte": "HBV DNA",
       "totalTrials": 4,
-      "flaggedTrials": 4,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 100,
@@ -3099,7 +3099,7 @@
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 500,
@@ -3118,7 +3118,7 @@
     {
       "analyte": "PD-L1",
       "totalTrials": 4,
-      "flaggedTrials": 4,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
@@ -3147,7 +3147,7 @@
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -3166,12 +3166,12 @@
     {
       "analyte": "absolute neutrophil count",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3183,7 +3183,7 @@
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3197,12 +3197,12 @@
     {
       "analyte": "Bilirubin",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1,
@@ -3219,7 +3219,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -3233,12 +3233,12 @@
     {
       "analyte": "GFR",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -3250,7 +3250,7 @@
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 60,
@@ -3269,12 +3269,12 @@
     {
       "analyte": "Hb",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 9,
@@ -3293,12 +3293,12 @@
     {
       "analyte": "NEUT#",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3312,12 +3312,12 @@
     {
       "analyte": "neutrophils",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3336,12 +3336,12 @@
     {
       "analyte": "serum creatinine",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 3,
-          "flaggedTrials": 3,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3355,7 +3355,7 @@
     {
       "analyte": "weight",
       "totalTrials": 3,
-      "flaggedTrials": 3,
+      "flaggedTrials": 2,
       "operators": [
         {
           "operator": "<",
@@ -3384,7 +3384,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -3398,12 +3398,12 @@
     {
       "analyte": "albumin",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -3417,12 +3417,12 @@
     {
       "analyte": "Alkaline phosphatase",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -3434,7 +3434,7 @@
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -3448,12 +3448,12 @@
     {
       "analyte": "ALT or AST",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -3465,7 +3465,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 10,
@@ -3479,12 +3479,12 @@
     {
       "analyte": "body weight",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 30,
@@ -3498,12 +3498,12 @@
     {
       "analyte": "Ccr",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 60,
@@ -3517,12 +3517,12 @@
     {
       "analyte": "diastolic blood pressure",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 90,
@@ -3541,7 +3541,7 @@
     {
       "analyte": "Haemoglobin",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<",
@@ -3558,7 +3558,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 90,
@@ -3572,12 +3572,12 @@
     {
       "analyte": "INR/APTT/PT",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3591,12 +3591,12 @@
     {
       "analyte": "INR/PT",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3610,12 +3610,12 @@
     {
       "analyte": "ionized calcium",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3629,12 +3629,12 @@
     {
       "analyte": "life expectancy",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 12,
@@ -3648,12 +3648,12 @@
     {
       "analyte": "lymphocyte count",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1000,
@@ -3665,7 +3665,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0.6,
@@ -3679,12 +3679,12 @@
     {
       "analyte": "survival",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 3,
@@ -3703,12 +3703,12 @@
     {
       "analyte": "Total Bilirubin",
       "totalTrials": 2,
-      "flaggedTrials": 2,
+      "flaggedTrials": 1,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 2,
-          "flaggedTrials": 2,
+          "flaggedTrials": 1,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3722,12 +3722,12 @@
     {
       "analyte": "24-hour urinary protein",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -3741,12 +3741,12 @@
     {
       "analyte": "24-hour urine creatinine clearance",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -3760,12 +3760,12 @@
     {
       "analyte": "Activated partial thromboplastin time",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3779,12 +3779,12 @@
     {
       "analyte": "AFP",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 100,
@@ -3798,12 +3798,12 @@
     {
       "analyte": "ALB",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 25,
@@ -3817,12 +3817,12 @@
     {
       "analyte": "Albumin",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 25,
@@ -3836,12 +3836,12 @@
     {
       "analyte": "ALP",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -3860,12 +3860,12 @@
     {
       "analyte": "ALT/AST+ALP",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3879,12 +3879,12 @@
     {
       "analyte": "amylase",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3917,12 +3917,12 @@
     {
       "analyte": "aPTT",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -3936,12 +3936,12 @@
     {
       "analyte": "AST ALT alkaline phosphatase",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -3955,12 +3955,12 @@
     {
       "analyte": "AST/ALT/Alkaline phosphatase",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -3974,12 +3974,12 @@
     {
       "analyte": "blood oxygen",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 93,
@@ -3993,12 +3993,12 @@
     {
       "analyte": "Bun",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4012,12 +4012,12 @@
     {
       "analyte": "BUN/creatinine",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4031,12 +4031,12 @@
     {
       "analyte": "CCr",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 60,
@@ -4050,12 +4050,12 @@
     {
       "analyte": "CCR",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 60,
@@ -4069,12 +4069,12 @@
     {
       "analyte": "CD4 count",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 250,
@@ -4088,12 +4088,12 @@
     {
       "analyte": "CD4+ T-cell count",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 350,
@@ -4145,12 +4145,12 @@
     {
       "analyte": "creatinine clearance by MDRD",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -4164,12 +4164,12 @@
     {
       "analyte": "daily hemoptysis",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2.5,
@@ -4202,12 +4202,12 @@
     {
       "analyte": "DLCO",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 40,
@@ -4221,12 +4221,12 @@
     {
       "analyte": "DLCO/TLCO",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 40,
@@ -4240,12 +4240,12 @@
     {
       "analyte": "DLL3",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -4259,12 +4259,12 @@
     {
       "analyte": "EF",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -4278,12 +4278,12 @@
     {
       "analyte": "ejection fraction",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -4316,12 +4316,12 @@
     {
       "analyte": "FBG",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 126,
@@ -4335,12 +4335,12 @@
     {
       "analyte": "FEV1 post-resection",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 800,
@@ -4373,12 +4373,12 @@
     {
       "analyte": "granulocyte",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1500,
@@ -4430,12 +4430,12 @@
     {
       "analyte": "hematocrit",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 34,
@@ -4447,7 +4447,7 @@
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 55,
@@ -4499,12 +4499,12 @@
     {
       "analyte": "INR/aPTT",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4518,12 +4518,12 @@
     {
       "analyte": "INR/PT/aPTT",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4556,12 +4556,12 @@
     {
       "analyte": "Khorana score",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -4575,12 +4575,12 @@
     {
       "analyte": "LC",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0.5,
@@ -4613,12 +4613,12 @@
     {
       "analyte": "Leukocytes",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2500,
@@ -4651,12 +4651,12 @@
     {
       "analyte": "lipase",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4670,12 +4670,12 @@
     {
       "analyte": "Lymphocyte count",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0.5,
@@ -4689,12 +4689,12 @@
     {
       "analyte": "lymphocytes",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0.7,
@@ -4708,12 +4708,12 @@
     {
       "analyte": "Mirels score",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 7,
@@ -4727,12 +4727,12 @@
     {
       "analyte": "NE#",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 0.75,
@@ -4746,12 +4746,12 @@
     {
       "analyte": "Neut",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -4765,12 +4765,12 @@
     {
       "analyte": "neutrophil count",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4784,12 +4784,12 @@
     {
       "analyte": "Neutrophil count",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4803,12 +4803,12 @@
     {
       "analyte": "Oxygen saturation",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 90,
@@ -4822,12 +4822,12 @@
     {
       "analyte": "PaO₂/FiO₂",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 200,
@@ -4841,12 +4841,12 @@
     {
       "analyte": "PLCOM2012",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.58,
@@ -4879,12 +4879,12 @@
     {
       "analyte": "PPD induration",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 5,
@@ -4898,12 +4898,12 @@
     {
       "analyte": "proteinuria",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,
@@ -4917,12 +4917,12 @@
     {
       "analyte": "PT",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4936,12 +4936,12 @@
     {
       "analyte": "PT/APTT",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -4993,12 +4993,12 @@
     {
       "analyte": "SBP",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 150,
@@ -5012,12 +5012,12 @@
     {
       "analyte": "serum albumin",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -5031,12 +5031,12 @@
     {
       "analyte": "Serum bilirubin",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -5050,12 +5050,12 @@
     {
       "analyte": "Serum total bilirubin",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 2,
@@ -5069,12 +5069,12 @@
     {
       "analyte": "SINS",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 7,
@@ -5088,12 +5088,12 @@
     {
       "analyte": "smoking history",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -5105,7 +5105,7 @@
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 30,
@@ -5119,12 +5119,12 @@
     {
       "analyte": "TC/TPS",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 50,
@@ -5138,12 +5138,12 @@
     {
       "analyte": "Total serum bilirubin",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1.5,
@@ -5157,12 +5157,12 @@
     {
       "analyte": "transaminase",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -5176,12 +5176,12 @@
     {
       "analyte": "transaminases",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": "<=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 3,
@@ -5195,12 +5195,12 @@
     {
       "analyte": "urine protein",
       "totalTrials": 1,
-      "flaggedTrials": 1,
+      "flaggedTrials": 0,
       "operators": [
         {
           "operator": ">=",
           "totalTrials": 1,
-          "flaggedTrials": 1,
+          "flaggedTrials": 0,
           "thresholds": [
             {
               "threshold": 1,

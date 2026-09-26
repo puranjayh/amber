@@ -4,6 +4,9 @@ import { dirname, resolve } from "node:path";
 import { Trial } from "@/src/contracts";
 import type { CriterionLeaf, CriterionNode } from "@/src/contracts";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
+import { classifyReviewFlag, type ReviewFlagSeverity } from "@/src/compiler/review-flags";
+
+export { classifyReviewFlag } from "@/src/compiler/review-flags";
 
 export interface ThresholdBucket {
   threshold: number;
@@ -19,8 +22,6 @@ export interface CompilerReport {
   thresholdHistogram: Record<string, ThresholdBucket[]>;
   reviewFlags: ReviewFlagSummary;
 }
-
-export type ReviewFlagSeverity = "citation_granularity" | "semantic";
 
 export interface ReviewFlagClass {
   /** Unique trials carrying at least one flag in this class. */
@@ -94,15 +95,6 @@ function leaves(nodes: CriterionNode[]): CriterionLeaf[] {
   return result;
 }
 
-/** Coarser-but-verbatim citations are not semantic extraction failures. */
-export function classifyReviewFlag(reason: string): ReviewFlagSeverity {
-  if (/\bsourceSpan near-verbatim\b|\bsourceSpan not verifiable; full source block retained\b/.test(reason)) {
-    return "citation_granularity";
-  }
-  // Unknown future review reasons are conservative: never hide a possible logic error.
-  return "semantic";
-}
-
 function emptyReviewFlagClass(): ReviewFlagClass {
   return { trials: 0, flags: 0, reasons: {} };
 }
@@ -114,7 +106,8 @@ export function summarizeReviewFlags(results: CompiledTrialResult[]): ReviewFlag
   const semanticTrials = new Set<string>();
 
   for (const result of results) {
-    for (const reason of result.reviewReasons ?? []) {
+    const reasons = [...(result.reviewReasons ?? []), ...(result.citationFlags ?? [])];
+    for (const reason of reasons) {
       const severity = classifyReviewFlag(reason);
       const target = severity === "citation_granularity" ? citationGranularity : semantic;
       const trials = severity === "citation_granularity" ? citationTrials : semanticTrials;

@@ -1,8 +1,9 @@
 # Compiler status
 
-- Task 1 — blocked: DE-SynPUF ingestion conflicts with CONTRACT §1 ownership (`src/claims/**` and `data/claims/**`); handoff added to `docs/HANDOFF.md`.
-- Task 2 — blocked: `data/claims/COHORT.md` is P4-owned; the required scope and limitations are in `docs/HANDOFF.md`.
+- Task 1 — done: ingested DE-SynPUF Sample 1 lung-cancer cohort into `data/claims/patients.json`; all facts carry claims provenance and verbatim source lines, with no fabricated labs.
+- Task 2 — done: wrote `data/claims/COHORT.md`, including demographic distributions, mapped-therapy counts, synthetic-data limits, and the CMS Sample-20 link caveat.
 - Task 3 — done: model-draft evaluation ran over 130 cells (precision 100%, recall 100%, UNKNOWN agreement 100%, no disagreements); generated results are handed to P4 for data-lane commit.
 - Task 4 — done: added `src/eval/ingest-human.ts`; one command validates a human JSON label array, preserves human provenance, writes `labels.human.json`, and emits a separate human results report.
-- Task 5 — done/blocked: analyzed all 67 failures in `docs/REJECTIONS.md`; fixed non-numeric sweep hints and prepared exact-ID retries, but did not run them because `XAI_API_KEY` is unavailable and 46 failures are xAI credit-limit responses.
-- Review severity — done: `validate.ts` reports citation-granularity and semantic flags separately; `data/compiled/review-queue.json` contains the 37 semantic OR-structure reviews with source text and trees.
+- Task 5 — done/blocked: analyzed all 67 failures in `docs/REJECTIONS.md`; exact-ID retries are prepared but not run because `XAI_API_KEY` is absent and xAI credits are exhausted.
+- Corpus safety — done: compiler and backtranslation write to a temporary file, validate its tree count against the existing corpus, then atomically swap only if the new run is no worse. API work is prepared but not run while keys/credits are unavailable.
+- Review severity — done: citation-granularity flags now live in `citationFlags` and do not gate the demo; semantic/backtranslation flags do. The restored 233-tree corpus has 133 citation-only demo candidates and 100 semantic review-queue entries.

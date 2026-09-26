@@ -232,3 +232,15 @@ test("retains and flags near-verbatim citations, but replaces unverifiable ones 
     expect(unverifiable.reviewReasons).toEqual(["INC-1 sourceSpan not verifiable; full source block retained"]);
   }
 });
+
+test("records citation granularity without excluding an otherwise valid tree from the demo", async () => {
+  const source = "Inclusion Criteria:\n- Participant has histologically confirmed non-small cell lung cancer.";
+  const trial: RawClinicalTrial = { ...raw, protocolSection: { ...raw.protocolSection, eligibilityModule: { eligibilityCriteria: source } } };
+  const result = await compileTrial(trial, async () => ({
+    kind: "leaf", id: "INC-1", type: "inclusion", predicate: "diagnosis", operator: "==", value: "non-small cell lung cancer", tier: 0, sweepable: false,
+    sourceSpan: "Participant has histologically confirmed non-small cell lung canser.",
+  }));
+  expect(result.trial.needsHumanReview).toBe(false);
+  expect(result.reviewReasons).toBeUndefined();
+  expect(result.citationFlags).toEqual(["INC-1 sourceSpan near-verbatim"]);
+});

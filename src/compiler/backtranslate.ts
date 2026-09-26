@@ -2,13 +2,14 @@
  * Independent compiler defence: translate the structured tree back to prose
  * without exposing source spans, then compare it with the protocol's words.
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { Trial } from "@/src/contracts";
 import type { CriterionLeaf, CriterionNode, Trial as TrialValue } from "@/src/contracts";
 import type { CompiledTrialResult } from "@/src/compiler/compile";
+import { publishCompilationResults } from "@/src/compiler/publish";
 
 export interface Backtranslation {
   id: string;
@@ -130,12 +131,14 @@ export async function backtranslateTrial(
     return {
       ...result,
       trial: Trial.parse({ ...result.trial, needsHumanReview: true }),
+      reviewReasons: [...(result.reviewReasons ?? []), ...issues],
       failure: { nctId: result.trial.nctId, issues },
     };
   } catch (error) {
     return {
       ...result,
       trial: Trial.parse({ ...result.trial, needsHumanReview: true }),
+      reviewReasons: [...(result.reviewReasons ?? []), error instanceof Error ? error.message : "unknown backtranslation error"],
       failure: { nctId: result.trial.nctId, issues: [error instanceof Error ? error.message : "unknown backtranslation error"] },
     };
   }
@@ -155,8 +158,7 @@ async function main(): Promise<void> {
   const outputPath = resolve(process.argv[3] || "data/compiled/trials.backtranslated.json");
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const checked = await backtranslateTrials(results, createGrokBacktranslator());
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, `${JSON.stringify(checked, null, 2)}\n`, "utf8");
+  await publishCompilationResults(checked, outputPath);
   console.log(`Backtranslation flagged ${checked.filter((result) => result.trial.needsHumanReview).length} of ${checked.length} trials`);
 }
 
