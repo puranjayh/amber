@@ -32,7 +32,7 @@
  * into resolvable work — request the records. Rule 4 holds here as everywhere:
  * we are short of evidence, and being short of evidence is not evidence.
  */
-import type { Fact, Predicate } from "@/src/contracts";
+import type { CriterionLeaf, Fact, Predicate } from "@/src/contracts";
 
 export type Provenance = Fact["provenance"];
 
@@ -132,4 +132,109 @@ export function canConfirm(provenance: Provenance, predicate: Predicate): boolea
 /** Every predicate a claim can confirm, for documentation and tests. */
 export function claimsConfirmablePredicates(): Predicate[] {
   return [...CLAIMS_CAN_CONFIRM.keys()];
+}
+
+/* ------------------------------------------------- answerability, per criterion */
+
+/**
+ * Whether a criterion could be settled from a given source at all.
+ *
+ *   yes        the source records this directly
+ *   sometimes  it depends on the particular criterion — some instances are
+ *              visible in the data and some are not
+ *   never      the source cannot answer it in principle
+ *
+ * This is a different question from `ceilingFor`, and the difference matters.
+ * `ceilingFor` governs one fact during evaluation: may THIS fact produce a PASS.
+ * `answerableBy` governs a criterion before any patient is involved: could this
+ * data source ever settle it. That is what makes the coverage statistic possible
+ * — we can size the chart requirement across a whole trial pool without holding
+ * a single patient record.
+ *
+ * The two stay consistent, and coverage.test.ts asserts it: `never` here means a
+ * ceiling there, and `yes` or `sometimes` here means no ceiling there.
+ */
+export type Answerability = "yes" | "never" | "sometimes";
+
+/**
+ * Predicates a claim can never settle, because the claim is a proxy for a result
+ * it does not contain. Reasons are the ones to say out loud.
+ */
+const NEVER_FROM_CLAIMS: ReadonlyMap<Predicate, string> = CLAIMS_CANNOT_CONFIRM;
+
+/**
+ * Predicates where it genuinely depends on the criterion.
+ *
+ * A washout is usually visible — a pharmacy fill or a procedure claim carries a
+ * date of service — but only when the therapy being waited out bills at all, and
+ * a fill date is not always the administration date.
+ *
+ * A contraindication is visible when it is a concomitant drug, and invisible when
+ * it is a clinical judgement: "QTc > 470 ms" and "uncontrolled hypertension" are
+ * both contraindications and neither is in a claim.
+ */
+const SOMETIMES_FROM_CLAIMS: ReadonlyMap<Predicate, string> = new Map([
+  [
+    "washout",
+    "visible when the therapy bills; a fill date is not always an administration date",
+  ],
+  [
+    "contraindication",
+    "visible as a concomitant dispense, invisible when it is a clinical judgement",
+  ],
+]);
+
+/**
+ * Does this leaf encode a measurement rather than a coded event?
+ *
+ * A compiler sometimes files a threshold under a non-lab predicate — an ejection
+ * fraction as a comorbidity, a QTc as a contraindication. A numeric threshold on
+ * a named analyte with a unit is a measurement whatever it is filed under, and a
+ * claim never carries a measurement.
+ */
+function looksLikeMeasurement(leaf: CriterionLeaf): boolean {
+  return (
+    leaf.analyte !== undefined && leaf.unit !== undefined && typeof leaf.value === "number"
+  );
+}
+
+/** Could this source settle this criterion, and if not, why not. */
+export function answerableBy(leaf: CriterionLeaf, provenance: Provenance): Answerability {
+  if (provenance === "chart") return "yes";
+  // A patient's account is never evidence for a medical criterion; see above.
+  if (provenance === "patient_reported") return "never";
+
+  if (NEVER_FROM_CLAIMS.has(leaf.predicate)) return "never";
+  if (looksLikeMeasurement(leaf)) return "never";
+  if (SOMETIMES_FROM_CLAIMS.has(leaf.predicate)) return "sometimes";
+  return "yes";
+}
+
+/** The sentence behind an `answerableBy` verdict, for a table cell or a footnote. */
+export function explainAnswerability(
+  leaf: CriterionLeaf,
+  provenance: Provenance,
+): { answerable: Answerability; because: string } {
+  const answerable = answerableBy(leaf, provenance);
+  if (provenance === "chart") {
+    return { answerable, because: "the chart is the record" };
+  }
+  if (provenance === "patient_reported") {
+    return { answerable, because: "a patient's account is not a medical record" };
+  }
+  if (NEVER_FROM_CLAIMS.has(leaf.predicate)) {
+    return { answerable, because: NEVER_FROM_CLAIMS.get(leaf.predicate)! };
+  }
+  if (looksLikeMeasurement(leaf)) {
+    return {
+      answerable,
+      because: `a numeric threshold on ${leaf.analyte} is a measurement, and a claim never carries a measurement`,
+    };
+  }
+  const sometimes = SOMETIMES_FROM_CLAIMS.get(leaf.predicate);
+  if (sometimes !== undefined) return { answerable, because: sometimes };
+  return {
+    answerable,
+    because: CLAIMS_CAN_CONFIRM.get(leaf.predicate) ?? "a claim records this directly",
+  };
 }
