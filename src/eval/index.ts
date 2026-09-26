@@ -9,6 +9,7 @@ import { evaluate } from "@/src/engine";
 const VERDICTS = ["PASS", "FAIL", "UNKNOWN"] as const satisfies readonly Verdict[];
 
 export type LabelSource = "fixture" | "model-draft" | "human";
+export type EvaluationReportClass = "FIXTURE_CHECK" | "DRAFT_MODEL_AGREEMENT_NOT_FOR_PRESENTATION" | "HUMAN_LABELLED_EVALUATION";
 
 export interface HumanCellLabel {
   patientId: string;
@@ -44,8 +45,12 @@ export interface EvaluationIssue {
 export type ConfusionMatrix = Record<Verdict, Record<Verdict, number>>;
 
 export interface EvaluationReport {
-  /** Never present model-draft agreement as human-validated performance. */
+  /** Top-level provenance field — render this before any metric. */
   labelSource: LabelSource;
+  /** A UI-ready, non-ambiguous label for the origin and permitted use of this report. */
+  reportClass: EvaluationReportClass;
+  /** Copy supplied with the data so a draft score cannot be mis-captioned as accuracy. */
+  labelSourceNotice: string;
   evaluatedCells: number;
   issues: EvaluationIssue[];
   confusionMatrix: ConfusionMatrix;
@@ -91,6 +96,26 @@ function emptyMatrix(): ConfusionMatrix {
 function average(values: Array<number | null>): number | null {
   const present = values.filter((value): value is number => value !== null);
   return present.length ? present.reduce((sum, value) => sum + value, 0) / present.length : null;
+}
+
+function reportProvenance(labelSource: LabelSource): Pick<EvaluationReport, "reportClass" | "labelSourceNotice"> {
+  switch (labelSource) {
+    case "model-draft":
+      return {
+        reportClass: "DRAFT_MODEL_AGREEMENT_NOT_FOR_PRESENTATION",
+        labelSourceNotice: "NOT HUMAN-VALIDATED — model-draft agreement only. Do not present these metrics as accuracy; use the separately generated human-labelled report.",
+      };
+    case "human":
+      return {
+        reportClass: "HUMAN_LABELLED_EVALUATION",
+        labelSourceNotice: "HUMAN-LABELLED EVALUATION — this report is separate from the model-draft agreement report.",
+      };
+    default:
+      return {
+        reportClass: "FIXTURE_CHECK",
+        labelSourceNotice: "FIXTURE CHECK — deterministic test data, not a performance evaluation.",
+      };
+  }
 }
 
 export function evaluateHumanLabels({
@@ -169,6 +194,7 @@ export function evaluateHumanLabels({
 
   return {
     labelSource,
+    ...reportProvenance(labelSource),
     evaluatedCells: labels.length - issues.length,
     issues,
     confusionMatrix,
@@ -190,7 +216,8 @@ export function formatEvaluationReport(report: EvaluationReport): string {
     ? report.disagreements.map((item) => `  ${item.patientId} × ${item.trialTitle} / ${item.criterionId}: expected ${item.expected}, got ${item.actual}`).join("\n")
     : "  none";
   return [
-    `Label source: ${report.labelSource}`,
+    `LABEL SOURCE: ${report.labelSource} (${report.reportClass})`,
+    report.labelSourceNotice,
     `Evaluated ${report.evaluatedCells} labelled cells; ${report.issues.length} unresolved labels.`,
     `Precision: ${score(report.precision)} | Recall: ${score(report.recall)} | UNKNOWN agreement: ${score(report.unknownAgreement)}`,
     "Confusion matrix (human rows, engine columns):",

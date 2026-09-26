@@ -11,6 +11,7 @@ describe("evaluation harness", () => {
 
     expect(report.issues).toEqual([]);
     expect(report.labelSource).toBe("fixture");
+    expect(report.reportClass).toBe("FIXTURE_CHECK");
     expect(report.evaluatedCells).toBe(labels.length);
     expect(report.disagreements).toEqual([]);
     expect(report.confusionMatrix.PASS.PASS).toBeGreaterThan(0);
@@ -28,6 +29,8 @@ describe("evaluation harness", () => {
 
     expect(report.disagreements).toHaveLength(1);
     expect(report.labelSource).toBe("model-draft");
+    expect(report.reportClass).toBe("DRAFT_MODEL_AGREEMENT_NOT_FOR_PRESENTATION");
+    expect(report.labelSourceNotice).toContain("NOT HUMAN-VALIDATED");
     expect(report.disagreements[0]).toMatchObject({
       patientId: "PT-4401",
       criterionId: "INC-1",
