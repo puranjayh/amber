@@ -1,0 +1,2492 @@
+[
+  {
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "points": [
+      {
+        "threshold": 18,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 19,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 20,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 21,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 22,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 23,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 24,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 25,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 26,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 27,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 28,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 29,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 30,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 31,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 32,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 33,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 34,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 35,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 36,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 37,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 38,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 39,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 40,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 41,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 42,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 43,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 44,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 45,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 46,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 47,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 48,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 49,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 50,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 51,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 52,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 53,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 54,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 55,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 56,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 57,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 58,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 59,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 60,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 61,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 62,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 63,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 64,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 65,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 66,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 67,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 68,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 69,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 70,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 71,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 72,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 73,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 74,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 75,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 76,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 77,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 78,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 79,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 80,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "points": [
+      {
+        "threshold": 0,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 2,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 3,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "points": [
+      {
+        "threshold": 1000,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1100,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1200,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1300,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1400,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1500,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1600,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1700,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1800,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1900,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 2000,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "points": [
+      {
+        "threshold": 8,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 8.5,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 9,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 9.5,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 10,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 10.5,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 11,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 11.5,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 12,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "points": [
+      {
+        "threshold": 18,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 19,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 20,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 21,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 22,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 23,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 24,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 25,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 26,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 27,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 28,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 29,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 30,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 31,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 32,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 33,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 34,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 35,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 36,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 37,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 38,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 39,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 40,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 41,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 42,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 43,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 44,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 45,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 46,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 47,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 48,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 49,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 50,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 51,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 52,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 53,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 54,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 55,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 56,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 57,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 58,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 59,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 60,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 61,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 62,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 63,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 64,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 65,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 66,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 67,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 68,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 69,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 70,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 71,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 72,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 73,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 74,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 75,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 76,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 77,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 78,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 79,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 80,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "points": [
+      {
+        "threshold": 0,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 2,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 3,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001003",
+    "criterionId": "INC-1",
+    "points": [
+      {
+        "threshold": 18,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 19,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 20,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 21,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 22,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 23,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 24,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 25,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 26,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 27,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 28,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 29,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 30,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 31,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 32,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 33,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 34,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 35,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 36,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 37,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 38,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 39,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 40,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 41,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 42,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 43,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 44,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 45,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 46,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 47,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 48,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 49,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 50,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 51,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 52,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 53,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 54,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 55,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 56,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 57,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 58,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 59,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 60,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 61,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 62,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 63,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 64,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 65,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 66,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 67,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 68,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 69,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 70,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 71,
+        "eligibleCount": 1,
+        "excludedByThisAlone": 2,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 72,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 73,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 74,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 75,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 76,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 77,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 78,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 79,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 80,
+        "eligibleCount": 0,
+        "excludedByThisAlone": 3,
+        "bySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001003",
+    "criterionId": "INC-4",
+    "points": [
+      {
+        "threshold": 0,
+        "eligibleCount": 2,
+        "excludedByThisAlone": 1,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 0
+        }
+      },
+      {
+        "threshold": 1,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 2,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 3,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001003",
+    "criterionId": "INC-5",
+    "points": [
+      {
+        "threshold": 1000,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1100,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1200,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1300,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1400,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1500,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1600,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1700,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1800,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 1900,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 2000,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      }
+    ]
+  },
+  {
+    "nctId": "NCT07001003",
+    "criterionId": "INC-6",
+    "points": [
+      {
+        "threshold": 50,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 60,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 70,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 80,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 90,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 100,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 110,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 120,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 130,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 140,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      },
+      {
+        "threshold": 150,
+        "eligibleCount": 3,
+        "excludedByThisAlone": 0,
+        "bySubgroup": {
+          "Asian": 1,
+          "Black or African American": 1,
+          "White": 1
+        }
+      }
+    ]
+  }
+]

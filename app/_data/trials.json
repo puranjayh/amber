@@ -1,0 +1,361 @@
+[
+  {
+    "nctId": "NCT07001001",
+    "title": "DEMO-FL: First-line therapy for untreated EGFR-mutant advanced NSCLC",
+    "phase": "PHASE3",
+    "condition": "Non-small cell lung cancer",
+    "slots": 12,
+    "siteDistanceMinutes": 25,
+    "criteria": [
+      {
+        "kind": "leaf",
+        "id": "INC-1",
+        "type": "inclusion",
+        "predicate": "age",
+        "operator": ">=",
+        "value": 18,
+        "unit": "years",
+        "tier": 0,
+        "sweepable": true,
+        "sweepRange": [
+          18,
+          80
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "Age ≥ 18 years at screening."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-2",
+        "type": "inclusion",
+        "predicate": "diagnosis",
+        "operator": "==",
+        "value": "non-small cell lung cancer",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "Histologically or cytologically confirmed non-small cell lung cancer."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-3",
+        "type": "inclusion",
+        "predicate": "biomarker",
+        "operator": "in",
+        "value": [
+          "ex19del",
+          "L858R"
+        ],
+        "analyte": "EGFR",
+        "tier": 0,
+        "pFavorable": 0.2,
+        "sweepable": false,
+        "sourceSpan": "Documented EGFR exon 19 deletion or exon 21 L858R mutation."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-4",
+        "type": "inclusion",
+        "predicate": "performance_status",
+        "operator": "<=",
+        "value": 1,
+        "unit": "score",
+        "analyte": "ECOG",
+        "maxAgeDays": 28,
+        "tier": 1,
+        "pFavorable": 0.6,
+        "sweepable": true,
+        "sweepRange": [
+          0,
+          3
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "ECOG performance status of 0 or 1, assessed within 28 days before enrollment."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-5",
+        "type": "inclusion",
+        "predicate": "lab_value",
+        "operator": ">=",
+        "value": 1500,
+        "unit": "/uL",
+        "analyte": "ANC",
+        "maxAgeDays": 14,
+        "tier": 1,
+        "sweepable": true,
+        "sweepRange": [
+          1000,
+          2000
+        ],
+        "sweepStep": 100,
+        "sourceSpan": "Absolute neutrophil count ≥ 1500/μL within 14 days before enrollment."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-6",
+        "type": "inclusion",
+        "predicate": "lab_value",
+        "operator": ">=",
+        "value": 9,
+        "unit": "g/dL",
+        "analyte": "hemoglobin",
+        "maxAgeDays": 14,
+        "tier": 1,
+        "sweepable": true,
+        "sweepRange": [
+          8,
+          12
+        ],
+        "sweepStep": 0.5,
+        "sourceSpan": "Hemoglobin ≥ 9 g/dL within 14 days before enrollment."
+      },
+      {
+        "kind": "leaf",
+        "id": "EXC-1",
+        "type": "exclusion",
+        "predicate": "prior_therapy",
+        "operator": "==",
+        "value": true,
+        "analyte": "osimertinib",
+        "drugClass": "EGFR_TKI",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "Prior treatment with osimertinib."
+      }
+    ],
+    "dapTargets": {
+      "Asian": 0.15,
+      "Black or African American": 0.13,
+      "White": 0.6
+    },
+    "compilerConfidence": 1,
+    "needsHumanReview": false
+  },
+  {
+    "nctId": "NCT07001002",
+    "title": "DEMO-POST: Next-line therapy after progression on osimertinib",
+    "phase": "PHASE2",
+    "condition": "EGFR-mutant non-small cell lung cancer",
+    "slots": 6,
+    "siteDistanceMinutes": 40,
+    "criteria": [
+      {
+        "kind": "leaf",
+        "id": "INC-1",
+        "type": "inclusion",
+        "predicate": "age",
+        "operator": ">=",
+        "value": 18,
+        "unit": "years",
+        "tier": 0,
+        "sweepable": true,
+        "sweepRange": [
+          18,
+          80
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "Age ≥ 18 years."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-2",
+        "type": "inclusion",
+        "predicate": "diagnosis",
+        "operator": "==",
+        "value": "non-small cell lung cancer",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "Histologically confirmed non-small cell lung cancer."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-3",
+        "type": "inclusion",
+        "predicate": "prior_therapy",
+        "operator": "==",
+        "value": true,
+        "analyte": "osimertinib",
+        "drugClass": "EGFR_TKI",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "Radiologic progression during or after treatment with osimertinib."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-4",
+        "type": "inclusion",
+        "predicate": "biomarker",
+        "operator": "in",
+        "value": [
+          "T790M",
+          "C797S"
+        ],
+        "analyte": "EGFR",
+        "tier": 0,
+        "pFavorable": 0.1,
+        "sweepable": false,
+        "sourceSpan": "EGFR T790M or C797S detected on tissue or plasma after osimertinib."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-5",
+        "type": "inclusion",
+        "predicate": "performance_status",
+        "operator": "<=",
+        "value": 2,
+        "unit": "score",
+        "analyte": "ECOG",
+        "maxAgeDays": 28,
+        "tier": 1,
+        "pFavorable": 0.8,
+        "sweepable": true,
+        "sweepRange": [
+          0,
+          3
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "ECOG performance status of 0, 1, or 2 within 28 days before enrollment."
+      },
+      {
+        "kind": "leaf",
+        "id": "EXC-1",
+        "type": "exclusion",
+        "predicate": "comorbidity",
+        "operator": "==",
+        "value": true,
+        "analyte": "ILD",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "History of interstitial lung disease or drug-induced pneumonitis."
+      }
+    ],
+    "compilerConfidence": 0.92,
+    "needsHumanReview": false
+  },
+  {
+    "nctId": "NCT07001003",
+    "title": "DEMO-WIN: Platinum doublet with a 7-day laboratory window",
+    "phase": "PHASE3",
+    "condition": "Non-small cell lung cancer",
+    "slots": 20,
+    "siteDistanceMinutes": 90,
+    "criteria": [
+      {
+        "kind": "leaf",
+        "id": "INC-1",
+        "type": "inclusion",
+        "predicate": "age",
+        "operator": ">=",
+        "value": 18,
+        "unit": "years",
+        "tier": 0,
+        "sweepable": true,
+        "sweepRange": [
+          18,
+          80
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "Age ≥ 18 years."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-2",
+        "type": "inclusion",
+        "predicate": "diagnosis",
+        "operator": "==",
+        "value": "non-small cell lung cancer",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "Histologically or cytologically confirmed non-small cell lung cancer."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-3",
+        "type": "inclusion",
+        "predicate": "staging",
+        "operator": "in",
+        "value": [
+          "IIIB",
+          "IIIC",
+          "IV"
+        ],
+        "tier": 2,
+        "pFavorable": 0.5,
+        "sweepable": false,
+        "sourceSpan": "Stage IIIB, IIIC, or IV disease."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-4",
+        "type": "inclusion",
+        "predicate": "performance_status",
+        "operator": "<=",
+        "value": 1,
+        "unit": "score",
+        "analyte": "ECOG",
+        "maxAgeDays": 14,
+        "tier": 1,
+        "pFavorable": 0.6,
+        "sweepable": true,
+        "sweepRange": [
+          0,
+          3
+        ],
+        "sweepStep": 1,
+        "sourceSpan": "ECOG performance status of 0 or 1 within 14 days before the first dose."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-5",
+        "type": "inclusion",
+        "predicate": "lab_value",
+        "operator": ">=",
+        "value": 1500,
+        "unit": "/uL",
+        "analyte": "ANC",
+        "maxAgeDays": 7,
+        "tier": 1,
+        "sweepable": true,
+        "sweepRange": [
+          1000,
+          2000
+        ],
+        "sweepStep": 100,
+        "sourceSpan": "Absolute neutrophil count ≥ 1500/μL within 7 days before the first dose."
+      },
+      {
+        "kind": "leaf",
+        "id": "INC-6",
+        "type": "inclusion",
+        "predicate": "lab_value",
+        "operator": ">=",
+        "value": 100,
+        "unit": "10^9/L",
+        "analyte": "platelets",
+        "maxAgeDays": 7,
+        "tier": 1,
+        "sweepable": true,
+        "sweepRange": [
+          50,
+          150
+        ],
+        "sweepStep": 10,
+        "sourceSpan": "Platelet count ≥ 100 × 10^9/L within 7 days before the first dose."
+      },
+      {
+        "kind": "leaf",
+        "id": "EXC-1",
+        "type": "exclusion",
+        "predicate": "comorbidity",
+        "operator": "==",
+        "value": true,
+        "analyte": "ILD",
+        "tier": 0,
+        "sweepable": false,
+        "sourceSpan": "History of interstitial lung disease."
+      }
+    ],
+    "compilerConfidence": 0.88,
+    "needsHumanReview": false
+  }
+]

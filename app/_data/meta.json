@@ -1,0 +1,11 @@
+{
+  "asOf": "2026-09-25",
+  "sources": [
+    "fixtures/trials.sample.json",
+    "fixtures/patients.sample.json"
+  ],
+  "patients": 3,
+  "trials": 3,
+  "cells": 60,
+  "engineTree": "c4bc82c"
+}
