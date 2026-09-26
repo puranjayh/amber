@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
 import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
+import { MEASURED_BENCH, formatBench, formatDollars, formatRealProtocols, type ScreenFailures } from "./strip";
 
 export type WorklistItem = WorklistRow & {
   patient?: Patient;
@@ -37,7 +38,15 @@ function Blocking({ row }: { row: WorklistItem }) {
 
 const COLS = "md:grid md:grid-cols-[2.5rem_9rem_minmax(0,1fr)_6.5rem_minmax(0,12rem)_8rem] md:items-center md:gap-3";
 
-export function WorklistHeader({ strip }: { strip: WorklistStrip }) {
+export function WorklistHeader({
+  strip,
+  failures,
+  realProtocols = 0,
+}: {
+  strip: WorklistStrip;
+  failures: ScreenFailures;
+  realProtocols?: number;
+}) {
   const items = [
     {
       value: strip.pairsEvaluated,
@@ -60,18 +69,51 @@ export function WorklistHeader({ strip }: { strip: WorklistStrip }) {
   ] as const;
 
   return (
-    <dl className="grid grid-cols-3 overflow-hidden rounded-md border border-line bg-surface">
-      {items.map((item) => (
-        <div key={item.label} className="border-l border-line-2 px-3 py-2.5 first:border-l-0 sm:px-4" title={item.title}>
-          <dt className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-3">{item.label}</dt>
-          <dd className={`mt-0.5 font-mono text-[22px] leading-none ${item.tone}`}>{item.value}</dd>
-        </div>
-      ))}
-    </dl>
+    <div className="overflow-hidden rounded-md border border-line bg-surface">
+      <dl className="grid grid-cols-3">
+        {items.map((item) => (
+          <div key={item.label} className="border-l border-line-2 px-3 py-2.5 first:border-l-0 sm:px-4" title={item.title}>
+            <dt className="font-mono text-[10px] leading-tight uppercase tracking-[0.06em] text-ink-3">{item.label}</dt>
+            <dd className={`mt-0.5 font-mono text-[22px] leading-none ${item.tone}`}>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+      {realProtocols > 0 && (
+        <p className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink sm:px-4">
+          {formatRealProtocols(realProtocols)}
+        </p>
+      )}
+      <p
+        className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
+        title="Industry oncology screen-fail rate 62% × $2,000. AMBER only eliminates on a matching fact — absence stays UNKNOWN."
+      >
+        {failures.patientsScreened} screened · {failures.expectedFailures} expected failures at 62% ·{" "}
+        <span className="text-pass">{failures.failuresAvoided} avoided</span>
+        {" · "}
+        <span className="font-medium text-ink">{formatDollars(failures.dollarsAvoided)}</span>
+      </p>
+      <p
+        className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
+        title="Full cube, every cell emitted. 4,000 patients × 233 compiled trials."
+      >
+        {formatBench(MEASURED_BENCH)}
+      </p>
+    </div>
   );
 }
 
-export function Worklist({ rows }: { rows: WorklistItem[] }) {
+export function Worklist({
+  rows,
+  onSelect,
+  selectedId,
+  advanceTo,
+}: {
+  rows: WorklistItem[];
+  onSelect?: (row: WorklistItem) => void;
+  selectedId?: string;
+  /** When set, rows are buttons that ask DemoShell to reveal this beat. */
+  advanceTo?: number;
+}) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className={`hidden border-b border-line bg-canvas px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3 ${COLS}`}>
@@ -83,18 +125,19 @@ export function Worklist({ rows }: { rows: WorklistItem[] }) {
         <span>Resolution tier</span>
       </div>
       <ol>
-        {rows.map((row, i) => (
-          <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
-            <Link
-              href={`/patient?patient=${row.patientId}&trial=${row.nctId}`}
-              className={`block px-3 py-3 hover:bg-canvas sm:px-4 ${COLS}`}
-            >
+        {rows.map((row, i) => {
+          const selected = selectedId === row.patientId;
+          const cls = `block w-full px-3 py-3 text-left hover:bg-canvas sm:px-4 ${COLS} ${
+            selected ? "bg-canvas" : ""
+          }`;
+          const body = (
+            <>
               <span className="hidden font-mono text-[12px] text-ink-3 md:block">{i + 1}</span>
 
               <span className="flex items-baseline justify-between gap-2 md:block">
-                <span className="font-mono text-[13px] font-medium text-ink">
+                <span className="font-mono text-[13px] font-medium text-ink" title={row.patientId}>
                   <span className="mr-1.5 text-ink-3 md:hidden">{i + 1}.</span>
-                  {row.patientId}
+                  {row.patientId.length > 16 ? `${row.patientId.slice(0, 14)}…` : row.patientId}
                 </span>
                 {row.patient && (
                   <span className="text-[11px] text-ink-3 md:block">
@@ -139,9 +182,28 @@ export function Worklist({ rows }: { rows: WorklistItem[] }) {
                   </>
                 )}
               </span>
-            </Link>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
+              {advanceTo !== undefined || onSelect ? (
+                <button
+                  type="button"
+                  data-advance={advanceTo}
+                  onClick={onSelect ? () => onSelect(row) : undefined}
+                  className={cls}
+                  aria-current={selected ? "true" : undefined}
+                >
+                  {body}
+                </button>
+              ) : (
+                <Link href={`/patient?patient=${row.patientId}&trial=${row.nctId}`} className={cls}>
+                  {body}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

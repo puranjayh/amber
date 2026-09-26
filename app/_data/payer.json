@@ -1,0 +1,100 @@
+{
+  "headline": "Claims can rule patients out. Only a chart can rule them in.",
+  "beneficiaries": 4,
+  "settled": [
+    {
+      "patientId": "BENE-441201",
+      "nctId": "NCT07001001",
+      "criterionId": "EXC-1",
+      "predicate": "prior_therapy",
+      "kind": "drug fill",
+      "claimLine": "Part D PDE NDC 00310-0269-30 osimertinib 80 mg × 30, DOS 2009-08-03, $14,208.",
+      "sourceDoc": "CMS DE-SynPUF PDE 2009"
+    }
+  ],
+  "needs": [
+    {
+      "need": "the assay result — a claim only shows the test was billed",
+      "predicate": "biomarker",
+      "analyte": "EGFR",
+      "why": "a claim shows the assay was billed, not what it found",
+      "criterionIds": [
+        "INC-3"
+      ],
+      "patientIds": [
+        "BENE-441202",
+        "BENE-441203",
+        "BENE-441204"
+      ]
+    },
+    {
+      "need": "the lab result — a claim only shows the panel was billed",
+      "predicate": "lab_value",
+      "analyte": "ANC",
+      "why": "a claim shows the panel was billed, not what the result was",
+      "criterionIds": [
+        "INC-5"
+      ],
+      "patientIds": [
+        "BENE-441202",
+        "BENE-441203",
+        "BENE-441204"
+      ]
+    },
+    {
+      "need": "the lab result — a claim only shows the panel was billed",
+      "predicate": "lab_value",
+      "analyte": "hemoglobin",
+      "why": "a claim shows the panel was billed, not what the result was",
+      "criterionIds": [
+        "INC-6"
+      ],
+      "patientIds": [
+        "BENE-441202",
+        "BENE-441203",
+        "BENE-441204"
+      ]
+    },
+    {
+      "need": "ECOG written at the bedside — it is never billed",
+      "predicate": "performance_status",
+      "analyte": "ECOG",
+      "why": "performance status is assessed and written down, never billed",
+      "criterionIds": [
+        "INC-4"
+      ],
+      "patientIds": [
+        "BENE-441202",
+        "BENE-441203",
+        "BENE-441204"
+      ]
+    },
+    {
+      "need": "an osimertinib claim line",
+      "predicate": "prior_therapy",
+      "analyte": "osimertinib",
+      "why": "this extract has no claim that answers it",
+      "criterionIds": [
+        "EXC-1"
+      ],
+      "patientIds": [
+        "BENE-441202",
+        "BENE-441203",
+        "BENE-441204"
+      ]
+    },
+    {
+      "need": "a diagnosis claim line",
+      "predicate": "diagnosis",
+      "why": "this extract has no claim that answers it",
+      "criterionIds": [
+        "INC-2"
+      ],
+      "patientIds": [
+        "BENE-441204"
+      ]
+    }
+  ],
+  "coverage": null,
+  "source": "stub"
+}

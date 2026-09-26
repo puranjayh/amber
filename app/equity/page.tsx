@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { DEMO, asOf, getEquity, getTrial, getTrials, meta, subgroupSizes } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { isDemo, one } from "@/components/console/params";
@@ -16,7 +16,16 @@ export default async function EquityPage({ searchParams }: PageProps<"/equity">)
   const nctId = (!demo && one(sp.trial)) || DEMO.nctId;
   const trial = getTrial(nctId);
   const set = getEquity(nctId);
-  if (!trial || !set) notFound();
+  if (!trial || !set) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="equity" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/equity.json" detail={`No equity set for ${nctId}.`} />
+        </main>
+      </>
+    );
+  }
 
   const view = buildEquityView(set.rows);
   const sizes = subgroupSizes();
@@ -34,20 +43,22 @@ export default async function EquityPage({ searchParams }: PageProps<"/equity">)
             Share of otherwise-eligible candidates each criterion excludes, per subgroup.
           </p>
         </div>
-        <nav aria-label="Trials" className="flex flex-wrap gap-1.5">
-          {getTrials().map((t) => (
-            <Link
-              key={t.nctId}
-              href={`/equity?trial=${t.nctId}`}
-              aria-current={t.nctId === nctId ? "page" : undefined}
-              className={`rounded border px-2 py-1 font-mono text-[11px] ${
-                t.nctId === nctId ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
-              }`}
-            >
-              {t.nctId}
-            </Link>
-          ))}
-        </nav>
+        {!demo && (
+          <nav aria-label="Trials" className="flex flex-wrap gap-1.5">
+            {getTrials().map((t) => (
+              <Link
+                key={t.nctId}
+                href={`/equity?trial=${t.nctId}`}
+                aria-current={t.nctId === nctId ? "page" : undefined}
+                className={`rounded border px-2 py-1 font-mono text-[11px] ${
+                  t.nctId === nctId ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
+                }`}
+              >
+                {t.nctId}
+              </Link>
+            ))}
+          </nav>
+        )}
         {targets.length > 0 && (
           <p className="font-mono text-[11px] text-ink-3">
             DAP targets: {targets.map(([g, share]) => `${g} ${Math.round(share * 100)}%`).join(" · ")}

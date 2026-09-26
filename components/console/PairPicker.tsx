@@ -60,7 +60,7 @@ export function PairPicker({
                       aria-current={active ? "page" : undefined}
                       aria-label={`${pid} × ${nct}: ${pairLabel(pair)}`}
                       className={`inline-block w-full min-w-[4.5rem] rounded border px-1.5 py-1 font-mono ${pairTone(pair)} ${
-                        active ? "ring-2 ring-ink ring-offset-1" : ""
+                        active ? "ring-2 ring-ink ring-offset-1 ring-offset-surface" : ""
                       }`}
                     >
                       {pairLabel(pair)}

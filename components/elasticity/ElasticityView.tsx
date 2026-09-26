@@ -137,7 +137,7 @@ export function ElasticityView({
               const count = row.bySubgroup?.[g] ?? 0;
               const pct = sweep.maxSubgroupCount ? (count / sweep.maxSubgroupCount) * 100 : 0;
               return (
-                <li key={g} className="grid grid-cols-[5.5rem_1fr_4.5rem] items-center gap-2 text-[12px]">
+                <li key={g} className="grid grid-cols-[minmax(0,5rem)_1fr_3.75rem] items-center gap-1.5 text-[12px] sm:grid-cols-[5.5rem_1fr_4.5rem] sm:gap-2">
                   <span className="truncate text-ink-2">{g}</span>
                   <span className="h-2 overflow-hidden rounded-sm bg-line-2">
                     <span className="block h-full bg-ink-2" style={{ width: `${pct}%` }} />

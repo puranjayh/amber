@@ -7,8 +7,10 @@ import { buildGraph, edgeKey } from "./graph";
 
 const cube = CubeFixture.parse(cubeJson);
 const trials = TrialsFixture.parse(trialsJson);
-const assignments = Assignment.array().parse(sample);
 const patientIds = ["PT-4401", "PT-4402", "PT-4408"];
+const assignments = Assignment.array()
+  .parse(sample)
+  .map((a) => ({ ...a, pairs: a.pairs.filter((p) => patientIds.includes(p.patientId)) }));
 
 describe("buildGraph", () => {
   const graph = buildGraph(patientIds, trials, cube, assignments);
@@ -39,6 +41,30 @@ describe("buildGraph", () => {
     ]);
     expect(bad.modes.adhoc!.assigned).toEqual([]);
     expect(bad.modes.adhoc!.invalid).toEqual([{ patientId: "PT-4402", nctId: "NCT07001001" }]);
+  });
+
+  test("cube and assignment pairs outside the shown patients are not drawn", () => {
+    const extra = {
+      ...cube[0],
+      patientId: "PT-OUTSIDE",
+      nctId: "NCT07001001",
+      eliminated: false,
+    };
+    const graph = buildGraph(
+      patientIds,
+      trials,
+      [...cube, extra],
+      assignments.map((a) => ({
+        ...a,
+        pairs: [...a.pairs, { patientId: "PT-OUTSIDE", nctId: "NCT07001001" }],
+      })),
+    );
+    expect(graph.candidates.some((e) => e.patientId === "PT-OUTSIDE")).toBe(false);
+    expect(graph.patients.map((n) => n.id)).toEqual(patientIds);
+    for (const mode of Object.values(graph.modes)) {
+      expect(mode.assigned.every((k) => !k.startsWith("PT-OUTSIDE"))).toBe(true);
+      expect(mode.invalid.every((p) => p.patientId !== "PT-OUTSIDE")).toBe(true);
+    }
   });
 
   test("nodes sit in two columns within the viewBox", () => {

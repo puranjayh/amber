@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 # next.js
 /.next/
@@ -43,5 +47,14 @@ next-env.d.ts
 # compiler output
 data/raw/
 
+<<<<<<< HEAD
 # raw CMS DE-SynPUF archives and extracted CSVs
 data/claims/raw/
+=======
+# Other lanes' inputs, consumed by app/_data/generate.ts. Tracked copies on main still win.
+/data/synthea/
+/data/compiled/
+
+# generated: too large for git, rebuilt by the generation script
+app/_data/cube.json
+>>>>>>> origin/eng/app

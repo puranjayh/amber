@@ -1,30 +1,47 @@
-import { Predicate } from "@/src/contracts";
-import { asOf } from "@/app/_data/source";
+import { asOf, getLandscape, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
+import { DemoSteps } from "@/components/console/DemoSteps";
+import { Provenance } from "@/components/console/Provenance";
+import { isDemo } from "@/components/console/params";
 import { LandscapeHistogram } from "@/components/landscape/LandscapeHistogram";
 
-export default function LandscapePage() {
-  const bins = Predicate.options.map((p) => ({
-    key: p,
-    label: p.replace("_", " "),
-    count: null,
-  }));
+export default async function LandscapePage({ searchParams }: PageProps<"/landscape">) {
+  const demo = isDemo(await searchParams);
+  const landscape = getLandscape();
+  if (landscape.analytes.length === 0 && landscape.generatedFromTrials === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="landscape" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/landscape.json" />
+        </main>
+      </>
+    );
+  }
+  const fromCompiler = meta.sources.includes("data/compiled/landscape.json");
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="landscape" />
+      <ConsoleHeader asOf={asOf} active="landscape" demo={demo} />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
+        {demo && <DemoSteps current="landscape" />}
         <div>
           <h1 className="text-[16px] font-medium text-ink">Criteria landscape</h1>
           <p className="mt-0.5 text-[12px] text-ink-2">
-            How often each kind of criterion appears across compiled trials.
+            Distinct numeric thresholds across compiled trials, per analyte. The dominant
+            threshold is the ink bar — that is the consensus, or the lack of one.
           </p>
         </div>
         <LandscapeHistogram
-          bins={bins}
-          total={null}
-          caption="Stub — counts arrive from compiler:validate. No numbers are shown until then."
+          landscape={landscape}
+          caption={
+            fromCompiler
+              ? "compiler:validate over data/compiled/landscape.json. Counts are de-duplicated by trial."
+              : "Derived from the trials in this build — data/compiled/landscape.json had no analytes yet."
+          }
         />
+        <Provenance meta={meta} call="buildCriteriaLandscape(compiled trials)" />
       </main>
     </>
   );

@@ -28,6 +28,22 @@ committed because `data/**` belongs to P4 under CONTRACT §1; P4 can rerun the e
 command: `npx tsx src/eval/run.ts --labels data/eval/labels.json --patients
 data/synthea/patients.json --trials fixtures/trials.sample.json --as-of 2026-09-25
 --out data/eval/results.json`.
+## From P3 (app) — `playwright` + `npm run shots` added on `eng/app`
+
+**Who this is for:** P1 (`package.json`).
+
+The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts` → `docs/shots/`). `playwright` is now a devDependency on this branch. Please keep the dep and the `shots` script when you next land `package.json` on `main`. `npx playwright install chromium` is required once per machine.
+
+## From P3 (app) — payer is on a labelled CMS stub
+
+**Who this is for:** P1 (compiler) / P4 (data).
+
+`/payer` evaluates `data/claims/patients.json` when it exists. It is not in this tree, so the screen runs `components/payer/stub.ts` (4 synthetic BENE-* records, DE-SynPUF-shaped claim lines). Drop the real extract at `data/claims/patients.json` (contract `Patient[]`, `provenance: "claims"`) and regenerate — no route change.
+
+`data/compiled/coverage.json` is compile-stats (now at `compile-stats.json` on `eng/compiler`). `/payer` will not derive a number from the trees. Republish `data/compiled/coverage.json` as `ClaimsCoverage` with **5,103** leaves (the slide number). Any other leaf count throws.
+
+The app cube now consumes the 133 demo-ready compiled trials (citation flags do not gate). Keep that count stable — a different non-zero pool throws. NCT07001001 is still pinned from fixtures so the presentation pair does not move.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
@@ -385,10 +401,18 @@ Until they land the app uses a hand-written, clearly labelled placeholder in
 
 On instruction, every number the app shows now comes from the engine.
 `app/_data/generate.ts` imports `@/src/engine` **read-only** (same terms as
-`src/eval` in §10), runs it over `fixtures/` plus `data/patients.json` when it
-exists, and writes `app/_data/*.json`. The Next app itself still imports only
-`src/contracts` and reads those JSON files. `components/generated.test.ts` fails if
-the committed JSON drifts from a fresh engine run, so it cannot be hand-edited.
+`src/eval` in §10), runs it over `fixtures/`, `data/patients.json` /
+`data/synthea/patients.json` when present, and `data/compiled/trials.json`
+(compiler `{ trial, sourceText, failure }` wrappers are unwrapped; flagged or
+empty trees are dropped per §4). It writes `app/_data/*.json`. The Next app
+itself still imports only `src/contracts` and reads those JSON files.
+`components/generated.test.ts` fails if the committed JSON drifts from a fresh
+engine run, so it cannot be hand-edited.
+
+**Compiled corpus as of this note:** all 300 rows in `data/compiled/trials.json`
+are `needsHumanReview: true` with empty `criteria` (compiler schema-recursion
+errors). They correctly enter the demo pool as zero trials. The 200 Synthea
+patients live at `data/synthea/patients.json`, not `data/patients.json`.
 
 Please:
 

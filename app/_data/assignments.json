@@ -11,17 +11,54 @@
         "nctId": "NCT07001001"
       },
       {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
+        "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-57efda89-b582-bb08-8a2d-e06b2c184bfc",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-9c5b16dc-8a47-896c-4d74-f96f8c98891b",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+        "nctId": "NCT07001001"
       }
     ],
-    "enrolled": 3,
-    "meanTravelMinutes": 46.7,
-    "unstablePairs": 0,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
+    "unstablePairs": 174,
     "subgroupShare": {
-      "Asian": 0.3333333333333333,
-      "Black or African American": 0.3333333333333333,
-      "White": 0.3333333333333333
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.6666666666666666,
+      "black": 0.16666666666666666
     }
   },
   {
@@ -36,17 +73,54 @@
         "nctId": "NCT07001001"
       },
       {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
+        "patientId": "SYN-00185faa-2760-4218-9bf5-db301acf8274",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-00bcbfc6-c7b9-bd0e-3d95-071f9fba6321",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-010d4a3a-2316-45ed-ae15-16f01c611674",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-0149d553-f571-4e99-867e-fcb9625d07c2",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-023a7d29-32b3-4db5-89c8-b88bd7582ec0",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-029c95e2-d252-d8d3-3626-7f347182d6d7",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-02ea2f1a-ddcf-4809-8279-dde7a62e0318",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-034e9e3b-2def-4559-bb2a-7850888ae060",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-03963166-b49f-4440-a80d-30abb90b4a78",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-03c5e223-c016-4477-947f-22c691d6a62c",
+        "nctId": "NCT07001001"
       }
     ],
-    "enrolled": 3,
-    "meanTravelMinutes": 46.7,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.3333333333333333,
-      "Black or African American": 0.3333333333333333,
-      "White": 0.3333333333333333
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.75,
+      "asian": 0.08333333333333333
     }
   },
   {
@@ -61,17 +135,54 @@
         "nctId": "NCT07001001"
       },
       {
-        "patientId": "PT-4402",
-        "nctId": "NCT07001003"
+        "patientId": "SYN-00185faa-2760-4218-9bf5-db301acf8274",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-00bcbfc6-c7b9-bd0e-3d95-071f9fba6321",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-010d4a3a-2316-45ed-ae15-16f01c611674",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-0149d553-f571-4e99-867e-fcb9625d07c2",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-023a7d29-32b3-4db5-89c8-b88bd7582ec0",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-029c95e2-d252-d8d3-3626-7f347182d6d7",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-02ea2f1a-ddcf-4809-8279-dde7a62e0318",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-034e9e3b-2def-4559-bb2a-7850888ae060",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-03963166-b49f-4440-a80d-30abb90b4a78",
+        "nctId": "NCT07001001"
+      },
+      {
+        "patientId": "SYN-03c5e223-c016-4477-947f-22c691d6a62c",
+        "nctId": "NCT07001001"
       }
     ],
-    "enrolled": 3,
-    "meanTravelMinutes": 46.7,
+    "enrolled": 12,
+    "meanTravelMinutes": 25,
     "unstablePairs": 0,
     "subgroupShare": {
-      "Asian": 0.3333333333333333,
-      "Black or African American": 0.3333333333333333,
-      "White": 0.3333333333333333
+      "Asian": 0.08333333333333333,
+      "Black or African American": 0.08333333333333333,
+      "white": 0.75,
+      "asian": 0.08333333333333333
     }
   }
 ]

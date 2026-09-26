@@ -8,6 +8,8 @@ const NAV = [
   { href: "/equity", key: "equity", label: "Equity" },
   { href: "/market", key: "market", label: "Market" },
   { href: "/landscape", key: "landscape", label: "Landscape" },
+  { href: "/payer", key: "payer", label: "Payer" },
+  { href: "/eval", key: "eval", label: "Eval" },
 ] as const;
 
 export type NavKey = (typeof NAV)[number]["key"];
@@ -46,13 +48,13 @@ export function ConsoleHeader({
       <nav className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-2 sm:px-5" aria-label="Views">
         {NAV.map((item) => {
           const current = item.key === active;
-          const keepDemo = demo && item.key !== "worklist" && item.key !== "landscape";
+          const keepDemo = demo && item.key !== "worklist";
           return (
             <Link
               key={item.key}
               href={keepDemo ? `${item.href}?demo=1` : item.href}
               aria-current={current ? "page" : undefined}
-              className={`shrink-0 whitespace-nowrap border-b-2 px-2 py-2 text-[12px] ${
+              className={`shrink-0 whitespace-nowrap border-b-2 px-1 py-2 text-[10px] sm:px-2 sm:text-[12px] ${
                 current
                   ? "border-ink font-medium text-ink"
                   : "border-transparent text-ink-3 hover:text-ink"

@@ -7,17 +7,25 @@
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { AS_OF, loadInputs } from "./inputs";
-import { buildReadModels } from "./readModels";
+import { buildLandscape } from "@/components/landscape/build";
+import { CLAIMS_STUB } from "@/components/payer/stub";
+import { buildEvalReport } from "./eval";
+import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "./inputs";
+import { buildPayerView } from "./payer";
+import { PRESENTATION_TRIAL } from "./inputs";
+import { buildReadModels, publishCube } from "./readModels";
 import type { Meta } from "./schema";
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const OUT = fileURLToPath(new URL("./", import.meta.url));
-const write = (name: string, value: unknown) =>
-  writeFileSync(OUT + name, JSON.stringify(value, null, 2) + "\n");
+const write = (name: string, value: unknown, pretty = true) =>
+  writeFileSync(OUT + name, JSON.stringify(value, null, pretty ? 2 : undefined) + (pretty ? "\n" : "\n"));
 
 const { trials, patients, sources } = loadInputs(ROOT);
 const models = buildReadModels(trials, patients, AS_OF);
+const compiledLandscape = loadLandscape(ROOT);
+const landscape = compiledLandscape?.landscape ?? buildLandscape(trials);
+if (compiledLandscape) sources.push(compiledLandscape.source);
 
 const meta: Meta = {
   asOf: AS_OF,
@@ -29,16 +37,30 @@ const meta: Meta = {
   engineTree: execSync("git rev-parse --short HEAD:src/engine", { cwd: ROOT }).toString().trim(),
 };
 
+const compact = patients.length > 20;
 write("trials.json", trials);
-write("patients.json", patients);
-write("cube.json", models.cube);
+write("patients.json", patients, !compact);
+write("cube.json", publishCube(models.cube, models.worklist, PRESENTATION_TRIAL), !compact);
 write("worklist.json", models.worklist);
-write("elasticity.json", models.elasticity);
+write("elasticity.json", models.elasticity, !compact);
 write("equity.json", models.equity);
 write("assignments.json", models.assignments);
+const claims = loadClaims(ROOT);
+const payer = buildPayerView(
+  claims?.patients ?? CLAIMS_STUB,
+  trials.filter((t) => /^NCT07001\d+$/.test(t.nctId)),
+  AS_OF,
+  loadCoverage(ROOT),
+  claims ? claims.source : "stub",
+);
+const evalReport = buildEvalReport(ROOT, patients, trials, AS_OF);
+write("landscape.json", landscape);
+write("payer.json", payer);
+write("eval.json", evalReport);
 write("meta.json", meta);
 
 console.log(
   `generated: ${meta.patients} patients × ${meta.trials} trials, ${meta.cells} cells, ` +
-    `${models.elasticity.length} sweeps, engine ${meta.engineTree}`,
+    `${models.elasticity.length} sweeps, ${meta.eligibleNow} eligible now, ` +
+    `${meta.oneTier0Away} one-Tier-0-away, engine ${meta.engineTree}`,
 );

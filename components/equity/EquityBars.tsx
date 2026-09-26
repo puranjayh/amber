@@ -34,7 +34,7 @@ export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<st
                 const width = rate !== undefined && view.maxRate > 0 ? (rate / view.maxRate) * 100 : 0;
                 const worst = row.maxGapPoints > 0 && g === row.worst;
                 return (
-                  <li key={g} className="grid grid-cols-[7.5rem_1fr_2.75rem] items-center gap-2 text-[11px] sm:grid-cols-[12rem_1fr_3rem]">
+                  <li key={g} className="grid grid-cols-[minmax(0,6.5rem)_1fr_2.5rem] items-center gap-1.5 text-[11px] sm:grid-cols-[12rem_1fr_3rem] sm:gap-2">
                     <span className={`truncate ${worst ? "font-medium text-ink" : "text-ink-2"}`} title={g}>
                       {g} <span className="font-mono text-ink-3">n={sizes[g] ?? 0}</span>
                     </span>
