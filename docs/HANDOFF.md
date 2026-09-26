@@ -93,3 +93,68 @@ Run it against an unmerged branch with
 pairs, every cell, exact agreement including the staleness arithmetic. The hero
 pair shows exactly 2 unknowns, the osimertinib pair is eliminated with
 `failCount` 0, and PT-4408's out-of-window labs are UNKNOWN / `stale`.
+
+## From P2 (engine) — three new read models, and what they need from you
+
+`calendar`, `federate` and `planTestOrders`, all exported from `@/src/engine`.
+None of them touches `src/contracts`, so the freeze is intact — their types live
+in the engine lane. **If P3 renders any of them, P1 should lift the interfaces
+into `src/contracts` before 00:00**, because the app is not supposed to import
+from another lane. They are plain interfaces with no zod schemas; say the word
+and I will write the schemas in the contract's own style.
+
+### 1. Trial close dates — needed by the calendar (P1, compiler lane)
+
+`Trial` has no enrollment-close field and is frozen, so `calendar()` takes them
+as a lookup: `calendar(patients, trials, asOf, { closesOn: { NCT01234567: "2026-11-30" } })`.
+Without it the calendar still works but declines to say whether a trial closes
+before the patient becomes eligible — which is the interesting half.
+
+The registry records the compiler already caches have this. Please emit a
+`Record<nctId, string>` of ISO dates alongside the compiled trials. Prefer the
+last date the trial is actually recruiting; if only a completion date is
+available, use it and note that it is an upper bound.
+
+### 2. A cost table — wanted by set cover (P4, data lane)
+
+`planTestOrders` prices a budget in `TIER_WEIGHT` units (existing specimen 1,
+blood draw 2, imaging 6, invasive 20). That is deliberate: inventing dollar
+figures would make the screen-failure-dollars exhibit fiction. If you can get
+cited list prices — CMS clinical lab fee schedule for the assays, OPPS for
+imaging — send `Record<analyte, number>` with the citation per figure and I will
+take a cost resolver, so the slide can say dollars with a source.
+
+### 3. Prevalence priors change the plan (P4, data lane)
+
+Set cover ranks by `pFavorable` from `data/prevalence.json`. Leaves without a
+prior fall back to a 0.5 coin flip, and each plan reports `assumedPriors` so the
+made-up share is visible. The more leaves you can prior, the less of that
+estimate is invented. `objective: "pairs"` turns priors off entirely if it turns
+out the coverage is too thin to steer on.
+
+### 4. Reading the federated report (P3)
+
+`SuppressedCount` is `number | "<11"`. Use the exported `isSuppressed()` type
+guard rather than a `typeof` check, and render the marker string verbatim —
+never as 0, never as "~10", never interpolated into a chart's y value. A
+suppressed cell is a hole, and drawing it as a number defeats the point of the
+layer.
+
+`report.disclosureNotice` is a plain-language statement of what the suppression
+does and does not protect. **Please put it on screen, not in a tooltip.** It says
+this is cell suppression and not differential privacy, and that a fine-grained
+elasticity curve can still localise an individual. If someone asks about privacy
+on stage, that sentence is the honest answer and it is better read than
+paraphrased.
+
+Curves are per site and never pooled — the exhibit is that the same threshold
+costs different sites different amounts, and pooling erases exactly that.
+
+### 5. Where the calendar and set cover meet (P3)
+
+They partition the same problem and the demo reads better if the UI says so. An
+unknown is either **orderable** (tiers 0–3 — set cover buys it) or **time-bound**
+(tier 4 — only the calendar can date it). `planTestOrders` reports
+`pairsBlockedByTime` for pairs it cannot help; those are exactly the pairs
+`calendar()` has a date for. "Three of these you can buy today, two you can only
+wait for, and here is when" is one sentence and two function calls.
