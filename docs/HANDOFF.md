@@ -28,7 +28,6 @@ committed because `data/**` belongs to P4 under CONTRACT §1; P4 can rerun the e
 command: `npx tsx src/eval/run.ts --labels data/eval/labels.json --patients
 data/synthea/patients.json --trials fixtures/trials.sample.json --as-of 2026-09-25
 --out data/eval/results.json`.
-
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
