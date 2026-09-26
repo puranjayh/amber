@@ -42,6 +42,7 @@ export default async function AlertPage({ searchParams }: PageProps<"/alert">) {
             order={orderFor(leaf, cell, patient)}
             favourable={toneCounts(pair.cells, (id) => leaves.get(id)?.type).green}
             totalCriteria={leaves.size}
+            demo={demo}
           />
         ) : (
           <div className="mx-auto max-w-xl rounded-lg border border-line bg-surface px-4 py-6 text-center text-[13px] text-ink-2">

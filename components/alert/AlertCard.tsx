@@ -34,6 +34,7 @@ export function AlertCard({
   order,
   favourable,
   totalCriteria,
+  demo = false,
 }: {
   patient: Patient;
   trial: Trial;
@@ -43,6 +44,7 @@ export function AlertCard({
   order: Order;
   favourable: number;
   totalCriteria: number;
+  demo?: boolean;
 }) {
   const [decision, setDecision] = useState<Decision>({ kind: "open" });
   const others = pair.unknownCount - 1;
@@ -180,7 +182,7 @@ export function AlertCard({
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-ink-3">
           <span>Nothing is transmitted from this screen.</span>
           <Link
-            href={`/patient?patient=${patient.id}&trial=${trial.nctId}`}
+            href={demo ? "/patient?demo=1" : `/patient?patient=${patient.id}&trial=${trial.nctId}`}
             className="font-mono text-ink-2 underline-offset-2 hover:text-ink hover:underline"
           >
             All criteria →

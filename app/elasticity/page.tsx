@@ -48,24 +48,26 @@ export default async function ElasticityPage({ searchParams }: PageProps<"/elast
             “{leaf.sourceSpan}”
           </blockquote>
         </div>
-        <nav aria-label="Sweepable criteria" className="flex flex-wrap gap-1.5">
-          {available.map((s) => {
-            const l = leaves!.get(s.criterionId);
-            const current = s.criterionId === criterionId;
-            return (
-              <Link
-                key={s.criterionId}
-                href={qs(s.criterionId)}
-                aria-current={current ? "page" : undefined}
-                className={`rounded border px-2 py-1 font-mono text-[11px] ${
-                  current ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
-                }`}
-              >
-                {s.criterionId} {l?.analyte ?? l?.predicate}
-              </Link>
-            );
-          })}
-        </nav>
+        {!demo && (
+          <nav aria-label="Sweepable criteria" className="flex flex-wrap gap-1.5">
+            {available.map((s) => {
+              const l = leaves!.get(s.criterionId);
+              const current = s.criterionId === criterionId;
+              return (
+                <Link
+                  key={s.criterionId}
+                  href={qs(s.criterionId)}
+                  aria-current={current ? "page" : undefined}
+                  className={`rounded border px-2 py-1 font-mono text-[11px] ${
+                    current ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
+                  }`}
+                >
+                  {s.criterionId} {l?.analyte ?? l?.predicate}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
         <ElasticityView
           sweep={sweep}
           label={leaf.analyte ?? leaf.predicate}

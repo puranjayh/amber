@@ -9,7 +9,7 @@ Last updated: 2026-09-26 03:37 ET
 
 ## Queue
 
-3. `?demo=1` — hero pair, one click from landing (wired; add payer + eval)
+3. `?demo=1` — landing Start demo / `/?demo=1` → PT-4401 × NCT07001001. Path: Criteria → Alert → Elasticity → Equity → Market → Landscape → Payer (Eval next).
 4. Screen-failures-avoided — 62% × $2,000 (wired on worklist)
 5. `/eval` — confusion matrix from `data/eval/results.json`, labelled as model-draft until human
 6. Polish — all nine screens at 400px, light and dark

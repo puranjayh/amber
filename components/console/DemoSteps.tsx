@@ -6,6 +6,8 @@ const STEPS = [
   { key: "elasticity", href: "/elasticity?demo=1", label: "Elasticity" },
   { key: "equity", href: "/equity?demo=1", label: "Equity" },
   { key: "market", href: "/market?demo=1", label: "Market" },
+  { key: "landscape", href: "/landscape?demo=1", label: "Landscape" },
+  { key: "payer", href: "/payer?demo=1", label: "Payer" },
 ] as const;
 
 export type DemoStep = (typeof STEPS)[number]["key"];
@@ -17,11 +19,11 @@ export function DemoSteps({ current }: { current: DemoStep }) {
   return (
     <nav
       aria-label="Demo path"
-      className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-ink bg-surface px-3 py-2"
+      className="flex flex-col gap-2 rounded-md border border-ink bg-surface px-2.5 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-3"
     >
-      <ol className="flex flex-wrap items-center gap-x-1 gap-y-1 font-mono text-[11px]">
+      <ol className="-mx-0.5 flex items-center gap-x-0.5 overflow-x-auto font-mono text-[11px]">
         {STEPS.map((s, i) => (
-          <li key={s.key} className="flex items-center gap-1">
+          <li key={s.key} className="flex shrink-0 items-center gap-0.5">
             {i > 0 && <span className="text-ink-3" aria-hidden>›</span>}
             <Link
               href={s.href}
@@ -36,7 +38,10 @@ export function DemoSteps({ current }: { current: DemoStep }) {
         ))}
       </ol>
       {next && (
-        <Link href={next.href} className="rounded bg-ink px-2.5 py-1 text-[12px] font-medium text-surface hover:bg-ink-2">
+        <Link
+          href={next.href}
+          className="shrink-0 self-start rounded bg-ink px-2.5 py-1 text-[12px] font-medium text-surface hover:bg-ink-2"
+        >
           Next: {next.label} →
         </Link>
       )}

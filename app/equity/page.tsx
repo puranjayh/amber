@@ -34,20 +34,22 @@ export default async function EquityPage({ searchParams }: PageProps<"/equity">)
             Share of otherwise-eligible candidates each criterion excludes, per subgroup.
           </p>
         </div>
-        <nav aria-label="Trials" className="flex flex-wrap gap-1.5">
-          {getTrials().map((t) => (
-            <Link
-              key={t.nctId}
-              href={`/equity?trial=${t.nctId}`}
-              aria-current={t.nctId === nctId ? "page" : undefined}
-              className={`rounded border px-2 py-1 font-mono text-[11px] ${
-                t.nctId === nctId ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
-              }`}
-            >
-              {t.nctId}
-            </Link>
-          ))}
-        </nav>
+        {!demo && (
+          <nav aria-label="Trials" className="flex flex-wrap gap-1.5">
+            {getTrials().map((t) => (
+              <Link
+                key={t.nctId}
+                href={`/equity?trial=${t.nctId}`}
+                aria-current={t.nctId === nctId ? "page" : undefined}
+                className={`rounded border px-2 py-1 font-mono text-[11px] ${
+                  t.nctId === nctId ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
+                }`}
+              >
+                {t.nctId}
+              </Link>
+            ))}
+          </nav>
+        )}
         {targets.length > 0 && (
           <p className="font-mono text-[11px] text-ink-3">
             DAP targets: {targets.map(([g, share]) => `${g} ${Math.round(share * 100)}%`).join(" · ")}
