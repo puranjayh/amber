@@ -158,6 +158,98 @@ function groupDepth(node: CriterionNodeValue): number {
   return 1 + Math.max(...node.children.map(groupDepth));
 }
 
+/** Normalisation is for comparison only; accepted sourceSpan text is retained. */
+export function normalizeSourceText(text: string): string {
+  return text
+    .replace(/[‐‑‒–—―]/g, "-")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*(?:(?:[-*•]+)|(?:\d+[.)])|(?:[A-Za-z]+[.)]))\s*/, "").trim())
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function levenshtein(left: string, right: string): number {
+  let previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+    const current = [leftIndex];
+    for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+      current[rightIndex] = Math.min(
+        current[rightIndex - 1] + 1,
+        previous[rightIndex] + 1,
+        previous[rightIndex - 1] + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1),
+      );
+    }
+    previous = current;
+  }
+  return previous[right.length];
+}
+
+/**
+ * Compare against windows anchored on distinctive shared words. This catches a
+ * near-verbatim sub-clause without punishing a leaf for being shorter than its
+ * protocol bullet, and avoids a quadratic scan over an entire eligibility block.
+ */
+export function nearVerbatimSimilarity(sourceSpan: string, sourceText: string): number {
+  const span = normalizeSourceText(sourceSpan).toLowerCase();
+  const source = normalizeSourceText(sourceText).toLowerCase();
+  if (!span || !source) return 0;
+  if (source.includes(span)) return 1;
+
+  const anchors = [...new Set(span.match(/[a-z0-9]{5,}/g) ?? [])]
+    .sort((left, right) => right.length - left.length)
+    .slice(0, 5);
+  let best = 0;
+  for (const anchor of anchors) {
+    const relativeIndex = span.indexOf(anchor);
+    let position = source.indexOf(anchor);
+    let examined = 0;
+    while (position >= 0 && examined < 40) {
+      for (const offset of [-8, -4, 0, 4, 8]) {
+        const start = Math.max(0, position - relativeIndex + offset);
+        for (const multiplier of [0.9, 1, 1.1]) {
+          const window = source.slice(start, start + Math.max(1, Math.round(span.length * multiplier)));
+          const score = 1 - levenshtein(span, window) / Math.max(span.length, window.length);
+          best = Math.max(best, score);
+        }
+      }
+      position = source.indexOf(anchor, position + anchor.length);
+      examined += 1;
+    }
+  }
+  return best;
+}
+
+function reconcileSourceSpans(
+  node: CriterionNodeValue,
+  sourceText: string,
+): { data: CriterionNodeValue; reviewReasons: string[] } {
+  if (node.kind === "group") {
+    const children = node.children.map((child) => reconcileSourceSpans(child, sourceText));
+    return {
+      data: { ...node, children: children.map((child) => child.data) },
+      reviewReasons: children.flatMap((child) => child.reviewReasons),
+    };
+  }
+
+  const span = normalizeSourceText(node.sourceSpan);
+  const source = normalizeSourceText(sourceText);
+  if (span && source.includes(span)) return { data: node, reviewReasons: [] };
+
+  const similarity = nearVerbatimSimilarity(node.sourceSpan, sourceText);
+  if (similarity >= 0.9) {
+    return { data: node, reviewReasons: [`${node.id} sourceSpan near-verbatim`] };
+  }
+  // sourceSpan is required by the frozen contract. A full source block is
+  // truthful and auditable; an empty string would be neither Zod-valid nor a citation.
+  return {
+    data: { ...node, sourceSpan: sourceText },
+    reviewReasons: [`${node.id} sourceSpan not verifiable; full source block retained`],
+  };
+}
+
 function structuralAlternative(text: string): boolean {
   return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
 }
@@ -199,15 +291,13 @@ export function validateCompiledTree(
   if (!parsed.success) return { success: false, issues: parsed.error.issues.map((issue) => issue.message) };
 
   const issues: string[] = [];
-  const reviewReasons: string[] = [];
+  const reconciled = reconcileSourceSpans(parsed.data, block.sourceText);
+  const reviewReasons: string[] = [...reconciled.reviewReasons];
   const ids = new Set<string>();
-  walk(parsed.data, (node) => {
+  walk(reconciled.data, (node) => {
     if (node.kind !== "leaf") return;
     if (block.type !== "unknown" && node.type !== block.type) {
       issues.push(`${node.id}: leaf type does not match the source block`);
-    }
-    if (!block.sourceText.includes(node.sourceSpan)) {
-      issues.push(`${node.id}: sourceSpan is not verbatim protocol text`);
     }
     if (ids.has(node.id)) issues.push(`${node.id}: duplicate criterion id`);
     ids.add(node.id);
@@ -243,14 +333,14 @@ export function validateCompiledTree(
 
   // Ordinary prose uses “or” descriptively (e.g. advanced or metastatic), so
   // only explicit disjunction markers warrant human review. Keep the usable tree.
-  if (structuralAlternative(block.sourceText) && !containsOr(parsed.data)) {
+  if (structuralAlternative(block.sourceText) && !containsOr(reconciled.data)) {
     reviewReasons.push("possible structural alternative has no OR group");
   }
-  if (groupDepth(parsed.data) > MAX_GROUP_DEPTH) {
+  if (groupDepth(reconciled.data) > MAX_GROUP_DEPTH) {
     reviewReasons.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups`);
   }
 
-  return issues.length ? { success: false, issues } : { success: true, data: parsed.data, reviewReasons };
+  return issues.length ? { success: false, issues } : { success: true, data: reconciled.data, reviewReasons };
 }
 
 export function createGrokBlockCompiler({

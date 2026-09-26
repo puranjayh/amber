@@ -4,7 +4,9 @@ import {
   compileTrial,
   extractEligibilityBlocks,
   MAX_GROUP_DEPTH,
+  nearVerbatimSimilarity,
   normalizeSweepMetadata,
+  normalizeSourceText,
   validateCompiledTree,
 } from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
@@ -163,4 +165,54 @@ test("only flags explicit structural alternatives and retains their tree", async
   expect(result.trial.needsHumanReview).toBe(true);
   expect(result.trial.criteria).toHaveLength(1);
   expect(result.reviewReasons).toEqual(["possible structural alternative has no OR group"]);
+});
+
+test("matches normalised source sub-clauses without requiring a whole bullet", () => {
+  const source = "* “Histologically or cytologically confirmed” — advanced NSCLC.";
+  const leaf = {
+    kind: "leaf" as const,
+    id: "INC-1",
+    type: "inclusion" as const,
+    predicate: "diagnosis" as const,
+    operator: "==" as const,
+    value: "NSCLC",
+    tier: 0 as const,
+    sweepable: false,
+    sourceSpan: "\"Histologically or cytologically confirmed\" - advanced NSCLC",
+  };
+  expect(normalizeSourceText(source)).toContain(normalizeSourceText(leaf.sourceSpan));
+  const checked = validateCompiledTree(leaf, { type: "inclusion", sourceText: source });
+  expect(checked.success).toBe(true);
+  if (checked.success) expect(checked.reviewReasons).toEqual([]);
+});
+
+test("retains and flags near-verbatim citations, but replaces unverifiable ones with the full block", () => {
+  const source = "Participant has histologically confirmed non-small cell lung cancer.";
+  const base = {
+    kind: "leaf" as const,
+    id: "INC-1",
+    type: "inclusion" as const,
+    predicate: "diagnosis" as const,
+    operator: "==" as const,
+    value: "non-small cell lung cancer",
+    tier: 0 as const,
+    sweepable: false,
+  };
+  const near = validateCompiledTree(
+    { ...base, sourceSpan: "Participant has histologically confirmed non-small cell lung canser." },
+    { type: "inclusion", sourceText: source },
+  );
+  expect(nearVerbatimSimilarity("Participant has histologically confirmed non-small cell lung canser.", source)).toBeGreaterThanOrEqual(0.9);
+  expect(near.success).toBe(true);
+  if (near.success) expect(near.reviewReasons).toEqual(["INC-1 sourceSpan near-verbatim"]);
+
+  const unverifiable = validateCompiledTree(
+    { ...base, sourceSpan: "Participant has melanoma." },
+    { type: "inclusion", sourceText: source },
+  );
+  expect(unverifiable.success).toBe(true);
+  if (unverifiable.success) {
+    expect(unverifiable.data).toMatchObject({ sourceSpan: source });
+    expect(unverifiable.reviewReasons).toEqual(["INC-1 sourceSpan not verifiable; full source block retained"]);
+  }
 });
