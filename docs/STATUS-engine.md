@@ -58,3 +58,15 @@ these numbers are not yet independently reproducible. Details in `docs/HANDOFF.m
   only `pFavorable`/`expectedValue`, never verdicts, so a verdict confusion matrix is
   unaffected — and 69% of cells on the real pool are UNKNOWN, which is the class
   imbalance §13 describes, measured.
+
+## Fidelity review harness (2026-09-26)
+
+- **`src/verify/`** — `render.ts` (tree → sentence), `fidelity.ts` (stratified
+  sample), `ingest-fidelity.ts` (verdicts → error rate + detector recall). 78 tests.
+- **`data/eval/fidelity-sheet.json`** — 77 rows cut from corpus `2539c315`, seed
+  20260926: 37 flagged + 40 uniform from 3,764 unflagged criteria (1.1%). Awaiting a
+  human. Blank `faithful` / `failureMode` / `reviewer` on every row.
+- Reports sample figures as the headline and a reweighted corpus estimate beside
+  them, because the flagged stratum is oversampled ~90x and a raw "caught X of Y"
+  would overstate the detector.
+- Suite: **869 passing**, 3 skipped (all self-activating).

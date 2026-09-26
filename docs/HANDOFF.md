@@ -561,3 +561,72 @@ independently reproducible from a clean checkout. Please merge it.
 Note also: the sha `189c8b35` I was given does not match anything in the repo or
 either worktree. The corpus I used is `2539c315`; if `189c8b35` is a different
 run, say so and I will regenerate.
+
+## From P2 (engine) — fidelity review: the compiler's accuracy, measured
+
+`src/verify/` builds and ingests a hand-review of compiled trees against protocol
+prose. `data/eval/fidelity-sheet.json` is cut and waiting for a reviewer.
+
+**Why this and not the eval harness.** The eval harness asks whether the engine
+evaluates a tree correctly. The engine is deterministic with 791 tests, so that is
+close to tautological — it mostly proves the engine agrees with itself. The
+unmeasured risk is in the compiler: a protocol that said "A or B" compiling into a
+tree demanding both. Every downstream number inherits that silently.
+
+**The sheet:** 77 rows. 37 from the flagged trials, 40 drawn uniformly at random
+(seed 20260926) from the 3,764 criteria of the 196 unflagged trials — a 1.1%
+sample. Deterministic: same corpus, same seed, same 77 rows, so two reviewers grade
+the same sheet.
+
+**To review:** open the file and for each row read `sourceSpans`, then
+`compiledPlainEnglish`, then set `faithful` to true or false and put a short phrase
+in `failureMode`. `instructions` in the file carries the suggested vocabulary. Then:
+
+```bash
+AMBER_EMIT=1 npm test -- src/verify/emit.test.ts   # re-cut the sheet
+```
+
+### Three things a reader should know before quoting the number
+
+1. **The two strata are drawn differently, on purpose.** All 37 flagged trials
+   contribute one criterion each, chosen *because it looked suspicious*; the
+   unflagged 40 are uniform. So "the detector caught X of Y errors" is true of the
+   sample and overstates the corpus, because flagged criteria are oversampled about
+   90x. `ingestFidelity` reports the sample figures as the headline and a reweighted
+   `corpusEstimate` beside them, with a Wilson interval on the base rate — the
+   counts are small enough that a normal interval would go negative.
+
+2. **I could not localise the flag, and did not pretend to.** The compiler's
+   semantic flag is trial-level and names no criterion. A disjunction-marker
+   heuristic matches all 37 flagged trials but also 166 of 196 unflagged ones, so it
+   is far looser than whatever the compiler used. Reviewing one criterion per
+   flagged trial means that if a trial's real error sits in a criterion I did not
+   surface, it counts as a miss — which makes the detector look *worse* than it is,
+   not better.
+
+3. **63 of the 100 review-queue entries are not findings.** They are the
+   back-translation run's 403 after it exhausted its API credits, written into
+   `semanticReasons`. `flaggedTrialIds` filters them out; the genuine flags are the
+   37 that read "possible structural alternative has no OR group". P1 may want to
+   separate infrastructure failures from semantic findings at the source, because
+   anything reading that field naively will report 100 flagged trials.
+
+### What the sheet already shows, before anyone reviews it
+
+Two patterns are visible in the rendered rows and both look like real compiler
+defects worth a look regardless of the review:
+
+- **Dropped qualifiers.** `NCT03693014 INC-10`: "Prior palliative **or curative
+  radiotherapy** must be completed at least 14 days prior" compiled to "at least 14
+  days since the last dose". Both the disjunction and the fact that it is
+  *radiotherapy specifically* are gone.
+- **Undecomposed prose.** A number of leaves carry a whole protocol sentence as a
+  string value or as a bare `true` — `"Women who are pregnant or lactating"` with
+  `value: true`. The tree asserts only "that sentence holds", which the engine
+  cannot evaluate against any fact. These will read as `flag: "…"` on the sheet.
+
+### Lane note for P1
+
+`src/verify/**` is not assigned in CONTRACT §1. I built it there as directed.
+Please record ownership — engine lane is the natural home since it imports
+`@/src/engine` and nothing else, but it is your call.
