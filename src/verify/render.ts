@@ -98,6 +98,17 @@ function windowPhrase(leaf: CriterionLeaf): string {
 }
 
 /**
+ * A washout clock is meaningful only relative to a particular prior exposure.
+ * Keep a legacy target-less leaf visibly broken in the fidelity sheet rather
+ * than rendering it as though the target were merely stylistic detail.
+ */
+function washoutDoseSubject(leaf: CriterionLeaf): string {
+  const target = leaf.drugClass ?? leaf.analyte;
+  if (target === undefined || target.trim().length === 0) return "dose (target missing)";
+  return `${target.replace(/_/g, " ").toLowerCase()} dose`;
+}
+
+/**
  * One leaf as an English clause.
  *
  * The common protocol shapes get purpose-written phrasings, because "age at least
@@ -139,10 +150,11 @@ export function renderLeaf(leaf: CriterionLeaf): string {
 
   if (predicate === "washout" && typeof leaf.value === "number") {
     const unit = leaf.unit ?? "days";
-    if (operator === ">=") return `at least ${leaf.value} ${unit} since the last dose`;
-    if (operator === ">") return `more than ${leaf.value} ${unit} since the last dose`;
-    if (operator === "<=") return `within ${leaf.value} ${unit} of the last dose`;
-    if (operator === "<") return `less than ${leaf.value} ${unit} since the last dose`;
+    const dose = washoutDoseSubject(leaf);
+    if (operator === ">=") return `at least ${leaf.value} ${unit} since the last ${dose}`;
+    if (operator === ">") return `more than ${leaf.value} ${unit} since the last ${dose}`;
+    if (operator === "<=") return `within ${leaf.value} ${unit} of the last ${dose}`;
+    if (operator === "<") return `less than ${leaf.value} ${unit} since the last ${dose}`;
   }
 
   if (predicate === "performance_status" && typeof leaf.value === "number") {

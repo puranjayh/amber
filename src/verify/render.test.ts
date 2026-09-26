@@ -18,13 +18,19 @@ describe("renderLeaf — the shapes a protocol actually uses", () => {
       .toBe("aged 75 years or younger");
   });
 
-  it("renders a washout from the patient's point of view", () => {
+  it("renders a washout from the patient's point of view, including its target", () => {
+    expect(
+      renderLeaf(leaf({ id: "W", predicate: "washout", operator: ">=", value: 14, unit: "days", drugClass: "RADIOTHERAPY" })),
+    ).toBe("at least 14 days since the last radiotherapy dose");
+    expect(
+      renderLeaf(leaf({ id: "W", predicate: "washout", operator: "<", value: 21, unit: "days", analyte: "surgery" })),
+    ).toBe("less than 21 days since the last surgery dose");
+  });
+
+  it("makes a legacy target-less washout visibly incomplete", () => {
     expect(
       renderLeaf(leaf({ id: "W", predicate: "washout", operator: ">=", value: 21, unit: "days" })),
-    ).toBe("at least 21 days since the last dose");
-    expect(
-      renderLeaf(leaf({ id: "W", predicate: "washout", operator: "<", value: 21, unit: "days" })),
-    ).toBe("less than 21 days since the last dose");
+    ).toBe("at least 21 days since the last dose (target missing)");
   });
 
   it("renders ECOG the way a clinician says it", () => {
