@@ -49,14 +49,21 @@ export function DemoShell({ children }: { children: ReactNode }) {
       skipScroll.current = false;
       return;
     }
-    document.getElementById(`beat-${BEATS[safeBeat]}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(`beat-${BEATS[safeBeat]}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [safeBeat]);
 
   return (
-    <div ref={root} data-shown={shown} data-active={BEATS[safeBeat]} data-presenting={presenting ? "1" : "0"}>
+    <div
+      ref={root}
+      data-shown={shown}
+      data-active={BEATS[safeBeat]}
+      data-presenting={presenting ? "1" : "0"}
+    >
       {children}
-      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-surface/95 px-3 py-2 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 font-mono text-[11px] text-ink-2">
+      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-surface px-3 py-3">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 text-[13px] text-ink-2">
           {presenting ? (
             <>
               <span>

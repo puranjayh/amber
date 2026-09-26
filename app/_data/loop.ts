@@ -1,4 +1,4 @@
-import type { LoopNudge, LoopState, NudgeKind, NudgeStatus, PhysicianNote, PortalAnswers, WorklistRow } from "./schema";
+import type { LoopNudge, LoopState, NudgeKind, NudgeStatus, PhysicianNote, PortalAnswers, ReleaseMode, WorklistRow } from "./schema";
 import {
   clearLoop,
   insertNudge,
@@ -7,11 +7,14 @@ import {
   newNudge,
   preferenceFromAnswers,
   replacePreferences,
+  saveReleases,
+  setNudgeHeld,
   updateNudgeStatus,
   upsertNote,
   upsertPreference,
 } from "./loop-store";
 import { seedPreferenceRows } from "@/components/loop/rank";
+import { assignPhysician } from "@/components/hcp/roster";
 
 export { loopBackend } from "./loop-store";
 
@@ -96,6 +99,25 @@ export async function setNudgeStatus(
 ): Promise<LoopState> {
   await readLoop(worklist);
   await updateNudgeStatus(id, status);
+  return loadLoop();
+}
+
+export async function releaseUpdate(id: string): Promise<LoopState> {
+  await setNudgeHeld(id, false);
+  return loadLoop();
+}
+
+export async function setReleaseMode(physicianId: string, mode: ReleaseMode): Promise<LoopState> {
+  const state = await loadLoop();
+  const releases = state.releases.filter((row) => row.physicianId !== physicianId).concat({ physicianId, mode });
+  await saveReleases(releases);
+  if (mode === "auto") {
+    for (const nudge of state.nudges) {
+      if (nudge.kind !== "trial_update" || nudge.held !== true) continue;
+      if (assignPhysician(nudge.patientId) !== physicianId) continue;
+      await setNudgeHeld(nudge.id, false);
+    }
+  }
   return loadLoop();
 }
 

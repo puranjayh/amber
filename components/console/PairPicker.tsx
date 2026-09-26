@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { PairResult } from "@/src/contracts";
+import { trialPatientPath } from "@/components/hcp/access";
 
 function pairTone(pair: PairResult | undefined) {
   if (!pair) return "border-dashed border-ink-3 text-ink-3";
@@ -38,7 +39,11 @@ export function PairPicker({
               <span className="sr-only">Patient</span>
             </th>
             {nctIds.map((id) => (
-              <th key={id} scope="col" className="px-1 py-1.5 text-center font-mono font-medium text-ink-3">
+              <th
+                key={id}
+                scope="col"
+                className="px-1 py-1.5 text-center font-mono font-medium text-ink-3"
+              >
                 {id.slice(-4)}
               </th>
             ))}
@@ -56,7 +61,7 @@ export function PairPicker({
                 return (
                   <td key={nct} className="px-1 py-1 text-center">
                     <Link
-                      href={`/worklist/patient/${encodeURIComponent(pid)}?trial=${encodeURIComponent(nct)}`}
+                      href={trialPatientPath(pid, { trialId: nct })}
                       aria-current={active ? "page" : undefined}
                       aria-label={`${pid} × ${nct}: ${pairLabel(pair)}`}
                       className={`inline-block w-full min-w-[4.5rem] rounded border px-1.5 py-1 font-mono ${pairTone(pair)} ${

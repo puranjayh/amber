@@ -32,7 +32,7 @@ export function DoctorActions({
   initial: LoopState;
   live: boolean;
 }) {
-  const { state, apply } = useLoop(initial, live);
+  const { state, apply } = useLoop(initial, live, "physician");
   const [decision, setDecision] = useState<"open" | "ordered" | "dismissing" | "dismissed">("open");
   const [reason, setReason] = useState<string | null>(null);
   const canOrder = Boolean(order) && !/^no order/i.test(order?.title ?? "");
@@ -61,7 +61,7 @@ export function DoctorActions({
               nctId,
             }).then(apply);
           }}
-          className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+          className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
         >
           {suggested ? "Suggested to patient" : "Suggest this trial"}
         </button>
@@ -69,7 +69,7 @@ export function DoctorActions({
           type="button"
           disabled={!canOrder || decision === "ordered" || decision === "dismissed"}
           onClick={() => setDecision("ordered")}
-          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[12px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
+          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
         >
           {decision === "ordered" ? "Order drafted" : "Order this test"}
         </button>
@@ -77,28 +77,28 @@ export function DoctorActions({
           type="button"
           disabled={decision === "dismissed" || decision === "ordered"}
           onClick={() => setDecision("dismissing")}
-          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[12px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
+          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
         >
           Dismiss
         </button>
         {suggested && (
           <Link
             href={`/patient-portal?patient=${encodeURIComponent(patientId)}`}
-            className="text-[12px] text-ink underline-offset-2 hover:underline"
+            className="text-[13px] text-ink underline-offset-2 hover:underline"
           >
             Open patient portal
           </Link>
         )}
       </div>
       {order && (
-        <p className="text-[12px] text-ink-2">
+        <p className="text-[13px] text-ink-2">
           {order.criterionId} · T{order.tier} {TIER_LABEL[order.tier]} · {order.title}
         </p>
       )}
       {decision === "ordered" && order && (
         <p className="text-[13px] text-ink" role="status">
-          <span className="font-medium">Drafted for your signature:</span> {order.title}. {order.detail} Nothing is
-          transmitted from this screen.
+          <span className="font-medium">Drafted for your signature:</span> {order.title}.{" "}
+          {order.detail} Nothing is transmitted from this screen.
         </p>
       )}
       {decision === "dismissing" && (
@@ -111,7 +111,7 @@ export function DoctorActions({
                 setReason(label);
                 setDecision("dismissed");
               }}
-              className="rounded-md border border-line bg-surface px-2.5 py-1 text-[12px] text-ink hover:border-ink-3"
+              className="rounded-md border border-line bg-surface px-2.5 py-1 text-[13px] text-ink hover:border-ink-3"
             >
               {label}
             </button>

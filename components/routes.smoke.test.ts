@@ -4,8 +4,6 @@ import { expect, test, vi } from "vitest";
 import {
   DEMO,
   getAssignments,
-  getCube,
-  getEquity,
   getDraftEval,
   getEval,
   getHcp,
@@ -38,13 +36,12 @@ import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { HcpPhysician } from "@/components/hcp/HcpPhysician";
 import { HcpView } from "@/components/hcp/HcpView";
 import { PortalSwitcher } from "@/components/console/PortalSwitcher";
-import { compositionHeadline, raceLabel } from "@/components/hcp/race";
-import { hitForPair, panelComposition, takePanel } from "@/components/hcp/panel";
+import { compositionHeadline } from "@/components/hcp/race";
+import { panelComposition, takePanel } from "@/components/hcp/panel";
 import { PortalForm } from "@/components/hcp/PortalForm";
 import { AnalyteStrip, matchAnalyte } from "@/components/landscape/AnalyteStrip";
 import { landscapeAliases } from "@/components/elasticity/picks";
-import { MarketGraph } from "@/components/market/MarketGraph";
-import { buildGraph, marketCut } from "@/components/market/graph";
+import { marketCut } from "@/components/market/graph";
 import { PayerSplit } from "@/components/payer/PayerView";
 import { attributePatients } from "@/components/worklist/attribution";
 import { Physicians } from "@/components/worklist/Physicians";
@@ -94,7 +91,7 @@ test("/worklist mounts against published worklist.json", () => {
   );
   expect(markup).toContain("pairs evaluated");
   expect(markup).toContain("PT-4401");
-  expect(markup).toContain("/worklist/patient/");
+  expect(markup).toContain("/patient/");
   expect(markup).not.toContain("/doctor?patient=");
 });
 
@@ -120,6 +117,8 @@ test("/worklist live first paint ranks the focus patient at #47 until preference
         preferences: seedPreferenceRows(worklist, "2026-09-25T00:00:00.000Z"),
         nudges: [],
         notes: [],
+        registry: [],
+        releases: [],
       },
     }),
   );
@@ -151,7 +150,7 @@ test("/worklist physicians tab mounts a roster with assigned labels and a readin
         key: "p",
         rows,
         attributions,
-        initial: { backend: "file", preferences: [], nudges: [], notes: [] },
+        initial: { backend: "file", preferences: [], nudges: [], notes: [], registry: [], releases: [] },
         live: false,
       }),
     ]),
@@ -164,7 +163,7 @@ test("/worklist physicians tab mounts a roster with assigned labels and a readin
   expect(markup).toContain("Select all");
   expect(markup).toContain("Open in doctor portal");
   expect(markup).toContain("Medical oncology");
-  expect(markup).toContain("/worklist/patient/");
+  expect(markup).toContain("/patient/");
   expect(markup).not.toContain("/doctor?patient=");
 });
 
@@ -193,10 +192,9 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
   expect(panel).toHaveLength(25);
   const patients = getPatients();
   const composition = panelComposition(panel, worklist, patients);
-  expect(composition.headline).toMatch(/Your panel is \d+% .+; the patients these criteria admit are \d+%\./);
-  const equity = [...new Set(panel.map((r) => r.nctId))]
-    .map((nctId) => getEquity(nctId))
-    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+  expect(composition.headline).toMatch(
+    /patients are \d+% of your panel and \d+% of the patients these criteria admit|No group on your panel is under-admitted/,
+  );
   const rows = panel.map((row) => {
     const patient = getPatient(row.patientId);
     const trial = getTrial(row.nctId);
@@ -217,9 +215,13 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
     return {
       patientId: row.patientId,
       nctId: row.nctId,
-      unknownCount: row.unknownCount,
-      race: patient ? raceLabel(patient.race) : "Unknown",
-      groupHit: patient && cell ? hitForPair(row.nctId, cell.criterionId, patient.race, equity) : undefined,
+      name: patient ? `${row.patientId}, ${patient.age}` : row.patientId,
+      picture: "Diagnosis not in the chart",
+      trialName: trial?.title ?? row.nctId,
+      blocker: "Open question on the chart",
+      resolve: "Nothing to order.",
+      visit: "Next visit not on the chart.",
+      bucket: "order" as const,
       draft,
     };
   });
@@ -237,7 +239,8 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
   expect(markup).toContain("Impiricus");
   expect(markup).toContain("Draft outreach");
   expect(markup).toContain("PT-4401");
-  expect(markup).toContain("/doctor?physician=hcp-rahman");
+  expect(markup).toContain("/doctor/patient/");
+  expect(markup).toContain("physician=hcp-rahman");
   expect(markup).not.toContain("/hcp?patient=");
   expect(markup).not.toContain("Suggest this trial");
 });
@@ -298,24 +301,10 @@ test("/elasticity mounts sweep + corpus strip + three-trial market cut", () => {
         unit: pick.leaf.unit,
       }),
       createElement(AnalyteStrip, { key: "a", analyte, caption: "233 real protocols, 5,105 criteria, no consensus." }),
-      createElement(MarketGraph, {
-        key: "m",
-        graph: buildGraph(
-          cut.patientIds,
-          getTrials()
-            .map((t) => ({ nctId: t.nctId, slots: t.slots }))
-            .filter((t) => cut.nctIds.includes(t.nctId)),
-          getCube(),
-          getAssignments(),
-        ),
-        modes: ["adhoc", "stable"],
-        caption: "The same algorithm that matches medical students to residencies.",
-      }),
     ]),
   );
   expect(markup).toContain("eligible");
   expect(markup).toContain("5,105");
-  expect(markup).toContain("residencies");
 });
 
 test("/eval mounts the human 30-cell run, not the model-draft file", () => {
@@ -359,5 +348,7 @@ test("/patient-portal mounts four questions and no medical facts", () => {
 
 test("equity composition sentence uses the Black 22 / 9 example shape", () => {
   const line = compositionHeadline({ Black: 0.22, White: 0.78 }, { Black: 0.09, White: 0.91 });
-  expect(line.text).toBe("Your panel is 22% Black; the patients these criteria admit are 9%.");
+  expect(line.text).toBe(
+    "Black patients are 22% of your panel and 9% of the patients these criteria admit.",
+  );
 });

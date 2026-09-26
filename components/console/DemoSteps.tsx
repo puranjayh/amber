@@ -42,7 +42,7 @@ export function DemoSteps({ current, mode = "1" }: { current: DemoStep; mode?: "
       {next && (
         <Link
           href={href(next.path)}
-          className="shrink-0 self-start rounded bg-ink px-2.5 py-1 text-[12px] font-medium text-surface hover:bg-ink-2"
+          className="shrink-0 self-start rounded bg-ink px-2.5 py-1 text-[13px] font-medium text-surface hover:bg-ink-2"
         >
           Next: {next.label} →
         </Link>

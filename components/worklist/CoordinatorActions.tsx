@@ -22,12 +22,14 @@ export function CoordinatorActions({
   initial: LoopState;
   live: boolean;
 }) {
-  const { state, apply } = useLoop(initial, live);
+  const { state, apply } = useLoop(initial, live, "coordinator");
   const asked = state.nudges.some(
-    (nudge) => nudge.kind === "fill_preferences" && nudge.patientId === patientId && nudge.status !== "done",
+    (nudge) =>
+      nudge.kind === "fill_preferences" && nudge.patientId === patientId && nudge.status !== "done",
   );
   const nudged = state.nudges.some(
-    (nudge) => nudge.kind === "enrol_patient" && nudge.patientId === patientId && nudge.status !== "done",
+    (nudge) =>
+      nudge.kind === "enrol_patient" && nudge.patientId === patientId && nudge.status !== "done",
   );
 
   return (
@@ -45,7 +47,7 @@ export function CoordinatorActions({
               nctId,
             }).then(apply);
           }}
-          className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+          className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
         >
           {nudged ? "Physician nudged" : `Nudge ${physicianName}`}
         </button>
@@ -62,7 +64,7 @@ export function CoordinatorActions({
               nctId,
             }).then(apply);
           }}
-          className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+          className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
         >
           {asked ? "Asked — waiting on patient" : "Ask patient for preferences"}
         </button>

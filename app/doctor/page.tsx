@@ -1,39 +1,42 @@
+import { redirect } from "next/navigation";
 import { readLoop } from "@/app/_data/loop";
+import { syncRegistry } from "@/app/_data/registry-sync";
 import {
   DEMO,
   asOf,
   getAnchorRows,
   getDemoWorklist,
-  getEquity,
   getPair,
   getPairsForPatient,
   getPatient,
   getPatients,
   getTrial,
+  getTrials,
   meta,
 } from "@/app/_data/source";
-import { blockingUnknown, orderCorresponds, orderFor } from "@/components/alert/alert";
+import { fetchStudy } from "@/app/_data/ctgov";
+import type { RegistryStudy } from "@/app/_data/schema";
+import { orderCorresponds, orderFor } from "@/components/alert/alert";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { isStaticDemo, one } from "@/components/console/params";
-import { PairDetail } from "@/components/criteria/PairDetail";
-import { leafForCell } from "@/components/criteria/rows";
-import { doctorMayOpen, doctorQuery } from "@/components/hcp/access";
-import { DoctorActions, type DoctorOrder } from "@/components/hcp/DoctorActions";
+import { collectLeaves } from "@/components/criteria/rows";
+import { toneCounts } from "@/components/criteria/tone";
+import { doctorChartPath, doctorMayOpen, doctorQuery } from "@/components/hcp/access";
 import { DoctorChrome } from "@/components/hcp/DoctorChrome";
+import { DoctorTabs } from "@/components/hcp/DoctorTabs";
 import { HcpLive } from "@/components/hcp/HcpLive";
 import { HcpView, type HcpRosterRow } from "@/components/hcp/HcpView";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
-import { trialsByWorth } from "@/components/hcp/patientTrials";
+import { TrialCards } from "@/components/hcp/TrialCards";
 import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
+import { buildTrialCards, rowsForTrial, tierLine } from "@/components/hcp/trialBoard";
 import { attributePatients } from "@/components/worklist/attribution";
 import { draftOutreach } from "@/components/hcp/outreach";
-import { hitForPair, panelComposition, takePanel } from "@/components/hcp/panel";
-import { raceLabel } from "@/components/hcp/race";
-import { LOOP_FOCUS, pairTravel, prefsByPatient, rank, toPortalAnswers } from "@/components/loop/rank";
-import { anchorById, isAnchor } from "@/components/console/anchors";
-import type { LoopState, PortalAnswers } from "@/app/_data/schema";
-import Link from "next/link";
+import { clinicFocus, describeClinic, trialWords } from "@/components/hcp/clinic";
+import { panelComposition, takePanel } from "@/components/hcp/panel";
+import { LOOP_FOCUS, pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
+import { anchorById } from "@/components/console/anchors";
 
 export const metadata = { title: "Impiricus — Doctor portal" };
 
@@ -45,24 +48,88 @@ export default async function DoctorPage({
   const sp = await searchParams;
   const demo = isStaticDemo(sp);
   const demoMode = one(sp.demo) === "static" ? "static" : "1";
-  const anchor = anchorById(isAnchor(one(sp.trial)) ? one(sp.trial) : undefined);
-  const worklist = getAnchorRows(anchor.nctId);
+  const view = one(sp.view) === "trials" ? "trials" : "patients";
+  const requestedTrial = one(sp.trial);
+  const trialId =
+    requestedTrial && /^NCT\d{8}$/.test(requestedTrial) ? requestedTrial : anchorById(undefined).nctId;
+  const home = getAnchorRows(anchorById(undefined).nctId);
   const loopWorklist = getDemoWorklist();
+  if (!demo) await syncRegistry();
   const loop = demo ? null : await readLoop(loopWorklist);
   const prefs = loop ? prefsByPatient(loop.preferences) : {};
+  const pinned = getAnchorRows(trialId);
   const ordered = loop
-    ? rank(worklist, prefs, (row) => pairTravel(getPatient(row.patientId), getTrial(row.nctId)))
-    : worklist;
-  const attributions = attributePatients(worklist.map((row) => row.patientId));
+    ? rank(pinned, prefs, (row) => pairTravel(getPatient(row.patientId), getTrial(row.nctId)))
+    : pinned;
+  const attributions = attributePatients(home.map((row) => row.patientId));
   const requested = one(sp.patient);
   const requestedPhysician = one(sp.physician);
   const physicianId = PHYSICIANS.some((p) => p.id === requestedPhysician)
     ? requestedPhysician!
     : DEFAULT_PHYSICIAN_ID;
+  const physician = PHYSICIANS.find((p) => p.id === physicianId) ?? PHYSICIANS[0];
   const mine = new Set(
     attributions.filter((a) => a.physicianId === physicianId).map((a) => a.patientId),
   );
-  const scoped = ordered.filter((row) => mine.has(row.patientId));
+  if (home.length === 0) {
+    return (
+      <>
+        <DoctorChrome
+          asOf={asOf}
+          demo={demo}
+          demoMode={demoMode}
+          physicianId={physicianId}
+          trial={trialId}
+        />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/anchors.json" />
+        </main>
+      </>
+    );
+  }
+  if (view === "trials") {
+    const pairs = [...mine].flatMap((id) => getPairsForPatient(id));
+    const studies = new Map((loop?.registry ?? []).map((row) => [row.nctId, row.study] as const));
+    const nctIds = [...new Set(pairs.map((pair) => pair.nctId))];
+    if (!demo) await fillEnrollment(nctIds, studies);
+    const cards = buildTrialCards({
+      pairs,
+      trials: new Map(getTrials().map((trial) => [trial.nctId, trial])),
+      studies,
+      origin: { lat: physician.lat, lon: physician.lon },
+    });
+    return (
+      <>
+        <DoctorChrome
+          asOf={asOf}
+          demo={demo}
+          demoMode={demoMode}
+          physicianId={physicianId}
+          trial={trialId}
+        />
+        <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+          <DoctorTabs
+            physicianId={physicianId}
+            trial={trialId}
+            demo={demo ? demoMode : null}
+            view="trials"
+          />
+          <TrialCards
+            cards={cards}
+            hrefFor={(nctId) =>
+              doctorQuery({ physicianId, trialId: nctId, demo: demo ? demoMode : null })
+            }
+          />
+          <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
+        </main>
+      </>
+    );
+  }
+  const onTrial = [...mine].flatMap((id) => {
+    const pair = getPair(id, trialId);
+    return pair ? [pair] : [];
+  });
+  const scoped = rowsForTrial(mine, ordered, onTrial);
   const extraIds = new Set(
     [
       requested && mine.has(requested) ? requested : undefined,
@@ -73,7 +140,11 @@ export default async function DoctorPage({
         .map((n) => n.patientId) ?? []),
     ].filter((id): id is string => Boolean(id)),
   );
-  const panel = takePanel(scoped, 25, demo && mine.has(DEMO.patientId) ? DEMO.patientId : undefined);
+  const panel = takePanel(
+    scoped,
+    25,
+    demo && mine.has(DEMO.patientId) ? DEMO.patientId : undefined,
+  );
   for (const id of extraIds) {
     if (panel.some((row) => row.patientId === id)) continue;
     const row = scoped.find((r) => r.patientId === id);
@@ -82,28 +153,49 @@ export default async function DoctorPage({
   if (panel.length === 0) {
     return (
       <>
-        <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} trial={anchor.nctId} />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
-          <MissingData file="app/_data/worklist.json" />
+        <DoctorChrome
+          asOf={asOf}
+          demo={demo}
+          demoMode={demoMode}
+          physicianId={physicianId}
+          trial={trialId}
+        />
+        <main className="mx-auto w-full max-w-5xl flex-1 space-y-6 px-3 py-6 sm:px-6">
+          <DoctorTabs
+            physicianId={physicianId}
+            trial={trialId}
+            demo={demo ? demoMode : null}
+            view="patients"
+          />
+          <p className="text-[15px] text-ink-2">No patients on this trial are on your panel.</p>
         </main>
       </>
     );
   }
 
   const patients = getPatients();
-  const equity = [...new Set(panel.map((row) => row.nctId))]
-    .map((nctId) => getEquity(nctId))
-    .filter((e): e is NonNullable<typeof e> => Boolean(e));
-  const composition = panelComposition(panel, worklist, patients);
+  const composition = panelComposition(panel, scoped, patients);
   const gate = doctorMayOpen(requested, mine);
-  const openId =
-    gate === "open" ? requested : gate === "denied" ? undefined : demo && mine.has(DEMO.patientId) ? DEMO.patientId : undefined;
+  if (gate === "open" && requested) {
+    redirect(
+      doctorChartPath({
+        physicianId,
+        patientId: requested,
+        trialId: one(sp.trial),
+        demo: demo ? demoMode : null,
+      }),
+    );
+  }
+  const focusTrial = getTrial(trialId);
+  const leaves = focusTrial ? collectLeaves(focusTrial.criteria) : new Map();
   const rows: HcpRosterRow[] = panel.map((row) => {
     const patient = getPatient(row.patientId);
     const trial = getTrial(row.nctId);
     const pair = getPair(row.patientId, row.nctId);
-    const cell = pair && !pair.eliminated ? blockingUnknown(pair) : undefined;
-    const leaf = trial && cell ? leafForCell(trial.criteria, cell) : undefined;
+    const focus =
+      patient && trial && pair ? clinicFocus(pair, trial, row.blocking[0]?.criterionId) : undefined;
+    const cell = focus && pair && !pair.eliminated ? focus.cell : undefined;
+    const leaf = focus && pair && !pair.eliminated ? focus.leaf : undefined;
     const order = patient && leaf && cell ? orderFor(leaf, cell, patient) : undefined;
     const draft =
       patient && trial && cell && leaf && order && orderCorresponds(leaf, cell, order)
@@ -115,26 +207,67 @@ export default async function DoctorPage({
             order,
           })
         : null;
-    const groupHit =
-      patient && cell ? hitForPair(row.nctId, cell.criterionId, patient.race, equity) : undefined;
+    const card = patient
+      ? describeClinic({
+          patient,
+          nctId: row.nctId,
+          trialTitle: trial?.title,
+          eliminated: row.eliminated,
+          unknownCount: row.unknownCount,
+          leaf: focus?.leaf,
+          reason: focus?.cell.reason,
+          orderTitle: order?.title,
+          asOf,
+        })
+      : describeClinic({
+          patient: {
+            id: row.patientId,
+            age: 0,
+            sex: "unknown",
+            race: "",
+            facts: [],
+          },
+          nctId: row.nctId,
+          trialTitle: trial?.title,
+          eliminated: row.eliminated,
+          unknownCount: row.unknownCount,
+          asOf,
+        });
+    const tones = pair ? toneCounts(pair.cells, (id) => leaves.get(id)?.type) : null;
     return {
       patientId: row.patientId,
       nctId: row.nctId,
-      unknownCount: row.unknownCount,
-      race: patient ? raceLabel(patient.race) : "Unknown",
-      groupHit,
+      ...card,
       draft,
+      met: tones ? tones.green : null,
+      total: leaves.size || null,
+      tier: tierLine(row.resolutionTier),
     };
   });
 
   return (
     <>
-      <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} trial={anchor.nctId} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
+      <DoctorChrome
+        asOf={asOf}
+        demo={demo}
+        demoMode={demoMode}
+        physicianId={physicianId}
+          trial={trialId}
+        />
+        <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+          <DoctorTabs
+            physicianId={physicianId}
+            trial={trialId}
+            demo={demo ? demoMode : null}
+            view="patients"
+          />
+          <p className="text-[15px] text-ink-2">
+            {trialWords(trialId, focusTrial?.title)}
+          </p>
         {loop ? (
           <HcpLive
             rows={rows}
-            selectedId={openId}
+            selectedId={undefined}
             headline={composition.headline}
             panelShare={composition.panel}
             admittedShare={composition.admitted}
@@ -146,7 +279,7 @@ export default async function DoctorPage({
         ) : (
           <HcpView
             rows={rows}
-            selectedId={openId}
+            selectedId={undefined}
             headline={composition.headline}
             panelShare={composition.panel}
             admittedShare={composition.admitted}
@@ -155,115 +288,29 @@ export default async function DoctorPage({
           />
         )}
         {gate === "denied" && requested ? <NotYourPatient patientId={requested} /> : null}
-        {openId ? (
-          <DoctorChart
-            patientId={openId}
-            physicianId={physicianId}
-            requestedTrial={one(sp.trial)}
-            demo={demo}
-            demoMode={demoMode}
-            answers={
-              loop?.preferences.find((row) => row.patientId === openId)
-                ? toPortalAnswers(loop.preferences.find((row) => row.patientId === openId)!)
-                : {}
-            }
-            loop={loop}
-          />
-        ) : null}
         <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
       </main>
     </>
   );
 }
 
-function DoctorChart({
-  patientId,
-  physicianId,
-  requestedTrial,
-  demo,
-  demoMode,
-  answers,
-  loop,
-}: {
-  patientId: string;
-  physicianId: string;
-  requestedTrial?: string;
-  demo: boolean;
-  demoMode: "1" | "static";
-  answers: PortalAnswers;
-  loop: LoopState | null;
-}) {
-  const patient = getPatient(patientId);
-  const ranked = trialsByWorth(getPairsForPatient(patientId), getTrial, patient, answers);
-  const nctId = ranked.some((row) => row.nctId === requestedTrial) ? requestedTrial! : ranked[0]?.nctId;
-  const trial = nctId ? getTrial(nctId) : undefined;
-  const pair = nctId ? getPair(patientId, nctId) : undefined;
-  const cell = pair && trial && !pair.eliminated ? blockingUnknown(pair) : undefined;
-  const leaf = trial && cell ? leafForCell(trial.criteria, cell) : undefined;
-  const built = patient && leaf && cell ? orderFor(leaf, cell, patient) : undefined;
-  const order: DoctorOrder | undefined =
-    built && leaf && cell && orderCorresponds(leaf, cell, built)
-      ? { title: built.title, detail: built.detail, criterionId: cell.criterionId, tier: cell.tier }
-      : undefined;
-
-  return (
-    <section className="space-y-3" aria-label="Your patient">
-      <div>
-        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink-3">
-          Your patient
-        </p>
-        <h2 className="mt-0.5 font-mono text-[16px] font-medium text-ink">{patientId}</h2>
-        <p className="mt-0.5 text-[12px] text-ink-2">
-          Trials ranked by what they are worth to this patient. You suggest, order, or dismiss. A coordinator
-          does not.
-        </p>
-      </div>
-      {ranked.length > 0 && (
-        <ol className="overflow-hidden rounded-md border border-line bg-surface">
-          {ranked.map((row, i) => {
-            const current = row.nctId === nctId;
-            return (
-              <li key={row.nctId} className="border-b border-line-2 last:border-b-0">
-                <Link
-                  href={doctorQuery({
-                    physicianId,
-                    patientId,
-                    trialId: row.nctId,
-                    demo: demo ? demoMode : null,
-                  })}
-                  aria-current={current ? "true" : undefined}
-                  className={`block px-3 py-2 hover:bg-canvas sm:px-4 ${current ? "bg-canvas" : ""}`}
-                >
-                  <span className="flex flex-wrap items-baseline justify-between gap-x-2">
-                    <span className="font-mono text-[12px] font-medium text-ink">
-                      <span className="mr-1.5 text-ink-3">{i + 1}.</span>
-                      {row.nctId}
-                    </span>
-                    <span className="font-mono text-[11px] text-ink-3">
-                      worth {row.worth.toFixed(2)} · {row.unknownCount}?
-                    </span>
-                  </span>
-                  <span className="mt-0.5 block truncate text-[12px] text-ink-2">{row.title}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
-      )}
-      {patient && trial && pair ? (
-        <>
-          <DoctorActions
-            patientId={patientId}
-            nctId={trial.nctId}
-            order={order}
-            initial={loop ?? { backend: "file", preferences: [], nudges: [], notes: [] }}
-            live={Boolean(loop)}
-          />
-          <PairDetail patient={patient} trial={trial} pair={pair} />
-        </>
-      ) : (
-        <MissingData file="app/_data/cube.json" detail={`No pair for ${patientId}.`} />
-      )}
-    </section>
+/** Fill enrollment and sites from ClinicalTrials.gov when the cached snapshot is missing them. */
+async function fillEnrollment(nctIds: string[], studies: Map<string, RegistryStudy>): Promise<void> {
+  await Promise.all(
+    nctIds.map(async (nctId) => {
+      const have = studies.get(nctId);
+      if (have && have.enrollmentCount != null && have.sites.length > 0) return;
+      try {
+        const fresh = await fetchStudy(nctId);
+        if (!fresh) return;
+        studies.set(nctId, {
+          ...fresh,
+          sites: fresh.sites.length > 0 ? fresh.sites : (have?.sites ?? []),
+          enrollmentCount: fresh.enrollmentCount ?? have?.enrollmentCount,
+        });
+      } catch {
+        /* the card says the registry record is missing rather than inventing a count */
+      }
+    }),
   );
 }

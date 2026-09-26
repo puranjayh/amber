@@ -30,7 +30,7 @@ export default async function EvalPage({
   return (
     <>
       <ConsoleHeader asOf={asOf} active="eval" demo={demo} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         <EvalView report={report} />
         <Provenance meta={meta} call="data/eval/results.human.json" />
         {draft.evaluatedCells > 0 && (

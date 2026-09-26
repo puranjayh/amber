@@ -1,4 +1,5 @@
 import { readLoop } from "@/app/_data/loop";
+import { syncRegistry } from "@/app/_data/registry-sync";
 import { asOf, getDemoWorklist, getHcp, getPair, getTrial } from "@/app/_data/source";
 import { blockingUnknown } from "@/components/alert/alert";
 import { MissingData } from "@/components/console/MissingData";
@@ -9,6 +10,7 @@ import { PortalLive } from "@/components/hcp/PortalLive";
 import { PortalSelect } from "@/components/hcp/PortalSelect";
 import { catalogFor, trialPhaseLabel } from "@/components/hcp/portal-copy";
 import { prefsByPatient } from "@/components/loop/rank";
+import { forAudience } from "@/components/loop/registry";
 
 export const metadata = { title: "AMBER — Your preferences" };
 
@@ -37,14 +39,23 @@ export default async function PatientPortalPage({
     patients.find((p) => p.patientId === requested) ??
     patients.find((p) => p.patientId === "PT-4401") ??
     patients[0];
+  if (!staticDemo) await syncRegistry();
   const loop = staticDemo ? null : await readLoop(getDemoWorklist());
-  const nudged = loop?.nudges.filter((n) => n.toRole === "patient" && n.status !== "done").map((n) => n.patientId) ?? [];
-  const codes = [...new Set([
-    ...patients.filter((p) => /^PT-\d+$/.test(p.patientId)).map((p) => p.patientId),
-    ...nudged,
-    current.patientId,
-  ])];
-  const liveAnswers = loop ? (prefsByPatient(loop.preferences)[current.patientId] ?? {}) : current.portal;
+  const patientLoop = loop ? forAudience(loop, "patient") : null;
+  const nudged =
+    loop?.nudges
+      .filter((n) => n.toRole === "patient" && n.status !== "done")
+      .map((n) => n.patientId) ?? [];
+  const codes = [
+    ...new Set([
+      ...patients.filter((p) => /^PT-\d+$/.test(p.patientId)).map((p) => p.patientId),
+      ...nudged,
+      current.patientId,
+    ]),
+  ];
+  const liveAnswers = loop
+    ? (prefsByPatient(loop.preferences)[current.patientId] ?? {})
+    : current.portal;
   const catalog = catalogFor(
     current.patientId,
     current.trials.map((trial) => {
@@ -64,25 +75,29 @@ export default async function PatientPortalPage({
   return (
     <>
       <PortalChrome asOf={asOf} />
-      <main className="mx-auto w-full max-w-xl flex-1 space-y-4 px-3 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto w-full max-w-xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         <div>
-          <h1 className="text-[16px] font-medium text-ink">What only you know</h1>
-          <p className="mt-0.5 text-[12px] text-ink-2">
+          <h1 className="text-[24px] font-medium text-ink">What only you know</h1>
+          <p className="mt-0.5 text-[13px] text-ink-2">
             Your doctor already has the chart. These four answers are not in it. They change how
             trials are ranked for you. They are not medical facts
             {loop ? "." : ", and saving them does not message anyone."}
           </p>
         </div>
         <PortalSelect ids={codes} current={current.patientId} />
-        {loop ? (
+        {patientLoop ? (
           <PortalLive
             patientId={current.patientId}
             initialAnswers={liveAnswers}
             catalog={catalog}
-            initial={loop}
+            initial={patientLoop}
           />
         ) : (
-          <PortalForm key={current.patientId} patientId={current.patientId} initial={current.portal} />
+          <PortalForm
+            key={current.patientId}
+            patientId={current.patientId}
+            initial={current.portal}
+          />
         )}
       </main>
     </>

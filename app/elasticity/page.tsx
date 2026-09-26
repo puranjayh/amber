@@ -1,17 +1,4 @@
-import {
-  DEMO,
-  asOf,
-  fixturePatientIds,
-  getAssignments,
-  getCube,
-  getLandscape,
-  getSweep,
-  getSweeps,
-  getTrial,
-  getTrials,
-  getWorklist,
-  meta,
-} from "@/app/_data/source";
+import { DEMO, asOf, getLandscape, getSweep, getSweeps, getTrials, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { MissingData } from "@/components/console/MissingData";
@@ -19,11 +6,15 @@ import { Provenance } from "@/components/console/Provenance";
 import { isDemo, one } from "@/components/console/params";
 import { ElasticitySelect } from "@/components/elasticity/ElasticitySelect";
 import { ElasticityView } from "@/components/elasticity/ElasticityView";
-import { defaultBindingPick, INERT_NOTE, isBinding, landscapeAliases, pickAnalyteSweeps } from "@/components/elasticity/picks";
+import {
+  defaultBindingPick,
+  INERT_NOTE,
+  isBinding,
+  landscapeAliases,
+  pickAnalyteSweeps,
+} from "@/components/elasticity/picks";
 import { tryBuildSweep } from "@/components/elasticity/sweep";
 import { AnalyteStrip, matchAnalyte } from "@/components/landscape/AnalyteStrip";
-import { MarketGraph } from "@/components/market/MarketGraph";
-import { buildGraph, marketCut } from "@/components/market/graph";
 
 const OPERATOR_GLYPH: Record<string, string> = { ">=": "≥", "<=": "≤", "!=": "≠", "==": "=" };
 const CORPUS = "233 real protocols, 5,105 criteria, no consensus.";
@@ -37,12 +28,17 @@ export default async function ElasticityPage({
   const demo = isDemo(sp);
   const picks = pickAnalyteSweeps(getSweeps(), getTrials(), DEMO.nctId);
   const binding = picks.filter(isBinding);
-  const pinnedSweep = picks.find((p) => p.nctId === "NCT02496663" && p.criterionId === "INC-10" && p.swing > 0);
-  const selectable = pinnedSweep ? [pinnedSweep, ...binding.filter((p) => p !== pinnedSweep)] : binding;
+  const pinnedSweep = picks.find(
+    (p) => p.nctId === "NCT02496663" && p.criterionId === "INC-10" && p.swing > 0,
+  );
+  const selectable = pinnedSweep
+    ? [pinnedSweep, ...binding.filter((p) => p !== pinnedSweep)]
+    : binding;
   const inert = picks.filter((p) => !selectable.includes(p));
   const requested = one(sp.sweep);
   const pick =
-    selectable.find((p) => `${p.nctId}:${p.criterionId}` === requested) ?? defaultBindingPick(picks);
+    selectable.find((p) => `${p.nctId}:${p.criterionId}` === requested) ??
+    defaultBindingPick(picks);
 
   const found = pick ? getSweep(pick.nctId, pick.criterionId) : undefined;
   const sweep =
@@ -51,33 +47,36 @@ export default async function ElasticityPage({
       : null;
 
   const landscape = getLandscape();
-  const analyte = pick ? matchAnalyte(landscape.analytes, landscapeAliases(pick.family)) : undefined;
-
-  const assignments = getAssignments();
-  const cut = marketCut(fixturePatientIds(), assignments, DEMO.nctId);
-  const trialMeta = getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots }));
-  const graph = buildGraph(
-    cut.patientIds,
-    trialMeta.filter((t) => cut.nctIds.includes(t.nctId)),
-    getCube(),
-    assignments,
-  );
+  const analyte = pick
+    ? matchAnalyte(landscape.analytes, landscapeAliases(pick.family))
+    : undefined;
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="elasticity" demo={demo} demoMode={one(sp.demo) === "static" ? "static" : "1"} trial={DEMO.nctId} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-6 px-3 py-4 sm:px-6 sm:py-6">
-        {demo && <DemoSteps current="elasticity" mode={one(sp.demo) === "static" ? "static" : "1"} />}
+      <ConsoleHeader
+        asOf={asOf}
+        active="elasticity"
+        demo={demo}
+        demoMode={one(sp.demo) === "static" ? "static" : "1"}
+        trial={DEMO.nctId}
+      />
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+        {demo && (
+          <DemoSteps current="elasticity" mode={one(sp.demo) === "static" ? "static" : "1"} />
+        )}
 
         <section className="space-y-3">
           <div>
-            <h1 className="text-[16px] font-medium text-ink">The threshold, and what it costs</h1>
-            <p className="mt-0.5 text-[12px] text-ink-2">
+            <h1 className="text-[24px] font-medium text-ink">The threshold, and what it costs</h1>
+            <p className="mt-0.5 text-[13px] text-ink-2">
               Precomputed sweep. Dragging the slider does not re-run the engine.
             </p>
           </div>
           {picks.length === 0 || !pick || !sweep ? (
-            <MissingData file="app/_data/elasticity.json" detail="No ANC / albumin / CrCl / platelet sweep." />
+            <MissingData
+              file="app/_data/elasticity.json"
+              detail="No ANC / albumin / CrCl / platelet sweep."
+            />
           ) : (
             <>
               <ElasticitySelect
@@ -86,7 +85,7 @@ export default async function ElasticityPage({
                 demo={demo}
               />
               {inert.length > 0 && (
-                <ul className="space-y-1 text-[12px] text-ink-2">
+                <ul className="space-y-1 text-[13px] text-ink-2">
                   {inert.map((p) => (
                     <li key={`${p.nctId}:${p.criterionId}`}>
                       <span className="font-mono text-ink-3">
@@ -116,24 +115,9 @@ export default async function ElasticityPage({
           <AnalyteStrip analyte={analyte} caption={CORPUS} />
         </section>
 
-        <section className="space-y-3">
-          <div>
-            <h2 className="text-[16px] font-medium text-ink">And the trials compete for the same patients</h2>
-          </div>
-          {cut.patientIds.length === 0 || cut.nctIds.length === 0 ? (
-            <MissingData file="app/_data/assignments.json" />
-          ) : (
-            <MarketGraph
-              graph={graph}
-              modes={["adhoc", "stable"]}
-              caption="The same algorithm that matches medical students to residencies."
-            />
-          )}
-        </section>
-
         <Provenance
           meta={meta}
-          call={pick ? `sweep(${pick.nctId}, ${pick.criterionId}) · matchAdhoc() · match()` : "sweep · match"}
+          call={pick ? `sweep(${pick.nctId}, ${pick.criterionId})` : "sweep"}
         />
       </main>
     </>

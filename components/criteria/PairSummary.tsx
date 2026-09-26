@@ -12,7 +12,7 @@ function Stat({ label, value, className }: { label: string; value: number; class
   return (
     <div className={`rounded border px-2.5 py-1.5 ${className}`}>
       <div className="font-mono text-[18px] font-medium leading-none">{value}</div>
-      <div className="mt-1 font-mono text-[10px] uppercase tracking-wide">{label}</div>
+      <div className="mt-1 text-[13px] text-ink-2">{label}</div>
     </div>
   );
 }
@@ -31,17 +31,25 @@ function Status({ pair }: { pair: PairResult }) {
   return <span className="text-[13px] font-medium text-pass">All criteria resolved</span>;
 }
 
-export function PatientStrip({ patient }: { patient: Patient }) {
+export function PatientStrip({
+  patient,
+  heading,
+  showRace = true,
+}: {
+  patient: Patient;
+  heading?: string;
+  showRace?: boolean;
+}) {
   const bits = [
     `${patient.age} ${patient.sex}`,
-    patient.race,
+    showRace ? patient.race : null,
     patient.travelMinutes !== undefined ? `${patient.travelMinutes} min travel` : null,
   ].filter(Boolean);
   return (
     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-      <h1 className="font-mono text-[16px] font-medium text-ink">{patient.id}</h1>
-      <span className="text-[12px] text-ink-2">{bits.join(" · ")}</span>
-      <span className="font-mono text-[10px] uppercase tracking-wide text-ink-3">synthetic</span>
+      <h1 className="text-[24px] font-medium text-ink">{heading ?? patient.id}</h1>
+      <span className="text-[13px] text-ink-2">{bits.join(" · ")}</span>
+      <span className="text-[11px] text-ink-3">synthetic</span>
     </div>
   );
 }
@@ -60,26 +68,34 @@ export function PairSummary({
   return (
     <div className="rounded-md border border-line bg-surface">
       <div className="px-3 py-3 sm:px-4">
-        <div className="flex flex-wrap items-baseline gap-x-2 font-mono text-[11px] text-ink-3">
-          <span className="font-medium text-ink">{trial.nctId}</span>
+        <div className="flex flex-wrap items-baseline gap-x-2 text-[13px] text-ink-3">
+          <span className="font-mono text-ink">{trial.nctId}</span>
           <span>{trial.phase}</span>
           <span>· {trial.slots} slots</span>
           <span>· compiler {Math.round(trial.compilerConfidence * 100)}%</span>
         </div>
-        <p className="mt-1 text-[14px] font-medium leading-snug text-ink">{trial.title}</p>
-        <p className="mt-0.5 text-[12px] text-ink-2">{trial.condition}</p>
+        <p className="mt-1 text-[15px] font-medium leading-snug text-ink">{trial.title}</p>
+        <p className="mt-0.5 text-[13px] text-ink-2">{trial.condition}</p>
 
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <Stat label="favourable" value={tones.green} className="border-pass-line bg-pass-bg text-pass" />
-          <Stat label="unfavourable" value={tones.red} className="border-fail-line bg-fail-bg text-fail" />
           <Stat
-            label="unknown"
+            label="Favourable"
+            value={tones.green}
+            className="border-pass-line bg-pass-bg text-pass"
+          />
+          <Stat
+            label="Unfavourable"
+            value={tones.red}
+            className="border-fail-line bg-fail-bg text-fail"
+          />
+          <Stat
+            label="Unknown"
             value={tones.amber}
             className="border-unknown-line bg-unknown-bg text-unknown"
           />
           <div className="ml-1 min-w-0 flex-1 basis-40">
             <Status pair={pair} />
-            <div className="font-mono text-[11px] text-ink-3">
+            <div className="text-[13px] text-ink-3">
               resolution cost {pair.resolutionCost} · EV {pair.expectedValue.toFixed(2)}
             </div>
           </div>
@@ -88,17 +104,17 @@ export function PairSummary({
 
       {unknowns.length > 0 && !pair.eliminated && (
         <div className="border-t border-line-2 px-3 py-2.5 sm:px-4">
-          <div className="mb-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-            To resolve · cheapest first
-          </div>
-          <ul className="space-y-1">
+          <div className="mb-2 text-[15px] font-medium text-ink">To resolve, cheapest first</div>
+          <ul className="space-y-2">
             {unknowns.map((c, i) => {
               const leaf = leaves.get(c.criterionId);
+              const plain = leaf?.sourceSpan ?? leaf?.analyte ?? leaf?.predicate ?? "";
               return (
-                <li key={`${c.criterionId}:${i}`} className="flex flex-wrap items-baseline gap-x-2 text-[12px]">
-                  <span className="font-mono font-medium text-unknown">{c.criterionId}</span>
-                  <span className="text-ink">{leaf?.analyte ?? leaf?.predicate ?? ""}</span>
-                  <span className="text-ink-3">
+                <li key={`${c.criterionId}:${i}`} className="text-[15px] leading-[1.55]">
+                  <span className="text-ink">{plain}</span>
+                  <span className="mt-0.5 block font-mono text-[11px] text-ink-3">
+                    {c.criterionId}
+                    {" · "}
                     {c.reason} · tier {c.tier} {TIER_LABEL[c.tier]}
                     {c.pFavorable !== undefined && ` · p ${Math.round(c.pFavorable * 100)}%`}
                   </span>

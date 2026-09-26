@@ -39,6 +39,20 @@ export type Order = {
   detail: string;
 };
 
+function labPanel(analyte: string): string {
+  const key = analyte.toLowerCase();
+  if (LAB_ORDER[key]) return LAB_ORDER[key];
+  if (/neutrophil|\banc\b/.test(key)) return LAB_ORDER.anc;
+  if (/platelet/.test(key)) return LAB_ORDER.platelets;
+  if (/hemoglobin|\bhgb\b/.test(key)) return LAB_ORDER.hemoglobin;
+  if (/bilirubin/.test(key)) return LAB_ORDER.bilirubin;
+  if (/\bast\b|\balt\b/.test(key)) return LAB_ORDER.alt;
+  if (/creatinine clearance|\bcrcl\b/.test(key)) return LAB_ORDER["creatinine clearance"];
+  if (/creatinine/.test(key)) return LAB_ORDER.creatinine;
+  if (/qtc/.test(key)) return LAB_ORDER.qtc;
+  return "";
+}
+
 const LAB_ORDER: Record<string, string> = {
   anc: "CBC with differential",
   hemoglobin: "CBC with differential",
@@ -67,8 +81,9 @@ export function orderFor(leaf: CriterionLeaf, cell: CubeCell, patient: Patient):
   switch (leaf.predicate) {
     case "biomarker": {
       const specimen = cell.tier === 0 ? archivedSpecimen(patient) : undefined;
+      const named = /egfr/i.test(`${analyte} ${leaf.sourceSpan}`) ? "EGFR" : analyte || "Biomarker";
       return {
-        title: `${analyte || "Biomarker"} mutation testing${specimen ? " on archived tissue" : ""}`,
+        title: `${named} mutation testing${specimen ? " on archived tissue" : ""}`,
         detail: specimen
           ? `Reflex NGS on the existing specimen from ${specimen}. No new biopsy needed.`
           : `Send tissue or plasma for ${analyte || "biomarker"} testing.`,
@@ -99,13 +114,19 @@ export function orderFor(leaf: CriterionLeaf, cell: CubeCell, patient: Patient):
         title: "Review this contraindication in the chart",
         detail: `History against “${leaf.sourceSpan}”.${within}`,
       };
-    case "performance_status":
+    case "performance_status": {
+      const named = /ecog/i.test(`${analyte} ${leaf.sourceSpan}`)
+        ? "ECOG"
+        : /karnofsky/i.test(`${analyte} ${leaf.sourceSpan}`)
+          ? "Karnofsky"
+          : analyte || "performance status";
       return {
-        title: `Document ${analyte || "performance status"} at the next visit`,
+        title: `Document ${named} at the next visit`,
         detail: `In-clinic assessment, no draw or imaging.${within}`,
       };
+    }
     case "lab_value": {
-      const panel = LAB_ORDER[analyte.toLowerCase()] ?? `${analyte || "Laboratory"} test`;
+      const panel = labPanel(analyte) || `${analyte || "Laboratory"} test`;
       return { title: panel, detail: `Repeat ${analyte || "lab"} to resolve this criterion.${within}` };
     }
     case "staging":
@@ -141,7 +162,7 @@ export function orderCorresponds(leaf: CriterionLeaf, cell: CubeCell, order: Ord
     case "performance_status":
       return /ecog|performance|visit/.test(title);
     case "lab_value": {
-      const panel = LAB_ORDER[analyte];
+      const panel = labPanel(analyte);
       return Boolean((panel && title.includes(panel.toLowerCase().split(" ")[0])) || (analyte && title.includes(analyte)));
     }
     case "staging":

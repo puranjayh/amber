@@ -51,17 +51,15 @@ export function AlertCard({
 
   return (
     <article
-      className="mx-auto w-full max-w-xl overflow-hidden rounded-lg border border-line bg-surface shadow-sm"
+      className="mx-auto w-full max-w-xl overflow-hidden rounded-lg border border-line bg-surface "
       aria-labelledby="alert-title"
     >
       <header className="border-b border-line px-4 py-3">
-        <div className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink-3">
-          Trial match · one decision
-        </div>
-        <h1 id="alert-title" className="mt-1 text-[15px] font-semibold leading-snug text-ink">
+        <div className="text-[11px] font-medium text-ink-3">Trial match · one decision</div>
+        <h1 id="alert-title" className="mt-1 text-[24px] font-semibold leading-snug text-ink">
           {patient.id} could qualify for {trial.nctId}
         </h1>
-        <p className="mt-0.5 text-[12px] text-ink-2">
+        <p className="mt-0.5 text-[13px] text-ink-2">
           {patient.age} {patient.sex} · {patient.race}
           {patient.travelMinutes !== undefined && ` · ${patient.travelMinutes} min travel`}
         </p>
@@ -71,10 +69,12 @@ export function AlertCard({
         <div className="flex flex-wrap items-baseline gap-x-2 font-mono text-[11px] text-ink-3">
           <span className="font-medium text-ink">{trial.nctId}</span>
           <span>{trial.phase}</span>
-          {trial.siteDistanceMinutes !== undefined && <span>· site {trial.siteDistanceMinutes} min</span>}
+          {trial.siteDistanceMinutes !== undefined && (
+            <span>· site {trial.siteDistanceMinutes} min</span>
+          )}
         </div>
         <p className="mt-1 text-[13px] leading-snug text-ink">{trial.title}</p>
-        <p className="mt-2 text-[12px] text-ink-2">
+        <p className="mt-2 text-[13px] text-ink-2">
           Meets {favourable} of {totalCriteria} criteria.{" "}
           {others === 0 ? (
             <span className="font-medium text-ink">One open question stands between them.</span>
@@ -88,11 +88,11 @@ export function AlertCard({
 
       <section aria-label="Blocking unknown">
         <div className="flex flex-wrap items-center gap-2 bg-unknown-bg px-4 py-2">
-          <span className="rounded border border-unknown-line bg-surface px-1.5 py-0.5 font-mono text-[10px] font-medium tracking-wide text-unknown">
+          <span className="rounded border border-unknown-line bg-surface px-1.5 py-0.5 text-[11px] font-medium text-unknown">
             ? UNKNOWN
           </span>
-          <span className="font-mono text-[12px] font-medium text-ink">{leaf.id}</span>
-          <span className="text-[12px] text-unknown">
+          <span className="font-mono text-[13px] font-medium text-ink">{leaf.id}</span>
+          <span className="text-[13px] text-unknown">
             {cell.reason === "stale" ? "on file, but out of date" : "not in the record"}
           </span>
         </div>
@@ -100,14 +100,13 @@ export function AlertCard({
       </section>
 
       <section className="border-t border-line px-4 py-3" aria-label="Order to place">
-        <div className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-          Order to place
-        </div>
-        <p className="mt-1 text-[14px] font-medium text-ink">{order.title}</p>
-        <p className="mt-0.5 text-[12px] text-ink-2">{order.detail}</p>
+        <div className="text-[11px] font-medium text-ink-3">Order to place</div>
+        <p className="mt-1 text-[15px] font-medium text-ink">{order.title}</p>
+        <p className="mt-0.5 text-[13px] text-ink-2">{order.detail}</p>
         <p className="mt-1 font-mono text-[11px] text-ink-3">
           tier {cell.tier} · {TIER_LABEL[cell.tier]}
-          {cell.pFavorable !== undefined && ` · ${Math.round(cell.pFavorable * 100)}% likely favourable`}
+          {cell.pFavorable !== undefined &&
+            ` · ${Math.round(cell.pFavorable * 100)}% likely favourable`}
         </p>
       </section>
 
@@ -133,14 +132,14 @@ export function AlertCard({
 
         {decision.kind === "declining" && (
           <div>
-            <div className="mb-2 text-[12px] text-ink-2">Why? (optional)</div>
+            <div className="mb-2 text-[13px] text-ink-2">Why? (optional)</div>
             <div className="flex flex-wrap gap-2">
               {DECLINE_REASONS.map((reason) => (
                 <button
                   key={reason}
                   type="button"
                   onClick={() => setDecision({ kind: "declined", reason })}
-                  className="rounded-md border border-line bg-surface px-3 py-1.5 text-[12px] text-ink hover:border-ink-3"
+                  className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] text-ink hover:border-ink-3"
                 >
                   {reason}
                 </button>
@@ -148,7 +147,7 @@ export function AlertCard({
               <button
                 type="button"
                 onClick={() => setDecision({ kind: "declined", reason: "No reason given" })}
-                className="rounded-md px-3 py-1.5 text-[12px] text-ink-3 hover:text-ink"
+                className="rounded-md px-3 py-1.5 text-[13px] text-ink-3 hover:text-ink"
               >
                 Skip
               </button>

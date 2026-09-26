@@ -10,6 +10,8 @@ import {
   LoopPreference,
   LoopState,
   PhysicianNote,
+  RegistrySnapshot,
+  ReleaseSetting,
   type LoopNudge as LoopNudgeT,
   type LoopPreference as LoopPreferenceT,
   type LoopState as LoopStateT,
@@ -18,6 +20,8 @@ import {
   type NudgeStatus,
   type PhysicianNote as PhysicianNoteT,
   type PortalAnswers,
+  type RegistrySnapshot as RegistrySnapshotT,
+  type ReleaseSetting as ReleaseSettingT,
 } from "./schema";
 
 const FILE = join(process.cwd(), ".data/loop.json");
@@ -35,10 +39,16 @@ export function loopBackend(): LoopStateT["backend"] {
 }
 
 function empty(): LoopStateT {
-  return { backend: loopBackend(), preferences: [], nudges: [], notes: [] };
+  return { backend: loopBackend(), preferences: [], nudges: [], notes: [], registry: [], releases: [] };
 }
 
-type FileShape = { preferences: unknown; nudges: unknown; notes?: unknown };
+type FileShape = {
+  preferences: unknown;
+  nudges: unknown;
+  notes?: unknown;
+  registry?: unknown;
+  releases?: unknown;
+};
 
 function readFile(): LoopStateT {
   if (!existsSync(FILE)) return empty();
@@ -62,7 +72,19 @@ function readFile(): LoopStateT {
           return one.success ? [one.data] : [];
         })
       : [];
-    return { backend: "file", preferences, nudges, notes };
+    const registry = Array.isArray(raw.registry)
+      ? raw.registry.flatMap((row) => {
+          const one = RegistrySnapshot.safeParse(row);
+          return one.success ? [one.data] : [];
+        })
+      : [];
+    const releases = Array.isArray(raw.releases)
+      ? raw.releases.flatMap((row) => {
+          const one = ReleaseSetting.safeParse(row);
+          return one.success ? [one.data] : [];
+        })
+      : [];
+    return { backend: "file", preferences, nudges, notes, registry, releases };
   } catch {
     return empty();
   }
@@ -72,7 +94,17 @@ function writeFile(state: LoopStateT): void {
   mkdirSync(dirname(FILE), { recursive: true });
   writeFileSync(
     FILE,
-    JSON.stringify({ preferences: state.preferences, nudges: state.nudges, notes: state.notes }, null, 2),
+    JSON.stringify(
+      {
+        preferences: state.preferences,
+        nudges: state.nudges,
+        notes: state.notes,
+        registry: state.registry,
+        releases: state.releases,
+      },
+      null,
+      2,
+    ),
   );
 }
 
@@ -95,6 +127,9 @@ type NudgeRow = {
   status: string;
   created_at: string;
   batch_id?: string | null;
+  detail?: string | null;
+  held?: boolean | null;
+  change_key?: string | null;
 };
 
 type NoteRow = {
@@ -136,6 +171,9 @@ function fromNudgeRow(row: NudgeRow): LoopNudgeT {
     status: row.status,
     createdAt: row.created_at,
     batchId: row.batch_id ?? undefined,
+    detail: row.detail ?? undefined,
+    held: row.held ?? undefined,
+    changeKey: row.change_key ?? undefined,
   });
 }
 
@@ -150,6 +188,9 @@ function toNudgeRow(row: LoopNudgeT): NudgeRow {
     status: row.status,
     created_at: row.createdAt,
     batch_id: row.batchId ?? null,
+    detail: row.detail ?? null,
+    held: row.held ?? false,
+    change_key: row.changeKey ?? null,
   };
 }
 
@@ -181,6 +222,7 @@ async function readSupabase(): Promise<LoopStateT> {
     rest<NudgeRow[]>("nudges?select=*&order=created_at.asc"),
     rest<NoteRow[]>("physician_notes?select=*"),
   ]);
+  const file = readFile();
   return {
     backend: "supabase",
     preferences: prefs.map(fromPrefRow),
@@ -192,6 +234,8 @@ async function readSupabase(): Promise<LoopStateT> {
         updatedAt: row.updated_at,
       }),
     ),
+    registry: file.registry,
+    releases: file.releases,
   };
 }
 
@@ -298,16 +342,63 @@ export async function markNudges(
 
 export async function clearLoop(): Promise<void> {
   const keep = (await loadLoop()).notes;
+  const wiped = { ...empty(), notes: keep };
   if (loopBackend() === "supabase") {
     await trySupabase(async () => {
       await Promise.all([
         rest("preferences?patient_id=not.is.null", { method: "DELETE", headers: { Prefer: "return=minimal" } }),
         rest("nudges?id=not.is.null", { method: "DELETE", headers: { Prefer: "return=minimal" } }),
       ]);
-    }, () => writeFile({ ...empty(), notes: keep }));
+      const file = readFile();
+      writeFile({ ...file, registry: [], releases: [] });
+    }, () => writeFile(wiped));
     return;
   }
-  writeFile({ ...empty(), notes: keep });
+  writeFile(wiped);
+}
+
+export async function saveRegistry(registry: RegistrySnapshotT[], nudges: LoopNudgeT[]): Promise<void> {
+  const current = await loadLoop();
+  const next: LoopStateT = { ...current, registry, nudges: [...current.nudges, ...nudges] };
+  if (loopBackend() === "supabase") {
+    await trySupabase(
+      async () => {
+        if (nudges.length) {
+          await rest("nudges", { method: "POST", body: JSON.stringify(nudges.map(toNudgeRow)) });
+        }
+        const file = readFile();
+        writeFile({ ...file, registry });
+      },
+      () => writeFile(next),
+    );
+    return;
+  }
+  writeFile(next);
+}
+
+export async function setNudgeHeld(id: string, held: boolean): Promise<void> {
+  const apply = () => {
+    const current = readFile();
+    writeFile({
+      ...current,
+      nudges: current.nudges.map((row) => (row.id === id ? { ...row, held } : row)),
+    });
+  };
+  if (loopBackend() === "supabase") {
+    await trySupabase(async () => {
+      await rest(`nudges?id=eq.${encodeURIComponent(id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({ held }),
+      });
+    }, apply);
+    return;
+  }
+  apply();
+}
+
+export async function saveReleases(releases: ReleaseSettingT[]): Promise<void> {
+  const current = readFile();
+  writeFile({ ...current, releases });
 }
 
 export function preferenceFromAnswers(patientId: string, answers: PortalAnswers, at: string): LoopPreferenceT {

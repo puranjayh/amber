@@ -1,7 +1,15 @@
-import Link from "next/link";
 import { TIER_LABEL, type Patient, type Trial } from "@/src/contracts";
 import type { WorklistRow, WorklistStrip } from "@/app/_data/schema";
-import { MEASURED_BENCH, formatBench, formatDollars, formatRealProtocols, type ScreenFailures } from "./strip";
+import { trialPatientPath } from "@/components/hcp/access";
+import { trialWords } from "@/components/hcp/clinic";
+import { LabelledRows, type LabelledRow } from "@/components/roster/LabelledRows";
+import {
+  MEASURED_BENCH,
+  formatBench,
+  formatDollars,
+  formatRealProtocols,
+  type ScreenFailures,
+} from "./strip";
 
 export type WorklistAction = {
   label: string;
@@ -23,7 +31,7 @@ export type WorklistItem = WorklistRow & {
 
 function Blocking({ row }: { row: WorklistItem }) {
   if (row.blocking.length === 0) {
-    return <span className="text-[12px] text-pass">none — ready to refer</span>;
+    return <span className="text-[13px] text-pass">none — ready to refer</span>;
   }
   return (
     <span className="flex flex-wrap gap-1">
@@ -33,7 +41,7 @@ function Blocking({ row }: { row: WorklistItem }) {
           <span
             key={`${b.criterionId}:${b.reason}:${b.tier}`}
             title={`${b.criterionId}: ${b.verdict} (${b.reason}), tier ${b.tier}`}
-            className={`rounded border px-1.5 py-px font-mono text-[10px] ${
+            className={`rounded border px-1.5 py-px font-mono text-[11px] ${
               unknown
                 ? "border-unknown-line bg-unknown-bg text-unknown"
                 : "border-fail-line bg-fail-bg text-fail"
@@ -46,8 +54,6 @@ function Blocking({ row }: { row: WorklistItem }) {
     </span>
   );
 }
-
-const COLS = "md:grid md:grid-cols-[2.5rem_9rem_minmax(0,1fr)_6.5rem_minmax(0,12rem)_8rem] md:items-center md:gap-3";
 
 export function WorklistHeader({
   strip,
@@ -74,7 +80,8 @@ export function WorklistHeader({
     {
       value: strip.oneTier0Away,
       label: "one Tier-0 away",
-      title: "Not eliminated; the only remaining unknown is a single existing-specimen (tier 0) test",
+      title:
+        "Not eliminated; the only remaining unknown is a single existing-specimen (tier 0) test",
       tone: strip.oneTier0Away > 0 ? "text-unknown" : "text-ink",
     },
   ] as const;
@@ -83,28 +90,34 @@ export function WorklistHeader({
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <dl className="grid grid-cols-3">
         {items.map((item) => (
-          <div key={item.label} className="border-l border-line-2 px-3 py-2.5 first:border-l-0 sm:px-4" title={item.title}>
-            <dt className="font-mono text-[10px] leading-tight uppercase tracking-[0.06em] text-ink-3">{item.label}</dt>
-            <dd className={`mt-0.5 font-mono text-[22px] leading-none ${item.tone}`}>{item.value}</dd>
+          <div
+            key={item.label}
+            className="border-l border-line-2 px-3 py-2.5 first:border-l-0 sm:px-4"
+            title={item.title}
+          >
+            <dt className="text-[11px] leading-tight text-ink-3">{item.label}</dt>
+            <dd className={`mt-0.5 font-mono text-[24px] leading-none ${item.tone}`}>
+              {item.value}
+            </dd>
           </div>
         ))}
       </dl>
       {realProtocols > 0 && (
-        <p className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink sm:px-4">
+        <p className="border-t border-line-2 px-4 py-3 text-[13px] leading-[1.55] text-ink sm:px-4">
           {formatRealProtocols(realProtocols)}
         </p>
       )}
       <p
-        className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
+        className="border-t border-line-2 px-4 py-3 text-[13px] leading-[1.55] text-ink-2"
         title="Industry oncology screen-fail rate 62% × $2,000. AMBER only eliminates on a matching fact — absence stays UNKNOWN."
       >
-        {failures.patientsScreened} screened · {failures.expectedFailures} expected failures at 62% ·{" "}
-        <span className="text-pass">{failures.failuresAvoided} avoided</span>
+        {failures.patientsScreened} screened · {failures.expectedFailures} expected failures at 62%
+        · <span className="text-pass">{failures.failuresAvoided} avoided</span>
         {" · "}
         <span className="font-medium text-ink">{formatDollars(failures.dollarsAvoided)}</span>
       </p>
       <p
-        className="border-t border-line-2 px-3 py-2 font-mono text-[11px] leading-relaxed text-ink-2 sm:px-4"
+        className="border-t border-line-2 px-4 py-3 text-[13px] leading-[1.55] text-ink-2"
         title="Full cube, every cell emitted. 4,000 patients × 233 compiled trials."
       >
         {formatBench(MEASURED_BENCH)}
@@ -130,126 +143,79 @@ export function Worklist({
   demo?: boolean;
   trial?: string;
 }) {
+  const rowsOut: LabelledRow[] = rows.map((row, index) => ({
+    key: row.patientId,
+    rank: index + 1,
+    patient: (
+      <span>
+        <span className="font-mono text-[15px]" title={row.patientId}>
+          {row.patientId.length > 16 ? `${row.patientId.slice(0, 14)}…` : row.patientId}
+        </span>
+        {row.patient && (
+          <span className="mt-0.5 block text-[13px] text-ink-3">
+            {row.patient.age} {row.patient.sex}
+            {row.patient.race ? ` · ${row.patient.race}` : ""}
+          </span>
+        )}
+      </span>
+    ),
+    trial: (
+      <span className="block min-w-0">
+        <span className="block">{trialWords(row.nctId, row.trial?.title)}</span>
+        <span className="font-mono text-[11px] text-ink-3">{row.nctId}</span>
+        {row.eliminated && <span className="text-[13px] text-fail">Eliminated</span>}
+      </span>
+    ),
+    met: row.favourable,
+    total: row.total,
+    blocking: <Blocking row={row} />,
+    tier:
+      row.resolutionTier === null ? (
+        "—"
+      ) : (
+        <span>
+          <span className="font-mono">T{row.resolutionTier}</span> {TIER_LABEL[row.resolutionTier]}
+        </span>
+      ),
+    href:
+      advanceTo !== undefined || onSelect || row.inert
+        ? undefined
+        : trialPatientPath(row.patientId, { trialId: trial, demo: demo ? "static" : null }),
+    onClick: onSelect ? () => onSelect(row) : undefined,
+    advanceTo,
+    selected: selectedId === row.patientId,
+  }));
+
   return (
-    <div className="overflow-hidden rounded-md border border-line bg-surface">
-      <div className={`hidden border-b border-line bg-canvas px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3 ${COLS}`}>
-        <span>#</span>
-        <span>Patient</span>
-        <span>Best trial</span>
-        <span>Met / unknown</span>
-        <span>Blocking</span>
-        <span>Resolution tier</span>
-      </div>
-      <ol>
-        {rows.map((row, i) => {
-          const selected = selectedId === row.patientId;
-          const cls = `block w-full px-3 py-3 text-left hover:bg-canvas sm:px-4 ${COLS} ${
-            selected ? "bg-canvas" : ""
-          }`;
-          const body = (
-            <>
-              <span className="hidden font-mono text-[12px] text-ink-3 md:block">{i + 1}</span>
-
-              <span className="flex items-baseline justify-between gap-2 md:block">
-                <span className="font-mono text-[13px] font-medium text-ink" title={row.patientId}>
-                  <span className="mr-1.5 text-ink-3 md:hidden">{i + 1}.</span>
-                  {row.patientId.length > 16 ? `${row.patientId.slice(0, 14)}…` : row.patientId}
-                </span>
-                {row.patient && (
-                  <span className="text-[11px] text-ink-3 md:block">
-                    {row.patient.age} {row.patient.sex} · {row.patient.race}
-                  </span>
-                )}
-              </span>
-
-              <span className="mt-1 block min-w-0 md:mt-0">
-                <span className="font-mono text-[12px] text-ink">{row.nctId}</span>
-                {row.eliminated && (
-                  <span className="ml-1.5 font-mono text-[10px] uppercase text-fail">eliminated</span>
-                )}
-                {row.trial && <span className="block truncate text-[11px] text-ink-3">{row.trial.title}</span>}
-              </span>
-
-              <span className="mt-1.5 flex items-center gap-1.5 font-mono text-[12px] md:mt-0">
-                <span className="rounded border border-pass-line bg-pass-bg px-1.5 text-pass" title="Criteria in the patient's favour">
-                  {row.favourable}/{row.total}
-                </span>
-                <span
-                  className={`rounded border px-1.5 ${
-                    row.unknownCount > 0 ? "border-unknown-line bg-unknown-bg text-unknown" : "border-line text-ink-3"
-                  }`}
-                  title="Unknown criteria"
-                >
-                  {row.unknownCount}?
-                </span>
-              </span>
-
-              <span className="mt-1.5 block md:mt-0">
-                <Blocking row={row} />
-              </span>
-
-              <span className="mt-1.5 block text-[12px] md:mt-0">
-                {row.resolutionTier === null ? (
-                  <span className="text-ink-3">—</span>
-                ) : (
-                  <>
-                    <span className="font-mono text-ink">T{row.resolutionTier}</span>{" "}
-                    <span className="text-ink-2">{TIER_LABEL[row.resolutionTier]}</span>
-                  </>
-                )}
-              </span>
-            </>
-          );
-          return (
-            <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
-              {advanceTo !== undefined || onSelect ? (
-                <button
-                  type="button"
-                  data-advance={advanceTo}
-                  onClick={onSelect ? () => onSelect(row) : undefined}
-                  className={cls}
-                  aria-current={selected ? "true" : undefined}
-                >
-                  {body}
-                </button>
-              ) : row.inert ? (
-                <div className={cls}>{body}</div>
-              ) : (
-                <Link
-                  href={`/worklist/patient/${encodeURIComponent(row.patientId)}${(() => {
-                    const q = new URLSearchParams();
-                    if (trial) q.set("trial", trial);
-                    if (demo) q.set("demo", "static");
-                    const s = q.toString();
-                    return s ? `?${s}` : "";
-                  })()}`}
-                  className={cls}
-                >
-                  {body}
-                </Link>
-              )}
-              {(row.reason || row.note || row.action) && (
-                <div className="flex flex-wrap items-center justify-between gap-2 px-3 pb-3 sm:px-4">
-                  <div className="min-w-0 space-y-1">
-                    {row.reason && <p className="text-[12px] text-ink-2">{row.reason}</p>}
-                    {row.note && <p className="text-[12px] text-ink">{row.note}</p>}
-                  </div>
-                  {row.action && (
-                    <button
-                      type="button"
-                      disabled={row.action.disabled}
-                      onClick={row.action.onClick}
-                      className="shrink-0 rounded-md bg-ink px-2.5 py-1 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
-                    >
-                      {row.action.label}
-                    </button>
-                  )}
+    <div className="space-y-0">
+      <LabelledRows label="Worklist" rows={rowsOut} />
+      {rows.some((row) => row.reason || row.note || row.action) && (
+        <ul className="mt-2 space-y-1">
+          {rows.map((row) =>
+            row.reason || row.note || row.action ? (
+              <li
+                key={row.patientId}
+                className="flex flex-wrap items-center justify-between gap-2 px-1"
+              >
+                <div className="min-w-0 space-y-1">
+                  {row.reason && <p className="text-[13px] text-ink-2">{row.reason}</p>}
+                  {row.note && <p className="text-[13px] text-ink">{row.note}</p>}
                 </div>
-              )}
-            </li>
-          );
-        })}
-      </ol>
+                {row.action && (
+                  <button
+                    type="button"
+                    disabled={row.action.disabled}
+                    onClick={row.action.onClick}
+                    className="shrink-0 rounded-md bg-ink px-2.5 py-1 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+                  >
+                    {row.action.label}
+                  </button>
+                )}
+              </li>
+            ) : null,
+          )}
+        </ul>
+      )}
     </div>
   );
 }

@@ -24,10 +24,10 @@ export function EvalView({
   return (
     <div className="space-y-3">
       <header>
-        <h1 className="text-[16px] font-medium text-ink">
+        <h1 className="text-[24px] font-medium text-ink">
           {human ? "Human-labelled evaluation" : "Model-draft agreement"}
         </h1>
-        <p className="mt-0.5 text-[12px] text-ink-2">
+        <p className="mt-0.5 text-[13px] text-ink-2">
           {human
             ? "Confusion matrix of engine cells against hand labels. Human rows, engine columns."
             : "Not human-validated. Do not read these numbers as a grade of the engine."}
@@ -42,9 +42,7 @@ export function EvalView({
         }`}
         role="status"
       >
-        <div className="font-mono text-[10px] font-medium uppercase tracking-[0.08em]">
-          labelSource
-        </div>
+        <div className="text-[11px] font-medium ">labelSource</div>
         <p className="mt-0.5 font-mono text-[15px] font-medium">
           {human ? "human" : "model-draft"}
         </p>
@@ -70,10 +68,12 @@ export function EvalView({
       </div>
 
       <div className="overflow-x-auto rounded-md border border-line bg-surface">
-        <table className="w-full min-w-[20rem] border-collapse text-[12px]">
-          <caption className="sr-only">Confusion matrix, human labels as rows, engine as columns</caption>
+        <table className="w-full min-w-[20rem] border-collapse text-[13px]">
+          <caption className="sr-only">
+            Confusion matrix, human labels as rows, engine as columns
+          </caption>
           <thead>
-            <tr className="border-b border-line bg-canvas font-mono text-[10px] uppercase tracking-[0.08em] text-ink-3">
+            <tr className="border-b border-line bg-canvas text-[11px] text-ink-3">
               <th className="px-3 py-2 text-left font-medium">human \ engine</th>
               {ORDER.map((v) => (
                 <th key={v} className="px-3 py-2 text-right font-medium">
@@ -105,7 +105,7 @@ export function EvalView({
       </div>
 
       <section className="overflow-hidden rounded-md border border-line bg-surface">
-        <h2 className="border-b border-line px-3 py-2.5 text-[13px] font-medium text-ink sm:px-4">
+        <h2 className="border-b border-line px-3 py-2.5 text-[18px] font-medium text-ink sm:px-4">
           Disagreements
           <span className="ml-2 font-mono text-[11px] font-normal text-ink-3">
             {report.disagreements.length}
@@ -116,21 +116,24 @@ export function EvalView({
         ) : (
           <ol className="divide-y divide-line-2">
             {report.disagreements.map((d) => (
-              <li key={`${d.patientId}:${d.nctId}:${d.criterionId}`} className="px-3 py-2.5 sm:px-4">
-                <div className="flex flex-wrap items-baseline gap-x-2 font-mono text-[12px]">
+              <li
+                key={`${d.patientId}:${d.nctId}:${d.criterionId}`}
+                className="px-3 py-2.5 sm:px-4"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-2 font-mono text-[13px]">
                   <span className="font-medium text-ink">{d.patientId}</span>
                   <span className="text-ink-3">{d.nctId}</span>
                   <span className="text-ink">{d.criterionId}</span>
                 </div>
-                {d.trialTitle && <p className="mt-0.5 text-[12px] text-ink-2">{d.trialTitle}</p>}
-                <p className="mt-0.5 text-[12px] text-ink">
+                {d.trialTitle && <p className="mt-0.5 text-[13px] text-ink-2">{d.trialTitle}</p>}
+                <p className="mt-0.5 text-[13px] text-ink">
                   human {humanLabel(d.expected, d.expectedReason)} · engine {d.actual}
                 </p>
-                <blockquote className="mt-1.5 border-l-2 border-line pl-3 text-[12px] leading-relaxed text-ink-2">
+                <blockquote className="mt-1.5 border-l-2 border-line pl-3 text-[13px] leading-relaxed text-ink-2">
                   “{d.criterionCitation}”
                 </blockquote>
                 {d.chartCitation && (
-                  <blockquote className="mt-1 border-l-2 border-ink-3 pl-3 text-[12px] leading-relaxed text-ink">
+                  <blockquote className="mt-1 border-l-2 border-ink-3 pl-3 text-[13px] leading-relaxed text-ink">
                     “{d.chartCitation}”
                   </blockquote>
                 )}

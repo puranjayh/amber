@@ -118,7 +118,9 @@ export function PortalForm({
       </fieldset>
 
       <fieldset className="space-y-2">
-        <legend className="text-[13px] font-medium text-ink">Would you accept a placebo arm?</legend>
+        <legend className="text-[13px] font-medium text-ink">
+          Would you accept a placebo arm?
+        </legend>
         <div className="grid grid-cols-2 gap-2">
           <Choice
             name="placebo"
@@ -161,8 +163,9 @@ export function PortalForm({
         {busy ? "Saving…" : "Save answers"}
       </button>
       {saved && !live && (
-        <p className="text-[12px] text-ink-2" role="status">
-          Saved on this device. Your doctor sees them on their panel. This page did not contact anyone.
+        <p className="text-[13px] text-ink-2" role="status">
+          Saved on this device. Your doctor sees them on their panel. This page did not contact
+          anyone.
         </p>
       )}
     </form>

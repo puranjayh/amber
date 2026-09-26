@@ -58,8 +58,12 @@ function run(): FileCheck[] {
     ["data/compiled/trials.json", z.array(z.object({}).passthrough())],
   ];
   return [
-    ...required.map(([path, schema]) => checkPayload({ path, required: true, raw: read(path), schema })),
-    ...optional.map(([path, schema]) => checkPayload({ path, required: false, raw: read(path), schema })),
+    ...required.map(([path, schema]) =>
+      checkPayload({ path, required: true, raw: read(path), schema }),
+    ),
+    ...optional.map(([path, schema]) =>
+      checkPayload({ path, required: false, raw: read(path), schema }),
+    ),
   ];
 }
 
@@ -84,16 +88,17 @@ export default async function PreflightPage() {
   return (
     <>
       <ConsoleHeader asOf={asOfFromMeta()} active="preflight" />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-4 px-3 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         <div
           className={`rounded-md border px-3 py-3 sm:px-4 ${
             ok ? "border-pass-line bg-pass-bg text-pass" : "border-fail-line bg-fail-bg text-fail"
           }`}
           role="status"
         >
-          <p className="text-[16px] font-medium">{ok ? "Ready" : "Not ready"}</p>
-          <p className="mt-0.5 text-[12px] opacity-90">
-            {required.filter((c) => c.ok).length}/{required.length} required files valid and non-empty.
+          <p className="text-[18px] font-medium">{ok ? "Ready" : "Not ready"}</p>
+          <p className="mt-0.5 text-[13px] opacity-90">
+            {required.filter((c) => c.ok).length}/{required.length} required files valid and
+            non-empty.
             {ok ? " The demo has data." : " Fix the red rows before going on stage."}
           </p>
         </div>
@@ -109,16 +114,22 @@ export default async function PreflightPage() {
 function Section({ title, checks }: { title: string; checks: FileCheck[] }) {
   return (
     <section className="overflow-hidden rounded-md border border-line bg-surface">
-      <h1 className="border-b border-line px-3 py-2 text-[13px] font-medium text-ink sm:px-4">{title}</h1>
+      <h1 className="border-b border-line px-3 py-2 text-[24px] font-medium text-ink sm:px-4">
+        {title}
+      </h1>
       <ul>
         {checks.map((c) => (
           <li
             key={c.path}
             className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 border-b border-line-2 px-3 py-2 last:border-b-0 sm:px-4"
           >
-            <span className="min-w-0 font-mono text-[12px] text-ink">{c.path}</span>
-            <span className="flex items-baseline gap-2 font-mono text-[12px]">
-              <span className={!c.exists && !c.required ? "text-ink-3" : c.ok ? "text-pass" : "text-fail"}>
+            <span className="min-w-0 font-mono text-[13px] text-ink">{c.path}</span>
+            <span className="flex items-baseline gap-2 font-mono text-[13px]">
+              <span
+                className={
+                  !c.exists && !c.required ? "text-ink-3" : c.ok ? "text-pass" : "text-fail"
+                }
+              >
                 {!c.exists && !c.required ? "n/a" : c.ok ? "green" : "red"}
               </span>
               <span className="text-ink-3">{c.rows} rows</span>

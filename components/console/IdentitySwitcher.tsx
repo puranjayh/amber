@@ -40,14 +40,14 @@ export function IdentitySwitcher({
 }) {
   const router = useRouter();
   return (
-    <label className="inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-3">
+    <label className="inline-flex items-center gap-1.5 text-[11px] text-ink-3">
       <span className="sr-only">Signed in as</span>
       <span aria-hidden>Signed in as</span>
       <select
         aria-label="Signed in as"
         value={current}
         onChange={(e) => router.push(hrefFor(e.target.value as SignedIn, trial, demo))}
-        className="max-w-[11rem] rounded-md border border-line bg-surface px-1.5 py-1 text-[12px] text-ink"
+        className="max-w-[11rem] rounded-md border border-line bg-surface px-1.5 py-1 text-[13px] text-ink"
       >
         {OPTIONS.map((option) => (
           <option key={option.id} value={option.id}>

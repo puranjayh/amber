@@ -12,7 +12,7 @@ create table if not exists preferences (
 
 create table if not exists nudges (
   id uuid primary key default gen_random_uuid(),
-  kind text not null check (kind in ('fill_preferences', 'enrol_patient', 'trial_suggestion')),
+  kind text not null check (kind in ('fill_preferences', 'enrol_patient', 'trial_suggestion', 'trial_update')),
   from_role text not null check (from_role in ('coordinator', 'patient', 'physician')),
   to_role text not null check (to_role in ('coordinator', 'patient', 'physician')),
   patient_id text not null,
@@ -22,6 +22,14 @@ create table if not exists nudges (
 );
 
 alter table nudges add column if not exists batch_id text;
+alter table nudges add column if not exists detail text;
+alter table nudges add column if not exists held boolean not null default false;
+alter table nudges add column if not exists change_key text;
+
+-- Existing databases created the kind check inline. Replace it so trial_update is allowed.
+alter table nudges drop constraint if exists nudges_kind_check;
+alter table nudges add constraint nudges_kind_check
+  check (kind in ('fill_preferences', 'enrol_patient', 'trial_suggestion', 'trial_update'));
 
 create index if not exists nudges_patient_idx on nudges (patient_id);
 create index if not exists nudges_status_idx on nudges (status);

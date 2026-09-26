@@ -29,7 +29,7 @@ export default async function PayerPage({
   return (
     <>
       <ConsoleHeader asOf={asOf} active="payer" demo={demo} demoMode={demoMode} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         {demo && <DemoSteps current="payer" mode={demoMode} />}
         <PayerSplit view={view} />
         <Provenance
