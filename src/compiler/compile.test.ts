@@ -30,14 +30,6 @@ test("splits source eligibility headings without changing their words", () => {
   ]);
 });
 
-test("splits only oversized bullet lists, retaining each bullet", () => {
-  const bullets = Array.from({ length: 4 }, (_, index) => `- Requirement ${index + 1}: ${"x".repeat(350)}`).join("\n");
-  const blocks = extractEligibilityBlocks(`Inclusion Criteria:\n${bullets}`);
-  expect(blocks).toHaveLength(4);
-  expect(blocks[0].sourceText).toContain("Requirement 1");
-  expect(blocks[3].sourceText).toContain("Requirement 4");
-});
-
 test("keeps a numeric leaf when it is explicitly not sweepable", async () => {
   const result = await compileTrial(raw, async (block) => ({
     kind: "leaf",

@@ -118,24 +118,6 @@ function cleanBlock(text: string): string {
   return text.trim().replace(/\r\n/g, "\n");
 }
 
-const MAX_MODEL_BLOCK_CHARS = 1_200;
-const BULLET = /^\s*(?:[-*•]+|\d+[.)]|[A-Za-z]+[.)])\s+/;
-
-/** Split only oversized sections at top-level bullets, retaining continuations. */
-function splitOversizedSection(type: EligibilityBlock["type"], sourceText: string): EligibilityBlock[] {
-  if (sourceText.length <= MAX_MODEL_BLOCK_CHARS) return [{ type, sourceText }];
-  const chunks: string[] = [];
-  let current: string[] = [];
-  for (const line of sourceText.split("\n")) {
-    if (BULLET.test(line) && current.length > 0) {
-      chunks.push(current.join("\n").trim());
-      current = [line];
-    } else current.push(line);
-  }
-  if (current.length > 0) chunks.push(current.join("\n").trim());
-  return chunks.filter(Boolean).map((chunk) => ({ type, sourceText: chunk }));
-}
-
 /** Split the CT.gov eligibility field into semantically distinct source blocks. */
 export function extractEligibilityBlocks(eligibilityText: string): EligibilityBlock[] {
   const source = cleanBlock(eligibilityText);
@@ -150,7 +132,10 @@ export function extractEligibilityBlocks(eligibilityText: string): EligibilityBl
     const end = matches[index + 1]?.index ?? source.length;
     const text = source.slice(start, end).trim();
     if (text) {
-      blocks.push(...splitOversizedSection(match[2].toLowerCase() as "inclusion" | "exclusion", text));
+      blocks.push({
+        type: match[2].toLowerCase() as "inclusion" | "exclusion",
+        sourceText: text,
+      });
     }
   }
   return blocks.length > 0 ? blocks : [{ type: "unknown", sourceText: source }];
