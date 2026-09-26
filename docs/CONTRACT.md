@@ -299,3 +299,8 @@ cells are UNKNOWN, so the matrix is dominated by one class.
 Do not present 100% accuracy. Present the human-labelled blind subset instead, and report
 the draft run only as "an independent model agreed on all 130 cells", which is a much
 weaker and more honest claim.
+
+## 14. Verify lane (added 09:40 Sat)
+
+`src/verify/**` belongs to the engine lane (Claude Code) — pipeline checks, fidelity
+rendering, and the preflight verify function. It may import `@/src/engine` read-only.
