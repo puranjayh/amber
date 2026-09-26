@@ -79,7 +79,7 @@
       ]
     },
     {
-      "need": "a ILD claim line",
+      "need": "an ILD claim line",
       "predicate": "comorbidity",
       "analyte": "ILD",
       "why": "this extract has no claim that answers it",
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "need": "a osimertinib claim line",
+      "need": "an osimertinib claim line",
       "predicate": "prior_therapy",
       "analyte": "osimertinib",
       "why": "this extract has no claim that answers it",

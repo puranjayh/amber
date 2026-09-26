@@ -1,6 +1,6 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 03:41 ET
+Last updated: 2026-09-26 03:45 ET
 
 ## Done
 
@@ -10,9 +10,11 @@ Last updated: 2026-09-26 03:41 ET
 4. **Screen-failures-avoided** — 203 screened · 126 expected at 62% · 122 avoided · $244,000.
 5. **Eval** — `/eval` matrix + disagreements. `labelSource: model-draft` is the first thing on the page. Perfect agreement here is expected (labels are model-draft) and is not shown as a human grade.
 
+6. **Polish** — nine screens at 400px, light and dark. No page-level horizontal overflow. Dark tokens via `prefers-color-scheme`. Nav scrolls. Landscape bars capped so the no-consensus callout stays the slide.
+
 ## Queue
 
-6. Polish — all nine screens at 400px, light and dark.
+None in this lane. Swap payer/eval inputs when compiler files land.
 
 ## Blocked
 

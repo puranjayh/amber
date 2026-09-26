@@ -54,7 +54,7 @@ export function ConsoleHeader({
               key={item.key}
               href={keepDemo ? `${item.href}?demo=1` : item.href}
               aria-current={current ? "page" : undefined}
-              className={`shrink-0 whitespace-nowrap border-b-2 px-1.5 py-2 text-[11px] sm:px-2 sm:text-[12px] ${
+              className={`shrink-0 whitespace-nowrap border-b-2 px-1 py-2 text-[10px] sm:px-2 sm:text-[12px] ${
                 current
                   ? "border-ink font-medium text-ink"
                   : "border-transparent text-ink-3 hover:text-ink"

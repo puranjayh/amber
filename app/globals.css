@@ -6,6 +6,7 @@
  * warnings, highlights, brand). Errors and bugs use `fail` or neutral ink.
  */
 :root {
+  color-scheme: light dark;
   --ink: #14171c;
   --ink-2: #4a5160;
   --ink-3: #7b8291;
@@ -52,11 +53,37 @@
   --font-mono: var(--font-plex-mono);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8eaee;
+    --ink-2: #b4b9c4;
+    --ink-3: #8b909c;
+    --line: #2c313c;
+    --line-2: #22262e;
+    --surface: #16181d;
+    --canvas: #0f1114;
+    --focus: #7b96ff;
+
+    --pass: #3dba86;
+    --pass-bg: #123226;
+    --pass-line: #2a5c45;
+
+    --fail: #f07169;
+    --fail-bg: #3a1a18;
+    --fail-line: #7a3530;
+
+    --unknown: #e8a84a;
+    --unknown-bg: #3a2a10;
+    --unknown-line: #c48a2a;
+  }
+}
+
 body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-plex-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 :focus-visible {

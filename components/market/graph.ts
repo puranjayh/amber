@@ -55,8 +55,9 @@ export function buildGraph(
   const rows = Math.max(patientIds.length, trials.length, 1);
   const height = GRAPH.padY * 2 + (rows - 1) * GRAPH.rowHeight;
 
+  const shown = new Set(patientIds);
   const candidates: GraphEdge[] = cube
-    .filter((p) => !p.eliminated)
+    .filter((p) => !p.eliminated && shown.has(p.patientId))
     .map((p) => ({
       key: edgeKey(p.patientId, p.nctId),
       patientId: p.patientId,
@@ -71,10 +72,11 @@ export function buildGraph(
     const assigned: string[] = [];
     const invalid: { patientId: string; nctId: string }[] = [];
     for (const pair of a.pairs) {
+      load[pair.nctId] = (load[pair.nctId] ?? 0) + 1;
+      if (!shown.has(pair.patientId)) continue;
       const key = edgeKey(pair.patientId, pair.nctId);
       if (candidateKeys.has(key)) assigned.push(key);
       else invalid.push(pair);
-      load[pair.nctId] = (load[pair.nctId] ?? 0) + 1;
     }
     modes[a.mode] = { assignment: a, assigned, invalid, load };
   }

@@ -78,8 +78,9 @@ export function MarketGraph({ graph }: { graph: Graph }) {
           {graph.candidates
             .filter((e) => assigned.has(e.key))
             .map((e) => {
-              const a = pos.get(e.patientId)!;
-              const b = pos.get(e.nctId)!;
+              const a = pos.get(e.patientId);
+              const b = pos.get(e.nctId);
+              if (!a || !b) return null;
               return (
                 <line
                   key={e.key}
@@ -115,7 +116,7 @@ export function MarketGraph({ graph }: { graph: Graph }) {
             <g key={n.id}>
               <circle cx={n.x} cy={n.y} r={5} fill="var(--surface)" stroke="var(--ink)" strokeWidth={1.5} />
               <text x={n.x - 10} y={n.y + 3.5} textAnchor="end" className="fill-ink font-mono" fontSize={10}>
-                {n.label}
+                {n.label.length > 12 ? `${n.label.slice(0, 10)}…` : n.label}
               </text>
             </g>
           ))}
@@ -155,8 +156,8 @@ export function MarketGraph({ graph }: { graph: Graph }) {
             ["mean travel", `${Math.round(layout.assignment.meanTravelMinutes)} min`],
             ["unstable pairs", String(layout.assignment.unstablePairs)],
           ].map(([label, value]) => (
-            <div key={label} className="bg-surface px-3 py-2.5 sm:px-4">
-              <div className="font-mono text-[18px] font-medium leading-none text-ink">{value}</div>
+            <div key={label} className="bg-surface px-2 py-2.5 sm:px-4">
+              <div className="font-mono text-[16px] font-medium leading-none text-ink sm:text-[18px]">{value}</div>
               <div className="mt-1 text-[11px] text-ink-3">{label}</div>
             </div>
           ))}

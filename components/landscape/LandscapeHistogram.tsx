@@ -29,7 +29,7 @@ function Thresholds({
   thresholds: { threshold: number; count: number; percentage: number }[];
 }) {
   const dominant = dominantThreshold(thresholds);
-  const shown = [...thresholds].sort((a, b) => b.count - a.count || a.threshold - b.threshold);
+  const shown = [...thresholds].sort((a, b) => b.count - a.count || a.threshold - b.threshold).slice(0, 5);
   return (
     <ul className="mt-1.5 space-y-1.5">
       {shown.map((t) => {
@@ -74,16 +74,18 @@ function AnalyteRow({ row }: { row: LandscapeAnalyte }) {
           {thresholdHeadline(primary.thresholds)}
         </p>
       )}
-      {operators.map((op) => (
-        <div key={op.operator} className={op === primary ? "" : "mt-2.5"}>
-          {operators.length > 1 && (
-            <div className="font-mono text-[11px] text-ink-3">
-              {glyph(op.operator)} · {op.totalTrials} trial{op.totalTrials === 1 ? "" : "s"}
-            </div>
-          )}
-          <Thresholds thresholds={op.thresholds} />
-        </div>
-      ))}
+      {operators
+        .filter((op, i) => i === 0 || op.totalTrials >= row.totalTrials * 0.15)
+        .map((op) => (
+          <div key={op.operator} className={op === primary ? "" : "mt-2.5"}>
+            {operators.length > 1 && (
+              <div className="font-mono text-[11px] text-ink-3">
+                {glyph(op.operator)} · {op.totalTrials} trial{op.totalTrials === 1 ? "" : "s"}
+              </div>
+            )}
+            <Thresholds thresholds={op.thresholds} />
+          </div>
+        ))}
     </li>
   );
 }

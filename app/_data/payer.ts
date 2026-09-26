@@ -76,10 +76,12 @@ export function buildPayerView(
           continue;
         }
         const capped = note !== undefined;
+        const label = leaf.analyte ?? leaf.predicate;
+        const article = /^[aeiou]/i.test(label) ? "an" : "a";
         unknownBuckets.set(key, {
           need: capped
             ? (CHART_NEED[leaf.predicate] ?? note.resolution)
-            : `a ${leaf.analyte ?? leaf.predicate} claim line`,
+            : `${article} ${label} claim line`,
           predicate: leaf.predicate,
           analyte: leaf.analyte,
           why: capped ? note.because : "this extract has no claim that answers it",

@@ -1,4 +1,5 @@
 import { asOf, fixturePatientIds, getAssignments, getCube, getPatients, getTrials, meta } from "@/app/_data/source";
+// Route must stay free of PageProps<"/market"> — a stale AppRoutes omit 404s the page.
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
@@ -6,7 +7,11 @@ import { isDemo } from "@/components/console/params";
 import { MarketGraph } from "@/components/market/MarketGraph";
 import { buildGraph } from "@/components/market/graph";
 
-export default async function MarketPage({ searchParams }: PageProps<"/market">) {
+export default async function MarketPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const demo = isDemo(await searchParams);
   const assignments = getAssignments();
   const assigned = new Set(assignments.flatMap((a) => a.pairs.map((p) => p.patientId)));
