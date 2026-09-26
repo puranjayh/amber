@@ -121,7 +121,14 @@ const norm = (s: string): string => s.trim().toLowerCase();
  * unclassed facts as well would leave every drug-class exclusion permanently
  * UNKNOWN for every patient treated with something else, and nobody would ever
  * clear an exclusion.
+ *
+ * `matchingFacts` exposes the same relevance test, because the eligibility
+ * calendar needs the date-bearing facts behind a time-bound criterion.
  */
+export function matchingFacts(leaf: CriterionLeaf, patient: Patient): Fact[] {
+  return patient.facts.filter((f) => factMatchesLeaf(leaf, f));
+}
+
 function factMatchesLeaf(leaf: CriterionLeaf, fact: Fact): boolean {
   if (fact.predicate !== leaf.predicate) return false;
 

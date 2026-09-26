@@ -10,13 +10,14 @@
  *   elasticity  what one threshold costs the cohort
  *   equity      exclusion rate per criterion, grouped by race
  *   match       stable many-to-one assignment under capacity
+ *   calendar    forward schedule: who becomes enrollable, and when
  *
  * On the polarity of an exclusion cell's verdict, read the header of
  * evaluate.ts and the note in docs/HANDOFF.md before rendering anything: use
  * `eligibilityVerdict()` for display.
  */
 export { AND_IDENTITY, OR_IDENTITY, and, combine, not, or } from "./kleene";
-export { ageInDays, daysBetween, parseIsoDate } from "./time";
+export { addDays, ageInDays, daysBetween, parseIsoDate, toIsoDate } from "./time";
 export {
   blockingCriterionIds,
   criterionType,
@@ -27,6 +28,7 @@ export {
   evaluateLeaf,
   indexLeaves,
   isEliminating,
+  matchingFacts,
   type EvaluateOptions,
 } from "./evaluate";
 export {
@@ -45,4 +47,11 @@ export {
   withLeafValue,
 } from "./elasticity";
 export { equityAudit, equityAuditAcross } from "./equity";
+export {
+  actionableEntries,
+  calendar,
+  timeBoundCrossings,
+  type CalendarEntry,
+  type CalendarOptions,
+} from "./calendar";
 export { match, matchAdhoc, phaseRank, type MatchOptions } from "./match";

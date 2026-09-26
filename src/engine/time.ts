@@ -69,3 +69,22 @@ export function ageInDays(observedAt: string, asOf: string): number | null {
   if (d === null) return null;
   return Math.max(0, d);
 }
+
+/**
+ * `iso` shifted by whole days, returned as a bare `YYYY-MM-DD` calendar date.
+ *
+ * Used to project a waiting period forward: a last dose on 2026-09-20 plus a
+ * 21-day washout clears on 2026-10-11. Null when `iso` is not a date. Month and
+ * year boundaries and leap days come out right because the arithmetic happens in
+ * UTC milliseconds, never by incrementing a day-of-month field.
+ */
+export function addDays(iso: string, days: number): string | null {
+  const start = parseIsoDate(iso);
+  if (start === null || !Number.isFinite(days)) return null;
+  return toIsoDate(start + Math.trunc(days) * MS_PER_DAY);
+}
+
+/** UTC-midnight epoch milliseconds → `YYYY-MM-DD`. */
+export function toIsoDate(ms: number): string {
+  return new Date(ms).toISOString().slice(0, 10);
+}
