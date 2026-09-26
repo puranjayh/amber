@@ -56,6 +56,6 @@ describe("buildSweep", () => {
       const subgroupTotal = Object.values(r.bySubgroup ?? {}).reduce((a, b) => a + b, 0);
       expect(subgroupTotal).toBe(r.eligibleCount);
     }
-    expect(() => buildSweep(rows, 50, ">=")).not.toThrow();
+    expect(() => buildSweep(rows, 1500, ">=")).not.toThrow();
   });
 });
