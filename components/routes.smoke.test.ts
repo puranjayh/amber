@@ -18,6 +18,7 @@ import {
   getSweeps,
   getTrial,
   getTrials,
+  getDemoWorklist,
   getWorklist,
   meta,
   realProtocols,
@@ -57,6 +58,10 @@ vi.mock("next/link", () => ({
     createElement("a", { href }, children as never),
 }));
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: () => undefined }),
+}));
+
 function html(node: unknown): string {
   return renderToStaticMarkup(node as never);
 }
@@ -94,7 +99,7 @@ test("/worklist mounts against published worklist.json", () => {
 });
 
 test("/worklist live first paint ranks the focus patient at #47 until preferences arrive", () => {
-  const worklist = getWorklist();
+  const worklist = getDemoWorklist();
   const rows: WorklistItem[] = worklist.map((row) => {
     const trial = getTrial(row.nctId);
     const leaves = trial ? collectLeaves(trial.criteria) : new Map();
@@ -221,7 +226,7 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
   const markup = html(
     createElement(HcpView, {
       rows,
-      selectedId: DEMO.patientId,
+      selectedId: "PT-4401",
       headline: composition.headline,
       panelShare: composition.panel,
       admittedShare: composition.admitted,
@@ -231,7 +236,7 @@ test("/hcp is the top 25 by rank with equity and drafts", () => {
   expect(markup).toContain("My patients");
   expect(markup).toContain("Impiricus");
   expect(markup).toContain("Draft outreach");
-  expect(markup).toContain(DEMO.patientId);
+  expect(markup).toContain("PT-4401");
   expect(markup).toContain("/doctor?physician=hcp-rahman");
   expect(markup).not.toContain("/hcp?patient=");
   expect(markup).not.toContain("Suggest this trial");
@@ -266,7 +271,7 @@ test("/elasticity mounts sweep + corpus strip + three-trial market cut", () => {
   const picks = pickAnalyteSweeps(getSweeps(), getTrials(), DEMO.nctId);
   expect(picks.map((p) => p.family)).toEqual(expect.arrayContaining(["anc"]));
   const pick = defaultBindingPick(picks) ?? picks[0];
-  expect(pick.nctId).toBe("NCT03838159");
+  expect(pick).toMatchObject({ nctId: "NCT02496663", criterionId: "INC-10" });
   expect(picks.some((p) => !isBinding(p))).toBe(true);
   const found = getSweep(pick.nctId, pick.criterionId);
   expect(found).toBeTruthy();

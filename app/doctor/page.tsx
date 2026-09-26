@@ -2,13 +2,14 @@ import { readLoop } from "@/app/_data/loop";
 import {
   DEMO,
   asOf,
+  getAnchorRows,
+  getDemoWorklist,
   getEquity,
   getPair,
   getPairsForPatient,
   getPatient,
   getPatients,
   getTrial,
-  getWorklist,
   meta,
 } from "@/app/_data/source";
 import { blockingUnknown, orderCorresponds, orderFor } from "@/components/alert/alert";
@@ -29,7 +30,8 @@ import { attributePatients } from "@/components/worklist/attribution";
 import { draftOutreach } from "@/components/hcp/outreach";
 import { hitForPair, panelComposition, takePanel } from "@/components/hcp/panel";
 import { raceLabel } from "@/components/hcp/race";
-import { pairTravel, prefsByPatient, rank, toPortalAnswers } from "@/components/loop/rank";
+import { LOOP_FOCUS, pairTravel, prefsByPatient, rank, toPortalAnswers } from "@/components/loop/rank";
+import { anchorById, isAnchor } from "@/components/console/anchors";
 import type { LoopState, PortalAnswers } from "@/app/_data/schema";
 import Link from "next/link";
 
@@ -43,8 +45,10 @@ export default async function DoctorPage({
   const sp = await searchParams;
   const demo = isStaticDemo(sp);
   const demoMode = one(sp.demo) === "static" ? "static" : "1";
-  const worklist = getWorklist();
-  const loop = demo ? null : await readLoop(worklist);
+  const anchor = anchorById(isAnchor(one(sp.trial)) ? one(sp.trial) : undefined);
+  const worklist = getAnchorRows(anchor.nctId);
+  const loopWorklist = getDemoWorklist();
+  const loop = demo ? null : await readLoop(loopWorklist);
   const prefs = loop ? prefsByPatient(loop.preferences) : {};
   const ordered = loop
     ? rank(worklist, prefs, (row) => pairTravel(getPatient(row.patientId), getTrial(row.nctId)))
@@ -62,6 +66,8 @@ export default async function DoctorPage({
   const extraIds = new Set(
     [
       requested && mine.has(requested) ? requested : undefined,
+      LOOP_FOCUS,
+      DEMO.patientId,
       ...(loop?.nudges
         .filter((n) => n.kind === "enrol_patient" && n.status !== "done" && mine.has(n.patientId))
         .map((n) => n.patientId) ?? []),
@@ -76,7 +82,7 @@ export default async function DoctorPage({
   if (panel.length === 0) {
     return (
       <>
-        <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} />
+        <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} trial={anchor.nctId} />
         <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
           <MissingData file="app/_data/worklist.json" />
         </main>
@@ -123,7 +129,7 @@ export default async function DoctorPage({
 
   return (
     <>
-      <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} />
+      <DoctorChrome asOf={asOf} demo={demo} demoMode={demoMode} physicianId={physicianId} trial={anchor.nctId} />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
         {loop ? (
           <HcpLive

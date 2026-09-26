@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getPatient, getTrial, getWorklist } from "@/app/_data/source";
+import { getDemoWorklist, getPatient, getTrial } from "@/app/_data/source";
 import {
   LOOP_FOCUS,
   SEED_COUNT,
@@ -20,8 +20,8 @@ test("missing preferences is an explicit unknown — the same penalty as a missi
   expect(preferenceUnknown(SEED_PREFS)).toBe(0);
 });
 
-test("seed holds 46 other 2-unknown patients so the focus patient sits at #47", () => {
-  const worklist = getWorklist();
+test("seed holds 46 peers so the focus patient sits at #47 until preferences arrive", () => {
+  const worklist = getDemoWorklist();
   const ids = seedPatientIds(worklist);
   expect(ids).toHaveLength(SEED_COUNT);
   expect(ids).not.toContain(LOOP_FOCUS);
@@ -39,7 +39,7 @@ test("seed holds 46 other 2-unknown patients so the focus patient sits at #47", 
 });
 
 test("when preferences arrive the focus patient rises because reachability is known", () => {
-  const worklist = getWorklist();
+  const worklist = getDemoWorklist();
   const prefs = prefsByPatient(seedPreferenceRows(worklist, "2026-09-25T00:00:00.000Z"));
   prefs[LOOP_FOCUS] = { ...SEED_PREFS, maxTravelMinutes: 90 };
   const travel = (row: (typeof worklist)[number]) =>

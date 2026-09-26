@@ -188,8 +188,35 @@ const loadEquity = lazy(() => take("app/_data/equity.json", EquitySet.array(), r
 export const asOf = meta.asOf;
 export const realProtocols = meta.realProtocols ?? 0;
 
-/** The pair we present on stage (fixtures/ORACLE.md: exactly two unknowns). */
-export const DEMO = { patientId: "PT-4401", nctId: "NCT07001001" } as const;
+/**
+ * Stage pair: synthetic hero on a real compiled protocol.
+ * PT-4401 × NCT07001001 remains the hand-worked oracle, not this demo.
+ */
+export const DEMO = { patientId: "PT-4410", nctId: "NCT02496663" } as const;
+
+const anchorFile = (() => {
+  const raw = readJsonFile("app/_data/anchors.json");
+  if (!raw || typeof raw !== "object" || !("rows" in raw)) return {} as Record<string, WorklistRow[]>;
+  const rows = (raw as { rows?: unknown }).rows;
+  if (!rows || typeof rows !== "object") return {} as Record<string, WorklistRow[]>;
+  const out: Record<string, WorklistRow[]> = {};
+  for (const [nctId, value] of Object.entries(rows)) {
+    const parsed = WorklistRow.array().safeParse(value);
+    if (parsed.success) out[nctId] = parsed.data;
+  }
+  return out;
+})();
+
+/** Patients ranked on one real protocol. Empty when that trial was not pinned. */
+export function getAnchorRows(nctId: string): WorklistRow[] {
+  return anchorFile[nctId] ?? [];
+}
+
+/** The live loop seeds from the second-line anchor, where the nudge patient has peers. */
+export function getDemoWorklist(): WorklistRow[] {
+  const rows = getAnchorRows(DEMO.nctId);
+  return rows.length > 0 ? rows : worklist;
+}
 
 export const getTrials = (): Trial[] => loadTrials();
 export const getPatients = (): Patient[] => loadPatients();

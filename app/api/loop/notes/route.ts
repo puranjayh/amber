@@ -1,4 +1,4 @@
-import { getWorklist } from "@/app/_data/source";
+import { getDemoWorklist } from "@/app/_data/source";
 import { saveNote } from "@/app/_data/loop";
 
 export const dynamic = "force-dynamic";
@@ -8,6 +8,6 @@ export async function POST(request: Request) {
   if (typeof body.physicianId !== "string" || !body.physicianId || typeof body.text !== "string") {
     return Response.json({ error: "physicianId and text required" }, { status: 400 });
   }
-  const state = await saveNote(getWorklist(), body.physicianId, body.text);
+  const state = await saveNote(getDemoWorklist(), body.physicianId, body.text);
   return Response.json(state);
 }

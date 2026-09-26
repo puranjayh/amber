@@ -1,4 +1,4 @@
-import { getWorklist } from "@/app/_data/source";
+import { getDemoWorklist } from "@/app/_data/source";
 import { savePreferences } from "@/app/_data/loop";
 import { PortalAnswers } from "@/app/_data/schema";
 import { prefsStated } from "@/components/loop/rank";
@@ -22,6 +22,6 @@ export async function POST(request: Request) {
   ) {
     return Response.json({ error: "all four answers required" }, { status: 400 });
   }
-  const state = await savePreferences(getWorklist(), body.patientId, answers.data);
+  const state = await savePreferences(getDemoWorklist(), body.patientId, answers.data);
   return Response.json(state);
 }

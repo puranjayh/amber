@@ -140,9 +140,11 @@ export function publishCube(
   cube: PairResult[],
   worklist: WorklistRow[],
   pinNctId: string,
+  extraNctIds: readonly string[] = [],
 ): PairResult[] {
+  const pins = new Set([pinNctId, ...extraNctIds]);
   const worklistKeys = new Set(worklist.map((row) => `${row.patientId}|${row.nctId}`));
   return cube.filter(
-    (pair) => worklistKeys.has(`${pair.patientId}|${pair.nctId}`) || pair.nctId === pinNctId,
+    (pair) => worklistKeys.has(`${pair.patientId}|${pair.nctId}`) || pins.has(pair.nctId),
   );
 }

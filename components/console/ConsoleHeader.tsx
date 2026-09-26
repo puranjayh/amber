@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { ANCHORS } from "./anchors";
+import { IdentitySwitcher } from "./IdentitySwitcher";
 import { PortalSwitcher } from "./PortalSwitcher";
+import { TrialSwitcher } from "./TrialSwitcher";
 
 const NAV = [
   { key: "worklist", label: "Worklist", href: "/" },
@@ -25,11 +28,13 @@ export function ConsoleHeader({
   active,
   demo = false,
   demoMode = "1",
+  trial = ANCHORS[0].nctId,
 }: {
   asOf: string;
   active: NavKey;
   demo?: boolean;
   demoMode?: "1" | "static";
+  trial?: string;
 }) {
   return (
     <>
@@ -47,7 +52,8 @@ export function ConsoleHeader({
             </span>
           )}
         </div>
-        <div className="flex items-center gap-3 font-mono text-[11px] text-ink-3">
+        <div className="flex flex-wrap items-center justify-end gap-3 font-mono text-[11px] text-ink-3">
+          <IdentitySwitcher current="coordinator" trial={trial} demo={demo ? demoMode : ""} />
           <span>as of {asOf}</span>
           <span className="hidden items-center gap-1.5 sm:inline-flex">
             <span className="inline-block h-2 w-2 rounded-full bg-unknown-line" aria-hidden />
@@ -64,6 +70,9 @@ export function ConsoleHeader({
             </Link>
           ))}
         </div>
+      </div>
+      <div className="mx-auto flex max-w-5xl px-3 pb-2 sm:px-6">
+        <TrialSwitcher current={trial} demo={demo ? demoMode : ""} />
       </div>
       <nav className="mx-auto flex max-w-5xl items-center gap-1 overflow-x-auto px-2 sm:px-5" aria-label="Views">
         {NAV.map((item) => {

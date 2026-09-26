@@ -37,10 +37,12 @@ export default async function ElasticityPage({
   const demo = isDemo(sp);
   const picks = pickAnalyteSweeps(getSweeps(), getTrials(), DEMO.nctId);
   const binding = picks.filter(isBinding);
-  const inert = picks.filter((p) => !isBinding(p));
+  const pinnedSweep = picks.find((p) => p.nctId === "NCT02496663" && p.criterionId === "INC-10" && p.swing > 0);
+  const selectable = pinnedSweep ? [pinnedSweep, ...binding.filter((p) => p !== pinnedSweep)] : binding;
+  const inert = picks.filter((p) => !selectable.includes(p));
   const requested = one(sp.sweep);
   const pick =
-    binding.find((p) => `${p.nctId}:${p.criterionId}` === requested) ?? defaultBindingPick(picks);
+    selectable.find((p) => `${p.nctId}:${p.criterionId}` === requested) ?? defaultBindingPick(picks);
 
   const found = pick ? getSweep(pick.nctId, pick.criterionId) : undefined;
   const sweep =
@@ -63,7 +65,7 @@ export default async function ElasticityPage({
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="elasticity" demo={demo} demoMode={one(sp.demo) === "static" ? "static" : "1"} />
+      <ConsoleHeader asOf={asOf} active="elasticity" demo={demo} demoMode={one(sp.demo) === "static" ? "static" : "1"} trial={DEMO.nctId} />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-6 px-3 py-4 sm:px-6 sm:py-6">
         {demo && <DemoSteps current="elasticity" mode={one(sp.demo) === "static" ? "static" : "1"} />}
 
@@ -79,7 +81,7 @@ export default async function ElasticityPage({
           ) : (
             <>
               <ElasticitySelect
-                picks={binding}
+                picks={selectable}
                 current={`${pick.nctId}:${pick.criterionId}`}
                 demo={demo}
               />

@@ -15,6 +15,9 @@ export type WorklistItem = WorklistRow & {
   favourable: number;
   total: number;
   reason?: string;
+  note?: string;
+  /** Answered-cohort summary. Not a patient, so it is not a link. */
+  inert?: boolean;
   action?: WorklistAction;
 };
 
@@ -116,6 +119,7 @@ export function Worklist({
   selectedId,
   advanceTo,
   demo = false,
+  trial,
 }: {
   rows: WorklistItem[];
   onSelect?: (row: WorklistItem) => void;
@@ -124,6 +128,7 @@ export function Worklist({
   advanceTo?: number;
   /** Static demo keeps the coordinator on the trial portal without the live loop. */
   demo?: boolean;
+  trial?: string;
 }) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
@@ -207,17 +212,28 @@ export function Worklist({
                 >
                   {body}
                 </button>
+              ) : row.inert ? (
+                <div className={cls}>{body}</div>
               ) : (
                 <Link
-                  href={`/worklist/patient/${encodeURIComponent(row.patientId)}${demo ? "?demo=static" : ""}`}
+                  href={`/worklist/patient/${encodeURIComponent(row.patientId)}${(() => {
+                    const q = new URLSearchParams();
+                    if (trial) q.set("trial", trial);
+                    if (demo) q.set("demo", "static");
+                    const s = q.toString();
+                    return s ? `?${s}` : "";
+                  })()}`}
                   className={cls}
                 >
                   {body}
                 </Link>
               )}
-              {(row.reason || row.action) && (
+              {(row.reason || row.note || row.action) && (
                 <div className="flex flex-wrap items-center justify-between gap-2 px-3 pb-3 sm:px-4">
-                  {row.reason && <p className="text-[12px] text-ink-2">{row.reason}</p>}
+                  <div className="min-w-0 space-y-1">
+                    {row.reason && <p className="text-[12px] text-ink-2">{row.reason}</p>}
+                    {row.note && <p className="text-[12px] text-ink">{row.note}</p>}
+                  </div>
                   {row.action && (
                     <button
                       type="button"

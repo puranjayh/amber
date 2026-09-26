@@ -1,5 +1,5 @@
 import { readLoop } from "@/app/_data/loop";
-import { asOf, getHcp, getPair, getTrial, getWorklist } from "@/app/_data/source";
+import { asOf, getDemoWorklist, getHcp, getPair, getTrial } from "@/app/_data/source";
 import { blockingUnknown } from "@/components/alert/alert";
 import { MissingData } from "@/components/console/MissingData";
 import { isStaticDemo, one } from "@/components/console/params";
@@ -37,7 +37,7 @@ export default async function PatientPortalPage({
     patients.find((p) => p.patientId === requested) ??
     patients.find((p) => p.patientId === "PT-4401") ??
     patients[0];
-  const loop = staticDemo ? null : await readLoop(getWorklist());
+  const loop = staticDemo ? null : await readLoop(getDemoWorklist());
   const nudged = loop?.nudges.filter((n) => n.toRole === "patient" && n.status !== "done").map((n) => n.patientId) ?? [];
   const codes = [...new Set([
     ...patients.filter((p) => /^PT-\d+$/.test(p.patientId)).map((p) => p.patientId),

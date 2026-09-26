@@ -1,0 +1,521 @@
+[
+  {
+    "id": "PT-4410",
+    "age": 64,
+    "sex": "F",
+    "race": "Asian",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "10016",
+    "travelMinutes": 25,
+    "facts": [
+      {
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-20",
+        "sourceQuote": "Synthetic chart. PET-CT 20 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "sourceDoc": "synthetic PET-CT 2026-08-20",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-01-25",
+        "sourceQuote": "Synthetic chart. ECOG performance status 1 on 25 January 2026, about eight months before this screen.",
+        "sourceDoc": "synthetic clinic note 2026-01-25",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. No interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. Consent signed. Not pregnant. No potent CYP3A4 inducer.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 2400,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: absolute neutrophil count 2400/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 180000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: platelets 180,000/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 1.2,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.2 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 78,
+        "unit": "mL/min",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 78 mL/min.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 420,
+        "unit": "msec",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. QTcF 420 msec.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Echocardiogram: LVEF 60%.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "prior_therapy",
+        "value": "erlotinib",
+        "drugClass": "anti-EGFR TKI",
+        "observedAt": "2026-06-01",
+        "sourceQuote": "Synthetic chart. Medication history: erlotinib, an anti-EGFR tyrosine kinase inhibitor, until progression.",
+        "sourceDoc": "synthetic oncology note 2026-06-01",
+        "provenance": "chart"
+      }
+    ]
+  },
+  {
+    "id": "PT-4411",
+    "age": 71,
+    "sex": "F",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "10016",
+    "travelMinutes": 40,
+    "facts": [
+      {
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-20",
+        "sourceQuote": "Synthetic chart. PET-CT 20 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "sourceDoc": "synthetic PET-CT 2026-08-20",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-01-25",
+        "sourceQuote": "Synthetic chart. ECOG performance status 1 on 25 January 2026, about eight months before this screen.",
+        "sourceDoc": "synthetic clinic note 2026-01-25",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. No interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. Consent signed. Not pregnant. No potent CYP3A4 inducer.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 2400,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: absolute neutrophil count 2400/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 180000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: platelets 180,000/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 1.2,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.2 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 78,
+        "unit": "mL/min",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 78 mL/min.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 420,
+        "unit": "msec",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. QTcF 420 msec.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Echocardiogram: LVEF 60%.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "prior_therapy",
+        "value": "carboplatin",
+        "observedAt": "2026-06-01",
+        "sourceQuote": "Synthetic chart. Medication history: carboplatin and pemetrexed. No erlotinib, gefitinib, or afatinib.",
+        "sourceDoc": "synthetic oncology note 2026-06-01",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "biomarker",
+        "value": "Exon 19 deletion",
+        "observedAt": "2026-05-14",
+        "sourceQuote": "Synthetic chart. NGS: EGFR exon 19 deletion.",
+        "sourceDoc": "synthetic NGS 2026-05-14",
+        "provenance": "chart"
+      }
+    ]
+  },
+  {
+    "id": "PT-4412",
+    "age": 58,
+    "sex": "M",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "10016",
+    "travelMinutes": 30,
+    "facts": [
+      {
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-20",
+        "sourceQuote": "Synthetic chart. PET-CT 20 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "sourceDoc": "synthetic PET-CT 2026-08-20",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-01-25",
+        "sourceQuote": "Synthetic chart. ECOG performance status 1 on 25 January 2026, about eight months before this screen.",
+        "sourceDoc": "synthetic clinic note 2026-01-25",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. No interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. Consent signed. Not pregnant. No potent CYP3A4 inducer.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 1400,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: absolute neutrophil count 1400/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 180000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: platelets 180,000/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 1.2,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.2 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 78,
+        "unit": "mL/min",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 78 mL/min.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 420,
+        "unit": "msec",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. QTcF 420 msec.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Echocardiogram: LVEF 60%.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "prior_therapy",
+        "value": "erlotinib",
+        "drugClass": "anti-EGFR TKI",
+        "observedAt": "2026-06-01",
+        "sourceQuote": "Synthetic chart. Medication history: erlotinib, an anti-EGFR tyrosine kinase inhibitor, until progression.",
+        "sourceDoc": "synthetic oncology note 2026-06-01",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "biomarker",
+        "value": "Exon 19 deletion",
+        "observedAt": "2026-05-14",
+        "sourceQuote": "Synthetic chart. NGS: EGFR exon 19 deletion.",
+        "sourceDoc": "synthetic NGS 2026-05-14",
+        "provenance": "chart"
+      }
+    ]
+  },
+  {
+    "id": "PT-4413",
+    "age": 66,
+    "sex": "F",
+    "race": "Asian",
+    "ethnicity": "Not Hispanic or Latino",
+    "zip": "10016",
+    "travelMinutes": 25,
+    "facts": [
+      {
+        "predicate": "staging",
+        "value": "stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC)",
+        "observedAt": "2026-08-20",
+        "sourceQuote": "Synthetic chart. PET-CT 20 August 2026: stage IV or recurrent/metastatic histologically confirmed non-small cell lung cancer (NSCLC).",
+        "sourceDoc": "synthetic PET-CT 2026-08-20",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "performance_status",
+        "analyte": "ECOG",
+        "value": 1,
+        "unit": "score",
+        "observedAt": "2026-01-25",
+        "sourceQuote": "Synthetic chart. ECOG performance status 1 on 25 January 2026, about eight months before this screen.",
+        "sourceDoc": "synthetic clinic note 2026-01-25",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "comorbidity",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. No interstitial lung disease, no second active malignancy, no uncontrolled intercurrent illness.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "contraindication",
+        "value": false,
+        "observedAt": "2026-09-10",
+        "sourceQuote": "Synthetic chart. Consent signed. Not pregnant. No potent CYP3A4 inducer.",
+        "sourceDoc": "synthetic oncology note 2026-09-10",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Absolute neutrophil count",
+        "value": 2400,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: absolute neutrophil count 2400/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Platelets",
+        "value": 180000,
+        "unit": "/mcL",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. CBC 18 September 2026: platelets 180,000/mcL.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Total bilirubin",
+        "value": 0.8,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Total bilirubin 0.8 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "AST/ALT",
+        "value": 1.2,
+        "unit": "x ULN",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. AST/ALT 1.2 \u00d7 ULN.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "Creatinine clearance",
+        "value": 78,
+        "unit": "mL/min",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Creatinine clearance 78 mL/min.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "QTcF",
+        "value": 420,
+        "unit": "msec",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. QTcF 420 msec.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "lab_value",
+        "analyte": "LVEF",
+        "value": 60,
+        "unit": "%",
+        "observedAt": "2026-09-18",
+        "sourceQuote": "Synthetic chart. Echocardiogram: LVEF 60%.",
+        "sourceDoc": "synthetic lab 2026-09-18",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "prior_therapy",
+        "value": "erlotinib",
+        "drugClass": "anti-EGFR TKI",
+        "observedAt": "2026-06-01",
+        "sourceQuote": "Synthetic chart. Medication history: erlotinib, an anti-EGFR tyrosine kinase inhibitor, until progression.",
+        "sourceDoc": "synthetic oncology note 2026-06-01",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "biomarker",
+        "value": "Exon 19 deletion",
+        "observedAt": "2026-05-14",
+        "sourceQuote": "Synthetic chart. NGS: EGFR exon 19 deletion.",
+        "sourceDoc": "synthetic NGS 2026-05-14",
+        "provenance": "chart"
+      }
+    ]
+  }
+]
