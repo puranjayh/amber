@@ -12,6 +12,7 @@
  *   match       stable many-to-one assignment under capacity
  *   calendar    forward schedule: who becomes enrollable, and when
  *   federated   per-site counts and curves, with small-cell suppression
+ *   setcover    which tests to order, under a budget
  *
  * On the polarity of an exclusion cell's verdict, read the header of
  * evaluate.ts and the note in docs/HANDOFF.md before rendering anything: use
@@ -72,3 +73,11 @@ export {
   type CalendarOptions,
 } from "./calendar";
 export { match, matchAdhoc, phaseRank, type MatchOptions } from "./match";
+export {
+  orderKey,
+  planTestOrders,
+  type SetCoverOptions,
+  type SetCoverPlan,
+  type TestOrder,
+  type UnlockedPair,
+} from "./setcover";
