@@ -105,7 +105,7 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 
 Washout leaves are time since a SPECIFIC prior exposure, never generic time since any treatment. Every washout leaf must have a numeric duration in days, tier:4, and a non-empty target in drugClass or analyte. Put the target in drugClass whenever it is a treatment category: RADIOTHERAPY, PLATINUM_CHEMOTHERAPY, INVESTIGATIONAL_AGENT, or SURGERY. For example, “prior palliative or curative radiotherapy must be completed at least 14 days prior” is a washout leaf with value:14, unit:"days", operator:">=", drugClass:"RADIOTHERAPY", tier:4. Preserve “palliative or curative” as a sourceSpan/countingRule; it does not make the target optional.
 
-Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For example, “pregnant or lactating” is an OR group of named contraindication/comorbidity leaves (analyte:"pregnancy" and analyte:"lactation", value:true); never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
+Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For “pregnant or lactating”, return exactly an OR group with named contraindication/comorbidity leaves for analyte:"pregnancy", value:true and analyte:"lactation", value:true. Never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
 
 Do not use washout for an imaging or assessment requirement. “Chest CT or PET/CT within 12 months” is not time since a dose; it is not representable by a washout leaf. Never put a quoted source sentence in value. Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
 
@@ -116,6 +116,24 @@ IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. The b
 
 function cleanBlock(text: string): string {
   return text.trim().replace(/\r\n/g, "\n");
+}
+
+const MAX_MODEL_BLOCK_CHARS = 1_200;
+const BULLET = /^\s*(?:[-*•]+|\d+[.)]|[A-Za-z]+[.)])\s+/;
+
+/** Split only oversized sections at top-level bullets, retaining continuations. */
+function splitOversizedSection(type: EligibilityBlock["type"], sourceText: string): EligibilityBlock[] {
+  if (sourceText.length <= MAX_MODEL_BLOCK_CHARS) return [{ type, sourceText }];
+  const chunks: string[] = [];
+  let current: string[] = [];
+  for (const line of sourceText.split("\n")) {
+    if (BULLET.test(line) && current.length > 0) {
+      chunks.push(current.join("\n").trim());
+      current = [line];
+    } else current.push(line);
+  }
+  if (current.length > 0) chunks.push(current.join("\n").trim());
+  return chunks.filter(Boolean).map((chunk) => ({ type, sourceText: chunk }));
 }
 
 /** Split the CT.gov eligibility field into semantically distinct source blocks. */
@@ -132,10 +150,7 @@ export function extractEligibilityBlocks(eligibilityText: string): EligibilityBl
     const end = matches[index + 1]?.index ?? source.length;
     const text = source.slice(start, end).trim();
     if (text) {
-      blocks.push({
-        type: match[2].toLowerCase() as "inclusion" | "exclusion",
-        sourceText: text,
-      });
+      blocks.push(...splitOversizedSection(match[2].toLowerCase() as "inclusion" | "exclusion", text));
     }
   }
   return blocks.length > 0 ? blocks : [{ type: "unknown", sourceText: source }];
@@ -306,6 +321,16 @@ function enumeratedThresholdCount(text: string): number {
   return matches?.length ?? 0;
 }
 
+function leafCount(node: CriterionNodeValue): number {
+  return node.kind === "leaf" ? 1 : node.children.reduce((count, child) => count + leafCount(child), 0);
+}
+
+function hasEnumeratedAndGroup(node: CriterionNodeValue, requiredLeaves: number): boolean {
+  if (node.kind === "leaf") return false;
+  if (node.op === "AND" && leafCount(node) >= requiredLeaves) return true;
+  return node.children.some((child) => hasEnumeratedAndGroup(child, requiredLeaves));
+}
+
 function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf" }>): string[] {
   const issues: string[] = [];
   const numericOperator = [">=", "<=", ">", "<"].includes(node.operator);
@@ -319,6 +344,9 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
   }
   if (!membershipOperator && Array.isArray(node.value)) {
     issues.push(`${node.id}: ${node.operator} cannot compare an array value to a single fact`);
+  }
+  if (typeof node.value === "string" && node.value.length > 40) {
+    issues.push(`${node.id}: string value exceeds 40 characters; it is likely unparsed protocol prose`);
   }
   if (typeof node.value === "boolean" && !nonEmptyText(node.analyte) && !nonEmptyText(node.drugClass)) {
     issues.push(`${node.id}: boolean leaf has no named subject (analyte or drugClass required)`);
@@ -383,6 +411,20 @@ export function fidelityDefectCounts(results: readonly CompiledTrialResult[]): R
     }
   }
   return counts;
+}
+
+function longStringValueLeaves(results: readonly CompiledTrialResult[]): string[] {
+  const ids: string[] = [];
+  for (const result of results) {
+    for (const criterion of result.trial.criteria) {
+      walk(criterion, (node) => {
+        if (node.kind === "leaf" && typeof node.value === "string" && node.value.length > 40) {
+          ids.push(`${result.trial.nctId}/${node.id}`);
+        }
+      });
+    }
+  }
+  return ids;
 }
 
 /**
@@ -478,6 +520,10 @@ export function validateCompiledTree(
   }
   if (groupDepth(reconciled.data) > MAX_GROUP_DEPTH) {
     reviewReasons.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups`);
+  }
+  const enumeratedRequirements = enumeratedThresholdCount(block.sourceText);
+  if (enumeratedRequirements > 1 && !hasEnumeratedAndGroup(reconciled.data, enumeratedRequirements)) {
+    issues.push(`source block has ${enumeratedRequirements} threshold requirements but no AND group of typed leaves`);
   }
 
   return issues.length ? { success: false, issues } : { success: true, data: reconciled.data, reviewReasons };
@@ -699,6 +745,8 @@ async function main(): Promise<void> {
   const retryIdsPath = cliArgument("--nct-ids");
   const requestedSmokeCount = cliArgument("--smoke-count");
   const smokeCount = requestedSmokeCount === undefined ? 3 : Number(requestedSmokeCount);
+  const requireAllCompiled = process.argv.includes("--require-all-compiled");
+  const printTrees = process.argv.includes("--print-trees");
   if (!Number.isInteger(smokeCount) || smokeCount < 1) throw new Error("--smoke-count must be a positive integer");
   const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
@@ -713,9 +761,20 @@ async function main(): Promise<void> {
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
   const defects = fidelityDefectCounts(results);
+  const longValues = longStringValueLeaves(results);
   console.log(`Fidelity defect scan: sentence-as-boolean ${defects["sentence-as-boolean"]}; washout-without-target ${defects["washout-without-target"]}; quoted-sentence-in-value ${defects["quoted-sentence-in-value"]}`);
+  console.log(`Long string value scan (>40 chars): ${longValues.length}`);
+  if (printTrees) {
+    for (const result of results) {
+      console.log(`\n=== ${result.trial.nctId} ===\nSOURCE:\n${result.sourceText}\nTREE:\n${JSON.stringify(result.trial.criteria, null, 2)}${result.failure ? `\nREJECTED: ${result.failure.issues.join(" | ")}` : ""}`);
+    }
+  }
   if (Object.values(defects).some((count) => count > 0)) {
     throw new Error("Refusing to publish compilation containing fidelity defect classes");
+  }
+  if (longValues.length > 0) throw new Error(`Refusing to publish ${longValues.length} long literal criterion values`);
+  if (requireAllCompiled && results.some((result) => result.failure)) {
+    throw new Error("Pilot requires every requested trial to compile before publication");
   }
   const published = await publishCompilationResults(results, outputPath);
   console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
