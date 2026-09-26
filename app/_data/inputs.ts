@@ -123,6 +123,11 @@ export function realProtocolCount(trials: { nctId: string }[]): number {
   return trials.filter((trial) => !/^NCT07001\d+$/.test(trial.nctId)).length;
 }
 
+/** The hand-written trio — payer stub and oracle stay on these, not the 133. */
+export function loadFixtureTrials(root: string): TrialT[] {
+  return acceptTrials(readJson(root + FIXTURE_TRIALS));
+}
+
 export function acceptPatients(raw: unknown, source: string): PatientT[] {
   if (!Array.isArray(raw)) throw new Error(`${source} must be an array`);
   const whole = PatientsFixture.safeParse(raw);

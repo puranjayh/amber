@@ -1,6 +1,6 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 08:55 ET
+Last updated: 2026-09-26 09:20 ET
 
 ## Done
 
@@ -14,7 +14,8 @@ Previous queue (landscape → README) still stands.
 
 14. **Coverage headline on `/payer`** — reads `data/compiled/coverage.json` only. Compile-stats → pending. A claims figure whose leaf count is not 5,103 throws. Never derived from the trees.
 15. **Measured bench on the worklist** — 20,420,000 criterion evaluations in 8.76s · 4,000 patients × 233 trials. Says "measured", not "up to".
-16. **Cube on 133 real protocols** — citation flags no longer gate. `data/compiled/trials.json` demo pool must be 133 or generate throws. NCT07001001 stays pinned so PT-4401's presentation pair is stable. Worklist says "Evaluated against 133 real trial protocols."
+16. **Cube on 133 real protocols** — citation flags no longer gate. `data/compiled/trials.json` demo pool must be 133 or generate throws. NCT07001001 stays pinned. Worklist says "Evaluated against 133 real trial protocols."
+17. **Published cube is a subset** — generate.ts (vite-node, one-off) evaluates the full 203 × 134 and writes only worklist pairs + every patient on the presentation trial. `source.ts` reads that JSON with `fs` so Next never statically imports the cube. `buildReadModels` throws if `NEXT_RUNTIME` is set.
 
 Nine deep-dive routes are unchanged.
 
@@ -31,3 +32,4 @@ None in this lane.
 
 - Merge to `main`
 - Import `@/src/engine` from a route (generate.ts / eval.ts only)
+- Import `app/_data/generate.ts` or `buildReadModels` from a Next route

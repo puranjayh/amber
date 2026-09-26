@@ -1,6 +1,7 @@
 /**
- * Build-time generation step: runs the engine over the inputs and writes every read
- * model the app renders to app/_data/*.json. Nothing on screen is hand-written.
+ * One-off build step. Writes app/_data/*.json and exits.
+ * Never import this file from a Next route — evaluateAll of the 133-trial
+ * pool does not belong in the dev-server module graph.
  *
  *   npx vite-node --config vitest.config.ts app/_data/generate.ts
  */
@@ -10,11 +11,14 @@ import { fileURLToPath } from "node:url";
 import { buildLandscape } from "@/components/landscape/build";
 import { CLAIMS_STUB } from "@/components/payer/stub";
 import { buildEvalReport } from "./eval";
-import { AS_OF, loadClaims, loadCoverage, loadInputs, loadLandscape } from "./inputs";
+import { AS_OF, DEMO_POOL, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadFixtureTrials, loadInputs, loadLandscape } from "./inputs";
 import { buildPayerView } from "./payer";
-import { PRESENTATION_TRIAL } from "./inputs";
 import { buildReadModels, publishCube } from "./readModels";
 import type { Meta } from "./schema";
+
+if (process.env.NEXT_RUNTIME) {
+  throw new Error("app/_data/generate.ts is a one-off build step. Do not import it from a route.");
+}
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const OUT = fileURLToPath(new URL("./", import.meta.url));
@@ -34,6 +38,7 @@ const meta: Meta = {
   trials: trials.length,
   cells: models.cube.reduce((n, p) => n + p.cells.length, 0),
   ...models.strip,
+  realProtocols: trials.some((t) => t.nctId === PRESENTATION_TRIAL) ? trials.length - 1 : DEMO_POOL,
   engineTree: execSync("git rev-parse --short HEAD:src/engine", { cwd: ROOT }).toString().trim(),
 };
 
@@ -48,7 +53,7 @@ write("assignments.json", models.assignments);
 const claims = loadClaims(ROOT);
 const payer = buildPayerView(
   claims?.patients ?? CLAIMS_STUB,
-  trials.filter((t) => /^NCT07001\d+$/.test(t.nctId)),
+  loadFixtureTrials(ROOT),
   AS_OF,
   loadCoverage(ROOT),
   claims ? claims.source : "stub",

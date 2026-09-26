@@ -1,4 +1,4 @@
-import { asOf, fixturePatientIds, getAssignments, getCube, getPatients, getTrials, meta } from "@/app/_data/source";
+import { DEMO, asOf, fixturePatientIds, getAssignments, getCube, getPatients, getTrials, getWorklist, meta } from "@/app/_data/source";
 // Route must stay free of PageProps<"/market"> — a stale AppRoutes omit 404s the page.
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { MissingData } from "@/components/console/MissingData";
@@ -6,7 +6,7 @@ import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
 import { MarketGraph } from "@/components/market/MarketGraph";
-import { buildGraph } from "@/components/market/graph";
+import { buildGraph, graphTrials } from "@/components/market/graph";
 
 export default async function MarketPage({
   searchParams,
@@ -31,7 +31,13 @@ export default async function MarketPage({
   const graphIds = [...fixture, ...extra.slice(0, 12)];
   const graph = buildGraph(
     graphIds,
-    getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots })),
+    graphTrials(
+      graphIds,
+      getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots })),
+      assignments,
+      getWorklist(),
+      DEMO.nctId,
+    ),
     getCube(),
     assignments,
   );

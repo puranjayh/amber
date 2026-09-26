@@ -31,9 +31,9 @@ import { buildSweep } from "@/components/elasticity/sweep";
 import { EquityBars } from "@/components/equity/EquityBars";
 import { buildEquityView } from "@/components/equity/equity";
 import { MarketGraph } from "@/components/market/MarketGraph";
-import { buildGraph } from "@/components/market/graph";
+import { buildGraph, graphTrials } from "@/components/market/graph";
 import { Worklist, WorklistHeader, type WorklistItem } from "@/components/worklist/Worklist";
-import { screenFailures, worklistStrip } from "@/components/worklist/strip";
+import { screenFailures } from "@/components/worklist/strip";
 
 export const dynamic = "force-static";
 
@@ -131,7 +131,7 @@ export default function DemoPage() {
               </p>
             </div>
             <WorklistHeader
-              strip={worklistStrip(getCube())}
+              strip={meta}
               failures={screenFailures(items)}
               realProtocols={realProtocols}
             />
@@ -221,7 +221,13 @@ export default function DemoPage() {
             <MarketGraph
               graph={buildGraph(
                 graphIds,
-                getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots })),
+                graphTrials(
+                  graphIds,
+                  getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots })),
+                  assignments,
+                  worklist,
+                  DEMO.nctId,
+                ),
                 getCube(),
                 assignments,
               )}
