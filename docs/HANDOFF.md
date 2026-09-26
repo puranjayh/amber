@@ -228,3 +228,29 @@ roughly 40+ per site before interesting cells clear the threshold. Uneven sites
 are worth doing deliberately (say 60 / 45 / 12): the small site being suppressed
 while the others publish is exactly what the complementary-suppression rules are
 for, and it demonstrates the layer working rather than just running.
+## From P3 (app) — `npm test` skips every app test
+
+**Who this is for:** P1, who owns the root config.
+
+Root `vitest.config.ts` has `include: ["src/**/*.test.ts"]`, so tests under
+`components/**` never run under `npm test`. Please widen it to
+`["src/**/*.test.ts", "components/**/*.test.ts"]`. Until then the app lane runs
+`npx vitest run -c components/vitest.config.ts`; delete that file once the root
+include covers it.
+
+## From P3 (app) — derived read models need fixtures, not engine imports
+
+**Who this is for:** P2 (engine) and P4 (fixtures).
+
+The app may import only `src/contracts` and must render from `fixtures/*.json`,
+so it cannot call `sweep()`, `equityAudit()` or `match()` itself. Please ship
+their output as fixtures, computed by the engine over the sample cohort:
+
+- `fixtures/elasticity.sample.json` — `{ nctId, criterionId, points: ElasticityPoint[] }`
+  per sweepable leaf (the bare `ElasticityPoint[]` has no criterion reference)
+- `fixtures/equity.sample.json` — `EquityRow[]`, per trial
+- `fixtures/assignment.sample.json` — `Assignment[]`, one per mode
+  (`adhoc`, `stable`, `stable_dap`)
+
+Until they land the app uses a hand-written, clearly labelled placeholder in
+`app/_data/`.
