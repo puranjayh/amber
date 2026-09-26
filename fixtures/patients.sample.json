@@ -96,6 +96,14 @@
         "sourceQuote": "No history of interstitial lung disease or drug-induced pneumonitis.",
         "sourceDoc": "oncology note 2026-09-10",
         "provenance": "chart"
+      },
+      {
+        "predicate": "washout",
+        "value": "2026-06-01",
+        "observedAt": "2026-06-01",
+        "sourceQuote": "Last dose of carboplatin 1 June 2026.",
+        "sourceDoc": "oncology note 2026-06-01",
+        "provenance": "chart"
       }
     ]
   },
@@ -203,6 +211,14 @@
         "observedAt": "2026-09-12",
         "sourceQuote": "No history of interstitial lung disease.",
         "sourceDoc": "clinic note 2026-09-12",
+        "provenance": "chart"
+      },
+      {
+        "predicate": "washout",
+        "value": "2026-09-14",
+        "observedAt": "2026-09-14",
+        "sourceQuote": "Final dose of osimertinib 14 September 2026; therapy discontinued for progression.",
+        "sourceDoc": "oncology note 2026-09-14",
         "provenance": "chart"
       }
     ]

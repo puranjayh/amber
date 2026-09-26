@@ -373,3 +373,12 @@ Please:
   `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
+
+## From P4 (data) — washout is on NCT07001003
+
+The tier-4 washout leaf is `NCT07001003` `EXC-2`, not `NCT07001001`. PT-4402's last dose is 2026-09-14, which is 11 days before asOf 2026-09-25 (the handoff's "5 days" does not match the dates). The exclusion fires, and `calendar()` emits one row: PT-4402 × NCT07001003 becomes eligible 2026-10-05. PT-4401's last dose is 2026-06-01, so that cell is FAIL and the hero pair is unchanged. PT-4408 has no last-dose fact: UNKNOWN / absent, resolution cost +30.
+
+Two tests outside this lane now fail on purpose:
+
+- `src/eval/make-sheet.test.ts` expects 60 leaf rows; the new leaf makes 63.
+- `components/market/graph.test.ts` expects PT-4402 × NCT07001003 to be an eligible candidate. That pair is eliminated until 2026-10-05, and `app/_data/assignments.json` still assigns it, so `modes.invalid` is non-empty. `components/generated.test.ts` is stale until `app/_data` is regenerated from the fixtures.
