@@ -43,19 +43,17 @@ export default async function DocumentPage({
         trialId: nctId,
         demo: demo ? demoMode : null,
       })
-    : `/doctor?physician=${encodeURIComponent(physicianId)}${demo ? `&demo=${demoMode}` : ""}`;
+    : `/doctor?physician=${encodeURIComponent(physicianId)}&view=patients${demo ? `&demo=${demoMode}` : ""}`;
 
   return (
-    <>
-      <div className="no-print">
-        <DoctorChrome
-          asOf={asOf}
-          demo={demo}
-          demoMode={demoMode}
-          physicianId={physicianId}
-          trial={anchor.nctId}
-        />
-      </div>
+    <DoctorChrome
+      asOf={asOf}
+      demo={demo}
+      demoMode={demoMode}
+      physicianId={physicianId}
+      trial={anchor.nctId}
+      view="patients"
+    >
       <main className="mx-auto w-full max-w-2xl flex-1 px-3 py-6 sm:px-6 sm:py-8">
         <div className="no-print mb-4 flex flex-wrap items-start justify-between gap-3">
           <Link href={back} className="text-[13px] text-ink underline-offset-2 hover:underline">
@@ -79,7 +77,7 @@ export default async function DocumentPage({
           />
         ) : null}
       </main>
-    </>
+    </DoctorChrome>
   );
 }
 

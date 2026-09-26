@@ -71,10 +71,12 @@ export default async function DoctorPatientPage({
           demoMode={demoMode}
           physicianId={physicianId}
           trial={anchor.nctId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
-          <NotYourPatient patientId={patientId} />
-        </main>
+          view="patients"
+        >
+          <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+            <NotYourPatient patientId={patientId} />
+          </main>
+        </DoctorChrome>
       </>
     );
   }
@@ -119,11 +121,12 @@ export default async function DoctorPatientPage({
         demoMode={demoMode}
         physicianId={physicianId}
         trial={anchor.nctId}
-      />
+        view="patients"
+      >
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
         <div>
           <Link
-            href={`/doctor?physician=${encodeURIComponent(physicianId)}${demo ? `&demo=${demoMode}` : ""}`}
+            href={`/doctor?physician=${encodeURIComponent(physicianId)}&view=patients${demo ? `&demo=${demoMode}` : ""}`}
             className="text-[13px] text-ink-2 hover:text-ink"
           >
             ← My patients
@@ -147,6 +150,7 @@ export default async function DoctorPatientPage({
         )}
         <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
       </main>
+      </DoctorChrome>
     </>
   );
 }

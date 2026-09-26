@@ -114,40 +114,18 @@ body {
   outline-offset: 2px;
 }
 
-/* The mark is drawn on black. On a light page it needs that ground; in dark it sits as-is. */
+/* The file is transparent. Do not paint a plate behind it. */
 .amber-mark {
   display: block;
   height: 28px;
   width: auto;
+  background: none;
 }
 
-html:not([data-theme="dark"]) .amber-mark {
-  height: 32px;
-  padding: 2px 8px;
-  border-radius: 8px;
-  background: #0b0b0b;
-}
-
-.amber-mark.amber-mark-lg {
-  height: 56px;
-}
-
-@media (min-width: 640px) {
-  .amber-mark.amber-mark-lg {
-    height: 80px;
-  }
-}
-
-html:not([data-theme="dark"]) .amber-mark.amber-mark-lg {
-  height: 56px;
-  padding: 6px 14px;
-  border-radius: 12px;
-}
-
-@media (min-width: 640px) {
-  html:not([data-theme="dark"]) .amber-mark.amber-mark-lg {
-    height: 80px;
-  }
+.amber-mark.amber-mark-side {
+  height: auto;
+  width: 9.5rem;
+  max-width: 100%;
 }
 
 /* /demo progressive reveal — later beats are in the first HTML, hidden until the shell advances. */

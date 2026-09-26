@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-/** Orange-to-pink mark plus the Amber wordmark. The file is drawn on black. */
-export function AmberMark({ href, large = false }: { href?: string; large?: boolean }) {
+/** Transparent orange-to-pink mark plus the Amber wordmark. */
+export function AmberMark({ href, side = false }: { href?: string; side?: boolean }) {
   const img = (
-    <img src="/amber-logo.png" alt="Amber" className={large ? "amber-mark amber-mark-lg" : "amber-mark"} />
+    <img src="/amber-logo.png" alt="Amber" className={side ? "amber-mark amber-mark-side" : "amber-mark"} />
   );
   if (!href) return img;
   return (

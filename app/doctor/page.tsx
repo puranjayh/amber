@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { readLoop } from "@/app/_data/loop";
 import { syncRegistry } from "@/app/_data/registry-sync";
@@ -16,6 +16,7 @@ import {
 import { fetchStudy } from "@/app/_data/ctgov";
 import type { RegistryStudy } from "@/app/_data/schema";
 import { orderCorresponds, orderFor } from "@/components/alert/alert";
+import { DoctorHome } from "@/components/console/DoctorHome";
 import { DoctorPatients, type DoctorListRow } from "@/components/console/DoctorPatients";
 import { DoctorRetention } from "@/components/console/DoctorRetention";
 import { DoctorTrials } from "@/components/console/DoctorTrials";
@@ -24,13 +25,14 @@ import { Provenance } from "@/components/console/Provenance";
 import { followUpsByTrial, trialNews } from "@/components/console/trialNews";
 import { isStaticDemo, one } from "@/components/console/params";
 import { doctorChartPath, doctorMayOpen, doctorQuery } from "@/components/hcp/access";
-import { DoctorChrome } from "@/components/hcp/DoctorChrome";
+import { clinicFocus, describeClinic, displayName, trialWords } from "@/components/hcp/clinic";
+import { DoctorChrome, type DoctorView } from "@/components/hcp/DoctorChrome";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
 import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
 import { buildTrialCards, rowsForTrial, tierLine } from "@/components/hcp/trialBoard";
 import { attributePatients } from "@/components/worklist/attribution";
 import { draftOutreach } from "@/components/hcp/outreach";
-import { clinicFocus, describeClinic, trialWords } from "@/components/hcp/clinic";
+import { updateCards } from "@/components/loop/registry";
 import { pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
 import { anchorById } from "@/components/console/anchors";
 import { readiness } from "@/components/worklist/readiness";
@@ -47,8 +49,11 @@ export default async function DoctorPage({
   const sp = await searchParams;
   const demo = isStaticDemo(sp);
   const demoMode = one(sp.demo) === "static" ? "static" : "1";
-  const view =
-    one(sp.view) === "patients" ? "patients" : one(sp.view) === "followups" ? "followups" : "trials";
+  const requestedView = one(sp.view);
+  const view: DoctorView =
+    requestedView === "patients" || requestedView === "followups" || requestedView === "trials"
+      ? requestedView
+      : "home";
   const requestedTrial = one(sp.trial);
   const trialId =
     requestedTrial && /^NCT\d{8}$/.test(requestedTrial) ? requestedTrial : anchorById(undefined).nctId;
@@ -71,34 +76,93 @@ export default async function DoctorPage({
   const mine = new Set(
     attributions.filter((a) => a.physicianId === physicianId).map((a) => a.patientId),
   );
-  const chrome = (
+  const frame = (body: ReactNode) => (
     <DoctorChrome
       asOf={asOf}
       demo={demo}
       demoMode={demoMode}
       physicianId={physicianId}
       trial={trialId}
-    />
+      view={view}
+    >
+      {body}
+    </DoctorChrome>
   );
   if (home.length === 0) {
-    return (
-      <>
-        {chrome}
-        <main className={`${WIDE} flex-1 px-4 py-6 sm:px-8`}>
-          <MissingData file="app/_data/anchors.json" />
-        </main>
-      </>
+    return frame(
+      <main className={`${WIDE} flex-1 px-4 py-6 sm:px-8`}>
+        <MissingData file="app/_data/anchors.json" />
+      </main>,
     );
   }
 
-  const nav = (
-    <DoctorNav
-      physicianId={physicianId}
-      trial={trialId}
-      demo={demo ? demoMode : null}
-      view={view}
-    />
-  );
+  if (view === "home") {
+    const ready: { name: string; trial: string; href: string }[] = [];
+    let oneAway = 0;
+    let toReview = 0;
+    const waiting: { name: string; detail: string }[] = [];
+    for (const id of mine) {
+      const pairs = getPairsForPatient(id);
+      const eligible = pairs.filter((pair) => !pair.eliminated && pair.unknownCount === 0);
+      if (eligible.length > 0) {
+        const pair = eligible[0];
+        const patient = getPatient(id);
+        ready.push({
+          name: patient ? displayName(patient) : id,
+          trial: trialWords(pair.nctId, getTrial(pair.nctId)?.title),
+          href: doctorChartPath({
+            physicianId,
+            patientId: id,
+            trialId: pair.nctId,
+            demo: demo ? demoMode : null,
+          }),
+        });
+      } else if (pairs.some((pair) => !pair.eliminated && pair.unknownCount === 1)) {
+        oneAway += 1;
+      }
+    }
+    ready.sort((a, b) => a.name.localeCompare(b.name));
+    if (loop) {
+      for (const card of updateCards(loop.nudges, mine)) {
+        for (const row of card.patients) {
+          if (!row.held) continue;
+          toReview += 1;
+          if (waiting.length >= 5) continue;
+          const patient = getPatient(row.patientId);
+          waiting.push({
+            name: patient ? displayName(patient) : row.patientId,
+            detail: card.detail,
+          });
+        }
+      }
+    }
+    const patientsQuery = new URLSearchParams();
+    const followQuery = new URLSearchParams();
+    if (demo) {
+      patientsQuery.set("demo", demoMode);
+      followQuery.set("demo", demoMode);
+    }
+    patientsQuery.set("physician", physicianId);
+    followQuery.set("physician", physicianId);
+    patientsQuery.set("trial", trialId);
+    followQuery.set("trial", trialId);
+    patientsQuery.set("view", "patients");
+    followQuery.set("view", "followups");
+    return frame(
+      <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+        <DoctorHome
+          eligible={ready.length}
+          oneAway={oneAway}
+          toReview={toReview}
+          ready={ready.slice(0, 6)}
+          waiting={waiting}
+          patientsHref={`/doctor?${patientsQuery}`}
+          followHref={`/doctor?${followQuery}`}
+        />
+        <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
+      </main>,
+    );
+  }
 
   if (view === "trials") {
     const pairs = [...mine].flatMap((id) => getPairsForPatient(id));
@@ -119,12 +183,9 @@ export default async function DoctorPage({
       }),
       followUpsByTrial(loop?.nudges ?? [], mine),
     );
-    return (
-      <>
-        {chrome}
-        <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
-          {nav}
-          <h1 className="text-[28px] font-semibold text-ink">Trials</h1>
+    return frame(
+      <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+        <h1 className="text-[28px] font-semibold text-ink">Trials</h1>
           <DoctorTrials
             items={news}
             cards={cards.map((card) => ({
@@ -133,26 +194,21 @@ export default async function DoctorPage({
             }))}
           />
           <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
-        </main>
-      </>
+      </main>,
     );
   }
 
   if (view === "followups") {
-    return (
-      <>
-        {chrome}
-        <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
-          {nav}
-          <h1 className="text-[28px] font-semibold text-ink">Follow-ups</h1>
+    return frame(
+      <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+        <h1 className="text-[28px] font-semibold text-ink">Follow-ups</h1>
           {loop ? (
             <DoctorRetention initial={loop} physicianId={physicianId} patientIds={[...mine]} />
           ) : (
             <p className="text-[15px] text-ink-2">No follow-ups on file.</p>
           )}
           <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
-        </main>
-      </>
+      </main>,
     );
   }
 
@@ -231,12 +287,9 @@ export default async function DoctorPage({
     };
   });
 
-  return (
-    <>
-      {chrome}
-      <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
-        {nav}
-        <div>
+  return frame(
+    <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
+      <div>
           <h1 className="text-[28px] font-semibold text-ink">My patients</h1>
           <p className="mt-1 text-[15px] text-ink-2">{trialWords(trialId, focusTrial?.title)}</p>
         </div>
@@ -247,59 +300,7 @@ export default async function DoctorPage({
         )}
         {gate === "denied" && requested ? <NotYourPatient patientId={requested} /> : null}
         <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
-      </main>
-    </>
-  );
-}
-
-function DoctorNav({
-  physicianId,
-  trial,
-  demo,
-  view,
-}: {
-  physicianId: string;
-  trial: string;
-  demo: "1" | "static" | null;
-  view: "patients" | "trials" | "followups";
-}) {
-  const patients = new URLSearchParams();
-  const trials = new URLSearchParams();
-  const followups = new URLSearchParams();
-  if (demo) {
-    patients.set("demo", demo);
-    trials.set("demo", demo);
-    followups.set("demo", demo);
-  }
-  patients.set("physician", physicianId);
-  trials.set("physician", physicianId);
-  followups.set("physician", physicianId);
-  if (trial) {
-    patients.set("trial", trial);
-    trials.set("trial", trial);
-    followups.set("trial", trial);
-  }
-  patients.set("view", "patients");
-  trials.set("view", "trials");
-  followups.set("view", "followups");
-  const item = (current: boolean) =>
-    `border-b-2 px-1 py-2 text-[15px] ${current ? "border-ink font-medium text-ink" : "border-transparent text-ink-3 hover:text-ink"}`;
-  return (
-    <nav className="flex gap-5" aria-label="Doctor views">
-      <Link href={`/doctor?${trials}`} aria-current={view === "trials" ? "page" : undefined} className={item(view === "trials")}>
-        Trials
-      </Link>
-      <Link href={`/doctor?${patients}`} aria-current={view === "patients" ? "page" : undefined} className={item(view === "patients")}>
-        My patients
-      </Link>
-      <Link
-        href={`/doctor?${followups}`}
-        aria-current={view === "followups" ? "page" : undefined}
-        className={item(view === "followups")}
-      >
-        Follow-ups
-      </Link>
-    </nav>
+    </main>,
   );
 }
 
