@@ -259,7 +259,7 @@ Until they land the app uses a hand-written, clearly labelled placeholder in
 
 **Who this is for:** P1, who owns `package.json` and `docs/CONTRACT.md`.
 
-On instruction at 21:43, every number the app shows now comes from the engine.
+On instruction, every number the app shows now comes from the engine.
 `app/_data/generate.ts` imports `@/src/engine` **read-only** (same terms as
 `src/eval` in §10), runs it over `fixtures/` plus `data/patients.json` when it
 exists, and writes `app/_data/*.json`. The Next app itself still imports only
