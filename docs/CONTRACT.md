@@ -17,7 +17,7 @@ deterministic code with no model inference in the scoring path.
 |---|---|---|---|
 | `src/contracts/**` | P2 | Claude Code | `amber-engine` |
 | `src/engine/**` | P2 | Claude Code | `amber-engine` |
-| `src/compiler/**`, `data/raw/**` | P1 | Codex | `amber-compiler` |
+| `src/compiler/**`, `src/eval/**`, `data/raw/**` | P1 | Codex | `amber-compiler` |
 | `app/**`, `components/**` | P3 | Cursor (laptop 1) | `amber-app` |
 | `data/**` (except `raw/`), `fixtures/**` | P4 | Cursor (laptop 2) | `amber-data` |
 | `docs/**`, `package.json`, merges to `main` | P1 | — | `amber` |
@@ -242,3 +242,34 @@ circular and it invalidates the evaluation.
 No real patient data, ever. Structured records from Synthea; narrative text from
 open-access published case reports. The three demo patients are hand-built and we say so
 on stage. Every prevalence figure carries a citation.
+
+---
+
+## 10. The eval lane (added 21:30 Fri)
+
+`src/eval/` belongs to the compiler lane (Codex). It is the one place where a **read-only**
+import of `@/src/engine` is explicitly permitted — import it, never edit it.
+
+It exists because nobody otherwise owns comparing engine output to human judgement, and
+that comparison is the metrics slide.
+
+**What it does:** load `data/eval/labels.json`, run `evaluate()` over the referenced
+patient-trial pairs, and report precision, recall, and UNKNOWN-agreement — how often the
+engine says "can't tell" where the human said the same. Emit a PASS/FAIL/UNKNOWN
+confusion matrix plus a named list of every disagreement with its criterion id and both
+citations, so we can read our own failure modes aloud. Export JSON the app can render.
+
+**Until `data/eval/labels.json` exists** (P4 and a human are writing it), build the harness
+against `fixtures/cube.sample.json` treated as labels — same shape, known answers — so the
+harness is finished and tested before the real labels land.
+
+**The labels are written by a human, never by a model.** If a model labels them we are
+grading the system against itself and the metrics mean nothing.
+
+## 11. Open handoffs
+
+- **Drug-class leaves** should compile to `in` with resolved `members`, not `==` with a
+  bare `drugClass`. `==` only works against boolean-style facts. Compiler lane to fix for
+  the 300-trial pool.
+- **`matchAdhoc`** now exists alongside Gale-Shapley. Its `unstablePairs` count is exactly
+  what stable matching removes — that is the comparison for the matching demo.
