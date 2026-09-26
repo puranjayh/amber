@@ -67,6 +67,9 @@ export function buildReadModels(
   asOf: string,
   pin: { patientId: string; nctId: string } = PRESENTATION_PAIR,
 ): ReadModels {
+  if (process.env.NEXT_RUNTIME) {
+    throw new Error("buildReadModels is a generate.ts build step. Do not evaluate the cube inside Next.");
+  }
   const ctx = { patients, trials };
   const trialById = new Map(trials.map((t) => [t.nctId, t]));
   const cube = evaluateAll(patients, trials, asOf);

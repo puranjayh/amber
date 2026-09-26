@@ -76,6 +76,8 @@ export const Meta = z.object({
   pairsEvaluated: z.number().int(),
   eligibleNow: z.number().int(),
   oneTier0Away: z.number().int(),
+  /** Compiled protocols in the cube, excluding the pinned presentation trial. */
+  realProtocols: z.number().int().default(0),
   /** Git tree hash of src/engine at generation time — ties every number to engine code. */
   engineTree: z.string(),
 });

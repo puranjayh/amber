@@ -3,7 +3,7 @@ import cubeJson from "@/fixtures/cube.sample.json";
 import trialsJson from "@/fixtures/trials.sample.json";
 import sample from "@/app/_data/assignments.json";
 import { Assignment, CubeFixture, TrialsFixture } from "@/src/contracts";
-import { buildGraph, edgeKey } from "./graph";
+import { buildGraph, edgeKey, graphTrials } from "./graph";
 
 const cube = CubeFixture.parse(cubeJson);
 const trials = TrialsFixture.parse(trialsJson);
@@ -74,4 +74,11 @@ describe("buildGraph", () => {
     }
     expect(graph.patients[0].x).toBeLessThan(graph.trials[0].x);
   });
+});
+
+test("graphTrials keeps the pin and assignment targets, not the whole pool", () => {
+  const pool = [...trials.map((t) => ({ nctId: t.nctId, slots: t.slots })), { nctId: "NCT09999999", slots: 1 }];
+  const shown = graphTrials(patientIds, pool, assignments, [{ patientId: "PT-4401", nctId: "NCT07001001" }], "NCT07001001");
+  expect(shown.map((t) => t.nctId)).toContain("NCT07001001");
+  expect(shown.map((t) => t.nctId)).not.toContain("NCT09999999");
 });

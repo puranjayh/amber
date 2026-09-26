@@ -34,6 +34,27 @@ export const GRAPH = { width: 320, rowHeight: 56, padY: 28, patientX: 70, trialX
 
 export const edgeKey = (patientId: string, nctId: string) => `${patientId}→${nctId}`;
 
+/** Trials the published cube can actually draw for these patients — not the full 133. */
+export function graphTrials(
+  patientIds: string[],
+  trials: { nctId: string; slots: number }[],
+  assignments: Assignment[],
+  worklist: { patientId: string; nctId: string }[],
+  pinNctId: string,
+): { nctId: string; slots: number }[] {
+  const shown = new Set(patientIds);
+  const ids = new Set<string>([pinNctId]);
+  for (const assignment of assignments) {
+    for (const pair of assignment.pairs) {
+      if (shown.has(pair.patientId)) ids.add(pair.nctId);
+    }
+  }
+  for (const row of worklist) {
+    if (shown.has(row.patientId)) ids.add(row.nctId);
+  }
+  return trials.filter((trial) => ids.has(trial.nctId));
+}
+
 function column(ids: string[], x: number, height: number, side: GraphNode["side"]): GraphNode[] {
   const step = ids.length > 1 ? (height - GRAPH.padY * 2) / (ids.length - 1) : 0;
   return ids.map((id, i) => ({

@@ -1,10 +1,9 @@
 import { expect, test } from "vitest";
-import { AS_OF, loadInputs } from "@/app/_data/inputs";
+import { AS_OF, loadFixtureTrials } from "@/app/_data/inputs";
 import { buildPayerView } from "@/app/_data/payer";
 import { CLAIMS_STUB } from "./stub";
 
-const { trials } = loadInputs(process.cwd() + "/");
-const fixtures = trials.filter((t) => /^NCT07001\d+$/.test(t.nctId));
+const fixtures = loadFixtureTrials(process.cwd() + "/");
 
 test("a drug fill settles first-line; an ILD claim settles the comorbidity trials", () => {
   const view = buildPayerView(CLAIMS_STUB, fixtures, AS_OF, null, "stub");
