@@ -1,82 +1,48 @@
-import {
-  Assignment,
-  CubeFixture,
-  ElasticityPoint,
-  EquityRow,
-  PatientsFixture,
-  TrialsFixture,
-  type PairResult,
-  type Patient,
-  type Trial,
-} from "@/src/contracts";
-import cubeJson from "@/fixtures/cube.sample.json";
-import patientsJson from "@/fixtures/patients.sample.json";
-import trialsJson from "@/fixtures/trials.sample.json";
-import elasticitySample from "./elasticity.sample.json";
-import assignmentSample from "./assignment.sample.json";
-import equitySample from "./equity.sample.json";
+import { CubeFixture, PatientsFixture, TrialsFixture, type PairResult, type Patient, type Trial } from "@/src/contracts";
+import assignmentsJson from "./assignments.json";
+import cubeJson from "./cube.json";
+import elasticityJson from "./elasticity.json";
+import equityJson from "./equity.json";
+import metaJson from "./meta.json";
+import patientsJson from "./patients.json";
+import trialsJson from "./trials.json";
+import worklistJson from "./worklist.json";
+import { Assignments, ElasticitySweep, EquitySet, Meta, WorklistRow } from "./schema";
 
-// The only place the app reads data. Parsed with the contract schemas so a fixture that
-// drifts from the contract fails loudly at load instead of rendering wrong.
+// The only place the app reads data. Every file here is written by generate.ts from engine
+// output, and components/generated.test.ts fails if any of them drifts from a fresh run.
 const trials = TrialsFixture.parse(trialsJson);
 const patients = PatientsFixture.parse(patientsJson);
 const cube = CubeFixture.parse(cubeJson);
+const worklist = WorklistRow.array().parse(worklistJson);
+const sweeps = ElasticitySweep.array().parse(elasticityJson);
+const equity = EquitySet.array().parse(equityJson);
+const assignments = Assignments.parse(assignmentsJson);
+export const meta = Meta.parse(metaJson);
 
-/** The evaluation date the fixture cube was computed against (fixtures/ORACLE.md). */
-export const asOf = "2026-09-25";
+export const asOf = meta.asOf;
 
-export const HERO = { patientId: "PT-4401", nctId: "NCT07001001" } as const;
+/** The pair we present on stage (fixtures/ORACLE.md: exactly two unknowns). */
+export const DEMO = { patientId: "PT-4401", nctId: "NCT07001001" } as const;
 
-// Hand-written placeholder until the engine's sweep output ships as a fixture.
-// ElasticityPoint[] carries no criterion reference, so the binding lives here.
-const elasticity = {
-  nctId: "NCT07001001",
-  criterionId: "INC-5",
-  points: ElasticityPoint.array().parse(elasticitySample),
-};
+export const getTrials = (): Trial[] => trials;
+export const getPatients = (): Patient[] => patients;
+export const getCube = (): PairResult[] => cube;
+export const getWorklist = () => worklist;
+export const getSweeps = () => sweeps;
+export const getAssignments = () => assignments;
 
-// Hand-written placeholder until the engine's equityAudit() output ships as a fixture.
-const equity = { nctId: "NCT07001001", rows: EquityRow.array().parse(equitySample) };
+export const getTrial = (nctId: string) => trials.find((t) => t.nctId === nctId);
+export const getPatient = (id: string) => patients.find((p) => p.id === id);
+export const getPair = (patientId: string, nctId: string) =>
+  cube.find((p) => p.patientId === patientId && p.nctId === nctId);
+export const getSweep = (nctId: string, criterionId: string) =>
+  sweeps.find((s) => s.nctId === nctId && s.criterionId === criterionId);
+export const getEquity = (nctId: string) => equity.find((e) => e.nctId === nctId);
 
-export function getEquity() {
-  return equity;
-}
-
-// Hand-written placeholder until the engine's match()/matchAdhoc() output ships as a fixture.
-const assignments = Assignment.array().parse(assignmentSample);
-
-export function getAssignments(): Assignment[] {
-  return assignments;
-}
-
-export function getTrials(): Trial[] {
-  return trials;
-}
-
-export function getPatients(): Patient[] {
-  return patients;
-}
-
-export function getTrial(nctId: string): Trial | undefined {
-  return trials.find((t) => t.nctId === nctId);
-}
-
-export function getPatient(id: string): Patient | undefined {
-  return patients.find((p) => p.id === id);
-}
-
-export function getPair(patientId: string, nctId: string): PairResult | undefined {
-  return cube.find((p) => p.patientId === patientId && p.nctId === nctId);
-}
-
-export function getCube(): PairResult[] {
-  return cube;
-}
-
-export function getElasticity() {
-  return elasticity;
-}
-
-export function getPairsForPatient(patientId: string): PairResult[] {
-  return cube.filter((p) => p.patientId === patientId);
+/** Patients per subgroup — the denominator every equity and elasticity number sits on. */
+export function subgroupSizes(): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const p of patients) out[p.race] = (out[p.race] ?? 0) + 1;
+  return out;
 }

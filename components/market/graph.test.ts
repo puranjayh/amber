@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import cubeJson from "@/fixtures/cube.sample.json";
 import trialsJson from "@/fixtures/trials.sample.json";
-import sample from "@/app/_data/assignment.sample.json";
+import sample from "@/app/_data/assignments.json";
 import { Assignment, CubeFixture, TrialsFixture } from "@/src/contracts";
 import { buildGraph, edgeKey } from "./graph";
 
@@ -25,7 +25,7 @@ describe("buildGraph", () => {
     expect(status[edgeKey("PT-4401", "NCT07001001")]).toBe("unknown");
   });
 
-  test("every mode is precomputed, and the sample assigns only candidate pairs", () => {
+  test("every mode is precomputed, and the engine assigns only candidate pairs", () => {
     for (const mode of ["adhoc", "stable", "stable_dap"] as const) {
       expect(graph.modes[mode]).toBeDefined();
       expect(graph.modes[mode]!.invalid).toEqual([]);

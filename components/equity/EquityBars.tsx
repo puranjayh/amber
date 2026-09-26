@@ -4,7 +4,7 @@ function pct(rate: number) {
   return `${Math.round(rate * 100)}%`;
 }
 
-export function EquityBars({ view }: { view: EquityView }) {
+export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<string, number> }) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line px-3 py-2.5 sm:px-4">
@@ -35,7 +35,9 @@ export function EquityBars({ view }: { view: EquityView }) {
                 const worst = row.maxGapPoints > 0 && g === row.worst;
                 return (
                   <li key={g} className="grid grid-cols-[7.5rem_1fr_2.75rem] items-center gap-2 text-[11px] sm:grid-cols-[12rem_1fr_3rem]">
-                    <span className={`truncate ${worst ? "font-medium text-ink" : "text-ink-2"}`}>{g}</span>
+                    <span className={`truncate ${worst ? "font-medium text-ink" : "text-ink-2"}`} title={g}>
+                      {g} <span className="font-mono text-ink-3">n={sizes[g] ?? 0}</span>
+                    </span>
                     <span className="h-2 overflow-hidden rounded-sm bg-line-2">
                       <span
                         className={`block h-full ${worst ? "bg-ink" : "bg-ink-3"}`}

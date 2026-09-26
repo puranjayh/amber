@@ -1,6 +1,8 @@
 import { describe, expect, test } from "vitest";
-import type { ElasticityPoint } from "../../src/contracts";
-import sample from "../../app/_data/elasticity.sample.json";
+import { TrialsFixture, type CriterionLeaf, type ElasticityPoint } from "@/src/contracts";
+import sweepsJson from "@/app/_data/elasticity.json";
+import trialsJson from "@/app/_data/trials.json";
+import { collectLeaves } from "../criteria/rows";
 import { buildSweep } from "./sweep";
 
 const pts = (...rows: [number, number, Record<string, number>?][]): ElasticityPoint[] =>
@@ -48,14 +50,12 @@ describe("buildSweep", () => {
     expect(() => buildSweep(pts([1, 2], [2, 1]), 1.5, ">=")).toThrow(/not a precomputed/);
   });
 
-  test("the hand-written sample is internally consistent", () => {
-    const rows = sample as ElasticityPoint[];
-    const pool = rows[0].eligibleCount + rows[0].excludedByThisAlone;
-    for (const r of rows) {
-      expect(r.eligibleCount + r.excludedByThisAlone).toBe(pool);
-      const subgroupTotal = Object.values(r.bySubgroup ?? {}).reduce((a, b) => a + b, 0);
-      expect(subgroupTotal).toBe(r.eligibleCount);
+  test("every generated sweep builds against its protocol threshold", () => {
+    const trials = TrialsFixture.parse(trialsJson);
+    for (const s of sweepsJson as { nctId: string; criterionId: string; points: ElasticityPoint[] }[]) {
+      const trial = trials.find((t) => t.nctId === s.nctId)!;
+      const leaf = collectLeaves(trial.criteria).get(s.criterionId) as CriterionLeaf;
+      expect(() => buildSweep(s.points, leaf.value as number, leaf.operator)).not.toThrow();
     }
-    expect(() => buildSweep(rows, 1500, ">=")).not.toThrow();
   });
 });
