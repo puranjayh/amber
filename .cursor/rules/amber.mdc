@@ -1,0 +1,42 @@
+---
+description: AMBER build contract — ownership, types, hard rules
+alwaysApply: true
+---
+
+Read `docs/CONTRACT.md` before writing any code. It is the single source of truth.
+
+## Your lane
+Check which worktree you are in and stay inside it:
+- `amber-app` (branch `eng/app`) → you own `app/**` and `components/**`
+- `amber-data` (branch `eng/data`) → you own `data/**` and `fixtures/**`
+
+Never edit `src/contracts`, `src/engine` or `src/compiler`. Another agent owns those and
+we are working in parallel worktrees — editing outside your lane causes merge conflicts
+nobody has time to resolve.
+
+## Imports
+Only ever import shared types from `@/src/contracts`. Never import from another lane's
+folder.
+
+## If you are the app lane
+Build entirely against `fixtures/*.json`. No network calls, no database, no compiler
+imports. The visual spec is https://claude.ai/artifact/KCK6anxRm9zuMJc67a4WUj
+
+- Amber means UNKNOWN and nothing else, anywhere in the UI.
+- Every verdict expands to BOTH citations: the trial's own criterion text and the
+  sentence from the patient record.
+- Precompute the elasticity sweep. Never recompute on slider drag.
+- Must work at 400px width.
+
+## If you are the data lane
+Fixtures first, in the first 45 minutes — three people are blocked on them. They must
+validate against the zod schemas in `src/contracts`.
+
+Never generate patient notes with an LLM and then feed them to the extractor. That is
+circular and it invalidates the evaluation. Narrative text comes from open-access
+published case reports; structured records come from Synthea.
+
+## Hard rules
+- Absent fact → UNKNOWN. Stale beyond maxAgeDays → UNKNOWN. Never FAIL.
+- No LLM output is ever used to score a patient.
+- Commit prefixes `app:` or `data:`. Push every 30 minutes even if broken.
