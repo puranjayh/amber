@@ -1,0 +1,1172 @@
+[
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 58 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "FAIL",
+    "expectedReason": "contradicted",
+    "labeller": "P4-hand",
+    "note": "Diagnosis fact is malignant neoplasm of breast (onset 2021-07-22), not non-small cell lung cancer. The predicate does not hold."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 13.4 g/dL on 2025-11-04 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 58 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "FAIL",
+    "expectedReason": "contradicted",
+    "labeller": "P4-hand",
+    "note": "Diagnosis fact is malignant neoplasm of breast (onset 2021-07-22), not non-small cell lung cancer. The predicate does not hold."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3935e8a9-9b9f-fd00-fe22-bcb810d0330b",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 66 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "ANC 2 \u00d710^3/\u00b5L on 2020-09-07 is years older than the 14-day window. That count would clear \u2265 1500/\u00b5L if it were current. Verdict stays UNKNOWN, not PASS. Action: repeat the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 14.9 g/dL on 2026-07-31 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 66 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3732fde5-efc6-d57a-517b-0500f2177181",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 64 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "ANC 6.4 \u00d710^3/\u00b5L on 2022-01-26 is years older than the 14-day window. That count would clear \u2265 1500/\u00b5L if it were current. Verdict stays UNKNOWN, not PASS. Action: repeat the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 17.4 g/dL on 2024-03-06 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 64 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-2fb99851-6f31-04a6-be96-6fef4663e208",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 81 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 15.9 g/dL on 2026-02-18 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 81 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-bca1691f-8839-1d66-ed01-471134d55738",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 53 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 11.6 g/dL on 2023-11-27 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 53 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-5693c080-f485-91e7-54b9-ad9a8c12af62",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 65 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 15 g/dL on 2026-04-14 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 65 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-7af6b271-f16d-21e1-882a-7bff71005a7b",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 61 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 16.4 g/dL on 2026-01-08 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 61 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-3c0e60c4-176e-2c4c-3b85-b46be390cf5e",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 96 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "FAIL",
+    "expectedReason": "contradicted",
+    "labeller": "P4-hand",
+    "note": "Two diagnosis facts, both 2013-05-22: neoplasm of prostate, and carcinoma in situ of prostate. Neither is non-small cell lung cancer."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 13.4 g/dL on 2017-06-14 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 96 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "FAIL",
+    "expectedReason": "contradicted",
+    "labeller": "P4-hand",
+    "note": "Two diagnosis facts, both 2013-05-22: neoplasm of prostate, and carcinoma in situ of prostate. Neither is non-small cell lung cancer."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-19ad9612-4b4d-4a82-a323-c07168ec4d85",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 69 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 12.9 g/dL on 2024-01-11 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 69 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-355a4d50-2628-aa65-c336-deacf4d606fb",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 95 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test for an exon 19 deletion or L858R, on a block already on file if there is one (tier 0)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No neutrophil count. Action: draw a CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "INC-6",
+    "expected": "UNKNOWN",
+    "expectedReason": "stale",
+    "labeller": "P4-hand",
+    "note": "Hemoglobin 13.4 g/dL on 2023-07-06 is above 9 and older than 14 days before 2026-09-25. UNKNOWN stale, not PASS. Action: redraw the CBC (tier 1)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001001",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. Silence is not 'no prior TKI' and is not a cell FAIL. Action: reconcile EGFR TKI exposure (tier 0). The patient stays a candidate until that is done."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-1",
+    "expected": "PASS",
+    "expectedReason": "satisfied",
+    "labeller": "P4-hand",
+    "note": "Age 95 on 2026-09-25, which meets \u2265 18."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-2",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No diagnosis fact. Absence is not a fail. Action: obtain a pathology report before anyone treats this patient as ineligible for NSCLC."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-3",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No osimertinib fact. This inclusion does not become FAIL because the list is silent. Action: reconcile whether osimertinib was given (tier 0)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-4",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No EGFR result. Action: test tissue or plasma for T790M or C797S (tier 0 if a specimen is already held)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "INC-5",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No ECOG score. Action: score performance status in clinic (tier 1)."
+  },
+  {
+    "patientId": "SYN-0f3d04a2-f42e-1429-acef-0becd0a0fcea",
+    "nctId": "NCT07001002",
+    "criterionId": "EXC-1",
+    "expected": "UNKNOWN",
+    "expectedReason": "absent",
+    "labeller": "P4-hand",
+    "note": "No interstitial-lung-disease fact. Absence does not clear the exclusion. Action: review the history for ILD (tier 0)."
+  }
+]
