@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildSections, kleene, unknownCells } from "./rows.ts";
+import { buildSections, collectLeaves, kleene, unknownCells } from "./rows.ts";
 
 const leaf = (id, type = "inclusion", tier = 1) => ({
   kind: "leaf",
@@ -70,6 +70,14 @@ test("a leaf with no cell is surfaced, and its group verdict is withheld", () =>
   const [section] = buildSections(criteria, [cell("A", "PASS")]);
   assert.equal(section.rows[2].cell, undefined);
   assert.equal(section.rows[0].verdict, null);
+});
+
+test("collectLeaves reaches leaves inside nested groups", () => {
+  const criteria = [
+    leaf("A"),
+    { kind: "group", op: "AND", children: [{ kind: "group", op: "OR", children: [leaf("B")] }] },
+  ];
+  assert.deepEqual([...collectLeaves(criteria).keys()], ["A", "B"]);
 });
 
 test("unknownCells sorts by tier, cheapest first", () => {

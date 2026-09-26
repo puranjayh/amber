@@ -113,6 +113,16 @@ export function buildSections(
     .map((type) => ({ type, rows: sections[type] }));
 }
 
+export function collectLeaves(criteria: CriterionNode[]): Map<string, CriterionLeaf> {
+  const out = new Map<string, CriterionLeaf>();
+  const visit = (node: CriterionNode) => {
+    if (node.kind === "leaf") out.set(node.id, node);
+    else node.children.forEach(visit);
+  };
+  criteria.forEach(visit);
+  return out;
+}
+
 export function unknownCells(cells: CubeCell[]): CubeCell[] {
   return cells
     .filter((c) => c.verdict === "UNKNOWN")
