@@ -5,8 +5,8 @@ function Settled({ rows }: { rows: SettledExclusion[] }) {
   if (rows.length === 0) {
     return (
       <p className="text-[13px] text-ink-2">
-        No claim in this extract answered an exclusion the fixture trials can fire — prior EGFR TKI
-        fill or an ILD diagnosis code.
+        No claim in this extract answered an exclusion these protocols can fire — a prior-therapy
+        fill or a coded comorbidity.
       </p>
     );
   }
@@ -74,7 +74,11 @@ export function PayerSplit({ view }: { view: PayerModel }) {
         </p>
         <p className="mt-0.5 text-[12px] text-ink-2">
           {view.settled.length} eliminating claim line{view.settled.length === 1 ? "" : "s"} ·{" "}
-          {view.needs.length} kinds of UNKNOWN a chart has to close.
+          {view.needs.length} kinds of UNKNOWN a chart has to close
+          {view.protocols > 0
+            ? ` · evaluated against ${view.protocols.toLocaleString("en-US")} real trial protocol${view.protocols === 1 ? "" : "s"}`
+            : ""}
+          .
         </p>
       </header>
 

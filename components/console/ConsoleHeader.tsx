@@ -4,6 +4,7 @@ const NAV = [
   { href: "/", key: "worklist", label: "Worklist" },
   { href: "/patient", key: "patient", label: "Patient" },
   { href: "/alert", key: "alert", label: "Alert" },
+  { href: "/hcp", key: "hcp", label: "HCP" },
   { href: "/elasticity", key: "elasticity", label: "Elasticity" },
   { href: "/equity", key: "equity", label: "Equity" },
   { href: "/market", key: "market", label: "Market" },

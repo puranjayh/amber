@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { DEMO, asOf, getEquity, getTrial, getTrials, meta, subgroupSizes } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { isDemo, one } from "@/components/console/params";
+import { TrialSelect } from "@/components/console/TrialSelect";
 import { EquityBars } from "@/components/equity/EquityBars";
 import { buildEquityView } from "@/components/equity/equity";
 
@@ -44,20 +44,11 @@ export default async function EquityPage({ searchParams }: PageProps<"/equity">)
           </p>
         </div>
         {!demo && (
-          <nav aria-label="Trials" className="flex flex-wrap gap-1.5">
-            {getTrials().map((t) => (
-              <Link
-                key={t.nctId}
-                href={`/equity?trial=${t.nctId}`}
-                aria-current={t.nctId === nctId ? "page" : undefined}
-                className={`rounded border px-2 py-1 font-mono text-[11px] ${
-                  t.nctId === nctId ? "border-ink bg-ink text-surface" : "border-line bg-surface text-ink-2 hover:border-ink-3"
-                }`}
-              >
-                {t.nctId}
-              </Link>
-            ))}
-          </nav>
+          <TrialSelect
+            path="/equity"
+            current={nctId}
+            trials={getTrials().map((t) => t.nctId)}
+          />
         )}
         {targets.length > 0 && (
           <p className="font-mono text-[11px] text-ink-3">

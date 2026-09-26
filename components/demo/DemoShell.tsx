@@ -8,7 +8,8 @@ export function DemoShell({ children }: { children: ReactNode }) {
   const [presenting, setPresenting] = useState(true);
   const skipScroll = useRef(true);
   const root = useRef<HTMLDivElement>(null);
-  const shown = revealedThrough(beat, presenting);
+  const safeBeat = Math.min(Math.max(0, beat), BEATS.length - 1);
+  const shown = revealedThrough(safeBeat, presenting);
 
   useEffect(() => {
     const el = root.current;
@@ -17,7 +18,7 @@ export function DemoShell({ children }: { children: ReactNode }) {
       const target = (e.target as HTMLElement | null)?.closest("[data-advance]");
       if (!target) return;
       const n = Number(target.getAttribute("data-advance"));
-      if (Number.isFinite(n)) setBeat(n);
+      if (Number.isFinite(n)) setBeat(Math.min(Math.max(0, n), BEATS.length - 1));
     };
     el.addEventListener("click", onClick);
     return () => el.removeEventListener("click", onClick);
@@ -48,11 +49,11 @@ export function DemoShell({ children }: { children: ReactNode }) {
       skipScroll.current = false;
       return;
     }
-    document.getElementById(`beat-${BEATS[beat]}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [beat]);
+    document.getElementById(`beat-${BEATS[safeBeat]}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [safeBeat]);
 
   return (
-    <div ref={root} data-shown={shown} data-active={BEATS[beat]} data-presenting={presenting ? "1" : "0"}>
+    <div ref={root} data-shown={shown} data-active={BEATS[safeBeat]} data-presenting={presenting ? "1" : "0"}>
       {children}
       <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-surface/95 px-3 py-2 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 font-mono text-[11px] text-ink-2">
@@ -60,9 +61,9 @@ export function DemoShell({ children }: { children: ReactNode }) {
             <>
               <span>
                 <span className="font-medium text-ink">
-                  {beat + 1}/{BEATS.length}
+                  {safeBeat + 1}/{BEATS.length}
                 </span>
-                <span className="ml-2 text-ink-3">{BEATS[beat]}</span>
+                <span className="ml-2 text-ink-3">{BEATS[safeBeat]}</span>
               </span>
               <span className="text-ink-3">
                 <span className="hidden sm:inline">space or → advances · ← back · </span>

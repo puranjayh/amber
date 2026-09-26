@@ -67,7 +67,7 @@ function walk(
 ): Verdict | null {
   if (node.kind === "leaf") {
     const cell = cellsById.get(node.id);
-    out.push({ kind: "leaf", key: node.id, depth, leaf: node, cell });
+    out.push({ kind: "leaf", key: `${path}:${node.id}`, depth, leaf: node, cell });
     return cell ? cell.verdict : null;
   }
   const groupRow: GroupRow = {

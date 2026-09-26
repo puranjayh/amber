@@ -7,6 +7,7 @@ import {
   ElasticitySweep,
   EquitySet,
   EvalReport,
+  HcpPanel,
   Meta,
   PayerView,
   WorklistRow,
@@ -42,10 +43,17 @@ const EMPTY_META: Meta = {
 const EMPTY_PAYER: PayerView = {
   headline: "",
   beneficiaries: 0,
+  protocols: 0,
   settled: [],
   needs: [],
   coverage: null,
   source: "stub",
+};
+
+const EMPTY_HCP: HcpPanel = {
+  channel: "Impiricus",
+  defaultPhysicianId: "hcp-rahman",
+  physicians: [],
 };
 
 const EMPTY_EVAL: EvalReport = {
@@ -106,6 +114,15 @@ const landscape = take(
 );
 const payer = take("app/_data/payer.json", PayerView, readGenerated("payer.json"), EMPTY_PAYER, (d) => d.settled.length + d.needs.length);
 const evalReport = take("app/_data/eval.json", EvalReport, readGenerated("eval.json"), EMPTY_EVAL, (d) => d.evaluatedCells);
+const loadHcp = lazy(() =>
+  take(
+    "app/_data/hcp.json",
+    HcpPanel,
+    readGenerated("hcp.json"),
+    EMPTY_HCP,
+    (d) => d.physicians.reduce((n, p) => n + p.patients.length, 0),
+  ),
+);
 
 const loadTrials = lazy(() => take("app/_data/trials.json", TrialsFixture, readGenerated("trials.json"), [], (d) => d.length));
 const loadPatients = lazy(() =>
@@ -132,6 +149,7 @@ export const getAssignments = () => assignments;
 export const getLandscape = () => landscape;
 export const getPayer = () => payer;
 export const getEval = () => evalReport;
+export const getHcp = () => loadHcp();
 
 /** Hand-built fixture ids — the pair picker and the demo stay on these. */
 export const fixturePatientIds = () => getPatients().filter((p) => /^PT-\d+$/.test(p.id)).map((p) => p.id);

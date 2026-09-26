@@ -7,6 +7,18 @@ function signed(n: number) {
   return n > 0 ? `+${n}` : n === 0 ? "±0" : `${n}`;
 }
 
+function sweepKey(sweep: Sweep) {
+  const first = sweep.rows[0];
+  const last = sweep.rows[sweep.rows.length - 1];
+  return `${sweep.protocolIndex}:${sweep.rows.length}:${first?.threshold}:${last?.threshold}`;
+}
+
+export function clampSweepIndex(index: number, sweep: Sweep): number {
+  if (sweep.rows.length === 0) return 0;
+  if (index >= 0 && index < sweep.rows.length) return index;
+  return Math.min(Math.max(0, sweep.protocolIndex), sweep.rows.length - 1);
+}
+
 export function ElasticityView({
   sweep,
   label,
@@ -18,15 +30,35 @@ export function ElasticityView({
   operator: string;
   unit?: string;
 }) {
+<<<<<<< HEAD
   const [index, setIndex] = useState(sweep.protocolIndex);
   // `index` survives a sweep change, so a criterion with fewer thresholds would
   // index past the end. Clamp rather than crash, and snap back to the protocol.
   const safeIndex = index < sweep.rows.length ? index : sweep.protocolIndex;
   const row = sweep.rows[safeIndex];
   const protocol = sweep.rows[sweep.protocolIndex];
+=======
+  const id = sweepKey(sweep);
+  const [held, setHeld] = useState({ id, index: sweep.protocolIndex });
+  if (held.id !== id) setHeld({ id, index: sweep.protocolIndex });
+  const index = clampSweepIndex(held.id === id ? held.index : sweep.protocolIndex, sweep);
+  const row = sweep.rows[index];
+  const protocol = sweep.rows[clampSweepIndex(sweep.protocolIndex, sweep)];
+>>>>>>> origin/eng/app
   const first = sweep.rows[0];
   const last = sweep.rows[sweep.rows.length - 1];
   const u = unit ? ` ${unit}` : "";
+
+  if (!row || !protocol || !first || !last) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[14px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[12px] text-ink-2">
+          This sweep has no precomputed thresholds. Run the generator and refresh.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
@@ -99,8 +131,13 @@ export function ElasticityView({
           min={0}
           max={sweep.rows.length - 1}
           step={1}
+<<<<<<< HEAD
           value={safeIndex}
           onChange={(e) => setIndex(Number(e.target.value))}
+=======
+          value={index}
+          onChange={(e) => setHeld({ id, index: Number(e.target.value) })}
+>>>>>>> origin/eng/app
           aria-label={`${label} threshold`}
           aria-valuetext={`${label} ${operator} ${row.threshold}${u}, ${row.eligibleCount} eligible`}
           className="mt-2 w-full accent-[var(--ink)]"

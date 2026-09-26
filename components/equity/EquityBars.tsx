@@ -5,6 +5,16 @@ function pct(rate: number) {
 }
 
 export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<string, number> }) {
+  if (view.rows.length === 0) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[14px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[12px] text-ink-2">
+          No equity rows for this trial. app/_data/equity.json is missing this NCT.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line px-3 py-2.5 sm:px-4">

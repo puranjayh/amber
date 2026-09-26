@@ -5,7 +5,7 @@ import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { collectLeaves } from "@/components/criteria/rows";
 import { ElasticityView } from "@/components/elasticity/ElasticityView";
-import { buildSweep } from "@/components/elasticity/sweep";
+import { tryBuildSweep } from "@/components/elasticity/sweep";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { isDemo, one } from "@/components/console/params";
 
@@ -39,7 +39,20 @@ export default async function ElasticityPage({ searchParams }: PageProps<"/elast
     );
   }
 
-  const sweep = buildSweep(found.points, leaf.value, leaf.operator);
+  const sweep = tryBuildSweep(found.points, leaf.value, leaf.operator);
+  if (!sweep) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="elasticity" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData
+            file="app/_data/elasticity.json"
+            detail={`Sweep for ${nctId} / ${criterionId} does not match the leaf threshold.`}
+          />
+        </main>
+      </>
+    );
+  }
   const qs = (c: string) => `/elasticity?trial=${nctId}&criterion=${c}`;
 
   return (
@@ -81,6 +94,7 @@ export default async function ElasticityPage({ searchParams }: PageProps<"/elast
           </nav>
         )}
         <ElasticityView
+          key={`${nctId}:${criterionId}`}
           sweep={sweep}
           label={leaf.analyte ?? leaf.predicate}
           operator={OPERATOR_GLYPH[leaf.operator] ?? leaf.operator}
