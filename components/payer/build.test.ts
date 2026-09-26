@@ -1,9 +1,11 @@
+import { existsSync } from "node:fs";
 import { expect, test } from "vitest";
-import { AS_OF, loadFixtureTrials } from "@/app/_data/inputs";
-import { buildPayerView } from "@/app/_data/payer";
+import { AS_OF, loadClaims, loadFixtureTrials } from "@/app/_data/inputs";
+import { buildPayerView, icd9Code, normalizeClaimsFact, tracePayerBuild } from "@/app/_data/payer";
 import { CLAIMS_STUB } from "./stub";
 
-const fixtures = loadFixtureTrials(process.cwd() + "/");
+const ROOT = process.cwd() + "/";
+const fixtures = loadFixtureTrials(ROOT);
 
 test("a drug fill settles first-line; an ILD claim settles the comorbidity trials", () => {
   const view = buildPayerView(CLAIMS_STUB, fixtures, AS_OF, null, "stub");
@@ -19,4 +21,61 @@ test("remaining criteria stay UNKNOWN and group by what a chart would need", () 
   expect(view.needs.some((n) => n.predicate === "biomarker")).toBe(true);
   expect(view.needs.some((n) => n.predicate === "performance_status")).toBe(true);
   expect(view.needs.every((n) => n.patientIds.length > 0)).toBe(true);
+});
+
+test("ICD-9 162.x is NSCLC; 516.3 is ILD; pemetrexed is not an EGFR TKI", () => {
+  expect(icd9Code("ICD-9 1623")).toBe("1623");
+  expect(normalizeClaimsFact({
+    predicate: "diagnosis",
+    value: "ICD-9 1623",
+    observedAt: "2010-04-13",
+    sourceQuote: "1623",
+    sourceDoc: "inpatient",
+    provenance: "claims",
+  }).value).toBe("non-small cell lung cancer");
+  const ild = normalizeClaimsFact({
+    predicate: "comorbidity",
+    value: "ICD-9 5163",
+    observedAt: "2010-04-13",
+    sourceQuote: "5163",
+    sourceDoc: "inpatient",
+    provenance: "claims",
+  });
+  expect(ild).toMatchObject({ analyte: "ILD", value: true });
+  const chemo = normalizeClaimsFact({
+    predicate: "prior_therapy",
+    value: "pemetrexed",
+    drugClass: "ANTIFOLATE",
+    observedAt: "2009-04-28",
+    sourceQuote: "J9305",
+    sourceDoc: "carrier",
+    provenance: "claims",
+  });
+  expect(chemo.value).toBe("pemetrexed");
+});
+
+test("real DE-SynPUF extract: un-normalized ICD-9 162.x fails every diagnosis leaf", () => {
+  if (!existsSync(`${ROOT}data/claims/patients.json`)) return;
+  const claims = loadClaims(ROOT);
+  expect(claims?.patients.length).toBe(1296);
+  const raw = tracePayerBuild(claims!.patients, fixtures, AS_OF, { normalize: false });
+  expect(raw.counts.diagnosisFail).toBe(raw.counts.pairs);
+  expect(raw.counts.settled).toBe(0);
+  expect(raw.counts.needs).toBe(0);
+  expect(raw.samples[0]?.patientId).toMatch(/0085B4F55FFA358D/);
+});
+
+test("real DE-SynPUF extract: after ICD mapping, claims settle a few of 1,296", () => {
+  if (!existsSync(`${ROOT}data/claims/patients.json`)) return;
+  const claims = loadClaims(ROOT);
+  const view = buildPayerView(claims!.patients, fixtures, AS_OF, null, "data/claims/patients.json");
+  const settledPeople = new Set(view.settled.map((row) => row.patientId));
+  expect(view.beneficiaries).toBe(1296);
+  expect(settledPeople.size).toBe(33);
+  expect(view.settled.length).toBe(66);
+  expect(view.settled.every((row) => row.kind === "comorbidity")).toBe(true);
+  expect(view.settled.every((row) => /^ICD-9 \d+/.test(row.claimLine))).toBe(true);
+  expect(view.settled.every((row) => /^CMS-S1-/.test(row.patientId))).toBe(true);
+  expect(view.needs.length).toBeGreaterThan(0);
+  expect(view.needs.some((n) => n.predicate === "biomarker")).toBe(true);
 });
