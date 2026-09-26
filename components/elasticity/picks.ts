@@ -89,8 +89,10 @@ export function isBinding(pick: SweepPick): boolean {
 export const INERT_NOTE = "no patients in this cohort carry this lab, so the threshold doesn't bind.";
 
 export function defaultBindingPick(picks: SweepPick[]): SweepPick | undefined {
+  const pinned = picks.find((p) => p.nctId === "NCT02496663" && p.criterionId === "INC-10" && p.swing > 0);
   const binding = picks.filter(isBinding);
   return (
+    pinned ??
     binding.find((p) => p.nctId === "NCT03838159" && p.criterionId === "INC-6") ??
     [...binding].sort((a, b) => b.swing - a.swing)[0]
   );

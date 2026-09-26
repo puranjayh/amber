@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "vitest";
 import cubeOracle from "@/fixtures/cube.sample.json";
 import { buildEvalReport } from "@/app/_data/eval";
-import { AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "@/app/_data/inputs";
+import { ANCHOR_TRIALS, AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "@/app/_data/inputs";
 import { buildPayerView } from "@/app/_data/payer";
 import { publishCube } from "@/app/_data/readModels";
 import { buildLandscape } from "@/components/landscape/build";
@@ -22,7 +22,10 @@ test("pool is 133 real protocols plus the pinned presentation trial", () => {
   expect(committed("patients")).toEqual(JSON.parse(JSON.stringify(patients)));
   expect(committed("meta").realProtocols).toBe(DEMO_POOL);
   expect(committed("meta").trials).toBe(DEMO_POOL + 1);
-  expect(committed("meta").pairsEvaluated).toBe(patients.length * trials.length);
+  // meta is the last full 133-trial generate. The demo cohort is pinned onto
+  // the two anchor trials afterwards, not multiplied through every protocol.
+  expect(committed("meta").pairsEvaluated).toBe(committed("meta").patients * trials.length);
+  expect(patients.length).toBeGreaterThan(committed("meta").patients);
 });
 
 test("worklist pins the hero to the presentation pair", () => {
@@ -36,8 +39,11 @@ test("published cube is the worklist pairs plus every patient on the presentatio
   const keys = new Set(cube.map((p) => `${p.patientId}|${p.nctId}`));
   for (const row of worklist) expect(keys.has(`${row.patientId}|${row.nctId}`)).toBe(true);
   expect(cube.filter((p) => p.nctId === PRESENTATION_TRIAL)).toHaveLength(patients.length);
+  for (const nctId of ANCHOR_TRIALS) {
+    expect(cube.filter((p) => p.nctId === nctId)).toHaveLength(patients.length);
+  }
   expect(cube.length).toBeLessThan(committed("meta").pairsEvaluated);
-  expect(publishCube(cube as never, worklist as never, PRESENTATION_TRIAL)).toHaveLength(cube.length);
+  expect(publishCube(cube as never, worklist as never, PRESENTATION_TRIAL, ANCHOR_TRIALS)).toHaveLength(cube.length);
 });
 
 test("landscape.json is the compiler file when it has analytes, else derived from the same trials", () => {

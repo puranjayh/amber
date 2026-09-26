@@ -1,3 +1,5 @@
+import { ANCHORS } from "@/components/console/anchors";
+import { IdentitySwitcher } from "@/components/console/IdentitySwitcher";
 import { PortalSwitcher } from "@/components/console/PortalSwitcher";
 import { HcpPhysician } from "./HcpPhysician";
 
@@ -7,11 +9,13 @@ export function DoctorChrome({
   demo = false,
   demoMode = "1",
   physicianId,
+  trial = ANCHORS[0].nctId,
 }: {
   asOf: string;
   demo?: boolean;
   demoMode?: "1" | "static";
   physicianId: string;
+  trial?: string;
 }) {
   return (
     <>
@@ -27,7 +31,10 @@ export function DoctorChrome({
               </span>
             )}
           </div>
-          <span className="font-mono text-[11px] text-ink-3">as of {asOf}</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <IdentitySwitcher current="physician" trial={trial} demo={demo ? demoMode : ""} />
+            <span className="font-mono text-[11px] text-ink-3">as of {asOf}</span>
+          </div>
         </div>
         <div className="mx-auto max-w-5xl space-y-1 px-3 pb-2.5 pt-2 sm:px-6">
           <HcpPhysician physicianId={physicianId} />

@@ -1,4 +1,4 @@
-import { getWorklist } from "@/app/_data/source";
+import { getDemoWorklist } from "@/app/_data/source";
 import { createNudges, setBatchStatus, setNudgeStatus } from "@/app/_data/loop";
 import { LoopRole, NudgeKind, NudgeStatus } from "@/app/_data/schema";
 
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "kind, fromRole, toRole, and patientId(s) required" }, { status: 400 });
   }
   const state = await createNudges(
-    getWorklist(),
+    getDemoWorklist(),
     many.map((row) => ({
       kind: kind.data,
       fromRole: fromRole.data,
@@ -48,10 +48,10 @@ export async function PATCH(request: Request) {
     return Response.json({ error: "status required" }, { status: 400 });
   }
   if (typeof body.batchId === "string") {
-    return Response.json(await setBatchStatus(getWorklist(), body.batchId, status.data));
+    return Response.json(await setBatchStatus(getDemoWorklist(), body.batchId, status.data));
   }
   if (typeof body.id !== "string") {
     return Response.json({ error: "id or batchId required" }, { status: 400 });
   }
-  return Response.json(await setNudgeStatus(getWorklist(), body.id, status.data));
+  return Response.json(await setNudgeStatus(getDemoWorklist(), body.id, status.data));
 }

@@ -13,7 +13,7 @@ import {
   WorklistRow,
 } from "@/app/_data/schema";
 import { readLoop } from "@/app/_data/loop";
-import { getWorklist } from "@/app/_data/source";
+import { getDemoWorklist } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { checkPayload, ready, type FileCheck } from "@/components/preflight/check";
 import { ResetDemo } from "@/components/preflight/ResetDemo";
@@ -79,7 +79,7 @@ export default async function PreflightPage() {
   const ok = ready(checks);
   const required = checks.filter((c) => c.required);
   const optional = checks.filter((c) => !c.required);
-  const loop = await readLoop(getWorklist());
+  const loop = await readLoop(getDemoWorklist());
 
   return (
     <>

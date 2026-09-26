@@ -1,7 +1,7 @@
 import type { Patient, Trial } from "@/src/contracts";
 import type { LoopPreference, PortalAnswers, WorklistRow } from "@/app/_data/schema";
 
-export const LOOP_FOCUS = "PT-4401";
+export const LOOP_FOCUS = "PT-4413";
 export const SEED_COUNT = 46;
 
 export const SEED_PREFS: PortalAnswers = {
@@ -56,7 +56,9 @@ export function pairTravel(
   return trial?.siteDistanceMinutes ?? patient?.travelMinutes ?? Number.POSITIVE_INFINITY;
 }
 
-export type Rankable = Pick<WorklistRow, "patientId" | "nctId" | "unknownCount" | "expectedValue">;
+export type Rankable = Pick<WorklistRow, "patientId" | "nctId" | "unknownCount" | "expectedValue"> & {
+  eliminated?: boolean;
+};
 
 /**
  * Engine rank() plus the preferences term. Same order otherwise: fewest
@@ -68,6 +70,9 @@ export function rank<T extends Rankable>(
   travel: (row: T) => number,
 ): T[] {
   return rows.slice().sort((a, b) => {
+    const ae = a.eliminated ? 1 : 0;
+    const be = b.eliminated ? 1 : 0;
+    if (ae !== be) return ae - be;
     const au = a.unknownCount + preferenceUnknown(prefs[a.patientId]);
     const bu = b.unknownCount + preferenceUnknown(prefs[b.patientId]);
     if (au !== bu) return au - bu;
@@ -105,10 +110,17 @@ export function rankReason(args: {
   return `ranked #${n}: preferences received.`;
 }
 
-/** Other 2-unknown patients who already answered — they hold the top of the list. */
+/**
+ * Other patients with the same unknown count who already answered. They hold
+ * the ranks above the focus patient until that patient states preferences.
+ * When the focus patient is not on this list, fall back to the original
+ * two-unknown cohort so the hand-worked worklist still seeds.
+ */
 export function seedPatientIds(worklist: readonly WorklistRow[], focus = LOOP_FOCUS, n = SEED_COUNT): string[] {
+  const focusRow = worklist.find((row) => row.patientId === focus);
+  const match = focusRow ? focusRow.unknownCount : 2;
   return worklist
-    .filter((row) => row.unknownCount === 2 && row.patientId !== focus)
+    .filter((row) => !row.eliminated && row.unknownCount === match && row.patientId !== focus)
     .slice(0, n)
     .map((row) => row.patientId);
 }

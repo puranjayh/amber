@@ -5,6 +5,7 @@ import {
   getPair,
   getPairsForPatient,
   getPatient,
+  getDemoWorklist,
   getTrial,
   getWorklist,
   meta,
@@ -12,6 +13,7 @@ import {
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
+import { anchorById } from "@/components/console/anchors";
 import { isStaticDemo, one } from "@/components/console/params";
 import { PairDetail } from "@/components/criteria/PairDetail";
 import { UnknownResolutions } from "@/components/criteria/UnknownResolutions";
@@ -47,13 +49,14 @@ export default async function CoordinatorPatientPage({
   const trial = nctId ? getTrial(nctId) : undefined;
   const pair = nctId ? getPair(patientId, nctId) : undefined;
   const physician = attributePatient(patientId);
-  const loop = demo ? null : await readLoop(worklist);
+  const loop = demo ? null : await readLoop(getDemoWorklist());
   const stated = prefsStated(loop ? prefsByPatient(loop.preferences)[patientId] : undefined);
-  const back = demo ? `/?demo=${demoMode}` : "/";
+  const backTrial = anchorById(nctId).nctId;
+  const back = `/?trial=${backTrial}${demo ? `&demo=${demoMode}` : ""}`;
 
   return (
     <>
-      <ConsoleHeader asOf={asOf} active="worklist" demo={demo} demoMode={demoMode} />
+      <ConsoleHeader asOf={asOf} active="worklist" demo={demo} demoMode={demoMode} trial={backTrial} />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
         <Link href={back} className="font-mono text-[11px] text-ink-2 hover:text-ink">
           ← Worklist

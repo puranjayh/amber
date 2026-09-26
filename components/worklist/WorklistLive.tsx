@@ -17,12 +17,38 @@ function finiteTravel(minutes: number): number | null {
   return Number.isFinite(minutes) ? minutes : null;
 }
 
+function collapseCohort(rows: WorklistItem[]): WorklistItem[] {
+  const seeds = rows.filter((row) => row.patientId.startsWith("SEED-"));
+  if (seeds.length < 2) return rows;
+  let placed = false;
+  const out: WorklistItem[] = [];
+  for (const row of rows) {
+    if (!row.patientId.startsWith("SEED-")) {
+      out.push(row);
+      continue;
+    }
+    if (placed) continue;
+    placed = true;
+    out.push({
+      ...seeds[0],
+      patientId: `${seeds.length} peers`,
+      reason: `${seeds.length} synthetic peers with the same chart already answered. They hold these ranks until the patient without preferences does.`,
+      note: undefined,
+      action: undefined,
+      inert: true,
+    });
+  }
+  return out;
+}
+
 export function WorklistLive({
   rows,
   initial,
+  trial,
 }: {
   rows: WorklistItem[];
   initial: LoopState;
+  trial?: string;
 }) {
   const { state, apply } = useLoop(initial, true);
   const prefs = prefsByPatient(state.preferences);
@@ -79,6 +105,8 @@ export function WorklistLive({
     };
   });
 
+  const shown = collapseCohort(items);
+
   return (
     <div className="space-y-3">
       <aside className="rounded-md border border-ink bg-surface px-3 py-3 sm:px-4" aria-label="Live rank">
@@ -127,7 +155,7 @@ export function WorklistLive({
           )}
         </div>
       </aside>
-      <Worklist rows={items} selectedId={LOOP_FOCUS} />
+      <Worklist rows={shown} selectedId={LOOP_FOCUS} trial={trial} />
     </div>
   );
 }

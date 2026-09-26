@@ -8,6 +8,7 @@ export const AS_OF = "2026-09-25";
 
 const FIXTURE_TRIALS = "fixtures/trials.sample.json";
 const FIXTURE_PATIENTS = "fixtures/patients.sample.json";
+const DEMO_PATIENTS = "fixtures/demo-patients.json";
 const POPULATION = "data/patients.json";
 const SYNTHEA = "data/synthea/patients.json";
 const COMPILED = "data/compiled/trials.json";
@@ -62,6 +63,14 @@ export function acceptTrials(raw: unknown): TrialT[] {
 /** Hero presentation trial — not in the compiled corpus; pin it so the demo path is stable. */
 export const PRESENTATION_TRIAL = "NCT07001001";
 export const PRESENTATION_PAIR = { patientId: "PT-4401", nctId: PRESENTATION_TRIAL } as const;
+/**
+ * Real compiled protocols the trial portal ranks. Second-line requires a prior
+ * EGFR TKI; first-line excludes one. The stage pair is the hero on the first.
+ */
+export const ANCHOR_TRIALS = ["NCT02496663", "NCT06281964"] as const;
+export const DEMO_HERO = "PT-4410";
+export const DEMO_NUDGE = "PT-4413";
+export const ANSWERED_COHORT = 46;
 /** Citation-only trees the compiler now exposes. Any other non-zero count is a different cube. */
 export const DEMO_POOL = 133;
 
@@ -147,6 +156,25 @@ export function loadPayerTrials(root: string): TrialT[] {
   );
 }
 
+/**
+ * Peers with the nudge patient's chart, so a missing-preference penalty has
+ * someone to fall behind. Same criteria, longer travel, already-answered cohort.
+ * Not a fifth story patient — the four roles stay in fixtures/demo-patients.json.
+ */
+export function answeredCohort(patients: readonly PatientT[], focus = "PT-4413", n = ANSWERED_COHORT): PatientT[] {
+  const nudge = patients.find((p) => p.id === focus);
+  if (!nudge) return [];
+  return Array.from({ length: n }, (_, i) => ({
+    ...nudge,
+    id: `SEED-${String(i + 1).padStart(2, "0")}`,
+    travelMinutes: 90,
+    facts: nudge.facts.map((fact) => ({
+      ...fact,
+      sourceQuote: fact.sourceQuote.replace(/^Synthetic chart\./, "Synthetic chart, answered cohort."),
+    })),
+  }));
+}
+
 export function acceptPatients(raw: unknown, source: string): PatientT[] {
   if (!Array.isArray(raw)) throw new Error(`${source} must be an array`);
   const whole = PatientsFixture.safeParse(raw);
@@ -171,6 +199,10 @@ export function loadInputs(root: string): { trials: TrialT[]; patients: PatientT
   const sources = [FIXTURE_PATIENTS];
   const fixtures = acceptTrials(readJson(path(FIXTURE_TRIALS)));
   const patients = [acceptPatients(readJson(path(FIXTURE_PATIENTS)), FIXTURE_PATIENTS)];
+  if (existsSync(path(DEMO_PATIENTS))) {
+    patients.push(acceptPatients(readJson(path(DEMO_PATIENTS)), DEMO_PATIENTS));
+    sources.push(DEMO_PATIENTS);
+  }
 
   let trials: TrialT[];
   if (existsSync(path(COMPILED))) {
@@ -199,9 +231,10 @@ export function loadInputs(root: string): { trials: TrialT[]; patients: PatientT
     sources.push(rel);
   }
 
+  const merged = mergeBy((p) => p.id, ...patients);
   return {
     trials,
-    patients: mergeBy((p) => p.id, ...patients),
+    patients: mergeBy((p) => p.id, merged, answeredCohort(merged)),
     sources,
   };
 }
