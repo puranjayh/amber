@@ -16948,37 +16948,55 @@
     "nctId": "NCT07631624",
     "rows": [
       {
-        "criterionId": "INC-3",
-        "label": "* Smoking History: Includes individuals with a smoking history",
-        "exclusionRateBySubgroup": {
-          "Asian": 1,
-          "White": 1,
-          "asian": 0,
-          "black": 0,
-          "white": 0.0425531914893617
-        },
-        "maxGapPoints": 100
-      },
-      {
-        "criterionId": "INC-2",
+        "criterionId": "INC-2-2",
         "label": "* Age: 55-74 years old",
         "exclusionRateBySubgroup": {
           "asian": 0.6,
           "black": 0.3,
           "native": 1,
-          "white": 0.375
+          "white": 0.3382352941176471
         },
         "maxGapPoints": 70
       },
       {
-        "criterionId": "INC-1",
+        "criterionId": "INC-1-2",
         "label": "* Age: 55-74 years old",
         "exclusionRateBySubgroup": {
-          "asian": 0.7777777777777778,
-          "black": 0.5333333333333333,
-          "white": 0.6875
+          "asian": 0,
+          "black": 0.3,
+          "white": 0.1509433962264151
         },
-        "maxGapPoints": 24.4
+        "maxGapPoints": 30
+      },
+      {
+        "criterionId": "INC-2",
+        "label": "Cohort 2: ZORALCS-study participants",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "white": 0.0425531914893617
+        },
+        "maxGapPoints": 4.3
+      },
+      {
+        "criterionId": "INC-1",
+        "label": "Age: Must be > 50 years of age",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "white": 0
+        },
+        "maxGapPoints": 0
+      },
+      {
+        "criterionId": "INC-3",
+        "label": "* Smoking History: Includes individuals with a smoking history",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "white": 0
+        },
+        "maxGapPoints": 0
       }
     ]
   },

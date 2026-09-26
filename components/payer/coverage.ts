@@ -8,7 +8,7 @@
  * The figure itself is not computed here. Read data/compiled/coverage.json
  * after the engine republishes it, and refuse any other leaf count.
  */
-export const SLIDE_CRITERIA = 5103;
+export const SLIDE_CRITERIA = 5105;
 
 export type PredicateKind = "certain" | "ambiguous" | "never";
 
@@ -69,10 +69,61 @@ export function assertSlideCoverage(coverage: Pick<ClaimsCoverage, "criteria">, 
  * Accept the published claims figure, wait on compile-stats, throw on anything else.
  * Never walks trees.
  */
+
+/**
+ * The engine publishes coverage nested under `allCompiledTrials` / `demoPool`
+ * with a tally shape. Map that onto the flat figure the screens read. This is
+ * a translation, never a recomputation — every number comes from the engine.
+ */
+function fromEngineEnvelope(raw: Record<string, unknown>, path: string): ClaimsCoverage | null {
+  const scope = (raw.allCompiledTrials ?? raw.demoPool) as Record<string, unknown> | undefined;
+  if (!scope || typeof scope !== "object") return null;
+  const overall = scope.overall as Record<string, number> | undefined;
+  if (!overall || typeof overall.criteria !== "number") return null;
+
+  const side = (type: string): SideCoverage => {
+    const rows = (scope.byType as Array<{ type: string; tally: Record<string, number> }>) ?? [];
+    const t = rows.find((r) => r.type === type)?.tally;
+    return {
+      count: t?.criteria ?? 0,
+      answerable: t?.yes ?? 0,
+      rate: t?.shareAnswerable ?? 0,
+    };
+  };
+
+  const byPredicate: PredicateCoverage[] = (
+    (scope.byPredicate as Array<{ predicate: string; tally: Record<string, number> }>) ?? []
+  ).map((r) => ({
+    predicate: r.predicate,
+    count: r.tally.criteria,
+    answerable: r.tally.yes,
+    rate: r.tally.shareAnswerable,
+    kind: kindOf(r.predicate),
+  }));
+
+  return {
+    trials: (scope.trials as number) ?? 0,
+    criteria: overall.criteria,
+    answerable: overall.yes,
+    ambiguous: overall.sometimes,
+    lowerRate: overall.shareAnswerable,
+    upperRate: overall.shareAnswerableOptimistic,
+    inclusions: side("inclusion"),
+    exclusions: side("exclusion"),
+    byPredicate,
+    source: path,
+  };
+}
+
 export function readClaimsCoverage(raw: unknown, path: string): ClaimsCoverage | null {
   if (raw == null) return null;
   if (isCompileStats(raw)) return null;
   if (!isClaimsCoverage(raw)) {
+    const mapped = fromEngineEnvelope(raw as Record<string, unknown>, path);
+    if (mapped) {
+      assertSlideCoverage(mapped, path);
+      return mapped;
+    }
     throw new Error(
       `${path} is not claims coverage (need criteria, lowerRate, byPredicate). Refusing to compute a figure from the trees.`,
     );

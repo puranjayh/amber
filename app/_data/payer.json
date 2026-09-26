@@ -1,165 +1,98 @@
 {
   "headline": "Claims can rule patients out. Only a chart can rule them in.",
-  "beneficiaries": 4,
-  "settled": [
-    {
-      "patientId": "BENE-441202",
-      "nctId": "NCT07001002",
-      "criterionId": "EXC-1",
-      "predicate": "comorbidity",
-      "kind": "comorbidity",
-      "claimLine": "Carrier claim ICD-9 516.3 idiopathic fibrosing alveolitis, DOS 2010-04-18, BETOS T2D.",
-      "sourceDoc": "CMS DE-SynPUF carrier 2010"
+  "beneficiaries": 1296,
+  "settled": [],
+  "needs": [],
+  "coverage": {
+    "trials": 233,
+    "criteria": 5105,
+    "answerable": 2779,
+    "ambiguous": 875,
+    "lowerRate": 0.544368,
+    "upperRate": 0.715769,
+    "inclusions": {
+      "count": 2381,
+      "answerable": 1079,
+      "rate": 0.453171
     },
-    {
-      "patientId": "BENE-441202",
-      "nctId": "NCT07001003",
-      "criterionId": "EXC-1",
-      "predicate": "comorbidity",
-      "kind": "comorbidity",
-      "claimLine": "Carrier claim ICD-9 516.3 idiopathic fibrosing alveolitis, DOS 2010-04-18, BETOS T2D.",
-      "sourceDoc": "CMS DE-SynPUF carrier 2010"
+    "exclusions": {
+      "count": 2724,
+      "answerable": 1700,
+      "rate": 0.624082
     },
-    {
-      "patientId": "BENE-441201",
-      "nctId": "NCT07001001",
-      "criterionId": "EXC-1",
-      "predicate": "prior_therapy",
-      "kind": "drug fill",
-      "claimLine": "Part D PDE NDC 00310-0269-30 osimertinib 80 mg × 30, DOS 2009-08-03, $14,208.",
-      "sourceDoc": "CMS DE-SynPUF PDE 2009"
-    }
-  ],
-  "needs": [
-    {
-      "need": "the assay result — a claim only shows the test was billed",
-      "predicate": "biomarker",
-      "analyte": "EGFR",
-      "why": "a claim shows the assay was billed, not what it found",
-      "criterionIds": [
-        "INC-4",
-        "INC-3"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441202",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "the lab result — a claim only shows the panel was billed",
-      "predicate": "lab_value",
-      "analyte": "ANC",
-      "why": "a claim shows the panel was billed, not what the result was",
-      "criterionIds": [
-        "INC-5"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441202",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "ECOG written at the bedside — it is never billed",
-      "predicate": "performance_status",
-      "analyte": "ECOG",
-      "why": "performance status is assessed and written down, never billed",
-      "criterionIds": [
-        "INC-5",
-        "INC-4"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441202",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "an ILD claim line",
-      "predicate": "comorbidity",
-      "analyte": "ILD",
-      "why": "this extract has no claim that answers it",
-      "criterionIds": [
-        "EXC-1"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "the lab result — a claim only shows the panel was billed",
-      "predicate": "lab_value",
-      "analyte": "platelets",
-      "why": "a claim shows the panel was billed, not what the result was",
-      "criterionIds": [
-        "INC-6"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "the lab result — a claim only shows the panel was billed",
-      "predicate": "lab_value",
-      "analyte": "hemoglobin",
-      "why": "a claim shows the panel was billed, not what the result was",
-      "criterionIds": [
-        "INC-6"
-      ],
-      "patientIds": [
-        "BENE-441202",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "an osimertinib claim line",
-      "predicate": "prior_therapy",
-      "analyte": "osimertinib",
-      "why": "this extract has no claim that answers it",
-      "criterionIds": [
-        "EXC-1",
-        "INC-3"
-      ],
-      "patientIds": [
-        "BENE-441202",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "the scan report — a claim only shows imaging was billed",
-      "predicate": "staging",
-      "why": "a claim shows the scan was billed, not what it showed",
-      "criterionIds": [
-        "INC-3"
-      ],
-      "patientIds": [
-        "BENE-441201",
-        "BENE-441203",
-        "BENE-441204"
-      ]
-    },
-    {
-      "need": "a diagnosis claim line",
-      "predicate": "diagnosis",
-      "why": "this extract has no claim that answers it",
-      "criterionIds": [
-        "INC-2"
-      ],
-      "patientIds": [
-        "BENE-441204"
-      ]
-    }
-  ],
-  "coverage": null,
-  "source": "stub"
+    "byPredicate": [
+      {
+        "predicate": "age",
+        "count": 262,
+        "answerable": 262,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "diagnosis",
+        "count": 584,
+        "answerable": 582,
+        "rate": 0.996575,
+        "kind": "certain"
+      },
+      {
+        "predicate": "staging",
+        "count": 326,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "prior_therapy",
+        "count": 431,
+        "answerable": 431,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "comorbidity",
+        "count": 1504,
+        "answerable": 1504,
+        "rate": 1,
+        "kind": "certain"
+      },
+      {
+        "predicate": "contraindication",
+        "count": 623,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "ambiguous"
+      },
+      {
+        "predicate": "washout",
+        "count": 252,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "ambiguous"
+      },
+      {
+        "predicate": "performance_status",
+        "count": 231,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "lab_value",
+        "count": 660,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      },
+      {
+        "predicate": "biomarker",
+        "count": 232,
+        "answerable": 0,
+        "rate": 0,
+        "kind": "never"
+      }
+    ],
+    "source": "data/compiled/coverage.json"
+  },
+  "source": "data/claims/patients.json"
 }

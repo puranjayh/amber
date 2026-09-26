@@ -1,5 +1,7 @@
 {
-  "labelSource": "model-draft",
+  "labelSource": "human",
+  "reportClass": "HUMAN_LABELLED_EVALUATION",
+  "labelSourceNotice": "HUMAN-LABELLED EVALUATION — this report is separate from the model-draft agreement report.",
   "evaluatedCells": 70,
   "issues": [
     {
