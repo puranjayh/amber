@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "compiler:fetch": "tsx src/compiler/fetch-trials.ts",
-    "compiler:test": "tsx --test src/compiler/**/*.test.ts"
+    "compiler:compile": "tsx src/compiler/compile.ts",
+    "compiler:test": "tsx --test src/compiler/**/*.test.ts",
+    "compiler:typecheck": "tsc --noEmit --project src/compiler/tsconfig.json"
   },
   "dependencies": {
     "next": "16.3.6",
