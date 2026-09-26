@@ -11,6 +11,13 @@ No claims downloader or transformation was started to avoid a cross-lane conflic
 The intended implementation is documented in the queue: Sample 1 only, subset ICD-9
 162.x early, claims-only provenance, and no fabricated labs.
 
+## From compiler — claims cohort report: BLOCKED
+
+`data/claims/COHORT.md` is also P4-owned under CONTRACT §1. Once P4 has the claims
+subset, the report should include cohort count, racial and state distributions, platinum
+and TKI fills, plus the structural limits of claims: no labs, 2008–2010 vintage,
+ICD-9 coding, and CMS synthetic longitudinal incoherence.
+
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 
 **Closed by the RULING in CONTRACT.md §4 (21:10 Friday).** Cell verdicts are
