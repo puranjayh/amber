@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  DEFAULT_MIN_CELL_SIZE,
   complementarySuppression,
   federate,
   isSuppressed,
@@ -364,5 +365,19 @@ describe("nothing record-level crosses the wire", () => {
 
   it("keeps the protocol citation, which is public text", () => {
     expect(JSON.stringify(federate(sites, [T], ASOF))).toContain("ANC >= 1500/uL");
+  });
+});
+
+describe("DEFAULT_MIN_CELL_SIZE", () => {
+  it("is 11, the threshold the reports are written around", () => {
+    expect(DEFAULT_MIN_CELL_SIZE).toBe(11);
+  });
+
+  it("is what suppress and federate use when nothing is passed", () => {
+    expect(suppress(DEFAULT_MIN_CELL_SIZE - 1)).toBe(`<${DEFAULT_MIN_CELL_SIZE}`);
+    expect(suppress(DEFAULT_MIN_CELL_SIZE)).toBe(DEFAULT_MIN_CELL_SIZE);
+    expect(federate([site("SITE-A", cohort("A", 30, 3000))], [T], ASOF).minCellSize).toBe(
+      DEFAULT_MIN_CELL_SIZE,
+    );
   });
 });

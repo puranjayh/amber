@@ -92,7 +92,13 @@ export {
   type CalendarEntry,
   type CalendarOptions,
 } from "./calendar";
-export { match, matchAdhoc, phaseRank, type MatchOptions } from "./match";
+export {
+  countBlockingPairs,
+  match,
+  matchAdhoc,
+  phaseRank,
+  type MatchOptions,
+} from "./match";
 export {
   orderKey,
   planTestOrders,

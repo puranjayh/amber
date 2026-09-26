@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T08:06:51.679Z",
+  "generatedAt": "2026-09-26T08:18:00.415Z",
   "generatedBy": "src/engine/bench.ts via AMBER_EMIT=1",
   "machine": {
     "platform": "darwin",
@@ -25,7 +25,7 @@
     "facts": 12848,
     "rejected": 0
   },
-  "headline": "20,420,000 criterion evaluations across 4,000 patients and 233 real trials in 9.09s (2,245,988 per second).",
+  "headline": "20,420,000 criterion evaluations across 4,000 patients and 233 real trials in 8.76s (2,329,884 per second).",
   "realCohortHeadline": "The real 200-patient Synthea cohort against 233 trials is 1,021,000 evaluations in 0.46s.",
   "notes": [
     "Wall clock on the machine named above, single-threaded, after an untimed warm-up pass so JIT compilation is not charged to the run.",
@@ -42,9 +42,9 @@
       "eliminated": 29690,
       "unknowns": 706775,
       "mode": "full",
-      "seconds": 0.458,
-      "cellsPerSecond": 2229286,
-      "pairsPerSecond": 131006
+      "seconds": 0.455448,
+      "cellsPerSecond": 2241748,
+      "pairsPerSecond": 131738
     },
     {
       "patients": 200,
@@ -55,9 +55,9 @@
       "eliminated": 29690,
       "unknowns": 488206,
       "mode": "short-circuit",
-      "seconds": 0.251,
-      "cellsPerSecond": 2717813,
-      "pairsPerSecond": 239490
+      "seconds": 0.246954,
+      "cellsPerSecond": 2757191,
+      "pairsPerSecond": 242960
     },
     {
       "patients": 1000,
@@ -68,9 +68,9 @@
       "eliminated": 148450,
       "unknowns": 3533875,
       "mode": "full",
-      "seconds": 2.223,
-      "cellsPerSecond": 2296022,
-      "pairsPerSecond": 134928
+      "seconds": 2.157477,
+      "cellsPerSecond": 2366189,
+      "pairsPerSecond": 139051
     },
     {
       "patients": 1000,
@@ -81,9 +81,9 @@
       "eliminated": 148450,
       "unknowns": 2441030,
       "mode": "short-circuit",
-      "seconds": 1.256,
-      "cellsPerSecond": 2710544,
-      "pairsPerSecond": 238850
+      "seconds": 1.216833,
+      "cellsPerSecond": 2797837,
+      "pairsPerSecond": 246542
     },
     {
       "patients": 4000,
@@ -94,9 +94,9 @@
       "eliminated": 593800,
       "unknowns": 14135500,
       "mode": "full",
-      "seconds": 9.092,
-      "cellsPerSecond": 2245988,
-      "pairsPerSecond": 131988
+      "seconds": 8.764387,
+      "cellsPerSecond": 2329884,
+      "pairsPerSecond": 136918
     },
     {
       "patients": 4000,
@@ -107,9 +107,9 @@
       "eliminated": 593800,
       "unknowns": 9764120,
       "mode": "short-circuit",
-      "seconds": 5.105,
-      "cellsPerSecond": 2667740,
-      "pairsPerSecond": 235078
+      "seconds": 4.921221,
+      "cellsPerSecond": 2767199,
+      "pairsPerSecond": 243842
     }
   ]
 }

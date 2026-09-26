@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ageInDays, daysBetween, parseIsoDate } from "./time";
+import { addDays, ageInDays, daysBetween, parseIsoDate, toIsoDate } from "./time";
 
 describe("parseIsoDate", () => {
   it("reads a bare calendar date at UTC midnight", () => {
@@ -81,5 +81,21 @@ describe("ageInDays", () => {
 
   it("is null when recency cannot be established", () => {
     expect(ageInDays("unknown date", "2026-09-25")).toBeNull();
+  });
+});
+
+describe("toIsoDate", () => {
+  it("renders UTC-midnight millis as a bare calendar date", () => {
+    expect(toIsoDate(Date.UTC(2026, 8, 26))).toBe("2026-09-26");
+  });
+
+  it("round-trips with parseIsoDate", () => {
+    for (const iso of ["2026-09-26", "2024-02-29", "1999-12-31", "2100-01-01"]) {
+      expect(toIsoDate(parseIsoDate(iso)!)).toBe(iso);
+    }
+  });
+
+  it("drops any time-of-day rather than rendering it", () => {
+    expect(toIsoDate(Date.UTC(2026, 8, 26, 23, 59, 59))).toBe("2026-09-26");
   });
 });

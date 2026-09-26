@@ -392,7 +392,9 @@ export function timeCube(
   return {
     ...run,
     mode,
-    seconds: Number(seconds.toFixed(3)),
+    // Six decimals, not three: a small run finishes inside a millisecond, and a
+    // row reporting "0s" beside a finite rate is both confusing and un-derivable.
+    seconds: Number(seconds.toFixed(6)),
     cellsPerSecond: Math.round(run.cellsEvaluated / seconds),
     pairsPerSecond: Math.round(run.pairs / seconds),
   };

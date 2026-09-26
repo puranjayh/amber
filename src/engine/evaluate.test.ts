@@ -6,8 +6,10 @@ import {
   eligibilityVerdict,
   evaluate,
   evaluateAll,
+  eliminatedFromCells,
   evaluateLeaf,
   indexLeaves,
+  matchingFacts,
   isEliminating,
 } from "./evaluate";
 import { assertValid, fact, group, leaf, patient, trial } from "./testing";
@@ -617,5 +619,78 @@ describe("every cell carries its citations", () => {
       ASOF,
     );
     expect(out).toMatchObject({ verdict: "PASS", reason: "satisfied", ageDays: 1 });
+  });
+});
+
+describe("matchingFacts", () => {
+  const anc = leaf({ id: "L", predicate: "lab_value", analyte: "ANC", operator: ">=", value: 1500 });
+
+  it("returns the facts that speak to a leaf, newest first", () => {
+    const p = patient({
+      facts: [
+        fact({ analyte: "ANC", value: 1, observedAt: "2026-01-01", sourceQuote: "old" }),
+        fact({ analyte: "ANC", value: 2, observedAt: "2026-09-01", sourceQuote: "new" }),
+        fact({ analyte: "albumin", value: 3, sourceQuote: "other" }),
+      ],
+    });
+    expect(matchingFacts(anc, p).map((f) => f.sourceQuote)).toEqual(["new", "old"]);
+  });
+
+  it("sorts an undated fact last, because it cannot be shown to be recent", () => {
+    const p = patient({
+      facts: [
+        fact({ analyte: "ANC", value: 1, observedAt: "whenever", sourceQuote: "undated" }),
+        fact({ analyte: "ANC", value: 2, observedAt: "2026-09-01", sourceQuote: "dated" }),
+      ],
+    });
+    expect(matchingFacts(anc, p).map((f) => f.sourceQuote)).toEqual(["dated", "undated"]);
+  });
+
+  it("is empty when nothing in the record speaks to the leaf", () => {
+    expect(matchingFacts(anc, patient())).toEqual([]);
+  });
+
+  it("hands back a copy, so a caller cannot reorder the shared index", () => {
+    const p = patient({ facts: [fact({ analyte: "ANC", value: 1 })] });
+    const first = matchingFacts(anc, p);
+    first.reverse();
+    expect(matchingFacts(anc, p)).toHaveLength(1);
+    expect(matchingFacts(anc, p)[0].analyte).toBe("ANC");
+  });
+});
+
+describe("eliminatedFromCells", () => {
+  const adult = leaf({ id: "INC-0", predicate: "age", operator: ">=", value: 18 });
+  const exc = leaf({
+    id: "EXC-1",
+    type: "exclusion",
+    predicate: "comorbidity",
+    operator: "==",
+    value: "brain mets",
+  });
+  const t = trial({ criteria: [adult, exc] });
+
+  const cellsOf = (r: ReturnType<typeof evaluate>) =>
+    new Map(r.cells.map((c) => [c.criterionId, c]));
+
+  it("agrees with the flag evaluate computed", () => {
+    for (const age of [9, 60]) {
+      const r = evaluate(patient({ age }), t, ASOF);
+      expect(eliminatedFromCells(t, cellsOf(r))).toBe(r.eliminated);
+    }
+  });
+
+  it("re-rolls a hypothetical without re-reading any fact", () => {
+    // Relaxing the failing age criterion rescues the patient — the mechanism
+    // blockingCriterionIds and the equity audit both rely on.
+    const r = evaluate(patient({ age: 9 }), t, ASOF);
+    const cells = cellsOf(r);
+    expect(eliminatedFromCells(t, cells)).toBe(true);
+    cells.set("INC-0", { ...cells.get("INC-0")!, verdict: "UNKNOWN" });
+    expect(eliminatedFromCells(t, cells)).toBe(false);
+  });
+
+  it("treats a missing cell as UNKNOWN, so a partial cube eliminates nobody", () => {
+    expect(eliminatedFromCells(t, new Map())).toBe(false);
   });
 });

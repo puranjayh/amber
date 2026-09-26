@@ -245,7 +245,7 @@ function deferredAcceptance(
  * Blocking pairs: a patient and a trial who would both rather have each other
  * than what they got. Zero means the matching is stable.
  */
-export function countUnstablePairs(
+function countUnstablePairs(
   market: Market,
   patients: readonly Patient[],
   trials: readonly Trial[],
@@ -378,4 +378,34 @@ export function matchAdhoc(
   }
 
   return assemble("adhoc", market, patients, trials, held);
+}
+
+/**
+ * Blocking pairs in an assignment somebody else produced.
+ *
+ * `match()` already reports its own, but an assignment can arrive from anywhere —
+ * a coordinator's spreadsheet, last month's enrolment, a competing algorithm —
+ * and the interesting question about it is how many patient/trial pairs would
+ * both rather have each other. Zero means it could not be improved by any swap.
+ *
+ * Takes the same preference model as `match`, so the answer is comparable with
+ * the one `match` reports rather than a differently-defined number.
+ */
+export function countBlockingPairs(
+  patients: readonly Patient[],
+  trials: readonly Trial[],
+  asOf: string,
+  pairs: readonly { patientId: string; nctId: string }[],
+  options: MatchOptions = {},
+): number {
+  const market = buildMarket(patients, trials, asOf, options);
+  const held: Held = new Map(trials.map((t) => [t.nctId, []]));
+  for (const pair of pairs) {
+    const seats = held.get(pair.nctId);
+    if (seats === undefined) {
+      throw new Error(`countBlockingPairs: no trial ${pair.nctId} in the pool.`);
+    }
+    seats.push(pair.patientId);
+  }
+  return countUnstablePairs(market, patients, trials, held);
 }

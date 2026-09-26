@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Assignment as AssignmentSchema } from "@/src/contracts";
-import { match, matchAdhoc, phaseRank } from "./match";
+import { countBlockingPairs, match, matchAdhoc, phaseRank } from "./match";
 import { buildPriorTable } from "./priors";
 import { fact, leaf, patient, trial } from "./testing";
 
@@ -374,5 +374,44 @@ describe("cited priors reach the matching", () => {
     ];
     const cohort = [candidate("PT-1"), candidate("PT-2"), candidate("PT-3")];
     expect(match(cohort, sites, ASOF, { priors: table }).unstablePairs).toBe(0);
+  });
+});
+
+describe("countBlockingPairs", () => {
+  const near = site("NCT00000001", 1, { siteDistanceMinutes: 10 });
+  const far = site("NCT00000002", 1, { siteDistanceMinutes: 200 });
+  const weak = candidate("PT-WEAK");
+  const strong = candidate("PT-STRONG", { anc: 3000 });
+  const cohort = [weak, strong];
+  const sites = [near, far];
+
+  it("scores the matching that match() produced at zero", () => {
+    const a = match(cohort, sites, ASOF);
+    expect(countBlockingPairs(cohort, sites, ASOF, a.pairs)).toBe(0);
+    expect(countBlockingPairs(cohort, sites, ASOF, a.pairs)).toBe(a.unstablePairs);
+  });
+
+  it("finds the blocking pair in a hand-made assignment that has one", () => {
+    // The weaker candidate given the near slot; both would rather swap.
+    const swapped = [
+      { patientId: "PT-WEAK", nctId: "NCT00000001" },
+      { patientId: "PT-STRONG", nctId: "NCT00000002" },
+    ];
+    expect(countBlockingPairs(cohort, sites, ASOF, swapped)).toBeGreaterThan(0);
+  });
+
+  it("agrees with matchAdhoc's own count", () => {
+    const adhoc = matchAdhoc(cohort, sites, ASOF);
+    expect(countBlockingPairs(cohort, sites, ASOF, adhoc.pairs)).toBe(adhoc.unstablePairs);
+  });
+
+  it("scores an empty assignment by how many pairs would want each other", () => {
+    expect(countBlockingPairs(cohort, sites, ASOF, [])).toBeGreaterThan(0);
+  });
+
+  it("refuses an assignment naming a trial outside the pool", () => {
+    expect(() =>
+      countBlockingPairs(cohort, sites, ASOF, [{ patientId: "PT-WEAK", nctId: "NCT09999999" }]),
+    ).toThrow(/no trial NCT09999999/);
   });
 });
