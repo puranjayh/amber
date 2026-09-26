@@ -24,14 +24,19 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { replicateCohort, timeCube, type BenchmarkRow } from "./bench";
+import { claimsCohortEvaluation } from "./claims";
 import { claimsCoverage } from "./coverage";
 import { indexLeaves } from "./evaluate";
 import { loadPatients, loadTrials } from "./load";
+import { buildPriorTable, parsePrevalenceFile } from "./priors";
 
 const EMIT = process.env.AMBER_EMIT === "1";
 
 const TRIALS = process.env.AMBER_TRIALS ?? resolve(process.cwd(), "data/compiled/trials.json");
 const COHORT = process.env.AMBER_COHORT ?? resolve(process.cwd(), "data/synthea/patients.json");
+const CLAIMS = process.env.AMBER_CLAIMS ?? resolve(process.cwd(), "data/claims/patients.json");
+const PREVALENCE =
+  process.env.AMBER_PREVALENCE ?? resolve(process.cwd(), "data/prevalence.json");
 
 /** The date every report is computed against. Fixed, never `new Date()`. */
 const ASOF = process.env.AMBER_ASOF ?? "2026-09-26";
@@ -230,6 +235,58 @@ if (!EMIT) {
         if (pair.length === 2) expect(pair[0].eliminated).toBe(pair[1].eliminated);
       }
       expect(rows.length).toBe(SCALES.length * 2);
+    }, 900_000);
+
+    /**
+     * Skips itself until the claims cohort lands. The compiler lane has recorded
+     * `data/claims/**` as an ownership blocker, so this is written and tested
+     * ahead of the file rather than waiting on it — it will produce the report on
+     * the first run after the cohort appears.
+     */
+    it.skipIf(!existsSync(CLAIMS))("writes data/claims/evaluation.json", () => {
+      const trialsFile = readJson(TRIALS);
+      const claimsFile = readJson(CLAIMS);
+      const trials = loadTrials(trialsFile.raw);
+      const cohort = loadPatients(claimsFile.raw);
+
+      // Priors only touch pFavorable, but the report is about what claims can
+      // settle, so resolve them from the cited file where it is available.
+      const priors = existsSync(PREVALENCE)
+        ? buildPriorTable(parsePrevalenceFile(readJson(PREVALENCE).raw).records)
+        : undefined;
+
+      const report = claimsCohortEvaluation(cohort.records, trials.records, ASOF, { priors });
+
+      writeJson("data/claims/evaluation.json", {
+        generatedAt: new Date().toISOString(),
+        generatedBy: "src/engine/claims.ts via AMBER_EMIT=1",
+        asOf: ASOF,
+        trials: {
+          path: TRIALS,
+          sha256: trialsFile.sha256,
+          records: trials.records.length,
+          rejected: trials.rejected.length,
+        },
+        cohort: {
+          path: CLAIMS,
+          sha256: claimsFile.sha256,
+          records: cohort.records.length,
+          rejected: cohort.rejected.length,
+        },
+        notes: [
+          "`confirmedEligiblePairs` is expected to be at or near zero. That is " +
+            "the finding: ruling a patient in needs lab values, a biomarker and a " +
+            "performance status, and a claim carries none of them.",
+          "`definitivelyExcludedPairs` is the commercially useful half — " +
+            "exclusions resolved at population scale with no chart pulled.",
+          "If `cohort.claimsOnly` is false the cohort carries non-claims facts " +
+            "and these figures do not describe a claims feed.",
+        ],
+        report,
+      });
+
+      console.log(`\n${report.headline}`);
+      expect(report.pairs).toBeGreaterThan(0);
     }, 900_000);
   });
 }

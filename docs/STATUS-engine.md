@@ -14,3 +14,7 @@ Unattended run, 2026-09-26. One line per task.
   and reach `rank.ts` (already threaded; now proven by tests that the *order* flips, not
   just the cell values). Also threaded into `setcover` and `match`, which rank on
   `pFavorable`/`expectedValue` and were silently using the compiler's guesses. 12 new tests.
+- **Task 4 — deferred, code ready.** `data/claims/patients.json` has not landed; the
+  compiler lane logged `data/claims/**` as an ownership blocker. `src/engine/claims.ts`
+  + 18 tests are written and the emitter will produce `data/claims/evaluation.json` on
+  the first run after the file appears. Noted in `docs/HANDOFF.md`.

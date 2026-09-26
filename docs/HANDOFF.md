@@ -373,3 +373,67 @@ Please:
   `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
   `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
   dependency).
+
+## From P2 (engine) — unattended run 2026-09-26: three blockers, one urgent
+
+### 1. URGENT, P1: `data/compiled/trials.json` was overwritten mid-run and is now empty
+
+At 03:33 the file held 300 records, 233 with compiled criteria, 5,103 criteria
+total. At 03:55 it was rewritten to 1.5 MB with the envelope
+`{ failure, sourceText, trial }`, **every trial has zero criteria and
+`needsHumanReview: true`**. A compiler run is failing and has clobbered its own
+good output.
+
+`data/compiled/trials.backtranslated.json` (sha `9df33cee`, 03:33) is intact —
+300 records, 233 with criteria, 5,105 criteria — and is what every engine report
+in this run was computed from. The sha256 of the exact input is recorded in each
+report so the numbers can be re-verified.
+
+Two things needed:
+
+1. **Recover `trials.json`.** The 03:55 write looks like a failure path writing
+   over the success path rather than beside it.
+2. **Commit the compiled trials.** They are currently untracked (`?? data/compiled/`)
+   in the `amber-compiler` worktree and exist on no branch, so nothing downstream
+   is reproducible and a single bad run destroys the artifact. The engine reports
+   in `data/compiled/` are committed and reference an input that is not.
+
+### 2. P1/P4: `data/claims/patients.json` has not landed — task deferred, code ready
+
+The compiler lane recorded `src/claims/**` and `data/claims/**` as an ownership
+blocker. The analysis is written, tested and wired anyway:
+`claimsCohortEvaluation` in `src/engine/claims.ts`, 18 tests against synthetic
+claims-provenance cohorts. The emitter skips itself while the file is absent and
+will write `data/claims/evaluation.json` on the first run after it appears:
+
+```bash
+AMBER_EMIT=1 npm test -- src/engine/emit.test.ts
+```
+
+What it will report: pairs definitively excluded by claims alone, pairs confirmed
+eligible (expected at or near zero — that is the finding, not a gap), undetermined
+pairs, mean and median unresolved criteria per pair, and every cell by reason. It
+checks the provenance mix first and puts a warning in its own headline if the
+cohort turns out to carry non-claims facts, because then the figures describe
+something other than a claims feed.
+
+### 3. P1: back-translation is flagging every trial
+
+In `trials.backtranslated.json` all 300 records have `needsHumanReview: true`. Per
+contract rule 5 that empties the demo pool. The coverage report therefore leads
+with all 233 trials that have criteria and reports the demo-pool subset separately;
+on the pre-back-translation file the demo pool was 63 trials at 62.3% coverage.
+Most flags read `"<ID> sourceSpan near-verbatim"`, which is a citation-fidelity
+warning rather than a wrong criterion tree — worth deciding whether it should gate
+the demo pool at all.
+
+### 4. P3: two new reports you can render
+
+- `data/compiled/coverage.json` — the answerability gap, with `byPredicate`,
+  `byType`, `perTrial` (233 rows, sorted worst-covered first) and a ten-band
+  `distribution` for a histogram. Empty bands are kept deliberately: a gap in the
+  shape is information.
+- `data/compiled/benchmark.json` — throughput, with the machine and input shas.
+
+Both carry a generated `headline` string. Render that rather than recomputing a
+percentage in the UI, so the slide and the data cannot drift.
