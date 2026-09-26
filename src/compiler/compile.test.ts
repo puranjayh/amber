@@ -91,6 +91,57 @@ test("rejects a drug class represented as a bare boolean equality", async () => 
   expect(result.failure!.issues.join("\n")).toMatch(/require resolved members/);
 });
 
+test("rejects a target-less washout rather than applying it to every therapy", () => {
+  const source = "Prior palliative or curative radiotherapy must be completed at least 14 days prior.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-1", type: "exclusion", predicate: "washout", operator: ">=", value: 14,
+    unit: "days", tier: 4, sweepable: true, sweepRange: [0, 90], sweepStep: 1, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/no target exposure/);
+});
+
+test("accepts a washout only when it identifies what the clock is from", () => {
+  const source = "Prior palliative or curative radiotherapy must be completed at least 14 days prior.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-1", type: "exclusion", predicate: "washout", operator: ">=", value: 14,
+    unit: "days", drugClass: "RADIOTHERAPY", tier: 4, sweepable: true, sweepRange: [0, 90], sweepStep: 1, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(true);
+});
+
+test("rejects an enumerated organ-function clause collapsed into a boolean leaf", () => {
+  const source = "Adequate organ function: ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "INC-1", type: "inclusion", predicate: "lab_value", operator: "==", value: true,
+    tier: 1, sweepable: false, sourceSpan: source,
+  }, { type: "inclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) {
+    expect(checked.issues.join("\n")).toMatch(/lab_value requires a numeric value and a named analyte/);
+    expect(checked.issues.join("\n")).toMatch(/multiple threshold requirements/);
+  }
+});
+
+test("accepts an AND group of typed leaves for an enumerated organ-function clause", () => {
+  const source = "Adequate organ function: ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min.";
+  const leaf = (id: string, analyte: string, value: number, unit: string, sourceSpan: string) => ({
+    kind: "leaf" as const, id, type: "inclusion" as const, predicate: "lab_value" as const,
+    analyte, operator: ">=" as const, value, unit, tier: 1 as const, sweepable: true,
+    sweepRange: [0, value * 2] as [number, number], sweepStep: value >= 1000 ? 100 : 5, sourceSpan,
+  });
+  const checked = validateCompiledTree({
+    kind: "group",
+    op: "AND",
+    children: [
+      leaf("INC-1", "ANC", 1500, "/uL", "ANC >= 1500/uL"),
+      leaf("INC-2", "platelets", 100000, "/uL", "platelets >= 100,000/uL"),
+      leaf("INC-3", "CrCl", 45, "mL/min", "CrCl >= 45 mL/min"),
+    ],
+  }, { type: "inclusion", sourceText: source });
+  expect(checked.success).toBe(true);
+});
+
 test("inlines bounded group nesting without recursive schema references", () => {
   expect(JSON.stringify(boundedResponseJsonSchema)).not.toContain("$ref");
   expect(MAX_GROUP_DEPTH).toBe(3);

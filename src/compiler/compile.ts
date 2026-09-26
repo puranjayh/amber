@@ -103,6 +103,10 @@ Preserve boolean logic exactly: use nested {kind:"group", op:"AND"|"OR"|"NOT", c
 Every leaf must be grounded in a verbatim sourceSpan copied exactly from the supplied block. Set every leaf's type to the supplied block type, unless it is unknown.
 Use only the contract predicates and operators. Do not invent clinical requirements. Keep prose that cannot be safely represented in countingRule, while retaining its exact sourceSpan.
 
+Washout leaves are time since a SPECIFIC prior exposure, never generic time since any treatment. Every washout leaf must have a numeric duration in days, tier:4, and a non-empty target in drugClass or analyte. Put the target in drugClass whenever it is a treatment category: RADIOTHERAPY, PLATINUM_CHEMOTHERAPY, INVESTIGATIONAL_AGENT, or SURGERY. For example, “prior palliative or curative radiotherapy must be completed at least 14 days prior” is a washout leaf with value:14, unit:"days", operator:">=", drugClass:"RADIOTHERAPY", tier:4. Preserve “palliative or curative” as a sourceSpan/countingRule; it does not make the target optional.
+
+Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
+
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
 For prior-therapy drug-class criteria, use operator:"in" with a non-empty resolved members array of concrete drugs. Set value to that same array. Never represent a drug class with == and a bare drugClass; that cannot evaluate a medication history correctly.
@@ -290,6 +294,49 @@ function structuralAlternative(text: string): boolean {
   return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
 }
 
+function nonEmptyText(value: string | undefined): boolean {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+/** Count explicit threshold comparisons in a source clause, not commas in prose. */
+function enumeratedThresholdCount(text: string): number {
+  const matches = text.match(/(?:>=|<=|≥|≤|(?<![A-Za-z])>|(?<![A-Za-z])<|\bat least\b|\bno more than\b|\bless than\b|\bgreater than\b)\s*\d/gi);
+  return matches?.length ?? 0;
+}
+
+function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf" }>): string[] {
+  const issues: string[] = [];
+  const numericOperator = [">=", "<=", ">", "<"].includes(node.operator);
+  const membershipOperator = node.operator === "in" || node.operator === "not_in";
+
+  if (numericOperator && typeof node.value !== "number") {
+    issues.push(`${node.id}: ${node.operator} requires a numeric value that can be compared to a fact`);
+  }
+  if (membershipOperator && (!Array.isArray(node.value) || node.value.length === 0)) {
+    issues.push(`${node.id}: ${node.operator} requires a non-empty list value that can be compared to a fact`);
+  }
+  if (!membershipOperator && Array.isArray(node.value)) {
+    issues.push(`${node.id}: ${node.operator} cannot compare an array value to a single fact`);
+  }
+
+  if (node.predicate === "lab_value" && (typeof node.value !== "number" || !nonEmptyText(node.analyte))) {
+    issues.push(`${node.id}: lab_value requires a numeric value and a named analyte`);
+  }
+  if (node.predicate === "washout") {
+    if (typeof node.value !== "number" || !numericOperator) {
+      issues.push(`${node.id}: washout requires a numeric duration and a numeric comparison operator`);
+    }
+    if (!nonEmptyText(node.drugClass) && !nonEmptyText(node.analyte)) {
+      issues.push(`${node.id}: washout duration has no target exposure (drugClass or analyte required)`);
+    }
+    if (node.tier !== 4) issues.push(`${node.id}: washout must use tier 4`);
+  }
+  if (enumeratedThresholdCount(node.sourceSpan) > 1) {
+    issues.push(`${node.id}: sourceSpan contains multiple threshold requirements; compile an AND group of typed leaves`);
+  }
+  return issues;
+}
+
 /**
  * Sweep metadata controls a UI optimisation, not clinical eligibility. xAI
  * sometimes emits a zero step to signal that it has no meaningful slider.
@@ -373,6 +420,7 @@ export function validateCompiledTree(
         issues.push(`${node.id}: drug-class therapy leaf value must equal its resolved members`);
       }
     }
+    issues.push(...validateComparableLeaf(node));
   });
 
   // Ordinary prose uses “or” descriptively (e.g. advanced or metastatic), so
