@@ -12,8 +12,11 @@ import {
   PayerView,
   WorklistRow,
 } from "@/app/_data/schema";
-import { StageHeader } from "@/components/console/StageHeader";
+import { readLoop } from "@/app/_data/loop";
+import { getWorklist } from "@/app/_data/source";
+import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { checkPayload, ready, type FileCheck } from "@/components/preflight/check";
+import { ResetDemo } from "@/components/preflight/ResetDemo";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +49,8 @@ function run(): FileCheck[] {
   ];
   const optional: [string, z.ZodType][] = [
     ["data/eval/labels.json", z.array(z.object({}).passthrough())],
+    ["data/eval/results.human.json", EvalReport],
+    ["data/eval/labels.human.json", z.array(z.object({}).passthrough())],
     ["data/compiled/landscape.json", CriteriaLandscape],
     ["data/synthea/patients.json", PatientsFixture],
     ["data/claims/patients.json", PatientsFixture],
@@ -69,15 +74,16 @@ function asOfFromMeta(): string {
   }
 }
 
-export default function PreflightPage() {
+export default async function PreflightPage() {
   const checks = run();
   const ok = ready(checks);
   const required = checks.filter((c) => c.required);
   const optional = checks.filter((c) => !c.required);
+  const loop = await readLoop(getWorklist());
 
   return (
     <>
-      <StageHeader asOf={asOfFromMeta()} label="Preflight" />
+      <ConsoleHeader asOf={asOfFromMeta()} active="preflight" />
       <main className="mx-auto w-full max-w-5xl flex-1 space-y-4 px-3 py-4 sm:px-6 sm:py-6">
         <div
           className={`rounded-md border px-3 py-3 sm:px-4 ${
@@ -92,6 +98,7 @@ export default function PreflightPage() {
           </p>
         </div>
 
+        <ResetDemo initial={loop} />
         <Section title="Demo reads these" checks={required} />
         <Section title="Upstream (fallback if missing)" checks={optional} />
       </main>

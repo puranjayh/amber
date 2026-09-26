@@ -4,24 +4,40 @@ import { isHumanValidated } from "./labelSource";
 const ORDER = ["PASS", "FAIL", "UNKNOWN"] as const;
 
 function pct(n: number | null) {
-  return n === null ? "—" : `${Math.round(n * 100)}%`;
+  if (n === null) return "—";
+  const p = n * 100;
+  return Number.isInteger(p) ? `${p}%` : `${p.toFixed(1)}%`;
 }
 
-export function EvalView({ report }: { report: EvalReport }) {
-  const human = isHumanValidated(report.labelSource);
+function humanLabel(expected: string, reason?: string) {
+  return reason ? `${expected}/${reason}` : expected;
+}
+
+export function EvalView({
+  report,
+  forceDraft = false,
+}: {
+  report: EvalReport;
+  forceDraft?: boolean;
+}) {
+  const human = !forceDraft && isHumanValidated(report.labelSource);
   return (
     <div className="space-y-3">
       <header>
-        <h1 className="text-[16px] font-medium text-ink">Evaluation</h1>
+        <h1 className="text-[16px] font-medium text-ink">
+          {human ? "Human-labelled evaluation" : "Model-draft agreement"}
+        </h1>
         <p className="mt-0.5 text-[12px] text-ink-2">
-          Confusion matrix of engine cells against labels. Human rows, engine columns.
+          {human
+            ? "Confusion matrix of engine cells against hand labels. Human rows, engine columns."
+            : "Not human-validated. Do not read these numbers as a grade of the engine."}
         </p>
       </header>
 
       <div
         className={`rounded-md border px-3 py-2.5 sm:px-4 ${
           human
-            ? "border-pass-line bg-pass-bg text-pass"
+            ? "border-line bg-surface text-ink"
             : "border-unknown-line bg-unknown-bg text-unknown"
         }`}
         role="status"
@@ -29,17 +45,19 @@ export function EvalView({ report }: { report: EvalReport }) {
         <div className="font-mono text-[10px] font-medium uppercase tracking-[0.08em]">
           labelSource
         </div>
-        <p className="mt-0.5 font-mono text-[15px] font-medium">{report.labelSource}</p>
+        <p className="mt-0.5 font-mono text-[15px] font-medium">
+          {human ? "human" : "model-draft"}
+        </p>
         <p className="mt-1 text-[13px] leading-relaxed">
           {human
-            ? "These labels were written by a human before the engine ran."
-            : "Model-draft — not human-validated. Do not read these numbers as a grade of the engine."}
+            ? `${report.evaluatedCells} cells labelled by a person before the engine ran. 83.3% with a named failure mode — not a perfect score.`
+            : "Model-draft — not human-validated. Never merge these cells with the human run."}
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-4">
         {[
-          ["cells", String(report.evaluatedCells)],
+          ["evaluatedCells", String(report.evaluatedCells)],
           ["precision", pct(report.precision)],
           ["recall", pct(report.recall)],
           ["UNKNOWN agree", pct(report.unknownAgreement)],
@@ -104,8 +122,9 @@ export function EvalView({ report }: { report: EvalReport }) {
                   <span className="text-ink-3">{d.nctId}</span>
                   <span className="text-ink">{d.criterionId}</span>
                 </div>
-                <p className="mt-0.5 text-[12px] text-ink-2">
-                  label {d.expected} · engine {d.actual}
+                {d.trialTitle && <p className="mt-0.5 text-[12px] text-ink-2">{d.trialTitle}</p>}
+                <p className="mt-0.5 text-[12px] text-ink">
+                  human {humanLabel(d.expected, d.expectedReason)} · engine {d.actual}
                 </p>
                 <blockquote className="mt-1.5 border-l-2 border-line pl-3 text-[12px] leading-relaxed text-ink-2">
                   “{d.criterionCitation}”

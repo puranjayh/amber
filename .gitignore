@@ -1,61 +1,49 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
-# testing
-/coverage
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
+# Other lanes' inputs, consumed by app/_data/generate.ts. Tracked copies on main still win.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# compiler output
 # debug
+# dependencies
+# env files (can opt-in for committing if needed)
+# generated: too large for git, rebuilt by the generation script
+# live loop file-store fallback (Supabase when env is set)
+# misc
+# next.js
+# production
+# raw CMS DE-SynPUF archives and extracted CSVs
+# testing
+# typescript
+# vercel
+*.pem
+*.tsbuildinfo
+.DS_Store
+.data/
+.env*
+.pnp.*
+.pnpm-debug.log*
+.vercel
+.yarn/*
+/.next/
+/.pnp
+/blob-report/
+/build
+/coverage
+/data/claims/
+/data/compiled/
+/data/synthea/
+/node_modules
+/out/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+app/_data/cube.json
+data/claims/raw/
+data/raw/
+next-env.d.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# compiler output
-data/raw/
-
-<<<<<<< HEAD
-# raw CMS DE-SynPUF archives and extracted CSVs
-data/claims/raw/
-=======
-# Other lanes' inputs, consumed by app/_data/generate.ts. Tracked copies on main still win.
-/data/synthea/
-/data/compiled/
-/data/claims/
-
-# generated: too large for git, rebuilt by the generation script
-app/_data/cube.json
->>>>>>> origin/eng/app

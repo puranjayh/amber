@@ -209,6 +209,55 @@ export const HcpPanel = z.object({
 });
 export type HcpPanel = z.infer<typeof HcpPanel>;
 
+export const LoopRole = z.enum(["coordinator", "patient", "physician"]);
+export type LoopRole = z.infer<typeof LoopRole>;
+
+export const NudgeKind = z.enum(["fill_preferences", "enrol_patient", "trial_suggestion"]);
+export type NudgeKind = z.infer<typeof NudgeKind>;
+
+export const NudgeStatus = z.enum(["pending", "seen", "done"]);
+export type NudgeStatus = z.infer<typeof NudgeStatus>;
+
+/** Live store row. Null in the table until the patient fills the portal. */
+export const LoopPreference = z.object({
+  patientId: z.string(),
+  maxTravelMinutes: z.number(),
+  maxVisitsPerMonth: z.number(),
+  acceptsPlacebo: z.boolean(),
+  driver: Driver,
+  updatedAt: z.string(),
+});
+export type LoopPreference = z.infer<typeof LoopPreference>;
+
+export const LoopNudge = z.object({
+  id: z.string(),
+  kind: NudgeKind,
+  fromRole: LoopRole,
+  toRole: LoopRole,
+  patientId: z.string(),
+  nctId: z.string().nullable(),
+  status: NudgeStatus,
+  createdAt: z.string(),
+  /** One coordinator action → many patients. HCP renders one card per batch. */
+  batchId: z.string().optional(),
+});
+export type LoopNudge = z.infer<typeof LoopNudge>;
+
+export const PhysicianNote = z.object({
+  physicianId: z.string(),
+  text: z.string(),
+  updatedAt: z.string(),
+});
+export type PhysicianNote = z.infer<typeof PhysicianNote>;
+
+export const LoopState = z.object({
+  backend: z.enum(["supabase", "file"]),
+  preferences: z.array(LoopPreference),
+  nudges: z.array(LoopNudge),
+  notes: z.array(PhysicianNote).default([]),
+});
+export type LoopState = z.infer<typeof LoopState>;
+
 export const EvalReport = z.object({
   labelSource: z.string(),
   evaluatedCells: z.number().int(),
@@ -237,6 +286,7 @@ export const EvalReport = z.object({
       criterionId: z.string(),
       expected: Verdict,
       actual: Verdict,
+      expectedReason: z.string().optional(),
       criterionCitation: z.string(),
       chartCitation: z.string().optional(),
     }),

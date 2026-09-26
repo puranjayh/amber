@@ -39,29 +39,48 @@ function Choice({
 export function PortalForm({
   patientId,
   initial,
+  live = false,
+  onLiveSubmit,
 }: {
   patientId: string;
   initial: PortalAnswers;
+  live?: boolean;
+  onLiveSubmit?: (answers: PortalAnswers) => Promise<void>;
 }) {
   const [held, setHeld] = useState({ id: patientId, answers: initial });
   const [saved, setSaved] = useState(false);
+  const [busy, setBusy] = useState(false);
   if (held.id !== patientId) {
     setHeld({ id: patientId, answers: initial });
     setSaved(false);
   }
   const answers = held.answers;
   const setAnswers = (next: PortalAnswers) => setHeld({ id: patientId, answers: next });
+  const complete =
+    answers.maxTravelMinutes !== undefined &&
+    answers.maxExtraVisitsPerMonth !== undefined &&
+    answers.acceptsPlacebo !== undefined &&
+    answers.driver !== undefined;
 
   useEffect(() => {
+    if (live) return;
     const overlay = readPortalAnswers(patientId);
     if (overlay) setHeld({ id: patientId, answers: { ...initial, ...overlay } });
-  }, [patientId]);
+  }, [patientId, live, initial]);
 
   return (
     <form
       className="space-y-5"
       onSubmit={(e) => {
         e.preventDefault();
+        if (!complete) return;
+        if (live && onLiveSubmit) {
+          setBusy(true);
+          void onLiveSubmit(answers)
+            .then(() => setSaved(true))
+            .finally(() => setBusy(false));
+          return;
+        }
         writePortalAnswers(patientId, answers);
         setSaved(true);
       }}
@@ -136,11 +155,12 @@ export function PortalForm({
 
       <button
         type="submit"
-        className="w-full rounded-md bg-ink px-4 py-2.5 text-[13px] font-medium text-surface hover:bg-ink-2"
+        disabled={!complete || busy}
+        className="w-full rounded-md bg-ink px-4 py-2.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
       >
-        Save answers
+        {busy ? "Saving…" : "Save answers"}
       </button>
-      {saved && (
+      {saved && !live && (
         <p className="text-[12px] text-ink-2" role="status">
           Saved on this device. Your doctor sees them on their panel. This page did not contact anyone.
         </p>

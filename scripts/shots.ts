@@ -6,7 +6,7 @@
  * Writes docs/shots/{route}-{1440|390}-{light|dark}.png
  *
  * `?demo=1` preloads PT-4401 × NCT07001001. The worklist is captured without
- * that flag — `/?demo=1` redirects to /patient.
+ * that flag — `/?demo=1` redirects to /hcp.
  *
  * Reuses a running `next dev` (SHOTS_BASE, then ports 3102 / 3100 / 3000).
  * Starts one on SHOTS_PORT only if none is up. Next 16 allows one per repo.
@@ -23,14 +23,11 @@ const CANDIDATE_PORTS = [PORT, 3100, 3000];
 
 const ROUTES: { name: string; path: string }[] = [
   { name: "worklist", path: "/" },
-  { name: "patient", path: "/patient?demo=1" },
-  { name: "alert", path: "/alert?demo=1" },
+  { name: "hcp", path: "/hcp?demo=1" },
   { name: "elasticity", path: "/elasticity?demo=1" },
-  { name: "equity", path: "/equity?demo=1" },
-  { name: "market", path: "/market?demo=1" },
-  { name: "landscape", path: "/landscape?demo=1" },
   { name: "payer", path: "/payer?demo=1" },
-  { name: "eval", path: "/eval?demo=1" },
+  { name: "eval", path: "/eval" },
+  { name: "preflight", path: "/preflight" },
 ];
 
 const VIEWPORTS = [

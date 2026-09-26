@@ -110,14 +110,27 @@ export function buildSections(
     .map((type) => ({ type, rows: sections[type] }));
 }
 
-export function collectLeaves(criteria: CriterionNode[]): Map<string, CriterionLeaf> {
-  const out = new Map<string, CriterionLeaf>();
+export function listLeaves(criteria: CriterionNode[]): CriterionLeaf[] {
+  const out: CriterionLeaf[] = [];
   const visit = (node: CriterionNode) => {
-    if (node.kind === "leaf") out.set(node.id, node);
+    if (node.kind === "leaf") out.push(node);
     else node.children.forEach(visit);
   };
   criteria.forEach(visit);
   return out;
+}
+
+export function collectLeaves(criteria: CriterionNode[]): Map<string, CriterionLeaf> {
+  return new Map(listLeaves(criteria).map((leaf) => [leaf.id, leaf]));
+}
+
+/** Match the cell to the leaf that wrote its citation — compiled trees reuse ids. */
+export function leafForCell(criteria: CriterionNode[], cell: CubeCell): CriterionLeaf | undefined {
+  const all = listLeaves(criteria);
+  const cited = all.find((leaf) => leaf.id === cell.criterionId && leaf.sourceSpan === cell.criterionCitation);
+  if (cited) return cited;
+  const sameId = all.filter((leaf) => leaf.id === cell.criterionId);
+  return sameId.length === 1 ? sameId[0] : undefined;
 }
 
 export function unknownCells(cells: CubeCell[]): CubeCell[] {

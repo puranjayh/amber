@@ -19,8 +19,16 @@ export function resolveMode(mode: Mode, available: Mode[]): Mode {
   return available.includes(mode) ? mode : (available[0] ?? "adhoc");
 }
 
-export function MarketGraph({ graph }: { graph: Graph }) {
-  const available = MODES.filter((m) => graph.modes[m]);
+export function MarketGraph({
+  graph,
+  modes = MODES,
+  caption,
+}: {
+  graph: Graph;
+  modes?: Mode[];
+  caption?: string;
+}) {
+  const available = modes.filter((m) => graph.modes[m]);
   const availableKey = available.join(",");
   const [held, setHeld] = useState({ key: availableKey, mode: available[0] ?? ("adhoc" as Mode) });
   if (held.key !== availableKey) setHeld({ key: availableKey, mode: available[0] ?? "adhoc" });
@@ -43,8 +51,12 @@ export function MarketGraph({ graph }: { graph: Graph }) {
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="border-b border-line px-3 py-2.5 sm:px-4">
-        <div role="radiogroup" aria-label="Matching mode" className="grid grid-cols-3 gap-1 rounded-md bg-canvas p-1">
-          {MODES.map((m) => {
+        <div
+          role="radiogroup"
+          aria-label="Matching mode"
+          className={`grid gap-1 rounded-md bg-canvas p-1 ${available.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}
+        >
+          {available.map((m) => {
             const active = m === mode;
             const disabled = !graph.modes[m];
             return (
@@ -168,18 +180,27 @@ export function MarketGraph({ graph }: { graph: Graph }) {
       </div>
 
       {layout && (
-        <div className="grid grid-cols-3 gap-px border-t border-line bg-line">
-          {[
-            ["enrolled", String(layout.assignment.enrolled)],
-            ["mean travel", `${Math.round(layout.assignment.meanTravelMinutes)} min`],
-            ["unstable pairs", String(layout.assignment.unstablePairs)],
-          ].map(([label, value]) => (
+        <div className={`grid gap-px border-t border-line bg-line ${available.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+          {(available.length === 2
+            ? [
+                ["enrolled", String(layout.assignment.enrolled)],
+                ["mean travel", `${Math.round(layout.assignment.meanTravelMinutes)} min`],
+              ]
+            : [
+                ["enrolled", String(layout.assignment.enrolled)],
+                ["mean travel", `${Math.round(layout.assignment.meanTravelMinutes)} min`],
+                ["unstable pairs", String(layout.assignment.unstablePairs)],
+              ]
+          ).map(([label, value]) => (
             <div key={label} className="bg-surface px-2 py-2.5 sm:px-4">
               <div className="font-mono text-[16px] font-medium leading-none text-ink sm:text-[18px]">{value}</div>
               <div className="mt-1 text-[11px] text-ink-3">{label}</div>
             </div>
           ))}
         </div>
+      )}
+      {caption && (
+        <p className="border-t border-line-2 px-3 py-2 text-[12px] text-ink-2 sm:px-4">{caption}</p>
       )}
       {layout && layout.invalid.length > 0 && (
         <p className="border-t border-fail-line bg-fail-bg px-3 py-2 text-[12px] text-fail sm:px-4">

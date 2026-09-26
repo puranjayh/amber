@@ -7,6 +7,7 @@ import {
   ElasticitySweep,
   EquitySet,
   EvalReport,
+  type EvalReport as EvalReportT,
   HcpPanel,
   Meta,
   PayerView,
@@ -113,7 +114,57 @@ const landscape = take(
   (d) => d.analytes.length,
 );
 const payer = take("app/_data/payer.json", PayerView, readGenerated("payer.json"), EMPTY_PAYER, (d) => d.settled.length + d.needs.length);
-const evalReport = take("app/_data/eval.json", EvalReport, readGenerated("eval.json"), EMPTY_EVAL, (d) => d.evaluatedCells);
+const draftEval = take(
+  "app/_data/eval.json",
+  EvalReport,
+  (() => {
+    const raw = readGenerated("eval.json");
+    if (!raw || typeof raw !== "object") return raw;
+    return { ...raw, labelSource: "model-draft" };
+  })(),
+  EMPTY_EVAL,
+  (d) => d.evaluatedCells,
+);
+
+function readJsonFile(rel: string): unknown {
+  const path = join(process.cwd(), rel);
+  if (!existsSync(path)) return undefined;
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
+function attachHumanReasons(report: EvalReportT): EvalReportT {
+  const labels = readJsonFile("data/eval/labels.human.json");
+  if (!Array.isArray(labels)) return report;
+  const reason = (d: EvalReport["disagreements"][number]) => {
+    const row = labels.find(
+      (l) =>
+        l &&
+        typeof l === "object" &&
+        (l as { patientId?: string }).patientId === d.patientId &&
+        (l as { nctId?: string }).nctId === d.nctId &&
+        (l as { criterionId?: string }).criterionId === d.criterionId,
+    ) as { expectedReason?: string } | undefined;
+    return row?.expectedReason;
+  };
+  return {
+    ...report,
+    disagreements: report.disagreements.map((d) => ({
+      ...d,
+      expectedReason: d.expectedReason ?? reason(d),
+    })),
+  };
+}
+
+const humanEval = (() => {
+  const raw = readJsonFile("data/eval/results.human.json");
+  if (!raw || typeof raw !== "object") {
+    sourceStatus.push({ file: "data/eval/results.human.json", ok: false, rows: 0, error: "missing" });
+    return EMPTY_EVAL;
+  }
+  return attachHumanReasons(
+    take("data/eval/results.human.json", EvalReport, { ...raw, labelSource: "human" }, EMPTY_EVAL, (d) => d.evaluatedCells),
+  );
+})();
 const loadHcp = lazy(() =>
   take(
     "app/_data/hcp.json",
@@ -148,7 +199,10 @@ export const getSweeps = () => loadSweeps();
 export const getAssignments = () => assignments;
 export const getLandscape = () => landscape;
 export const getPayer = () => payer;
-export const getEval = () => evalReport;
+/** The only human-validated run. Never the model-draft file. */
+export const getEval = () => humanEval;
+/** Model-draft agreement — do not present as accuracy. */
+export const getDraftEval = () => (draftEval.labelSource === "human" ? EMPTY_EVAL : draftEval);
 export const getHcp = () => loadHcp();
 
 /** Hand-built fixture ids — the pair picker and the demo stay on these. */

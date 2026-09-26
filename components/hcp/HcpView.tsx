@@ -1,244 +1,181 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import type { HcpPanel, HcpPatientRow, HcpPhysician, HcpTrialRow, PortalAnswers } from "@/app/_data/schema";
-import { MissingData } from "@/components/console/MissingData";
-import { readPortalStore, type PortalStore } from "./portal";
-import { portalAnswered, rankPatientsForPhysician, trialFits } from "./worth";
+import { useEffect, useState } from "react";
+import type { OutreachDraft } from "./outreach";
+import type { GroupHit } from "./panel";
+import { pct } from "./race";
 
-function physicianKey(physician: HcpPhysician): string {
-  return `${physician.id}:${physician.patients.map((p) => p.patientId).join(",")}`;
-}
+export type HcpRosterRow = {
+  patientId: string;
+  nctId: string;
+  unknownCount: number;
+  race: string;
+  groupHit?: GroupHit;
+  draft: OutreachDraft | null;
+};
 
 function shortId(id: string): string {
   return id.length > 18 ? `${id.slice(0, 16)}…` : id;
 }
 
-function travelLabel(minutes: number | null): string {
-  return minutes === null ? "travel unknown" : `${minutes} min`;
+function panelKey(rows: HcpRosterRow[]): string {
+  return rows.map((r) => r.patientId).join(",");
 }
 
-function PortalChip({ row }: { row: HcpPatientRow }) {
-  if (!portalAnswered(row.portal)) {
-    return <span className="font-mono text-[10px] text-ink-3">portal unanswered</span>;
-  }
-  const bits = [
-    row.portal.maxTravelMinutes !== undefined ? `${row.portal.maxTravelMinutes} min` : null,
-    row.portal.maxExtraVisitsPerMonth !== undefined ? `${row.portal.maxExtraVisitsPerMonth} visits` : null,
-    row.portal.acceptsPlacebo === false ? "no placebo" : row.portal.acceptsPlacebo === true ? "placebo ok" : null,
-    row.portal.driver === "none" ? "no ride" : row.portal.driver ? row.portal.driver : null,
-  ].filter(Boolean);
-  return (
-    <span className="font-mono text-[10px] text-ink-2" title="Patient portal — not medical facts">
-      portal · {bits.join(" · ")}
-    </span>
-  );
-}
-
-function TrialCard({
-  trial,
-  answers,
-  patientId,
+export function HcpView({
+  rows,
+  selectedId,
+  headline,
+  panelShare,
+  admittedShare,
+  demo = false,
+  physicianId,
 }: {
-  trial: HcpTrialRow;
-  answers: PortalAnswers;
-  patientId: string;
+  rows: HcpRosterRow[];
+  selectedId?: string;
+  headline: string;
+  panelShare: Record<string, number>;
+  admittedShare: Record<string, number>;
+  demo?: boolean;
+  physicianId?: string;
 }) {
-  const fit = trialFits(trial, answers);
-  return (
-    <article
-      className={`rounded-md border px-3 py-2.5 ${fit.ok ? "border-line bg-surface" : "border-line-2 bg-canvas"}`}
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
-        <span className="font-mono text-[12px] font-medium text-ink">{trial.nctId}</span>
-        <span className="font-mono text-[11px] text-ink-3">{trial.phase || "phase —"}</span>
-      </div>
-      <p className="mt-0.5 text-[12px] leading-snug text-ink-2">{trial.title}</p>
-      <p className="mt-1.5 font-mono text-[11px] text-ink">
-        worth {trial.worth.toFixed(3)} · {trial.unknownCount}? · tier cost {trial.resolutionCost} ·{" "}
-        {travelLabel(trial.travelMinutes)} · {trial.visitBurden}/mo visits
-      </p>
-      {!fit.ok && (
-        <p className="mt-1 text-[11px] text-ink-3">Patient said this does not fit: {fit.reasons.join(", ")}.</p>
-      )}
-      <Link
-        href={`/patient?patient=${encodeURIComponent(patientId)}&trial=${trial.nctId}`}
-        className="mt-1.5 inline-block font-mono text-[11px] text-ink-2 underline-offset-2 hover:text-ink hover:underline"
-      >
-        Criteria →
-      </Link>
-    </article>
-  );
-}
-
-function PatientTrials({ patient, physicianId }: { patient: HcpPatientRow; physicianId: string }) {
-  return (
-    <section aria-labelledby="hcp-patient-title" className="space-y-2">
-      <div>
-        <h2 id="hcp-patient-title" className="font-mono text-[14px] font-medium text-ink">
-          {patient.patientId}
-        </h2>
-        <p className="mt-0.5 text-[12px] text-ink-2">
-          {patient.liveTrials} live {patient.liveTrials === 1 ? "trial" : "trials"} · rank() best {patient.bestNctId}
-          {patient.unknownCount > 0 ? ` · ${patient.unknownCount} unknown` : " · no open questions"}
-        </p>
-        <div className="mt-1">
-          <PortalChip row={patient} />
-        </div>
-      </div>
-      {patient.trials.length === 0 ? (
-        <MissingData
-          file="app/_data/hcp.json"
-          detail={`${patient.patientId} has no live trial after rank(). Every protocol eliminated them.`}
-        />
-      ) : (
-        <ol className="space-y-2">
-          {patient.trials.map((trial) => (
-            <li key={trial.nctId}>
-              <TrialCard trial={trial} answers={patient.portal} patientId={patient.patientId} />
-            </li>
-          ))}
-        </ol>
-      )}
-      <Link
-        href={`/patient-portal?patient=${encodeURIComponent(patient.patientId)}&from=${physicianId}`}
-        className="inline-block font-mono text-[12px] text-ink-2 underline-offset-2 hover:text-ink hover:underline"
-      >
-        What only they know →
-      </Link>
-    </section>
-  );
-}
-
-export function HcpView({ panel }: { panel: HcpPanel }) {
-  const physicians = panel.physicians.filter((p) => p.patients.length > 0);
-  const fallback =
-    physicians.find((p) => p.id === panel.defaultPhysicianId) ?? physicians[0] ?? panel.physicians[0];
-  const [store, setStore] = useState<PortalStore>({});
-  const [held, setHeld] = useState(() => ({
-    key: fallback ? physicianKey(fallback) : "",
-    physicianId: fallback?.id ?? panel.defaultPhysicianId,
-    patientId: fallback?.patients[0]?.patientId ?? "",
-  }));
+  const id = panelKey(rows);
+  const [held, setHeld] = useState({ id, checked: [] as string[] });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const refresh = () => setStore(readPortalStore());
-    refresh();
-    window.addEventListener("storage", refresh);
-    window.addEventListener("focus", refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("focus", refresh);
-    };
-  }, []);
+    setHeld((prev) => (prev.id === id ? prev : { id, checked: [] }));
+    setOpen(false);
+  }, [id]);
 
-  const physician = physicians.find((p) => p.id === held.physicianId) ?? fallback;
-  useEffect(() => {
-    if (!physician) return;
-    const key = physicianKey(physician);
-    if (held.key === key && physician.patients.some((p) => p.patientId === held.patientId)) return;
-    setHeld({
-      key,
-      physicianId: physician.id,
-      patientId: physician.patients.some((p) => p.patientId === held.patientId)
-        ? held.patientId
-        : (physician.patients[0]?.patientId ?? ""),
-    });
-  }, [physician, held.key, held.patientId]);
+  const checked = held.id === id ? held.checked : [];
 
-  const ranked = useMemo(
-    () => (physician ? rankPatientsForPhysician(physician.patients, store) : []),
-    [physician, store],
-  );
-  const shown = ranked.filter(
-    (row, i) => i < 20 || /^PT-\d+$/.test(row.patientId) || row.patientId === held.patientId,
-  );
-  const selected = ranked.find((p) => p.patientId === held.patientId) ?? ranked[0];
+  const drafts = rows.filter((r) => checked.includes(r.patientId) && r.draft).map((r) => r.draft!);
+  const groups = [...new Set([...Object.keys(panelShare), ...Object.keys(admittedShare)])].sort();
 
-  if (!physician || ranked.length === 0) {
-    return <MissingData file="app/_data/hcp.json" detail="No patients assigned to a treating physician." />;
+  if (rows.length === 0) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[14px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[12px] text-ink-2">app/_data/worklist.json has no ranked patients.</p>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-3">
       <div>
         <p className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink-3">
-          {panel.channel} · your panel
+          Impiricus · your panel
         </p>
         <h1 className="mt-0.5 text-[16px] font-medium text-ink">My patients</h1>
         <p className="mt-0.5 text-[12px] text-ink-2">
-          Ranked by how close they are to enrolling in something — fewest unknowns, then expected
-          value, then travel. Click a row for trials ranked by worth-it-ness: significance versus
-          what it costs them. This channel never contacts a patient.
+          Top {rows.length} by rank() — fewest unknowns, then expected value, then travel. Click a
+          row for both citations. Checkboxes draft outreach. Nothing is sent.
         </p>
       </div>
 
-      <label className="block">
-        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-          Treating physician
-        </span>
-        <select
-          aria-label="Treating physician"
-          value={physician.id}
-          onChange={(e) => {
-            const next = physicians.find((p) => p.id === e.target.value) ?? physician;
-            setHeld({
-              key: physicianKey(next),
-              physicianId: next.id,
-              patientId: next.patients[0]?.patientId ?? "",
-            });
-          }}
-          className="mt-1 w-full max-w-md rounded-md border border-line bg-surface px-2 py-1.5 text-[12px] text-ink"
-        >
-          {physicians.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name} · {p.site} · {p.patients.length}
-            </option>
+      <aside className="rounded-md border border-line bg-surface px-3 py-2.5 sm:px-4">
+        <p className="text-[13px] font-medium text-ink">{headline}</p>
+        <dl className="mt-2 grid grid-cols-3 gap-2 font-mono text-[11px] sm:grid-cols-4">
+          {groups.map((g) => (
+            <div key={g}>
+              <dt className="text-ink-3">{g}</dt>
+              <dd className="text-ink">
+                {pct(panelShare[g] ?? 0)} / {pct(admittedShare[g] ?? 0)}
+              </dd>
+            </div>
           ))}
-        </select>
-      </label>
-      {ranked.length > shown.length && (
-        <p className="font-mono text-[11px] text-ink-3">
-          {ranked.length} on this panel · closest 20 plus the hand-built cases
-        </p>
+        </dl>
+        <p className="mt-1.5 font-mono text-[10px] text-ink-3">panel share / admitted share</p>
+      </aside>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          disabled={drafts.length === 0}
+          onClick={() => setOpen(true)}
+          className="rounded-md bg-ink px-3 py-1.5 text-[12px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+        >
+          Draft outreach{drafts.length ? ` (${drafts.length})` : ""}
+        </button>
+        <span className="text-[11px] text-ink-3">Draft only — never send.</span>
+      </div>
+
+      {open && (
+        <section className="space-y-2 rounded-md border border-line bg-surface px-3 py-3 sm:px-4" aria-label="Outreach drafts">
+          <div className="flex items-baseline justify-between gap-2">
+            <h2 className="text-[13px] font-medium text-ink">
+              {drafts.length} draft{drafts.length === 1 ? "" : "s"}
+            </h2>
+            <button type="button" onClick={() => setOpen(false)} className="font-mono text-[11px] text-ink-2 hover:text-ink">
+              Close
+            </button>
+          </div>
+          {drafts.length === 0 ? (
+            <p className="text-[12px] text-ink-2">Select patients that still have an open unknown.</p>
+          ) : (
+            drafts.map((d) => (
+              <article key={`${d.patientId}:${d.nctId}`} className="rounded border border-line-2 px-3 py-2">
+                <h3 className="font-mono text-[12px] font-medium text-ink">{d.subject}</h3>
+                <pre className="mt-1 whitespace-pre-wrap font-sans text-[12px] leading-relaxed text-ink-2">{d.body}</pre>
+              </article>
+            ))
+          )}
+        </section>
       )}
 
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
-        <ol className="max-h-[50vh] overflow-y-auto overflow-x-hidden rounded-md border border-line bg-surface lg:max-h-[70vh]">
-          {shown.map((row) => {
-            const i = ranked.indexOf(row);
-            const current = selected?.patientId === row.patientId;
-            return (
-              <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
-                <button
-                  type="button"
-                  aria-current={current ? "true" : undefined}
-                  onClick={() => setHeld({ ...held, patientId: row.patientId })}
-                  className={`block w-full px-3 py-2.5 text-left hover:bg-canvas ${current ? "bg-canvas" : ""}`}
+      <ol className="overflow-hidden rounded-md border border-line bg-surface">
+        {rows.map((row, i) => {
+          const current = selectedId === row.patientId;
+          const on = checked.includes(row.patientId);
+          return (
+            <li key={row.patientId} className="border-b border-line-2 last:border-b-0">
+              <div className={`flex items-start gap-2 px-3 py-2.5 sm:px-4 ${current ? "bg-canvas" : ""}`}>
+                <input
+                  type="checkbox"
+                  checked={on}
+                  aria-label={`Select ${row.patientId}`}
+                  onChange={() => {
+                    const next = on ? checked.filter((id) => id !== row.patientId) : [...checked, row.patientId];
+                    setHeld({ id, checked: next });
+                  }}
+                  className="mt-1"
+                />
+                <Link
+                  href={
+                    demo
+                      ? `/hcp?demo=1&patient=${encodeURIComponent(row.patientId)}`
+                      : `/hcp?patient=${encodeURIComponent(row.patientId)}${
+                          physicianId ? `&physician=${encodeURIComponent(physicianId)}` : ""
+                        }`
+                  }
+                  aria-current={current ? "page" : undefined}
+                  className="min-w-0 flex-1 text-left hover:text-ink"
                 >
-                  <span className="flex items-baseline justify-between gap-2">
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-2">
                     <span className="font-mono text-[13px] font-medium text-ink">
                       <span className="mr-1.5 text-ink-3">{i + 1}.</span>
                       {shortId(row.patientId)}
                     </span>
-                    <span className="font-mono text-[11px] text-ink-3">{row.unknownCount}?</span>
+                    <span className="font-mono text-[11px] text-ink-3">
+                      {row.nctId} · {row.unknownCount}?
+                    </span>
                   </span>
-                  <span className="mt-0.5 block font-mono text-[11px] text-ink-2">
-                    {row.bestNctId} · {row.liveTrials} live
-                  </span>
-                  <PortalChip row={row} />
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-        {selected ? (
-          <PatientTrials patient={selected} physicianId={physician.id} />
-        ) : (
-          <MissingData file="app/_data/hcp.json" detail="Select a patient." />
-        )}
-      </div>
+                  <span className="mt-0.5 block text-[11px] text-ink-2">{row.race}</span>
+                  {row.groupHit && (
+                    <span className="mt-1 block text-[11px] text-ink">
+                      {row.groupHit.criterionId} excludes {row.groupHit.group} at{" "}
+                      {pct(row.groupHit.rate)} — higher than other groups.
+                    </span>
+                  )}
+                </Link>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

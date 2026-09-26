@@ -6,6 +6,7 @@ import {
   getAssignments,
   getCube,
   getEquity,
+  getDraftEval,
   getEval,
   getHcp,
   getLandscape,
@@ -20,28 +21,35 @@ import {
   getWorklist,
   meta,
   realProtocols,
-  subgroupSizes,
 } from "@/app/_data/source";
 import { blockingUnknown, orderFor } from "@/components/alert/alert";
-import { AlertCard } from "@/components/alert/AlertCard";
 import { collectLeaves } from "@/components/criteria/rows";
 import { buildSections } from "@/components/criteria/rows";
 import { CriteriaTable } from "@/components/criteria/CriteriaTable";
 import { PairSummary, PatientStrip } from "@/components/criteria/PairSummary";
 import { toneCounts } from "@/components/criteria/tone";
 import { ElasticityView } from "@/components/elasticity/ElasticityView";
+import { defaultBindingPick, isBinding, pickAnalyteSweeps } from "@/components/elasticity/picks";
 import { tryBuildSweep } from "@/components/elasticity/sweep";
 import { EvalView } from "@/components/eval/EvalView";
-import { EquityBars } from "@/components/equity/EquityBars";
-import { buildEquityView } from "@/components/equity/equity";
-import { LandscapeHistogram } from "@/components/landscape/LandscapeHistogram";
-import { MarketGraph } from "@/components/market/MarketGraph";
-import { buildGraph, graphTrials } from "@/components/market/graph";
-import { PayerSplit } from "@/components/payer/PayerView";
+import { draftOutreach } from "@/components/hcp/outreach";
+import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { HcpChrome } from "@/components/hcp/HcpChrome";
 import { HcpView } from "@/components/hcp/HcpView";
+import { compositionHeadline, raceLabel } from "@/components/hcp/race";
+import { hitForPair, panelComposition, takePanel } from "@/components/hcp/panel";
 import { PortalForm } from "@/components/hcp/PortalForm";
+import { AnalyteStrip, matchAnalyte } from "@/components/landscape/AnalyteStrip";
+import { landscapeAliases } from "@/components/elasticity/picks";
+import { MarketGraph } from "@/components/market/MarketGraph";
+import { buildGraph, marketCut } from "@/components/market/graph";
+import { PayerSplit } from "@/components/payer/PayerView";
+import { attributePatients } from "@/components/worklist/attribution";
+import { Physicians } from "@/components/worklist/Physicians";
 import { Worklist, WorklistHeader, type WorklistItem } from "@/components/worklist/Worklist";
+import { WorklistLive } from "@/components/worklist/WorklistLive";
 import { screenFailures } from "@/components/worklist/strip";
+import { LOOP_FOCUS, seedPreferenceRows } from "@/components/loop/rank";
 
 vi.mock("next/link", () => ({
   default: ({ href, children }: { href: string; children?: unknown }) =>
@@ -82,130 +90,147 @@ test("/worklist mounts against published worklist.json", () => {
   expect(markup).toContain("PT-4401");
 });
 
-test("/elasticity mounts the published hero sweep", () => {
-  const found = getSweep(DEMO.nctId, "INC-5") ?? getSweeps().find((s) => s.nctId === DEMO.nctId);
-  const trial = getTrial(DEMO.nctId);
-  expect(found && trial).toBeTruthy();
-  const leaf = collectLeaves(trial!.criteria).get(found!.criterionId);
-  expect(leaf && typeof leaf.value === "number").toBe(true);
-  const sweep = tryBuildSweep(found!.points, leaf!.value as number, leaf!.operator);
-  expect(sweep).not.toBeNull();
+test("/worklist live first paint ranks the focus patient at #47 until preferences arrive", () => {
+  const worklist = getWorklist();
+  const rows: WorklistItem[] = worklist.map((row) => {
+    const trial = getTrial(row.nctId);
+    const leaves = trial ? collectLeaves(trial.criteria) : new Map();
+    const cells = getPair(row.patientId, row.nctId)?.cells ?? [];
+    return {
+      ...row,
+      patient: getPatient(row.patientId),
+      trial,
+      favourable: toneCounts(cells, (id) => leaves.get(id)?.type).green,
+      total: leaves.size,
+    };
+  });
   const markup = html(
-    createElement(ElasticityView, {
-      sweep: sweep!,
-      label: leaf!.analyte ?? leaf!.predicate,
-      operator: leaf!.operator,
-      unit: leaf!.unit,
+    createElement(WorklistLive, {
+      rows,
+      initial: {
+        backend: "file",
+        preferences: seedPreferenceRows(worklist, "2026-09-25T00:00:00.000Z"),
+        nudges: [],
+        notes: [],
+      },
     }),
   );
-  expect(markup).toContain("eligible");
+  expect(markup).toContain("ranked #47: clinically strong, preferences unknown.");
+  expect(markup).toContain("Ask patient for preferences");
+  expect(markup).toContain(LOOP_FOCUS);
 });
 
-test("/landscape mounts published landscape.json", () => {
-  const landscape = getLandscape();
-  expect(landscape.analytes.length).toBeGreaterThan(0);
+test("/worklist physicians tab mounts a roster with assigned labels and a readiness bar", () => {
+  const worklist = getWorklist();
+  const rows: WorklistItem[] = worklist.map((row) => {
+    const trial = getTrial(row.nctId);
+    const leaves = trial ? collectLeaves(trial.criteria) : new Map();
+    const cells = getPair(row.patientId, row.nctId)?.cells ?? [];
+    return {
+      ...row,
+      patient: getPatient(row.patientId),
+      trial,
+      favourable: toneCounts(cells, (id) => leaves.get(id)?.type).green,
+      total: leaves.size,
+    };
+  });
+  const attributions = attributePatients(rows.map((row) => row.patientId));
+  expect(attributions.every((a) => a.source === "assigned")).toBe(true);
   const markup = html(
-    createElement(LandscapeHistogram, {
-      landscape,
-      caption: "smoke",
+    createElement("div", null, [
+      createElement(ConsoleHeader, { key: "t", asOf: "2026-09-25", active: "physicians" }),
+      createElement(Physicians, {
+        key: "p",
+        rows,
+        attributions,
+        initial: { backend: "file", preferences: [], nudges: [], notes: [] },
+        live: false,
+      }),
+    ]),
+  );
+  expect(markup).toContain("Physicians");
+  expect(markup).toContain("Patients");
+  expect(markup).toContain("Aisha Rahman");
+  expect(markup).toContain("trial-ready");
+  expect(markup).toContain("assigned");
+  expect(markup).toContain("eligible now");
+  expect(markup).toContain("Select all");
+  expect(markup).toContain("Open Dr Rahman");
+});
+
+test("trial portal nav is Patients · Physicians · Elasticity · Payer — not the old Worklist/HCP tabs", () => {
+  const consoleNav = html(createElement(ConsoleHeader, { asOf: "2026-09-25", active: "patients" }));
+  expect(consoleNav).toContain("Trial portal");
+  expect(consoleNav).toContain("Patients");
+  expect(consoleNav).toContain("Physicians");
+  expect(consoleNav).toContain("Elasticity");
+  expect(consoleNav).toContain("Payer");
+  expect(consoleNav).not.toContain("Worklist");
+  expect(consoleNav).not.toContain("Deep dives");
+  expect(consoleNav).not.toMatch(/>HCP</);
+  const doctor = html(createElement(HcpChrome, { asOf: "2026-09-25" }));
+  expect(doctor).toContain("IMPIRICUS");
+  expect(doctor).toContain("Physician portal");
+  expect(doctor).not.toContain("Worklist");
+  expect(doctor).not.toContain("Trial portal");
+});
+
+test("/hcp is the top 25 by rank with equity and drafts", () => {
+  const worklist = getWorklist();
+  const panel = takePanel(worklist);
+  expect(panel).toHaveLength(25);
+  const patients = getPatients();
+  const composition = panelComposition(panel, worklist, patients);
+  expect(composition.headline).toMatch(/Your panel is \d+% .+; the patients these criteria admit are \d+%\./);
+  const equity = [...new Set(panel.map((r) => r.nctId))]
+    .map((nctId) => getEquity(nctId))
+    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+  const rows = panel.map((row) => {
+    const patient = getPatient(row.patientId);
+    const trial = getTrial(row.nctId);
+    const pair = getPair(row.patientId, row.nctId);
+    const leaves = trial ? collectLeaves(trial.criteria) : undefined;
+    const cell = pair && !pair.eliminated ? blockingUnknown(pair) : undefined;
+    const leaf = cell && leaves?.get(cell.criterionId);
+    const draft =
+      patient && trial && cell && leaf
+        ? draftOutreach({
+            patientId: row.patientId,
+            trial,
+            cell,
+            leaf,
+            order: orderFor(leaf, cell, patient),
+          })
+        : null;
+    return {
+      patientId: row.patientId,
+      nctId: row.nctId,
+      unknownCount: row.unknownCount,
+      race: patient ? raceLabel(patient.race) : "Unknown",
+      groupHit: patient && cell ? hitForPair(row.nctId, cell.criterionId, patient.race, equity) : undefined,
+      draft,
+    };
+  });
+  const markup = html(
+    createElement(HcpView, {
+      rows,
+      selectedId: DEMO.patientId,
+      headline: composition.headline,
+      panelShare: composition.panel,
+      admittedShare: composition.admitted,
     }),
   );
-  expect(markup).toContain("Thresholds by analyte");
-});
-
-test("/equity mounts the published hero equity set", () => {
-  const set = getEquity(DEMO.nctId);
-  expect(set).toBeTruthy();
-  const markup = html(createElement(EquityBars, { view: buildEquityView(set!.rows), sizes: subgroupSizes() }));
-  expect(markup).toContain("Exclusion rate by subgroup");
-});
-
-test("/market mounts published assignments + cube", () => {
-  const assignments = getAssignments();
-  const fixture = getPatients()
-    .filter((p) => /^PT-\d+$/.test(p.id))
-    .map((p) => p.id);
-  const graph = buildGraph(
-    fixture,
-    graphTrials(
-      fixture,
-      getTrials().map((t) => ({ nctId: t.nctId, slots: t.slots })),
-      assignments,
-      getWorklist(),
-      DEMO.nctId,
-    ),
-    getCube(),
-    assignments,
-  );
-  const markup = html(createElement(MarketGraph, { graph }));
-  expect(markup).toMatch(/Ad hoc|assigned/);
-});
-
-test("/eval mounts published eval.json", () => {
-  const report = getEval();
-  expect(report.evaluatedCells).toBeGreaterThan(0);
-  const markup = html(createElement(EvalView, { report }));
-  expect(markup).toContain("labelSource");
-});
-
-test("/alert mounts a published open pair", () => {
-  const pair = getPair(DEMO.patientId, DEMO.nctId);
-  const patient = getPatient(DEMO.patientId);
-  const trial = getTrial(DEMO.nctId);
-  const cell = pair && !pair.eliminated ? blockingUnknown(pair) : undefined;
-  const leaves = trial ? collectLeaves(trial.criteria) : undefined;
-  const leaf = cell && leaves?.get(cell.criterionId);
-  expect(pair && patient && trial && cell && leaf).toBeTruthy();
-  const markup = html(
-    createElement(AlertCard, {
-      patient: patient!,
-      trial: trial!,
-      pair: pair!,
-      cell: cell!,
-      leaf: leaf!,
-      order: orderFor(leaf!, cell!, patient!),
-      favourable: toneCounts(pair!.cells, (id) => leaves!.get(id)?.type).green,
-      totalCriteria: leaves!.size,
-    }),
-  );
+  expect(markup).toContain("My patients");
+  expect(markup).toContain("Impiricus");
+  expect(markup).toContain("Draft outreach");
   expect(markup).toContain(DEMO.patientId);
 });
 
-test("/payer mounts published payer.json", () => {
-  const view = getPayer();
-  expect(view.beneficiaries).toBeGreaterThan(0);
-  const markup = html(createElement(PayerSplit, { view }));
-  expect(markup).toMatch(/Claims settled|rule patients out/);
-});
-
-test("/hcp mounts published hcp.json", () => {
-  const panel = getHcp();
-  expect(panel.physicians.reduce((n, p) => n + p.patients.length, 0)).toBeGreaterThan(0);
-  const markup = html(createElement(HcpView, { panel }));
-  expect(markup).toContain("My patients");
-  expect(markup).toContain("PT-4401");
-  expect(markup).toContain("Impiricus");
-});
-
-test("/patient-portal mounts four questions and no medical facts", () => {
-  const hero = getHcp()
-    .physicians.flatMap((p) => p.patients)
-    .find((p) => p.patientId === DEMO.patientId);
-  expect(hero).toBeTruthy();
-  const markup = html(createElement(PortalForm, { patientId: DEMO.patientId, initial: hero!.portal }));
-  expect(markup).toContain("How far will you travel");
-  expect(markup).toContain("How many extra visits a month");
-  expect(markup).toContain("Would you accept a placebo arm");
-  expect(markup).toContain("Who can drive you");
-  expect(markup).not.toMatch(/UNKNOWN|EGFR|ANC|verdict|citation/i);
-});
-
-test("/patient mounts a real compiled-trial pair with duplicate leaf ids", () => {
-  const row = getWorklist().find((r) => r.nctId === "NCT07631624");
-  expect(row).toBeTruthy();
-  const patient = getPatient(row!.patientId);
-  const trial = getTrial(row!.nctId);
-  const pair = getPair(row!.patientId, row!.nctId);
+test("/hcp criteria table still carries both citations on a compiled-trial pair", () => {
+  const row = getWorklist().find((r) => r.nctId === "NCT07631624") ?? getWorklist()[0];
+  const patient = getPatient(row.patientId);
+  const trial = getTrial(row.nctId);
+  const pair = getPair(row.patientId, row.nctId);
   expect(patient && trial && pair).toBeTruthy();
   const sections = buildSections(trial!.criteria, pair!.cells);
   const keys = sections.flatMap((s) => s.rows.map((r) => r.key));
@@ -222,6 +247,101 @@ test("/patient mounts a real compiled-trial pair with duplicate leaf ids", () =>
       createElement(CriteriaTable, { key: "c", sections }),
     ]),
   );
-  expect(markup).toContain(row!.patientId);
+  expect(markup).toContain(row.patientId);
   expect(markup).toContain("Criteria");
+});
+
+test("/elasticity mounts sweep + corpus strip + three-trial market cut", () => {
+  const picks = pickAnalyteSweeps(getSweeps(), getTrials(), DEMO.nctId);
+  expect(picks.map((p) => p.family)).toEqual(expect.arrayContaining(["anc"]));
+  const pick = defaultBindingPick(picks) ?? picks[0];
+  expect(pick.nctId).toBe("NCT03838159");
+  expect(picks.some((p) => !isBinding(p))).toBe(true);
+  const found = getSweep(pick.nctId, pick.criterionId);
+  expect(found).toBeTruthy();
+  const sweep = tryBuildSweep(found!.points, pick.leaf.value as number, pick.leaf.operator);
+  expect(sweep).not.toBeNull();
+  const analyte = matchAnalyte(getLandscape().analytes, landscapeAliases(pick.family));
+  const cut = marketCut(
+    getPatients()
+      .filter((p) => /^PT-\d+$/.test(p.id))
+      .map((p) => p.id),
+    getAssignments(),
+    DEMO.nctId,
+  );
+  expect(cut.patientIds.length).toBeLessThanOrEqual(6);
+  expect(cut.nctIds.length).toBeLessThanOrEqual(3);
+  expect(cut.nctIds[0]).toBe(DEMO.nctId);
+  const markup = html(
+    createElement("div", null, [
+      createElement(ElasticityView, {
+        key: "e",
+        sweep: sweep!,
+        label: pick.leaf.analyte ?? pick.leaf.predicate,
+        operator: pick.leaf.operator,
+        unit: pick.leaf.unit,
+      }),
+      createElement(AnalyteStrip, { key: "a", analyte, caption: "233 real protocols, 5,105 criteria, no consensus." }),
+      createElement(MarketGraph, {
+        key: "m",
+        graph: buildGraph(
+          cut.patientIds,
+          getTrials()
+            .map((t) => ({ nctId: t.nctId, slots: t.slots }))
+            .filter((t) => cut.nctIds.includes(t.nctId)),
+          getCube(),
+          getAssignments(),
+        ),
+        modes: ["adhoc", "stable"],
+        caption: "The same algorithm that matches medical students to residencies.",
+      }),
+    ]),
+  );
+  expect(markup).toContain("eligible");
+  expect(markup).toContain("5,105");
+  expect(markup).toContain("residencies");
+});
+
+test("/eval mounts the human 30-cell run, not the model-draft file", () => {
+  const report = getEval();
+  expect(report.labelSource).toBe("human");
+  expect(report.evaluatedCells).toBe(30);
+  expect(report.precision).toBeCloseTo(0.833, 2);
+  expect(report.recall).toBeCloseTo(0.917, 2);
+  expect(report.disagreements).toHaveLength(2);
+  expect(report.disagreements.every((d) => d.patientId.startsWith("SYN-19ad9612") && d.criterionId === "INC-2")).toBe(
+    true,
+  );
+  const markup = html(createElement(EvalView, { report }));
+  expect(markup).toContain("evaluatedCells");
+  expect(markup).toContain("SYN-19ad9612");
+  expect(markup).toContain("UNKNOWN/stale");
+  const draft = getDraftEval();
+  expect(draft.labelSource).toBe("model-draft");
+  expect(draft.evaluatedCells).not.toBe(report.evaluatedCells);
+});
+
+test("/payer mounts published payer.json", () => {
+  const view = getPayer();
+  expect(view.beneficiaries).toBeGreaterThan(0);
+  const markup = html(createElement(PayerSplit, { view }));
+  expect(markup).toMatch(/Claims settled|rule patients out/);
+});
+
+test("/patient-portal mounts four questions and no medical facts", () => {
+  const hero = getHcp()
+    .physicians.flatMap((p) => p.patients)
+    .find((p) => p.patientId === DEMO.patientId);
+  expect(hero).toBeTruthy();
+  const markup = html(createElement(PortalForm, { patientId: DEMO.patientId, initial: hero!.portal }));
+  expect(markup).toContain("How far will you travel");
+  expect(markup).toContain("How many extra visits a month");
+  expect(markup).toContain("Would you accept a placebo arm");
+  expect(markup).toContain("Who can drive you");
+  expect(markup).not.toMatch(/UNKNOWN|EGFR|ANC|verdict|citation/i);
+});
+
+test("equity composition sentence uses the Black 22 / 9 example shape", () => {
+  const line = compositionHeadline({ Black: 0.22, White: 0.78 }, { Black: 0.09, White: 0.91 });
+  expect(line.text).toBe("Your panel is 22% Black; the patients these criteria admit are 9%.");
 });

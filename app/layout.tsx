@@ -15,7 +15,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AMBER — Screening Console",
+  title: "AMBER — Trial portal",
   description: "Trial eligibility screening that answers what is missing.",
 };
 
