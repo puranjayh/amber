@@ -1,24 +1,436 @@
 [
   {
-    "patientId": "PT-4402",
-    "nctId": "NCT07001003",
+    "patientId": "LC-A-051",
+    "nctId": "NCT02496663",
     "eliminated": false,
-    "passCount": 6,
-    "failCount": 1,
-    "unknownCount": 0,
-    "blocking": [],
-    "resolutionTier": null,
-    "resolutionCost": 0,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-030",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-055",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-020",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-012",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-014",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-028",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-046",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-027",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-052",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-026",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-025",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-021",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-029",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-011",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-074",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-026",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-032",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-025",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-070",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-066",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-027",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 16,
+    "unknownCount": 1,
+    "blocking": [
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 30,
     "expectedValue": 0
   },
   {
     "patientId": "PT-4401",
-    "nctId": "NCT07001003",
+    "nctId": "NCT07001001",
     "eliminated": false,
-    "passCount": 5,
+    "passCount": 4,
     "failCount": 1,
-    "unknownCount": 1,
+    "unknownCount": 2,
     "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
       {
         "criterionId": "INC-4",
         "verdict": "UNKNOWN",
@@ -27,8 +439,233 @@
       }
     ],
     "resolutionTier": 1,
-    "resolutionCost": 2,
-    "expectedValue": 0.3
+    "resolutionCost": 3,
+    "expectedValue": 0.5
+  },
+  {
+    "patientId": "LC-A-016",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-034",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-002",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-003",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-045",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-13",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-059",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-007",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-035",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-060",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
   },
   {
     "patientId": "PT-4408",
@@ -53,6 +690,6128 @@
     ],
     "resolutionTier": 1,
     "resolutionCost": 4,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-040",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-048",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-13",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-024",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-018",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-050",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-001",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-017",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-043",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-033",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-047",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-009",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-032",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-056",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-053",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-010",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-049",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-044",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-005",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-080",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-022",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-048",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-021",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-062",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-017",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-059",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-071",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-065",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-13",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-044",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-020",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-079",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-073",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-084",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 36,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-014",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-089",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-046",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-042",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-002",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 10,
+    "failCount": 15,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-068",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-10",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-035",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-007",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-13",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-056",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-069",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-12",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-013",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 16,
+    "unknownCount": 2,
+    "blocking": [
+      {
+        "criterionId": "INC-14",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 32,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4410",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4413",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4412",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4411",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-01",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-02",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-03",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-04",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-05",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-06",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-07",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-08",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-09",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-10",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-11",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-12",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-13",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-14",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-15",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-16",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-17",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-18",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-19",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-20",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-21",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-22",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-23",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-24",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-25",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-26",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-27",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-28",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-29",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-30",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-31",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-32",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-33",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-34",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-35",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-36",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-37",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-38",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-39",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-40",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-41",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-42",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-43",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-44",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-45",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "SEED-46",
+    "nctId": "NCT03731585",
+    "eliminated": false,
+    "passCount": 1,
+    "failCount": 2,
+    "unknownCount": 3,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      }
+    ],
+    "resolutionTier": 2,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-057",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-023",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-041",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-054",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-019",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-004",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-036",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-058",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-039",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-037",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-022",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-038",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-013",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-042",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-085",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-005",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-064",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-003",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-008",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-052",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-023",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-072",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-029",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-034",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-058",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-043",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-077",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-054",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-063",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-086",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-031",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-040",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-087",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 4,
+    "failCount": 1,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-010",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-067",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-075",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-045",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-019",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-082",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-011",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 4,
+    "failCount": 1,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-090",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-012",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-061",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-039",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-006",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-037",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-047",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-057",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-033",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-038",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-051",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-060",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-004",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-009",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-078",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-001",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-018",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-083",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-050",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-016",
+    "nctId": "NCT04913155",
+    "eliminated": false,
+    "passCount": 2,
+    "failCount": 5,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 38,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-036",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-055",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 2,
+    "unknownCount": 5,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      }
+    ],
+    "resolutionTier": 1,
+    "resolutionCost": 10,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "PT-4402",
+    "nctId": "NCT02247453",
+    "eliminated": false,
+    "passCount": 3,
+    "failCount": 1,
+    "unknownCount": 6,
+    "blocking": [
+      {
+        "criterionId": "INC-1",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-1",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-2",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 40,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-015",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-031",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-006",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-A-008",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-024",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-028",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-076",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-088",
+    "nctId": "NCT02496663",
+    "eliminated": false,
+    "passCount": 9,
+    "failCount": 11,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "INC-2",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
+      {
+        "criterionId": "INC-3",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
+      {
+        "criterionId": "INC-4",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
+      {
+        "criterionId": "INC-5",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
+      {
+        "criterionId": "INC-6",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 0
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 2
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 41,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-081",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-049",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-030",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-015",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 6,
+    "unknownCount": 7,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 42,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-053",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 5,
+    "unknownCount": 8,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-3",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 72,
+    "expectedValue": 0
+  },
+  {
+    "patientId": "LC-C-041",
+    "nctId": "NCT04302025",
+    "eliminated": false,
+    "passCount": 0,
+    "failCount": 5,
+    "unknownCount": 8,
+    "blocking": [
+      {
+        "criterionId": "EXC-8",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-9",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-10",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-11",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-12",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-13",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 1
+      },
+      {
+        "criterionId": "EXC-5",
+        "verdict": "UNKNOWN",
+        "reason": "absent",
+        "tier": 4
+      },
+      {
+        "criterionId": "EXC-7",
+        "verdict": "UNKNOWN",
+        "reason": "unsupported",
+        "tier": 4
+      }
+    ],
+    "resolutionTier": 4,
+    "resolutionCost": 72,
     "expectedValue": 0
   }
 ]

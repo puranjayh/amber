@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EquityRow as EquityRowSchema } from "@/src/contracts";
 import { equityAudit, equityAuditAcross } from "./equity";
+import { assertValidLeaf } from "./testing";
 import { fact, leaf, patient, trial } from "./testing";
 
 const ASOF = "2026-09-25";
@@ -244,5 +245,60 @@ describe("equityAuditAcross", () => {
       "NCT00000001:INC-anc",
       "NCT00000003:INC-anc",
     ]);
+  });
+});
+
+describe("builders validate against the frozen schemas", () => {
+  it("accepts a leaf the builder produced", () => {
+    expect(() => assertValidLeaf(ancFloor)).not.toThrow();
+  });
+
+  it("rejects a leaf with an out-of-range tier, so a bad test fails as a bad test", () => {
+    expect(() => assertValidLeaf({ ...ancFloor, tier: 9 as never })).toThrow();
+  });
+
+  it("rejects a leaf with an empty sourceSpan — a citation is not optional", () => {
+    expect(() => assertValidLeaf({ ...ancFloor, sourceSpan: "" })).toThrow();
+  });
+});
+
+describe("audit edges", () => {
+  it("counts a criterion that excludes nobody at a zero rate, not as missing", () => {
+    const harmless = leaf({
+      id: "INC-always",
+      predicate: "age",
+      operator: ">=",
+      value: 18,
+      tier: 0,
+      sourceSpan: "Age >= 18",
+    });
+    const t = trial({ nctId: "NCT00000009", criteria: [harmless] });
+    const row = rowFor(equityAudit(t, [subject("PT-1", WHITE, 3000)], ASOF), "INC-always");
+    expect(row.exclusionRateBySubgroup).toEqual({ [WHITE]: 0 });
+    expect(row.maxGapPoints).toBe(0);
+  });
+
+  it("rounds the gap to one decimal rather than leaking float noise", () => {
+    // 1/3 against 0 is 33.333…%, which must read as 33.3 in a table.
+    const t = trial({ nctId: "NCT00000010", criteria: [ancFloor, stageOk] });
+    const cohort = [
+      subject("PT-B1", BLACK, 1100),
+      subject("PT-B2", BLACK, 2000),
+      subject("PT-B3", BLACK, 2000),
+      subject("PT-W1", WHITE, 2000),
+    ];
+    const row = rowFor(equityAudit(t, cohort, ASOF), "INC-anc");
+    expect(row.maxGapPoints).toBe(33.3);
+    expect(String(row.maxGapPoints)).not.toMatch(/\d{5,}/);
+  });
+
+  it("handles a cohort where every patient shares one race", () => {
+    const t = trial({ nctId: "NCT00000011", criteria: [ancFloor, stageOk] });
+    const row = rowFor(
+      equityAudit(t, [subject("PT-1", WHITE, 1100), subject("PT-2", WHITE, 2000)], ASOF),
+      "INC-anc",
+    );
+    expect(Object.keys(row.exclusionRateBySubgroup)).toEqual([WHITE]);
+    expect(row.maxGapPoints).toBe(0);
   });
 });

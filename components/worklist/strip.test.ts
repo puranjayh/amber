@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CubeCell, PairResult } from "@/src/contracts";
-import { worklistStrip } from "./strip";
+import { formatBench, formatRealProtocols, MEASURED_BENCH, screenFailures, worklistStrip } from "./strip";
 
 function cell(over: Partial<CubeCell> & Pick<CubeCell, "criterionId" | "verdict">): CubeCell {
   return {
@@ -85,4 +85,27 @@ test("eliminated pairs never count as eligible or one-Tier-0-away", () => {
     eligibleNow: 0,
     oneTier0Away: 0,
   });
+});
+
+test("screen-failures-avoided: 62% baseline minus true eliminations, times $2,000", () => {
+  const rows = Array.from({ length: 203 }, (_, i) => ({ eliminated: i < 4 }));
+  expect(screenFailures(rows)).toEqual({
+    patientsScreened: 203,
+    expectedFailures: 126,
+    failuresAvoided: 122,
+    dollarsAvoided: 244_000,
+  });
+});
+
+test("real-protocol line names the compiled pool", () => {
+  expect(formatRealProtocols(133)).toBe("Evaluated against 133 real trial protocols");
+});
+
+test("bench line says measured, not up to", () => {
+  const line = formatBench(MEASURED_BENCH);
+  expect(line).toMatch(/^measured:/);
+  expect(line).not.toMatch(/up to/i);
+  expect(line).toContain("20,420,000");
+  expect(line).toContain("8.76s");
+  expect(line).toContain("4,000 patients × 233 trials");
 });

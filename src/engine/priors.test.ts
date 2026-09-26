@@ -3,6 +3,8 @@ import { resolve as resolvePath } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_PFAVORABLE,
+  PRIOR_DOMAIN,
+  PrevalenceFile,
   buildPriorTable,
   parsePrevalenceFile,
   type PrevalenceRecord,
@@ -450,3 +452,36 @@ if (!existsSync(REAL)) {
   });
 });
 }
+
+describe("PRIOR_DOMAIN and PrevalenceFile", () => {
+  it("names the predicate the file is about, which is what the fallback rule keys on", () => {
+    expect([...PRIOR_DOMAIN]).toEqual(["biomarker"]);
+  });
+
+  it("matches where a missing entry falls back to the default rather than the compiled value", () => {
+    const table = buildPriorTable([]);
+    for (const predicate of PRIOR_DOMAIN) {
+      const l = leaf({ id: "L", predicate, analyte: "NRG1", value: "fusion", pFavorable: 0.9 });
+      // Inside the domain the table is authoritative, so a compiled guess loses.
+      expect(table.resolve(l).source).toBe("default");
+    }
+    const outside = leaf({ id: "L", predicate: "lab_value", analyte: "ANC", pFavorable: 0.9 });
+    expect(table.resolve(outside).source).toBe("leaf");
+  });
+
+  it("validates a whole file through PrevalenceFile", () => {
+    const parsed = PrevalenceFile.safeParse(RECORDS);
+    expect(parsed.success).toBe(true);
+  });
+
+  it("rejects a file that is not a list of records", () => {
+    expect(PrevalenceFile.safeParse({ egfr: 0.14 }).success).toBe(false);
+  });
+
+  it("rejects a prevalence outside zero to one", () => {
+    expect(
+      PrevalenceFile.safeParse([{ id: "x", biomarker: "EGFR", alteration: "mutation", prevalence: 1.4 }])
+        .success,
+    ).toBe(false);
+  });
+});

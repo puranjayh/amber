@@ -17,15 +17,24 @@ deterministic code with no model inference in the scoring path.
 |---|---|---|---|
 | `src/contracts/**` | P2 | Claude Code | `amber-engine` |
 | `src/engine/**` | P2 | Claude Code | `amber-engine` |
-| `src/compiler/**`, `src/eval/**`, `data/raw/**` | P1 | Codex | `amber-compiler` |
+| `src/compiler/**`, `src/eval/**`, `src/claims/**`, `data/raw/**`, `data/claims/**` | P1 | Codex | `amber-compiler` |
 | `app/**`, `components/**` | P3 | Cursor (laptop 1) | `amber-app` |
-| `data/**` (except `raw/`), `fixtures/**` | P4 | Cursor (laptop 2) | `amber-data` |
+| `data/**` (except `raw/` and `claims/`), `fixtures/**` | P4 | Cursor (laptop 2) | `amber-data` |
 | `docs/**`, `package.json`, merges to `main` | P1 | — | `amber` |
 
 `data/raw/` is compiler output, so the compiler owns it — it is gitignored, not committed.
 `package.json` belongs to P1: if any lane needs a dependency or an npm script, ask in
 Discord and P1 adds it on `main`. **Test runner is vitest for every lane** — installed on
 `main`, run with `npm test`.
+
+### Generated filename ownership
+
+| Filename | Sole writer | Contents |
+|---|---|---|
+| `data/compiled/coverage.json` | Engine | Claims-answerability coverage figures |
+| `data/compiled/compile-stats.json` | Compiler | Corpus compilation, rejection, demo-pool, and review counts |
+
+No lane may reuse a filename in this table for a different read model.
 
 `src/contracts` is **FROZEN AT 00:00 Saturday.** Before then, announce any change in
 Discord. After then, a change needs all four people to agree.
@@ -273,3 +282,25 @@ grading the system against itself and the metrics mean nothing.
   the 300-trial pool.
 - **`matchAdhoc`** now exists alongside Gale-Shapley. Its `unstablePairs` count is exactly
   what stable matching removes — that is the comparison for the matching demo.
+
+## 12. Claims lane (added 03:55 Sat)
+
+`src/claims/**` and `data/claims/**` belong to the compiler lane (Codex), including
+`data/claims/COHORT.md`. Raw DE-SynPUF downloads live in `data/claims/raw/` and are
+gitignored — never committed.
+
+## 13. The eval result is not presentable yet
+
+The model-draft run returned precision 100%, recall 100%, UNKNOWN-agreement 100%, zero
+disagreements. **That is not a result, it is a warning.** Two causes, both real: the draft
+labels were produced by a model reasoning the same way the engine does, and 106 of 130
+cells are UNKNOWN, so the matrix is dominated by one class.
+
+Do not present 100% accuracy. Present the human-labelled blind subset instead, and report
+the draft run only as "an independent model agreed on all 130 cells", which is a much
+weaker and more honest claim.
+
+## 14. Verify lane (added 09:40 Sat)
+
+`src/verify/**` belongs to the engine lane (Claude Code) — pipeline checks, fidelity
+rendering, and the preflight verify function. It may import `@/src/engine` read-only.

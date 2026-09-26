@@ -1,11 +1,13 @@
 /** Offline, batch-only eligibility compiler. Never import this from the app. */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import OpenAI from "openai";
 import { z } from "zod";
 import { CriterionNode, Trial } from "@/src/contracts";
 import type { CriterionNode as CriterionNodeValue, Trial as TrialValue } from "@/src/contracts";
 import { RawClinicalTrial } from "@/src/compiler/fetch-trials";
+import { publishCompilationResults } from "@/src/compiler/publish";
+import { partitionReviewFlags } from "@/src/compiler/review-flags";
 
 export interface EligibilityBlock {
   type: "inclusion" | "exclusion" | "unknown";
@@ -20,8 +22,10 @@ export interface CompileFailure {
 export interface CompiledTrialResult {
   trial: TrialValue;
   failure?: CompileFailure;
-  /** A usable tree with a semantic concern that a human must inspect. */
+  /** A usable tree with a semantic concern that a human must inspect. Never citation-only. */
   reviewReasons?: string[];
+  /** Verbatim but coarse source citations; retained for audit, never demo-gating. */
+  citationFlags?: string[];
   sourceText: string;
 }
 
@@ -99,10 +103,16 @@ Preserve boolean logic exactly: use nested {kind:"group", op:"AND"|"OR"|"NOT", c
 Every leaf must be grounded in a verbatim sourceSpan copied exactly from the supplied block. Set every leaf's type to the supplied block type, unless it is unknown.
 Use only the contract predicates and operators. Do not invent clinical requirements. Keep prose that cannot be safely represented in countingRule, while retaining its exact sourceSpan.
 
+Washout leaves are time since a SPECIFIC prior exposure, never generic time since any treatment. Every washout leaf must have a numeric duration in days, tier:4, and a non-empty target in drugClass or analyte. Put the target in drugClass whenever it is a treatment category: RADIOTHERAPY, PLATINUM_CHEMOTHERAPY, INVESTIGATIONAL_AGENT, or SURGERY. For example, “prior palliative or curative radiotherapy must be completed at least 14 days prior” is a washout leaf with value:14, unit:"days", operator:">=", drugClass:"RADIOTHERAPY", tier:4. Preserve “palliative or curative” as a sourceSpan/countingRule; it does not make the target optional.
+
+Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For example, “pregnant or lactating” is an OR group of named contraindication/comorbidity leaves (analyte:"pregnancy" and analyte:"lactation", value:true); never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
+
+Do not use washout for an imaging or assessment requirement. “Chest CT or PET/CT within 12 months” is not time since a dose; it is not representable by a washout leaf. Never put a quoted source sentence in value. Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
+
 Tier mapping: 0 = result from an existing specimen (usually biomarker/pathology); 1 = blood draw or in-clinic assessment (labs, ECOG, history); 2 = imaging; 3 = new invasive procedure/biopsy; 4 = time-bound/washout. Choose the lowest truthful resolution cost.
 For EVERY numeric value leaf set sweepable:true, sweepRange:[low, high], and a positive sweepStep. The range must contain the threshold and be clinically useful around it (for example age >=18 -> [0,100], step 1; ANC >=1500 /uL -> [0,3000], step 100; creatinine clearance >=50 -> [0,150], step 5). Non-numeric leaves set sweepable:false and omit sweepRange/sweepStep.
 For prior-therapy drug-class criteria, use operator:"in" with a non-empty resolved members array of concrete drugs. Set value to that same array. Never represent a drug class with == and a bare drugClass; that cannot evaluate a medication history correctly.
-IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. Do not explain your answer.`;
+IDs must be stable and unique inside this block: INC-1, INC-2, EXC-1, etc. The batch compiler will suffix a repeated id by source-block position to make it unique across the full trial. Do not explain your answer.`;
 
 function cleanBlock(text: string): string {
   return text.trim().replace(/\r\n/g, "\n");
@@ -146,6 +156,38 @@ function sourceTrial(raw: RawClinicalTrial): Omit<TrialValue, "criteria" | "comp
 function walk(node: CriterionNodeValue, visitor: (value: CriterionNodeValue) => void): void {
   visitor(node);
   if (node.kind === "group") node.children.forEach((child) => walk(child, visitor));
+}
+
+/**
+ * Eligibility headings can repeat for protocol cohorts. The model numbers each
+ * heading locally, but engine cells are keyed trial-wide, so preserve source order
+ * and suffix only subsequent occurrences (INC-1, INC-1-2, INC-1-3, ...).
+ */
+export function uniquifyCriterionNodeIds(
+  node: CriterionNodeValue,
+  usedIds: Set<string>,
+): { node: CriterionNodeValue; renamedIds: Map<string, string> } {
+  const renamedIds = new Map<string, string>();
+  const visit = (current: CriterionNodeValue): CriterionNodeValue => {
+    if (current.kind === "group") return { ...current, children: current.children.map(visit) };
+    const originalId = current.id;
+    let uniqueId = originalId;
+    let suffix = 2;
+    while (usedIds.has(uniqueId)) uniqueId = `${originalId}-${suffix++}`;
+    usedIds.add(uniqueId);
+    if (uniqueId !== originalId) renamedIds.set(originalId, uniqueId);
+    return uniqueId === originalId ? current : { ...current, id: uniqueId };
+  };
+  return { node: visit(node), renamedIds };
+}
+
+function renameFlagIds(reasons: string[], renamedIds: Map<string, string>): string[] {
+  return reasons.map((reason) => {
+    for (const [originalId, uniqueId] of renamedIds) {
+      if (reason.startsWith(`${originalId} `)) return `${uniqueId}${reason.slice(originalId.length)}`;
+    }
+    return reason;
+  });
 }
 
 function containsOr(node: CriterionNodeValue): boolean {
@@ -254,6 +296,95 @@ function structuralAlternative(text: string): boolean {
   return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
 }
 
+function nonEmptyText(value: string | undefined): boolean {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+/** Count explicit threshold comparisons in a source clause, not commas in prose. */
+function enumeratedThresholdCount(text: string): number {
+  const matches = text.match(/(?:>=|<=|≥|≤|(?<![A-Za-z])>|(?<![A-Za-z])<|\bat least\b|\bno more than\b|\bless than\b|\bgreater than\b)\s*\d/gi);
+  return matches?.length ?? 0;
+}
+
+function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf" }>): string[] {
+  const issues: string[] = [];
+  const numericOperator = [">=", "<=", ">", "<"].includes(node.operator);
+  const membershipOperator = node.operator === "in" || node.operator === "not_in";
+
+  if (numericOperator && typeof node.value !== "number") {
+    issues.push(`${node.id}: ${node.operator} requires a numeric value that can be compared to a fact`);
+  }
+  if (membershipOperator && (!Array.isArray(node.value) || node.value.length === 0)) {
+    issues.push(`${node.id}: ${node.operator} requires a non-empty list value that can be compared to a fact`);
+  }
+  if (!membershipOperator && Array.isArray(node.value)) {
+    issues.push(`${node.id}: ${node.operator} cannot compare an array value to a single fact`);
+  }
+  if (typeof node.value === "boolean" && !nonEmptyText(node.analyte) && !nonEmptyText(node.drugClass)) {
+    issues.push(`${node.id}: boolean leaf has no named subject (analyte or drugClass required)`);
+  }
+
+  if (node.predicate === "lab_value" && (typeof node.value !== "number" || !nonEmptyText(node.analyte))) {
+    issues.push(`${node.id}: lab_value requires a numeric value and a named analyte`);
+  }
+  if (node.predicate === "washout") {
+    if (typeof node.value !== "number" || !numericOperator) {
+      issues.push(`${node.id}: washout requires a numeric duration and a numeric comparison operator`);
+    }
+    if (!nonEmptyText(node.drugClass) && !nonEmptyText(node.analyte)) {
+      issues.push(`${node.id}: washout duration has no target exposure (drugClass or analyte required)`);
+    }
+    if (node.tier !== 4) issues.push(`${node.id}: washout must use tier 4`);
+  }
+  if (enumeratedThresholdCount(node.sourceSpan) > 1) {
+    issues.push(`${node.id}: sourceSpan contains multiple threshold requirements; compile an AND group of typed leaves`);
+  }
+  return issues;
+}
+
+export type FidelityDefectClass =
+  | "sentence-as-boolean"
+  | "washout-without-target"
+  | "quoted-sentence-in-value";
+
+function looksLikeQuotedSentence(value: string): boolean {
+  return /[.!?]$/.test(value.trim()) || value.trim().split(/\s+/).length >= 6;
+}
+
+/**
+ * A narrow, named audit for the defect classes found in the fidelity review.
+ * Validation prevents these new trees; the audit makes the smoke/full-run gate
+ * observable and refuses to publish if a future validation change regresses it.
+ */
+export function fidelityDefects(node: CriterionNodeValue): FidelityDefectClass[] {
+  const defects: FidelityDefectClass[] = [];
+  walk(node, (current) => {
+    if (current.kind !== "leaf") return;
+    if (typeof current.value === "boolean" && !nonEmptyText(current.analyte) && !nonEmptyText(current.drugClass)) {
+      defects.push("sentence-as-boolean");
+    }
+    if (current.predicate === "washout") {
+      if (!nonEmptyText(current.analyte) && !nonEmptyText(current.drugClass)) defects.push("washout-without-target");
+      if (typeof current.value === "string" && looksLikeQuotedSentence(current.value)) defects.push("quoted-sentence-in-value");
+    }
+  });
+  return defects;
+}
+
+export function fidelityDefectCounts(results: readonly CompiledTrialResult[]): Record<FidelityDefectClass, number> {
+  const counts: Record<FidelityDefectClass, number> = {
+    "sentence-as-boolean": 0,
+    "washout-without-target": 0,
+    "quoted-sentence-in-value": 0,
+  };
+  for (const result of results) {
+    for (const criterion of result.trial.criteria) {
+      for (const defect of fidelityDefects(criterion)) counts[defect] += 1;
+    }
+  }
+  return counts;
+}
+
 /**
  * Sweep metadata controls a UI optimisation, not clinical eligibility. xAI
  * sometimes emits a zero step to signal that it has no meaningful slider.
@@ -266,6 +397,14 @@ export function normalizeSweepMetadata(candidate: unknown): unknown {
     return { ...node, children: node.children.map(normalizeSweepMetadata) };
   }
   if (node.kind !== "leaf") return node;
+
+  // A slider only has clinical meaning for a numeric threshold. This is a
+  // presentation hint, so discard model-emitted sweep fields on string,
+  // boolean, and member-list leaves without altering the criterion itself.
+  if (typeof node.value !== "number") {
+    const { sweepRange: _range, sweepStep: _step, ...withoutSweepMetadata } = node;
+    return { ...withoutSweepMetadata, sweepable: false };
+  }
 
   const range = node.sweepRange;
   const step = node.sweepStep;
@@ -329,6 +468,7 @@ export function validateCompiledTree(
         issues.push(`${node.id}: drug-class therapy leaf value must equal its resolved members`);
       }
     }
+    issues.push(...validateComparableLeaf(node));
   });
 
   // Ordinary prose uses “or” descriptively (e.g. advanced or metastatic), so
@@ -479,14 +619,19 @@ export async function compileTrial(
   const criteria: CriterionNodeValue[] = [];
   const issues: string[] = [];
   const reviewReasons: string[] = [];
+  const citationFlags: string[] = [];
+  const usedIds = new Set<string>();
   for (const block of extractEligibilityBlocks(sourceText)) {
     try {
       const candidate = await compileBlock(block);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
       else {
-        criteria.push(checked.data);
-        reviewReasons.push(...checked.reviewReasons);
+        const unique = uniquifyCriterionNodeIds(checked.data, usedIds);
+        criteria.push(unique.node);
+        const partitioned = partitionReviewFlags(renameFlagIds(checked.reviewReasons, unique.renamedIds));
+        reviewReasons.push(...partitioned.semanticReasons);
+        citationFlags.push(...partitioned.citationFlags);
       }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
@@ -505,6 +650,7 @@ export async function compileTrial(
     trial: Trial.parse({ ...base, criteria, compilerConfidence: 1, needsHumanReview: reviewReasons.length > 0 }),
     sourceText,
     ...(reviewReasons.length ? { reviewReasons } : {}),
+    ...(citationFlags.length ? { citationFlags } : {}),
   };
 }
 
@@ -534,20 +680,45 @@ export async function compileRawTrials(
   return results;
 }
 
+/** Select exactly the requested trials for a bounded retry; never rerun the corpus by accident. */
+export function selectRawTrialsByNctIds(rawTrials: RawClinicalTrial[], nctIds: string[]): RawClinicalTrial[] {
+  const byNctId = new Map(rawTrials.map((trial) => [trial.protocolSection.identificationModule.nctId, trial]));
+  const missing = nctIds.filter((nctId) => !byNctId.has(nctId));
+  if (missing.length) throw new Error(`Requested retry trials are absent from the raw cache: ${missing.join(", ")}`);
+  return nctIds.map((nctId) => byNctId.get(nctId)!);
+}
+
+function cliArgument(name: string): string | undefined {
+  const index = process.argv.indexOf(name);
+  return index < 0 ? undefined : process.argv[index + 1];
+}
+
 async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/raw/clinicaltrials-lung-cancer-recruiting.json");
   const fullBatch = process.argv.includes("--full");
-  const outputPath = resolve(process.argv[3] || (fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
+  const retryIdsPath = cliArgument("--nct-ids");
+  const requestedSmokeCount = cliArgument("--smoke-count");
+  const smokeCount = requestedSmokeCount === undefined ? 3 : Number(requestedSmokeCount);
+  if (!Number.isInteger(smokeCount) || smokeCount < 1) throw new Error("--smoke-count must be a positive integer");
+  const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
-  const batch = fullBatch ? rawTrials : rawTrials.slice(0, 3);
-  if (!fullBatch) console.log("Smoke test: compiling 3 trials. Re-run with --full only after reviewing this output.");
+  const retryNctIds = retryIdsPath
+    ? z.array(z.string().regex(/^NCT\d{8}$/)).parse(JSON.parse(await readFile(resolve(retryIdsPath), "utf8")))
+    : undefined;
+  const batch = retryNctIds ? selectRawTrialsByNctIds(rawTrials, retryNctIds) : fullBatch ? rawTrials : rawTrials.slice(0, smokeCount);
+  if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
+  else if (!fullBatch) console.log(`Smoke test: compiling ${batch.length} trials. Re-run with --full only after reviewing this output.`);
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
     concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
   });
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, `${JSON.stringify(results, null, 2)}\n`, "utf8");
-  console.log(`Compiled ${results.length - results.filter((result) => result.failure).length}; rejected ${results.filter((result) => result.failure).length}`);
+  const defects = fidelityDefectCounts(results);
+  console.log(`Fidelity defect scan: sentence-as-boolean ${defects["sentence-as-boolean"]}; washout-without-target ${defects["washout-without-target"]}; quoted-sentence-in-value ${defects["quoted-sentence-in-value"]}`);
+  if (Object.values(defects).some((count) => count > 0)) {
+    throw new Error("Refusing to publish compilation containing fidelity defect classes");
+  }
+  const published = await publishCompilationResults(results, outputPath);
+  console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {

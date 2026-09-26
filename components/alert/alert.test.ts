@@ -10,7 +10,7 @@ import {
   type CubeCell,
   type PairResult,
 } from "@/src/contracts";
-import { blockingUnknown, orderFor, pickAlertPair } from "./alert";
+import { blockingUnknown, orderCorresponds, orderFor, pickAlertPair } from "./alert";
 
 const cube = CubeFixture.parse(cubeJson);
 const patients = PatientsFixture.parse(patientsJson);
@@ -97,5 +97,28 @@ describe("orderFor", () => {
     const pt = patients.find((p) => p.id === "PT-4408")!;
     const order = orderFor(leafOf("NCT07001001", "INC-5"), cellOf("PT-4408", "NCT07001001", "INC-5"), pt);
     expect(order.title).toBe("CBC with differential");
+  });
+
+  test("a diagnosis leaf never maps to an age order", () => {
+    const diagnosis = {
+      ...leafOf("NCT07001001", "INC-2"),
+      predicate: "diagnosis" as const,
+      sourceSpan: "Cohort 2: ZORALCS-study participants",
+    };
+    const cell = {
+      ...cellOf("PT-4401", "NCT07001001", "INC-2"),
+      criterionCitation: "Cohort 2: ZORALCS-study participants",
+    };
+    const order = orderFor(diagnosis, cell, hero);
+    expect(order.title).toBe("Confirm diagnosis in the chart");
+    expect(orderCorresponds(diagnosis, cell, order)).toBe(true);
+    expect(orderCorresponds(diagnosis, cell, { title: "Clarify age in the record", detail: "" })).toBe(false);
+  });
+
+  test("citation mismatch refuses the draft", () => {
+    const leaf = leafOf("NCT07001001", "INC-3");
+    const cell = { ...cellOf("PT-4401", "NCT07001001", "INC-3"), criterionCitation: "some other sentence" };
+    const order = orderFor(leaf, cell, hero);
+    expect(orderCorresponds(leaf, cell, order)).toBe(false);
   });
 });

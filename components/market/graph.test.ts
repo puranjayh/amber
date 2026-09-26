@@ -3,12 +3,14 @@ import cubeJson from "@/fixtures/cube.sample.json";
 import trialsJson from "@/fixtures/trials.sample.json";
 import sample from "@/app/_data/assignments.json";
 import { Assignment, CubeFixture, TrialsFixture } from "@/src/contracts";
-import { buildGraph, edgeKey } from "./graph";
+import { buildGraph, edgeKey, graphTrials } from "./graph";
 
 const cube = CubeFixture.parse(cubeJson);
 const trials = TrialsFixture.parse(trialsJson);
-const assignments = Assignment.array().parse(sample);
 const patientIds = ["PT-4401", "PT-4402", "PT-4408"];
+const assignments = Assignment.array()
+  .parse(sample)
+  .map((a) => ({ ...a, pairs: a.pairs.filter((p) => patientIds.includes(p.patientId)) }));
 
 describe("buildGraph", () => {
   const graph = buildGraph(patientIds, trials, cube, assignments);
@@ -41,6 +43,30 @@ describe("buildGraph", () => {
     expect(bad.modes.adhoc!.invalid).toEqual([{ patientId: "PT-4402", nctId: "NCT07001001" }]);
   });
 
+  test("cube and assignment pairs outside the shown patients are not drawn", () => {
+    const extra = {
+      ...cube[0],
+      patientId: "PT-OUTSIDE",
+      nctId: "NCT07001001",
+      eliminated: false,
+    };
+    const graph = buildGraph(
+      patientIds,
+      trials,
+      [...cube, extra],
+      assignments.map((a) => ({
+        ...a,
+        pairs: [...a.pairs, { patientId: "PT-OUTSIDE", nctId: "NCT07001001" }],
+      })),
+    );
+    expect(graph.candidates.some((e) => e.patientId === "PT-OUTSIDE")).toBe(false);
+    expect(graph.patients.map((n) => n.id)).toEqual(patientIds);
+    for (const mode of Object.values(graph.modes)) {
+      expect(mode.assigned.every((k) => !k.startsWith("PT-OUTSIDE"))).toBe(true);
+      expect(mode.invalid.every((p) => p.patientId !== "PT-OUTSIDE")).toBe(true);
+    }
+  });
+
   test("nodes sit in two columns within the viewBox", () => {
     for (const n of [...graph.patients, ...graph.trials]) {
       expect(n.y).toBeGreaterThan(0);
@@ -48,4 +74,11 @@ describe("buildGraph", () => {
     }
     expect(graph.patients[0].x).toBeLessThan(graph.trials[0].x);
   });
+});
+
+test("graphTrials keeps the pin and assignment targets, not the whole pool", () => {
+  const pool = [...trials.map((t) => ({ nctId: t.nctId, slots: t.slots })), { nctId: "NCT09999999", slots: 1 }];
+  const shown = graphTrials(patientIds, pool, assignments, [{ patientId: "PT-4401", nctId: "NCT07001001" }], "NCT07001001");
+  expect(shown.map((t) => t.nctId)).toContain("NCT07001001");
+  expect(shown.map((t) => t.nctId)).not.toContain("NCT09999999");
 });

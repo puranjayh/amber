@@ -39,6 +39,20 @@ export type Order = {
   detail: string;
 };
 
+function labPanel(analyte: string): string {
+  const key = analyte.toLowerCase();
+  if (LAB_ORDER[key]) return LAB_ORDER[key];
+  if (/neutrophil|\banc\b/.test(key)) return LAB_ORDER.anc;
+  if (/platelet/.test(key)) return LAB_ORDER.platelets;
+  if (/hemoglobin|\bhgb\b/.test(key)) return LAB_ORDER.hemoglobin;
+  if (/bilirubin/.test(key)) return LAB_ORDER.bilirubin;
+  if (/\bast\b|\balt\b/.test(key)) return LAB_ORDER.alt;
+  if (/creatinine clearance|\bcrcl\b/.test(key)) return LAB_ORDER["creatinine clearance"];
+  if (/creatinine/.test(key)) return LAB_ORDER.creatinine;
+  if (/qtc/.test(key)) return LAB_ORDER.qtc;
+  return "";
+}
+
 const LAB_ORDER: Record<string, string> = {
   anc: "CBC with differential",
   hemoglobin: "CBC with differential",
@@ -67,20 +81,52 @@ export function orderFor(leaf: CriterionLeaf, cell: CubeCell, patient: Patient):
   switch (leaf.predicate) {
     case "biomarker": {
       const specimen = cell.tier === 0 ? archivedSpecimen(patient) : undefined;
+      const named = /egfr/i.test(`${analyte} ${leaf.sourceSpan}`) ? "EGFR" : analyte || "Biomarker";
       return {
-        title: `${analyte || "Biomarker"} mutation testing${specimen ? " on archived tissue" : ""}`,
+        title: `${named} mutation testing${specimen ? " on archived tissue" : ""}`,
         detail: specimen
           ? `Reflex NGS on the existing specimen from ${specimen}. No new biopsy needed.`
           : `Send tissue or plasma for ${analyte || "biomarker"} testing.`,
       };
     }
-    case "performance_status":
+    case "age":
       return {
-        title: `Document ${analyte || "performance status"} at the next visit`,
+        title: "Confirm date of birth in the record",
+        detail: `Chart review of structured age.${within}`,
+      };
+    case "diagnosis":
+      return {
+        title: "Confirm diagnosis in the chart",
+        detail: `Review the problem list against “${leaf.sourceSpan}”.${within}`,
+      };
+    case "comorbidity":
+      return {
+        title: `Document ${analyte || "this history"} in the chart`,
+        detail: `Chart review or a direct question at the next visit.${within}`,
+      };
+    case "prior_therapy":
+      return {
+        title: "Reconcile prior therapy in the chart",
+        detail: `Medication history against “${leaf.sourceSpan}”.${within}`,
+      };
+    case "contraindication":
+      return {
+        title: "Review this contraindication in the chart",
+        detail: `History against “${leaf.sourceSpan}”.${within}`,
+      };
+    case "performance_status": {
+      const named = /ecog/i.test(`${analyte} ${leaf.sourceSpan}`)
+        ? "ECOG"
+        : /karnofsky/i.test(`${analyte} ${leaf.sourceSpan}`)
+          ? "Karnofsky"
+          : analyte || "performance status";
+      return {
+        title: `Document ${named} at the next visit`,
         detail: `In-clinic assessment, no draw or imaging.${within}`,
       };
+    }
     case "lab_value": {
-      const panel = LAB_ORDER[analyte.toLowerCase()] ?? `${analyte || "Laboratory"} test`;
+      const panel = labPanel(analyte) || `${analyte || "Laboratory"} test`;
       return { title: panel, detail: `Repeat ${analyte || "lab"} to resolve this criterion.${within}` };
     }
     case "staging":
@@ -98,5 +144,38 @@ export function orderFor(leaf: CriterionLeaf, cell: CubeCell, patient: Patient):
         title: `Clarify ${analyte || leaf.predicate.replace("_", " ")} in the record`,
         detail: `Chart review or a direct question at the next visit.${within}`,
       };
+  }
+}
+
+/** True only when the suggested order is about the same fact as the blocking leaf. */
+export function orderCorresponds(leaf: CriterionLeaf, cell: CubeCell, order: Order): boolean {
+  if (cell.criterionCitation && leaf.sourceSpan && cell.criterionCitation !== leaf.sourceSpan) return false;
+  const title = order.title.toLowerCase();
+  const analyte = (leaf.analyte ?? "").toLowerCase();
+  switch (leaf.predicate) {
+    case "age":
+      return /\b(age|date of birth|dob)\b/.test(title);
+    case "diagnosis":
+      return /diagnos|histolog|cytolog|condition|problem list/.test(title) && !/\bage\b/.test(title);
+    case "biomarker":
+      return (analyte.length > 0 && title.includes(analyte)) || /mutation|biomarker|ngs|tissue/.test(title);
+    case "performance_status":
+      return /ecog|performance|visit/.test(title);
+    case "lab_value": {
+      const panel = labPanel(analyte);
+      return Boolean((panel && title.includes(panel.toLowerCase().split(" ")[0])) || (analyte && title.includes(analyte)));
+    }
+    case "staging":
+      return /ct |imaging|stag/.test(title);
+    case "washout":
+      return /washout|wait/.test(title);
+    case "prior_therapy":
+      return /therap|prior|medicat|reconcile/.test(title) && !/\bage\b/.test(title);
+    case "comorbidity":
+      return /comorbid|document|history|chart/.test(title) && !/\bage\b/.test(title);
+    case "contraindication":
+      return /contraindic|review|chart/.test(title) && !/\bage\b/.test(title);
+    default:
+      return false;
   }
 }

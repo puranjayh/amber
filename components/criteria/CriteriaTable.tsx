@@ -5,11 +5,12 @@ import { CitationPanel } from "./CitationPanel";
 import type { CriteriaSection, GroupRow, LeafRow } from "./rows";
 import { displayTone, type CriterionType, type Tone } from "./tone";
 import { VerdictBadge } from "./VerdictBadge";
+import type { CriterionLeaf, Patient } from "@/src/contracts";
 
 const GROUP_LABEL: Record<GroupRow["op"], string> = {
-  AND: "ALL OF",
-  OR: "ANY OF",
-  NOT: "NOT",
+  AND: "All of",
+  OR: "Any of",
+  NOT: "Not",
 };
 
 const ACCENT: Record<Tone | "none", string> = {
@@ -26,13 +27,13 @@ function indent(depth: number) {
 function GroupLine({ row, type }: { row: GroupRow; type: CriterionType }) {
   return (
     <div
-      className="flex items-start gap-3 border-b border-line-2 bg-canvas/70 py-2 pr-3"
+      className="flex min-h-11 items-start gap-3 border-b border-line-2 bg-canvas/70 py-3 pr-4"
       style={indent(row.depth)}
     >
-      <span className="mt-0.5 shrink-0 rounded border border-line bg-surface px-1.5 py-0.5 font-mono text-[10px] font-medium tracking-wide text-ink-2">
+      <span className="mt-0.5 shrink-0 rounded border border-line bg-surface px-1.5 py-0.5 text-[11px] font-medium text-ink-2">
         {GROUP_LABEL[row.op]}
       </span>
-      <span className="min-w-0 flex-1 text-[12px] leading-snug text-ink-2">
+      <span className="min-w-0 flex-1 text-[15px] leading-[1.55] text-ink-2">
         {row.sourceSpan ?? "Grouped criteria"}
       </span>
       <VerdictBadge verdict={row.verdict} type={type} size="sm" />
@@ -44,14 +45,18 @@ function LeafLine({
   row,
   open,
   onToggle,
+  patient,
+  leaves,
 }: {
   row: LeafRow;
   open: boolean;
   onToggle: () => void;
+  patient?: Pick<Patient, "facts">;
+  leaves?: readonly CriterionLeaf[];
 }) {
   const verdict = row.cell?.verdict ?? null;
   const tone = row.cell ? displayTone(row.cell, row.leaf.type) : "none";
-  const panelId = `cite-${row.leaf.id}`;
+  const panelId = `cite-${row.key.replace(/[^A-Za-z0-9_-]/g, "-")}`;
   return (
     <div className="border-b border-line-2 last:border-b-0">
       <button
@@ -59,72 +64,96 @@ function LeafLine({
         onClick={onToggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className={`relative flex w-full items-start gap-3 py-2.5 pr-3 text-left transition-colors hover:bg-canvas before:absolute before:inset-y-0 before:left-0 before:w-[3px] ${
+        className={`relative flex min-h-11 w-full items-start gap-3 py-3 pr-4 text-left hover:bg-canvas before:absolute before:inset-y-0 before:left-0 before:w-[3px] ${
           ACCENT[tone]
         }`}
         style={indent(row.depth)}
       >
         <VerdictBadge verdict={verdict} type={row.leaf.type} />
         <span className="min-w-0 flex-1">
-          <span className="flex flex-wrap items-baseline gap-x-2">
-            <span className="font-mono text-[12px] font-medium text-ink">{row.leaf.id}</span>
-            <span className="font-mono text-[10px] uppercase tracking-wide text-ink-3">
+          <span className={`break-words text-[15px] leading-[1.55] text-ink ${open ? "block" : "line-clamp-2"}`}>
+            {row.leaf.sourceSpan}
+          </span>
+          <span className="mt-1 flex flex-wrap items-baseline gap-x-2">
+            <span className="font-mono text-[11px] text-ink-3">{row.leaf.id}</span>
+            <span className="text-[11px] text-ink-3">
               {row.leaf.predicate.replace("_", " ")}
               {row.leaf.analyte ? ` · ${row.leaf.analyte}` : ""}
             </span>
           </span>
-          <span className={`mt-0.5 text-[13px] leading-snug text-ink-2 ${open ? "block" : "line-clamp-2"}`}>
-            {row.leaf.sourceSpan}
-          </span>
         </span>
-        <span className="mt-0.5 shrink-0 font-mono text-[10px] text-ink-3" title="Resolution tier">
+        <span className="mt-0.5 shrink-0 font-mono text-[11px] text-ink-3" title="Resolution tier">
           T{row.leaf.tier}
         </span>
-        <span
-          aria-hidden
-          className={`mt-0.5 shrink-0 text-ink-3 transition-transform ${open ? "rotate-90" : ""}`}
-        >
+        <span aria-hidden className={`mt-0.5 shrink-0 text-ink-3 ${open ? "rotate-90" : ""}`}>
           ›
         </span>
       </button>
       {open && (
         <div id={panelId}>
-          <CitationPanel leaf={row.leaf} cell={row.cell} />
+          <CitationPanel leaf={row.leaf} cell={row.cell} patient={patient} leaves={leaves} />
         </div>
       )}
     </div>
   );
 }
 
+function openKeys(sections: CriteriaSection[], wanted: string[]): Set<string> {
+  const ids = new Set(wanted);
+  const keys = new Set<string>();
+  for (const section of sections) {
+    for (const row of section.rows) {
+      if (row.kind === "leaf" && ids.has(row.leaf.id)) keys.add(row.key);
+    }
+  }
+  return keys;
+}
+
 export function CriteriaTable({
   sections,
   initialOpen = [],
+  patient,
+  leaves,
 }: {
   sections: CriteriaSection[];
   initialOpen?: string[];
+  patient?: Pick<Patient, "facts">;
+  leaves?: readonly CriterionLeaf[];
 }) {
-  const [open, setOpen] = useState<Set<string>>(() => new Set(initialOpen));
-  const leafIds = sections.flatMap((s) =>
-    s.rows.filter((r): r is LeafRow => r.kind === "leaf").map((r) => r.leaf.id),
-  );
-  const allOpen = leafIds.length > 0 && leafIds.every((id) => open.has(id));
+  const sectionKey = sections.flatMap((s) => s.rows.map((r) => r.key)).join("|");
+  const [held, setHeld] = useState(() => ({
+    key: sectionKey,
+    open: openKeys(sections, initialOpen),
+  }));
+  if (held.key !== sectionKey) {
+    setHeld({ key: sectionKey, open: openKeys(sections, initialOpen) });
+  }
+  const open = held.key === sectionKey ? held.open : openKeys(sections, initialOpen);
+  const leafRows = sections.flatMap((s) => s.rows.filter((r): r is LeafRow => r.kind === "leaf"));
+  const allOpen = leafRows.length > 0 && leafRows.every((r) => open.has(r.key));
 
   const toggle = (id: string) =>
-    setOpen((prev) => {
-      const next = new Set(prev);
+    setHeld((prev) => {
+      const current = prev.key === sectionKey ? prev.open : openKeys(sections, initialOpen);
+      const next = new Set(current);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      return next;
+      return { key: sectionKey, open: next };
     });
 
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2 sm:px-4">
-        <h2 className="text-[13px] font-semibold text-ink">Criteria</h2>
+        <h2 className="text-[18px] font-semibold text-ink">Criteria</h2>
         <button
           type="button"
-          onClick={() => setOpen(allOpen ? new Set() : new Set(leafIds))}
-          className="rounded px-2 py-1 font-mono text-[11px] text-ink-2 hover:bg-canvas hover:text-ink"
+          onClick={() =>
+            setHeld({
+              key: sectionKey,
+              open: allOpen ? new Set() : new Set(leafRows.map((r) => r.key)),
+            })
+          }
+          className="rounded px-2 py-1 text-[13px] text-ink-2 hover:bg-canvas hover:text-ink"
         >
           {allOpen ? "Collapse all" : "Expand all citations"}
         </button>
@@ -132,11 +161,11 @@ export function CriteriaTable({
       <div>
         {sections.map((section) => (
           <section key={section.type}>
-            <h3 className="border-b border-line bg-canvas px-3 py-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink-3 sm:px-4">
+            <h3 className="border-b border-line bg-canvas px-4 py-3 text-[15px] font-medium text-ink">
               {section.type === "inclusion" ? "Inclusion" : "Exclusion"}
               {section.type === "exclusion" && (
-                <span className="ml-2 normal-case tracking-normal">
-                  — green means the patient clears this exclusion
+                <span className="ml-2 text-[13px] font-normal text-ink-3">
+                  Green means the patient clears this exclusion
                 </span>
               )}
             </h3>
@@ -147,8 +176,10 @@ export function CriteriaTable({
                 <LeafLine
                   key={row.key}
                   row={row}
-                  open={open.has(row.leaf.id)}
-                  onToggle={() => toggle(row.leaf.id)}
+                  open={open.has(row.key)}
+                  onToggle={() => toggle(row.key)}
+                  patient={patient}
+                  leaves={leaves}
                 />
               ),
             )}

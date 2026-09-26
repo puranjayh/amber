@@ -7,6 +7,18 @@ function signed(n: number) {
   return n > 0 ? `+${n}` : n === 0 ? "±0" : `${n}`;
 }
 
+function sweepKey(sweep: Sweep) {
+  const first = sweep.rows[0];
+  const last = sweep.rows[sweep.rows.length - 1];
+  return `${sweep.protocolIndex}:${sweep.rows.length}:${first?.threshold}:${last?.threshold}`;
+}
+
+export function clampSweepIndex(index: number, sweep: Sweep): number {
+  if (sweep.rows.length === 0) return 0;
+  if (index >= 0 && index < sweep.rows.length) return index;
+  return Math.min(Math.max(0, sweep.protocolIndex), sweep.rows.length - 1);
+}
+
 export function ElasticityView({
   sweep,
   label,
@@ -18,21 +30,33 @@ export function ElasticityView({
   operator: string;
   unit?: string;
 }) {
-  const [index, setIndex] = useState(sweep.protocolIndex);
+  const id = sweepKey(sweep);
+  const [held, setHeld] = useState({ id, index: sweep.protocolIndex });
+  if (held.id !== id) setHeld({ id, index: sweep.protocolIndex });
+  const index = clampSweepIndex(held.id === id ? held.index : sweep.protocolIndex, sweep);
   const row = sweep.rows[index];
-  const protocol = sweep.rows[sweep.protocolIndex];
+  const protocol = sweep.rows[clampSweepIndex(sweep.protocolIndex, sweep)];
   const first = sweep.rows[0];
   const last = sweep.rows[sweep.rows.length - 1];
   const u = unit ? ` ${unit}` : "";
 
+  if (!row || !protocol || !first || !last) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[15px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[13px] text-ink-2">
+          This sweep has no precomputed thresholds. Run the generator and refresh.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="border-b border-line px-3 py-2.5 sm:px-4">
-        <div className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-          Threshold
-        </div>
+        <div className="text-[11px] font-medium text-ink-3">Threshold</div>
         <div className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
-          <span className="font-mono text-[20px] font-medium text-ink">
+          <span className="font-mono text-[18px] font-medium text-ink">
             {label} {operator} {row.threshold}
             {u}
           </span>
@@ -80,7 +104,7 @@ export function ElasticityView({
             vectorEffect="non-scaling-stroke"
           />
         </svg>
-        <div className="flex justify-between font-mono text-[10px] text-ink-3">
+        <div className="flex justify-between font-mono text-[11px] text-ink-3">
           <span>
             {first.threshold}
             {u}
@@ -97,7 +121,7 @@ export function ElasticityView({
           max={sweep.rows.length - 1}
           step={1}
           value={index}
-          onChange={(e) => setIndex(Number(e.target.value))}
+          onChange={(e) => setHeld({ id, index: Number(e.target.value) })}
           aria-label={`${label} threshold`}
           aria-valuetext={`${label} ${operator} ${row.threshold}${u}, ${row.eligibleCount} eligible`}
           className="mt-2 w-full accent-[var(--ink)]"
@@ -110,17 +134,19 @@ export function ElasticityView({
 
       <div className="mt-3 grid grid-cols-2 gap-px border-t border-line bg-line sm:grid-cols-3">
         <div className="bg-surface px-3 py-2.5 sm:px-4">
-          <div className="font-mono text-[22px] font-medium leading-none text-ink">{row.eligibleCount}</div>
+          <div className="font-mono text-[24px] font-medium leading-none text-ink">
+            {row.eligibleCount}
+          </div>
           <div className="mt-1 text-[11px] text-ink-3">eligible</div>
         </div>
         <div className="bg-surface px-3 py-2.5 sm:px-4">
-          <div className="font-mono text-[22px] font-medium leading-none text-ink">
+          <div className="font-mono text-[24px] font-medium leading-none text-ink">
             {signed(row.deltaVsProtocol)}
           </div>
           <div className="mt-1 text-[11px] text-ink-3">vs protocol threshold</div>
         </div>
         <div className="col-span-2 bg-surface px-3 py-2.5 sm:col-span-1 sm:px-4">
-          <div className="font-mono text-[22px] font-medium leading-none text-ink">
+          <div className="font-mono text-[24px] font-medium leading-none text-ink">
             {row.excludedByThisAlone}
           </div>
           <div className="mt-1 text-[11px] text-ink-3">excluded by this criterion alone</div>
@@ -129,22 +155,25 @@ export function ElasticityView({
 
       {sweep.subgroups.length > 0 && (
         <div className="border-t border-line px-3 py-3 sm:px-4">
-          <div className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-3">
-            Eligible by subgroup
-          </div>
+          <div className="mb-2 text-[11px] font-medium text-ink-3">Eligible by subgroup</div>
           <ul className="space-y-1.5">
             {sweep.subgroups.map((g) => {
               const count = row.bySubgroup?.[g] ?? 0;
               const pct = sweep.maxSubgroupCount ? (count / sweep.maxSubgroupCount) * 100 : 0;
               return (
-                <li key={g} className="grid grid-cols-[5.5rem_1fr_4.5rem] items-center gap-2 text-[12px]">
+                <li
+                  key={g}
+                  className="grid grid-cols-[minmax(0,5rem)_1fr_3.75rem] items-center gap-1.5 text-[13px] sm:grid-cols-[5.5rem_1fr_4.5rem] sm:gap-2"
+                >
                   <span className="truncate text-ink-2">{g}</span>
                   <span className="h-2 overflow-hidden rounded-sm bg-line-2">
                     <span className="block h-full bg-ink-2" style={{ width: `${pct}%` }} />
                   </span>
                   <span className="text-right font-mono text-ink">
                     {count}
-                    <span className="ml-1 text-[10px] text-ink-3">{signed(row.subgroupDelta[g])}</span>
+                    <span className="ml-1 text-[11px] text-ink-3">
+                      {signed(row.subgroupDelta[g])}
+                    </span>
                   </span>
                 </li>
               );

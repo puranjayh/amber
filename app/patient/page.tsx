@@ -1,52 +1,19 @@
-import { notFound } from "next/navigation";
-import { DEMO, asOf, getCube, getPair, getPatient, getPatients, getTrial, getTrials, meta } from "@/app/_data/source";
-import { ConsoleHeader } from "@/components/console/ConsoleHeader";
-import { DemoSteps } from "@/components/console/DemoSteps";
-import { PairPicker } from "@/components/console/PairPicker";
-import { Provenance } from "@/components/console/Provenance";
+import { redirect } from "next/navigation";
 import { isDemo, one } from "@/components/console/params";
-import { CriteriaTable } from "@/components/criteria/CriteriaTable";
-import { PairSummary, PatientStrip } from "@/components/criteria/PairSummary";
-import { buildSections, collectLeaves } from "@/components/criteria/rows";
+import { trialPatientPath } from "@/components/hcp/access";
 
-export default async function PatientPage({ searchParams }: PageProps<"/patient">) {
+export default async function PatientRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const sp = await searchParams;
-  const demo = isDemo(sp);
-  const patientId = (!demo && one(sp.patient)) || DEMO.patientId;
-  const nctId = (!demo && one(sp.trial)) || DEMO.nctId;
-
-  const patient = getPatient(patientId);
-  const trial = getTrial(nctId);
-  const pair = getPair(patientId, nctId);
-  if (!patient || !trial || !pair) notFound();
-
-  const sections = buildSections(trial.criteria, pair.cells);
-  const leaves = collectLeaves(trial.criteria);
-  const unknownIds = pair.cells.filter((c) => c.verdict === "UNKNOWN").map((c) => c.criterionId);
-
-  return (
-    <>
-      <ConsoleHeader asOf={asOf} active="patient" demo={demo} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-3 px-3 py-4 sm:px-6 sm:py-6">
-        {demo ? (
-          <DemoSteps current="patient" />
-        ) : (
-          <PairPicker
-            patientIds={getPatients().map((p) => p.id)}
-            nctIds={getTrials().map((t) => t.nctId)}
-            cube={getCube()}
-            current={{ patientId, nctId }}
-          />
-        )}
-        <PatientStrip patient={patient} />
-        <PairSummary trial={trial} pair={pair} leaves={leaves} />
-        <CriteriaTable
-          key={`${patientId}:${nctId}:${demo}`}
-          sections={sections}
-          initialOpen={demo ? unknownIds : []}
-        />
-        <Provenance meta={meta} call={`evaluate(${patientId}, ${nctId})`} />
-      </main>
-    </>
+  const patient = one(sp.patient);
+  if (!patient) redirect("/");
+  redirect(
+    trialPatientPath(patient, {
+      trialId: one(sp.trial),
+      demo: isDemo(sp) ? (one(sp.demo) === "static" ? "static" : "1") : null,
+    }),
   );
 }

@@ -21,4 +21,5 @@ test("marks a trial for review when backtranslation diverges", async () => {
   const checked = await backtranslateTrial(result, async () => [{ id: "EXC-1", type: "exclusion", text: "Prior osimertinib treatment is required." }]);
   expect(checked.trial.needsHumanReview).toBe(true);
   expect(checked.failure!.issues.join("\n")).toMatch(/polarity divergence/);
+  expect(checked.reviewReasons!.join("\n")).toMatch(/polarity divergence/);
 });

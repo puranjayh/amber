@@ -17,28 +17,31 @@ export function VerdictBadge({
   type: CriterionType;
   size?: "sm" | "md";
 }) {
-  const sizing =
-    size === "sm" ? "h-5 px-1.5 text-[10px] gap-1" : "h-6 px-2 text-[11px] gap-1.5";
+  const sizing = size === "sm" ? "px-1.5 py-px text-[11px]" : "px-2 py-0.5 text-[11px]";
   if (verdict === null) {
     return (
       <span
-        className={`inline-flex shrink-0 items-center rounded border border-dashed border-ink-3 font-mono font-medium tracking-wide text-ink-2 ${sizing}`}
+        className={`inline-flex shrink-0 items-center rounded border border-dashed border-line font-medium text-ink-2 ${sizing}`}
         title="The engine returned no cell for this criterion"
       >
-        NO CELL
+        No cell
       </span>
     );
   }
-  const { glyph, className } = TONE_STYLE[displayTone({ verdict }, type)];
+  const tone = displayTone({ verdict }, type);
+  const { className } = TONE_STYLE[tone];
   const meaning = toneMeaning(verdict, type);
+  const clears = type === "exclusion" && verdict === "FAIL";
+  const label = clears ? "clears" : verdict;
+  const glyph = clears ? null : TONE_STYLE[tone].glyph;
   return (
     <span
-      className={`inline-flex shrink-0 items-center rounded border font-mono font-medium tracking-wide ${className} ${sizing}`}
-      title={`${verdict} — ${meaning}`}
-      aria-label={`${verdict}, ${meaning}`}
+      className={`inline-flex shrink-0 items-center gap-1 rounded border font-medium ${className} ${sizing}`}
+      title={`${label} — ${meaning}`}
+      aria-label={`${label}, ${meaning}`}
     >
-      <span aria-hidden>{glyph}</span>
-      {verdict}
+      {glyph && <span aria-hidden>{glyph}</span>}
+      {label}
     </span>
   );
 }

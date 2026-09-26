@@ -13,7 +13,15 @@
  */
 import { describe, expect, it } from "vitest";
 import { Patient as PatientSchema, Trial as TrialSchema } from "@/src/contracts";
-import { runCube, syntheticCohort, syntheticPatient, syntheticTrial, syntheticTrials } from "./bench";
+import {
+  replicateCohort,
+  runCube,
+  syntheticCohort,
+  syntheticPatient,
+  syntheticTrial,
+  syntheticTrials,
+  timeCube,
+} from "./bench";
 
 const ASOF = "2026-09-25";
 const BENCH = process.env.AMBER_BENCH === "1";
@@ -129,4 +137,102 @@ describe.skipIf(!BENCH)("scale benchmark", () => {
     );
     expect(rows.length).toBe(SIZES.length * 2);
   }, 600_000);
+});
+
+describe("replicateCohort", () => {
+  const base = syntheticCohort(3, 7);
+
+  it("returns the cohort unchanged at one copy", () => {
+    const out = replicateCohort(base, 1);
+    expect(out).toHaveLength(3);
+    expect(out.map((p) => p.id)).toEqual(base.map((p) => p.id));
+  });
+
+  it("multiplies the cohort and keeps every id distinct", () => {
+    const out = replicateCohort(base, 4);
+    expect(out).toHaveLength(12);
+    expect(new Set(out.map((p) => p.id)).size).toBe(12);
+  });
+
+  it("keeps the original ids on the first copy, so a report can name real patients", () => {
+    expect(replicateCohort(base, 4).slice(0, 3).map((p) => p.id)).toEqual(base.map((p) => p.id));
+  });
+
+  it("deep-clones the facts — a shared array would be a shared cache key", () => {
+    // This is the whole reason the function exists rather than Array.fill.
+    const out = replicateCohort(base, 2);
+    expect(out[3].facts).not.toBe(base[0].facts);
+    expect(out[3].facts[0]).not.toBe(base[0].facts[0]);
+    expect(out[3].facts).toEqual(base[0].facts);
+  });
+
+  it("produces clones that evaluate identically to the original", () => {
+    const trials = syntheticTrials(3, 7);
+    const out = replicateCohort(base, 2);
+    const first = runCube([out[0]], trials, ASOF);
+    const clone = runCube([out[3]], trials, ASOF);
+    expect(clone.cellsEvaluated).toBe(first.cellsEvaluated);
+    expect(clone.eliminated).toBe(first.eliminated);
+    expect(clone.unknowns).toBe(first.unknowns);
+  });
+
+  it("does not mutate the cohort it was given", () => {
+    const before = JSON.stringify(base);
+    replicateCohort(base, 3);
+    expect(JSON.stringify(base)).toBe(before);
+  });
+
+  it("refuses a nonsensical multiplier rather than returning something odd", () => {
+    expect(() => replicateCohort(base, 0)).toThrow(RangeError);
+    expect(() => replicateCohort(base, -1)).toThrow(RangeError);
+    expect(() => replicateCohort(base, 1.5)).toThrow(/positive integer/);
+  });
+
+  it("is empty-input safe", () => {
+    expect(replicateCohort([], 5)).toEqual([]);
+  });
+});
+
+describe("timeCube", () => {
+  const patients = syntheticCohort(12, 3);
+  const trials = syntheticTrials(5, 3);
+
+  it("reports the same counts the untimed runner does", () => {
+    const timed = timeCube(patients, trials, ASOF, "full");
+    const plain = runCube(patients, trials, ASOF);
+    expect(timed.cellsEvaluated).toBe(plain.cellsEvaluated);
+    expect(timed.eliminated).toBe(plain.eliminated);
+    expect(timed.unknowns).toBe(plain.unknowns);
+  });
+
+  it("reports a positive duration even for a run that finishes in under a millisecond", () => {
+    const row = timeCube(patients, trials, ASOF, "full");
+    expect(row.seconds).toBeGreaterThan(0);
+    expect(row.cellsPerSecond).toBeGreaterThan(0);
+  });
+
+  it("reports a rate that is the cells over the seconds, so a reader can check it", () => {
+    const row = timeCube(patients, trials, ASOF, "full");
+    const derived = row.cellsEvaluated / row.seconds;
+    // Within 1%: `seconds` is rounded for display, the rate is not.
+    expect(Math.abs(row.cellsPerSecond - derived) / derived).toBeLessThan(0.01);
+  });
+
+  it("labels the mode it ran", () => {
+    expect(timeCube(patients, trials, ASOF, "full").mode).toBe("full");
+    expect(timeCube(patients, trials, ASOF, "short-circuit").mode).toBe("short-circuit");
+  });
+
+  it("reaches the same eliminated set in both modes, with less work in one", () => {
+    const full = timeCube(patients, trials, ASOF, "full");
+    const short = timeCube(patients, trials, ASOF, "short-circuit");
+    expect(short.eliminated).toBe(full.eliminated);
+    expect(short.cellsEvaluated).toBeLessThan(full.cellsEvaluated);
+  });
+
+  it("is safe on an empty cohort and does not divide by zero", () => {
+    const row = timeCube([], trials, ASOF, "full");
+    expect(row.cellsEvaluated).toBe(0);
+    expect(Number.isFinite(row.cellsPerSecond)).toBe(true);
+  });
 });

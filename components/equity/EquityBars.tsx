@@ -5,18 +5,33 @@ function pct(rate: number) {
 }
 
 export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<string, number> }) {
+  if (view.rows.length === 0) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[15px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[13px] text-ink-2">
+          No equity rows for this trial. app/_data/equity.json is missing this NCT.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line px-3 py-2.5 sm:px-4">
-        <h2 className="text-[13px] font-semibold text-ink">Exclusion rate by subgroup</h2>
+        <h2 className="text-[18px] font-semibold text-ink">Exclusion rate by subgroup</h2>
         <span className="font-mono text-[11px] text-ink-3">sorted by largest gap</span>
       </div>
       <ul>
         {view.rows.map((row) => (
-          <li key={row.criterionId} className="border-b border-line-2 px-3 py-3 last:border-b-0 sm:px-4">
+          <li
+            key={row.criterionId}
+            className="border-b border-line-2 px-3 py-3 last:border-b-0 sm:px-4"
+          >
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
               <div className="flex flex-wrap items-baseline gap-x-2">
-                <span className="font-mono text-[12px] font-medium text-ink">{row.criterionId}</span>
+                <span className="font-mono text-[13px] font-medium text-ink">
+                  {row.criterionId}
+                </span>
                 <span className="text-[13px] text-ink">{row.label}</span>
               </div>
               <span className="font-mono text-[11px] text-ink-2">
@@ -31,11 +46,18 @@ export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<st
             <ul className="mt-2 space-y-1">
               {view.subgroups.map((g) => {
                 const rate = row.exclusionRateBySubgroup[g];
-                const width = rate !== undefined && view.maxRate > 0 ? (rate / view.maxRate) * 100 : 0;
+                const width =
+                  rate !== undefined && view.maxRate > 0 ? (rate / view.maxRate) * 100 : 0;
                 const worst = row.maxGapPoints > 0 && g === row.worst;
                 return (
-                  <li key={g} className="grid grid-cols-[7.5rem_1fr_2.75rem] items-center gap-2 text-[11px] sm:grid-cols-[12rem_1fr_3rem]">
-                    <span className={`truncate ${worst ? "font-medium text-ink" : "text-ink-2"}`} title={g}>
+                  <li
+                    key={g}
+                    className="grid grid-cols-[minmax(0,6.5rem)_1fr_2.5rem] items-center gap-1.5 text-[11px] sm:grid-cols-[12rem_1fr_3rem] sm:gap-2"
+                  >
+                    <span
+                      className={`truncate ${worst ? "font-medium text-ink" : "text-ink-2"}`}
+                      title={g}
+                    >
                       {g} <span className="font-mono text-ink-3">n={sizes[g] ?? 0}</span>
                     </span>
                     <span className="h-2 overflow-hidden rounded-sm bg-line-2">
@@ -44,7 +66,9 @@ export function EquityBars({ view, sizes }: { view: EquityView; sizes: Record<st
                         style={{ width: `${width}%` }}
                       />
                     </span>
-                    <span className="text-right font-mono text-ink">{rate === undefined ? "—" : pct(rate)}</span>
+                    <span className="text-right font-mono text-ink">
+                      {rate === undefined ? "—" : pct(rate)}
+                    </span>
                   </li>
                 );
               })}

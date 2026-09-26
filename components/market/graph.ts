@@ -34,6 +34,50 @@ export const GRAPH = { width: 320, rowHeight: 56, padY: 28, patientX: 70, trialX
 
 export const edgeKey = (patientId: string, nctId: string) => `${patientId}→${nctId}`;
 
+/** Trials the published cube can actually draw for these patients — not the full 133. */
+/** Six patients, three trials — the cut the elasticity page can hold. */
+export function marketCut(
+  fixtureIds: string[],
+  assignments: Assignment[],
+  pinNctId: string,
+): { patientIds: string[]; nctIds: string[] } {
+  const assigned = assignments.flatMap((a) => a.pairs);
+  const extra = assigned.map((p) => p.patientId).filter((id) => !fixtureIds.includes(id));
+  const patientIds = [...fixtureIds, ...[...new Set(extra)]].slice(0, 6);
+  const shown = new Set(patientIds);
+  const counts = new Map<string, number>();
+  for (const pair of assigned) {
+    if (!shown.has(pair.patientId)) continue;
+    counts.set(pair.nctId, (counts.get(pair.nctId) ?? 0) + 1);
+  }
+  const others = [...counts.entries()]
+    .filter(([id]) => id !== pinNctId)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([id]) => id);
+  const nctIds = [pinNctId, ...others].filter((id, i, all) => all.indexOf(id) === i).slice(0, 3);
+  return { patientIds, nctIds };
+}
+
+export function graphTrials(
+  patientIds: string[],
+  trials: { nctId: string; slots: number }[],
+  assignments: Assignment[],
+  worklist: { patientId: string; nctId: string }[],
+  pinNctId: string,
+): { nctId: string; slots: number }[] {
+  const shown = new Set(patientIds);
+  const ids = new Set<string>([pinNctId]);
+  for (const assignment of assignments) {
+    for (const pair of assignment.pairs) {
+      if (shown.has(pair.patientId)) ids.add(pair.nctId);
+    }
+  }
+  for (const row of worklist) {
+    if (shown.has(row.patientId)) ids.add(row.nctId);
+  }
+  return trials.filter((trial) => ids.has(trial.nctId));
+}
+
 function column(ids: string[], x: number, height: number, side: GraphNode["side"]): GraphNode[] {
   const step = ids.length > 1 ? (height - GRAPH.padY * 2) / (ids.length - 1) : 0;
   return ids.map((id, i) => ({
@@ -55,8 +99,9 @@ export function buildGraph(
   const rows = Math.max(patientIds.length, trials.length, 1);
   const height = GRAPH.padY * 2 + (rows - 1) * GRAPH.rowHeight;
 
+  const shown = new Set(patientIds);
   const candidates: GraphEdge[] = cube
-    .filter((p) => !p.eliminated)
+    .filter((p) => !p.eliminated && shown.has(p.patientId))
     .map((p) => ({
       key: edgeKey(p.patientId, p.nctId),
       patientId: p.patientId,
@@ -65,18 +110,25 @@ export function buildGraph(
     }));
   const candidateKeys = new Set(candidates.map((e) => e.key));
 
+  const shownTrials = new Set(trials.map((t) => t.nctId));
   const modes: Graph["modes"] = {};
   for (const a of assignments) {
     const load: Record<string, number> = Object.fromEntries(trials.map((t) => [t.nctId, 0]));
     const assigned: string[] = [];
     const invalid: { patientId: string; nctId: string }[] = [];
-    for (const pair of a.pairs) {
+    const visible = a.pairs.filter((pair) => shown.has(pair.patientId) && shownTrials.has(pair.nctId));
+    for (const pair of visible) {
+      load[pair.nctId] = (load[pair.nctId] ?? 0) + 1;
       const key = edgeKey(pair.patientId, pair.nctId);
       if (candidateKeys.has(key)) assigned.push(key);
       else invalid.push(pair);
-      load[pair.nctId] = (load[pair.nctId] ?? 0) + 1;
     }
-    modes[a.mode] = { assignment: a, assigned, invalid, load };
+    modes[a.mode] = {
+      assignment: { ...a, pairs: visible, enrolled: visible.length },
+      assigned,
+      invalid,
+      load,
+    };
   }
 
   return {

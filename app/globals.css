@@ -1,31 +1,55 @@
 @import "tailwindcss";
 
 /*
- * Amber means UNKNOWN and nothing else. The `unknown` tokens are the only warm hue in
- * the palette — do not introduce yellow/orange/amber anywhere else (focus rings,
- * warnings, highlights, brand). Errors and bugs use `fail` or neutral ink.
+ * Light is the default. Dark is opt-in via data-theme on <html>.
+ * Amber means UNKNOWN and nothing else. The unknown tokens are the only warm hue.
  */
 :root {
-  --ink: #14171c;
-  --ink-2: #4a5160;
-  --ink-3: #7b8291;
-  --line: #e3e5ea;
-  --line-2: #eef0f3;
+  color-scheme: light;
+  --ink: #1c2430;
+  --ink-2: #3e4c5e;
+  --ink-3: #6a7788;
+  --line: #e2e6ed;
+  --line-2: #eef1f5;
   --surface: #ffffff;
-  --canvas: #f6f7f9;
-  --focus: #2f5bd3;
+  --canvas: #f7f8fa;
+  --focus: #2c5aa0;
 
-  --pass: #17694b;
-  --pass-bg: #e7f3ed;
-  --pass-line: #b6dcc8;
+  --pass: #1d6b4a;
+  --pass-bg: #e8f3ec;
+  --pass-line: #c5ddd0;
 
-  --fail: #b3261e;
-  --fail-bg: #fbeceb;
-  --fail-line: #f0c2be;
+  --fail: #9e2b2b;
+  --fail-bg: #f8ecec;
+  --fail-line: #e4c8c8;
 
-  --unknown: #9a5b00;
-  --unknown-bg: #fff4dc;
-  --unknown-line: #f2b53c;
+  --unknown: #8a5a12;
+  --unknown-bg: #f8f1e4;
+  --unknown-line: #e6d3a8;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e7ecf2;
+  --ink-2: #b7c0cc;
+  --ink-3: #8b97a6;
+  --line: #2c3542;
+  --line-2: #232b36;
+  --surface: #1a2028;
+  --canvas: #12161c;
+  --focus: #8eadd8;
+
+  --pass: #7dcea8;
+  --pass-bg: #173026;
+  --pass-line: #2c5644;
+
+  --fail: #f0aaa4;
+  --fail-bg: #3a2222;
+  --fail-line: #6e3a38;
+
+  --unknown: #e4c07a;
+  --unknown-bg: #332818;
+  --unknown-line: #6e5830;
 }
 
 @theme inline {
@@ -52,14 +76,60 @@
   --font-mono: var(--font-plex-mono);
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .letter,
+  .letter * {
+    color: var(--ink) !important;
+    background: var(--surface) !important;
+    box-shadow: none !important;
+  }
+
+  .letter {
+    max-width: none;
+    padding: 0;
+  }
+}
+
 body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
+}
+
+/* /demo progressive reveal — later beats are in the first HTML, hidden until the shell advances. */
+[data-shown="0"] .beat-min-1,
+[data-shown="0"] .beat-min-2,
+[data-shown="0"] .beat-min-3,
+[data-shown="1"] .beat-min-2,
+[data-shown="1"] .beat-min-3,
+[data-shown="2"] .beat-min-3,
+[data-shown="2"] .beat-max-1,
+[data-shown="3"] .beat-max-1 {
+  display: none;
+}
+
+[data-presenting="1"][data-active="worklist"] #beat-worklist,
+[data-presenting="1"][data-active="hcp"] #beat-hcp,
+[data-presenting="1"][data-active="elasticity"] #beat-elasticity,
+[data-presenting="1"][data-active="payer"] #beat-payer {
+  box-shadow: inset 0 0 0 2px var(--ink);
+  border-radius: 6px;
 }

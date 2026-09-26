@@ -68,6 +68,18 @@ describe("buildSections", () => {
     expect(inc.rows[1].kind === "group" && inc.rows[1].verdict).toBe("UNKNOWN");
     expect(exc.type).toBe("exclusion");
     expect(exc.rows).toHaveLength(1);
+    expect(inc.rows.filter((r) => r.kind === "leaf").map((r) => r.key)).toEqual([
+      "0:INC-1",
+      "1.0:INC-2a",
+      "1.1:INC-2b",
+    ]);
+  });
+
+  test("duplicate leaf ids still get distinct row keys", () => {
+    const criteria: CriterionNode[] = [leaf("INC-1"), leaf("INC-1")];
+    const [section] = buildSections(criteria, [cell("INC-1", "PASS")]);
+    const keys = section.rows.map((r) => r.key);
+    expect(new Set(keys).size).toBe(keys.length);
   });
 
   test("a leaf with no cell is surfaced, and its group verdict is withheld", () => {
