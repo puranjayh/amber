@@ -4,6 +4,7 @@ import {
   compileTrial,
   extractEligibilityBlocks,
   MAX_GROUP_DEPTH,
+  normalizeSweepMetadata,
   validateCompiledTree,
 } from "@/src/compiler/compile";
 import type { RawClinicalTrial } from "@/src/compiler/fetch-trials";
@@ -24,7 +25,7 @@ test("splits source eligibility headings without changing their words", () => {
   ]);
 });
 
-test("rejects a numeric tree that omits elasticity metadata", async () => {
+test("keeps a numeric leaf when it is explicitly not sweepable", async () => {
   const result = await compileTrial(raw, async (block) => ({
     kind: "leaf",
     id: block.type === "inclusion" ? "INC-1" : "EXC-1",
@@ -36,9 +37,9 @@ test("rejects a numeric tree that omits elasticity metadata", async () => {
     sweepable: false,
     sourceSpan: block.sourceText,
   }));
-  expect(result.trial.needsHumanReview).toBe(true);
-  expect(result.trial.criteria).toHaveLength(0);
-  expect(result.failure!.issues.join("\n")).toMatch(/numeric leaf is missing sweep metadata/);
+  expect(result.trial.needsHumanReview).toBe(false);
+  expect(result.trial.criteria).toHaveLength(2);
+  expect(result.failure).toBeUndefined();
 });
 
 test("keeps a nested OR as a group node", async () => {
@@ -110,7 +111,56 @@ test("flags a tree that needs more than the bounded nesting depth", () => {
   const block = { type: "inclusion" as const, sourceText: "Biomarker positive." };
   expect(validateCompiledTree(nested(MAX_GROUP_DEPTH), block).success).toBe(true);
   const tooDeep = validateCompiledTree(nested(MAX_GROUP_DEPTH + 1), block);
-  expect(tooDeep.success).toBe(false);
-  if (tooDeep.success) throw new Error("expected nesting validation failure");
-  expect(tooDeep.issues.join("\n")).toMatch(/exceeds the supported nesting depth/);
+  expect(tooDeep.success).toBe(true);
+  if (tooDeep.success) expect(tooDeep.reviewReasons.join("\n")).toMatch(/exceeds the supported nesting depth/);
+});
+
+test("drops invalid sweep metadata without changing the clinical leaf", () => {
+  const normalized = normalizeSweepMetadata({
+    kind: "leaf",
+    id: "INC-1",
+    type: "inclusion",
+    predicate: "performance_status",
+    operator: "<=",
+    value: 1,
+    tier: 1,
+    sweepable: true,
+    sweepRange: [1, 1],
+    sweepStep: 0,
+    sourceSpan: "ECOG 0 or 1.",
+  }) as Record<string, unknown>;
+  expect(normalized).toMatchObject({ sweepable: false, value: 1, sourceSpan: "ECOG 0 or 1." });
+  expect(normalized).not.toHaveProperty("sweepRange");
+  expect(normalized).not.toHaveProperty("sweepStep");
+});
+
+test("only flags explicit structural alternatives and retains their tree", async () => {
+  const leaf = {
+    kind: "leaf" as const,
+    id: "INC-1",
+    type: "inclusion" as const,
+    predicate: "diagnosis" as const,
+    operator: "==" as const,
+    value: "advanced NSCLC",
+    tier: 0 as const,
+    sweepable: false,
+    sourceSpan: "Advanced or metastatic NSCLC.",
+  };
+  const descriptive = validateCompiledTree(leaf, { type: "inclusion", sourceText: "Advanced or metastatic NSCLC." });
+  expect(descriptive.success).toBe(true);
+  if (descriptive.success) expect(descriptive.reviewReasons).toEqual([]);
+
+  const explicitLeaf = { ...leaf, sourceSpan: "Either archival tissue or a new biopsy is required." };
+  const explicit = validateCompiledTree(explicitLeaf, { type: "inclusion", sourceText: explicitLeaf.sourceSpan });
+  expect(explicit.success).toBe(true);
+  if (explicit.success) expect(explicit.reviewReasons).toEqual(["possible structural alternative has no OR group"]);
+
+  const trial: RawClinicalTrial = {
+    ...raw,
+    protocolSection: { ...raw.protocolSection, eligibilityModule: { eligibilityCriteria: `Inclusion Criteria:\n- ${explicitLeaf.sourceSpan}` } },
+  };
+  const result = await compileTrial(trial, async () => explicitLeaf);
+  expect(result.trial.needsHumanReview).toBe(true);
+  expect(result.trial.criteria).toHaveLength(1);
+  expect(result.reviewReasons).toEqual(["possible structural alternative has no OR group"]);
 });

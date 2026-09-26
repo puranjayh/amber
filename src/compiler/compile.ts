@@ -20,6 +20,8 @@ export interface CompileFailure {
 export interface CompiledTrialResult {
   trial: TrialValue;
   failure?: CompileFailure;
+  /** A usable tree with a semantic concern that a human must inspect. */
+  reviewReasons?: string[];
   sourceText: string;
 }
 
@@ -156,6 +158,35 @@ function groupDepth(node: CriterionNodeValue): number {
   return 1 + Math.max(...node.children.map(groupDepth));
 }
 
+function structuralAlternative(text: string): boolean {
+  return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
+}
+
+/**
+ * Sweep metadata controls a UI optimisation, not clinical eligibility. xAI
+ * sometimes emits a zero step to signal that it has no meaningful slider.
+ * Strip only that invalid hint before the clinical tree reaches Zod.
+ */
+export function normalizeSweepMetadata(candidate: unknown): unknown {
+  if (typeof candidate !== "object" || candidate === null || Array.isArray(candidate)) return candidate;
+  const node = candidate as Record<string, unknown>;
+  if (node.kind === "group" && Array.isArray(node.children)) {
+    return { ...node, children: node.children.map(normalizeSweepMetadata) };
+  }
+  if (node.kind !== "leaf") return node;
+
+  const range = node.sweepRange;
+  const step = node.sweepStep;
+  const validRange = Array.isArray(range) && range.length === 2 &&
+    range.every((value) => typeof value === "number" && Number.isFinite(value)) &&
+    (range[0] as number) < (range[1] as number);
+  const validStep = typeof step === "number" && Number.isFinite(step) && step > 0;
+  if (validRange && validStep) return node;
+
+  const { sweepRange: _range, sweepStep: _step, ...withoutSweepMetadata } = node;
+  return { ...withoutSweepMetadata, sweepable: false };
+}
+
 /**
  * Enforces requirements that are intentionally stricter than the shared zod
  * type. It reports defects; it never fills in, changes, or flattens a tree.
@@ -163,11 +194,12 @@ function groupDepth(node: CriterionNodeValue): number {
 export function validateCompiledTree(
   candidate: unknown,
   block: EligibilityBlock,
-): { success: true; data: CriterionNodeValue } | { success: false; issues: string[] } {
+): { success: true; data: CriterionNodeValue; reviewReasons: string[] } | { success: false; issues: string[] } {
   const parsed = CriterionNode.safeParse(candidate);
   if (!parsed.success) return { success: false, issues: parsed.error.issues.map((issue) => issue.message) };
 
   const issues: string[] = [];
+  const reviewReasons: string[] = [];
   const ids = new Set<string>();
   walk(parsed.data, (node) => {
     if (node.kind !== "leaf") return;
@@ -181,15 +213,15 @@ export function validateCompiledTree(
     ids.add(node.id);
 
     if (typeof node.value === "number") {
-      if (!node.sweepable || !node.sweepRange || !node.sweepStep) {
+      if (node.sweepable && (!node.sweepRange || !node.sweepStep)) {
         issues.push(`${node.id}: numeric leaf is missing sweep metadata`);
-      } else if (
+      } else if (node.sweepable && node.sweepRange && node.sweepStep && (
         !Number.isFinite(node.sweepRange[0]) ||
         !Number.isFinite(node.sweepRange[1]) ||
         node.sweepRange[0] >= node.sweepRange[1] ||
         node.value < node.sweepRange[0] ||
         node.value > node.sweepRange[1]
-      ) {
+      )) {
         issues.push(`${node.id}: sweepRange must be an ordered range containing its threshold`);
       }
     } else if (node.sweepable || node.sweepRange || node.sweepStep) {
@@ -209,16 +241,16 @@ export function validateCompiledTree(
     }
   });
 
-  // This conservative sentinel catches the most costly common failure mode:
-  // silently converting protocol alternatives into mandatory requirements.
-  if (/\bor\b/i.test(block.sourceText) && !containsOr(parsed.data)) {
-    issues.push("source text contains an alternative but compiled tree has no OR group");
+  // Ordinary prose uses “or” descriptively (e.g. advanced or metastatic), so
+  // only explicit disjunction markers warrant human review. Keep the usable tree.
+  if (structuralAlternative(block.sourceText) && !containsOr(parsed.data)) {
+    reviewReasons.push("possible structural alternative has no OR group");
   }
   if (groupDepth(parsed.data) > MAX_GROUP_DEPTH) {
-    issues.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups; needs human review`);
+    reviewReasons.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups`);
   }
 
-  return issues.length ? { success: false, issues } : { success: true, data: parsed.data };
+  return issues.length ? { success: false, issues } : { success: true, data: parsed.data, reviewReasons };
 }
 
 export function createGrokBlockCompiler({
@@ -251,7 +283,7 @@ function messagesFor(block: EligibilityBlock, jsonMode = false) {
 }
 
 function parseCompilerResponse(content: string): CriterionNodeValue {
-  return responseSchema.parse(JSON.parse(content)).root;
+  return responseSchema.parse({ root: normalizeSweepMetadata(JSON.parse(content).root) }).root;
 }
 
 async function compileWithBoundedSchema(
@@ -356,12 +388,16 @@ export async function compileTrial(
 
   const criteria: CriterionNodeValue[] = [];
   const issues: string[] = [];
+  const reviewReasons: string[] = [];
   for (const block of extractEligibilityBlocks(sourceText)) {
     try {
       const candidate = await compileBlock(block);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
-      else criteria.push(checked.data);
+      else {
+        criteria.push(checked.data);
+        reviewReasons.push(...checked.reviewReasons);
+      }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
     }
@@ -376,8 +412,9 @@ export async function compileTrial(
   }
   return {
     // This reflects successful schema + provenance validation, not a clinical decision.
-    trial: Trial.parse({ ...base, criteria, compilerConfidence: 1, needsHumanReview: false }),
+    trial: Trial.parse({ ...base, criteria, compilerConfidence: 1, needsHumanReview: reviewReasons.length > 0 }),
     sourceText,
+    ...(reviewReasons.length ? { reviewReasons } : {}),
   };
 }
 
