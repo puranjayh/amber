@@ -2,9 +2,10 @@ import Link from "next/link";
 
 const NAV = [
   { href: "/", key: "patient", label: "Patient" },
-  { href: "/alert", key: "alert", label: "Physician alert" },
+  { href: "/alert", key: "alert", label: "Alert" },
   { href: "/elasticity", key: "elasticity", label: "Elasticity" },
   { href: "/equity", key: "equity", label: "Equity" },
+  { href: "/market", key: "market", label: "Market" },
   { href: "/landscape", key: "landscape", label: "Landscape" },
 ] as const;
 
@@ -34,7 +35,7 @@ export function ConsoleHeader({ asOf, active }: { asOf: string; active: NavKey }
               key={item.key}
               href={item.href}
               aria-current={current ? "page" : undefined}
-              className={`border-b-2 px-2 py-2 text-[12px] ${
+              className={`shrink-0 whitespace-nowrap border-b-2 px-2 py-2 text-[12px] ${
                 current
                   ? "border-ink font-medium text-ink"
                   : "border-transparent text-ink-3 hover:text-ink"

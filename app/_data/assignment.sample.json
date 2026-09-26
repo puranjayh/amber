@@ -1,0 +1,38 @@
+[
+  {
+    "mode": "adhoc",
+    "pairs": [
+      { "patientId": "PT-4401", "nctId": "NCT07001003" },
+      { "patientId": "PT-4402", "nctId": "NCT07001003" },
+      { "patientId": "PT-4408", "nctId": "NCT07001003" }
+    ],
+    "enrolled": 3,
+    "meanTravelMinutes": 90,
+    "unstablePairs": 2,
+    "subgroupShare": { "Asian": 0.33, "Black or African American": 0.33, "White": 0.33 }
+  },
+  {
+    "mode": "stable",
+    "pairs": [
+      { "patientId": "PT-4401", "nctId": "NCT07001001" },
+      { "patientId": "PT-4402", "nctId": "NCT07001003" },
+      { "patientId": "PT-4408", "nctId": "NCT07001001" }
+    ],
+    "enrolled": 3,
+    "meanTravelMinutes": 46.7,
+    "unstablePairs": 0,
+    "subgroupShare": { "Asian": 0.33, "Black or African American": 0.33, "White": 0.33 }
+  },
+  {
+    "mode": "stable_dap",
+    "pairs": [
+      { "patientId": "PT-4401", "nctId": "NCT07001001" },
+      { "patientId": "PT-4402", "nctId": "NCT07001003" },
+      { "patientId": "PT-4408", "nctId": "NCT07001001" }
+    ],
+    "enrolled": 3,
+    "meanTravelMinutes": 46.7,
+    "unstablePairs": 0,
+    "subgroupShare": { "Asian": 0.33, "Black or African American": 0.33, "White": 0.33 }
+  }
+]

@@ -1,4 +1,5 @@
 import {
+  Assignment,
   CubeFixture,
   ElasticityPoint,
   EquityRow,
@@ -12,6 +13,7 @@ import cubeJson from "@/fixtures/cube.sample.json";
 import patientsJson from "@/fixtures/patients.sample.json";
 import trialsJson from "@/fixtures/trials.sample.json";
 import elasticitySample from "./elasticity.sample.json";
+import assignmentSample from "./assignment.sample.json";
 import equitySample from "./equity.sample.json";
 
 // The only place the app reads data. Parsed with the contract schemas so a fixture that
@@ -38,6 +40,13 @@ const equity = { nctId: "NCT07001001", rows: EquityRow.array().parse(equitySampl
 
 export function getEquity() {
   return equity;
+}
+
+// Hand-written placeholder until the engine's match()/matchAdhoc() output ships as a fixture.
+const assignments = Assignment.array().parse(assignmentSample);
+
+export function getAssignments(): Assignment[] {
+  return assignments;
 }
 
 export function getTrials(): Trial[] {
