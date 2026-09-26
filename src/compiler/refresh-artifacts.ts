@@ -45,7 +45,7 @@ export async function refreshArtifacts({
   retryPath = "data/compiled/trials.retry.json",
   mergedOutputPath = "data/compiled/trials.final.json",
   landscapePath = "data/compiled/landscape.json",
-  coveragePath = "data/compiled/coverage.json",
+  coveragePath = "data/compiled/compile-stats.json",
   reviewQueuePath = "data/compiled/review-queue.json",
 }: {
   basePath?: string;
@@ -69,7 +69,7 @@ if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).
     retryPath: option("--retries", "data/compiled/trials.retry.json"),
     mergedOutputPath: option("--out", "data/compiled/trials.final.json"),
     landscapePath: option("--landscape", "data/compiled/landscape.json"),
-    coveragePath: option("--coverage", "data/compiled/coverage.json"),
+    coveragePath: option("--coverage", "data/compiled/compile-stats.json"),
     reviewQueuePath: option("--review-queue", "data/compiled/review-queue.json"),
   }).then((results) => console.log(`Refreshed artifacts from ${results.length} trials.`));
 }

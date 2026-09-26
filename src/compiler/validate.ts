@@ -242,7 +242,7 @@ export function buildCompilationCoverage(results: CompiledTrialResult[]): Compil
   };
 }
 
-export async function writeCompilationCoverage(coverage: CompilationCoverage, outputPath = "data/compiled/coverage.json"): Promise<void> {
+export async function writeCompilationCoverage(coverage: CompilationCoverage, outputPath = "data/compiled/compile-stats.json"): Promise<void> {
   const path = resolve(outputPath);
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, `${JSON.stringify(coverage, null, 2)}\n`, "utf8");
@@ -294,7 +294,7 @@ async function main(): Promise<void> {
   const inputPath = resolve(process.argv[2] || "data/compiled/trials.backtranslated.json");
   const landscapePath = process.argv[3] || "data/compiled/landscape.json";
   const reviewQueuePath = process.argv[4] || "data/compiled/review-queue.json";
-  const coveragePath = process.argv[5] || "data/compiled/coverage.json";
+  const coveragePath = process.argv[5] || "data/compiled/compile-stats.json";
   const results = JSON.parse(await readFile(inputPath, "utf8")) as CompiledTrialResult[];
   const report = validateCompilationResults(results);
   await writeCriteriaLandscape(buildCriteriaLandscape(results), landscapePath);
