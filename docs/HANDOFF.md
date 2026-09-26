@@ -228,3 +228,102 @@ roughly 40+ per site before interesting cells clear the threshold. Uneven sites
 are worth doing deliberately (say 60 / 45 / 12): the small site being suppressed
 while the others publish is exactly what the complementary-suppression rules are
 for, and it demonstrates the layer working rather than just running.
+
+## From P2 (engine) — provenance, the benchmark, and the priors
+
+### Provenance is now enforced (P3, P1, P4)
+
+`Fact.provenance` finally does something. The rules, and the sentence behind each:
+
+| source | may confirm | may rule out |
+|---|---|---|
+| `chart` | everything | everything |
+| `claims` | age, prior_therapy, diagnosis, comorbidity, contraindication, washout | everything |
+| `patient_reported` | nothing | nothing |
+
+Claims cannot confirm `lab_value`, `biomarker`, `performance_status` or
+`staging`, because there the claim is a proxy for a result it does not contain —
+a claim shows the CBC was billed, not the neutrophil count. A capped verdict is
+**UNKNOWN with reason `unsupported`**, never FAIL.
+
+**P3:** `unsupported` and `absent` are different jobs and should not render the
+same. `absent` means order the test. `unsupported` means request the records. Call
+`evaluateWithNotes()` instead of `evaluate()` and you get `provenanceNotes` keyed
+by criterion id, each with a ready sentence — *"Claims can rule this out but not
+confirm it — needs the chart."* — plus a predicate-specific reason and the
+resolution. `CubeCell` is frozen so the notes travel beside the result.
+
+**P4:** two things would exercise this properly in the demo. A patient with a
+claims-provenance lab that *would* have passed, so the table shows amber where a
+naive engine shows green. And one with claims-provenance prior therapy, which
+*does* fire the exclusion — that pairing is the whole argument, and it reads
+badly if every claims fact is capped.
+
+**P1, worth knowing:** a claims-only record of prior osimertinib eliminates the
+patient. That is deliberate. Nobody gets enrolled on a drug the local chart
+missed but the pharmacy feed saw.
+
+### Scale benchmark (P1, for the slide)
+
+**21,001,800 criterion evaluations in 3.08 s** — 4,118 synthetic patients × 300
+trials × 17 leaves, full cube, every cell emitted, on this laptop. Short-circuit
+mode reaches the same eliminated set in 1.89 s. Reproduce it:
+
+```bash
+AMBER_BENCH=1 AMBER_BENCH_PATIENTS=4118 npm test -- src/engine/bench.test.ts
+```
+
+Seeded with mulberry32, so the number is the same on any machine rather than an
+anecdote. **The benchmark patients are throughput fodder and must never appear as
+demo data** (contract §9) — `bench.ts` is deliberately not re-exported from
+`src/engine/index.ts`.
+
+Getting there needed a 2.4× speedup and my first guess was wrong: indexing facts
+by predicate barely moved it, because a record is only ~13 facts. The cost was
+date parsing — `ageInDays` ran a regex and a `Date` round-trip for every fact on
+every leaf. Observations are now parsed once per patient and ages are subtraction.
+
+One constraint this introduces, and it is the only one: **do not mutate
+`patient.facts` in place after evaluating.** The per-patient fact index is
+memoised on the patient object. Nothing in the engine mutates, and the contract
+treats facts as extracted evidence, but a lane that rewrote a fact array
+in-place between calls would see a stale index.
+
+### The prevalence file (P4) — two asks
+
+Against the merged file: 18 usable keys, 0 rejected rows, 1 refused entry. It is
+good data and the citations are all there.
+
+**1. `egfr-t790m-resistance` is refused.** Its population is "Acquired resistance
+after a first-generation EGFR TKI", which is not a cohort the engine can size, so
+it is recorded in `unusable` rather than being misused. Adding one field fixes it:
+
+```json
+"conditionalOn": "egfr-mutation"
+```
+
+…on any row that is a share rather than a prevalence. That also retires the prose
+heuristic currently used to detect the `ex19del` and `L858R` shares (it looks for
+"share of" in `population`), which works but is exactly the kind of thing that
+breaks when wording changes.
+
+**2. Resistance mutations fall back to the gene-level prior and overstate.**
+`NCT07001002 INC-4` asks for `EGFR in [T790M, C797S]`. Neither resolves, so it
+falls through to "any EGFR mutation" = 0.1399 — far too high for resistance
+mutations in an unselected cohort. The engine says so in `basis` rather than
+hiding it, but a cited absolute figure for T790M and C797S would be better.
+
+**On the 0.5 default:** a leaf with no entry gets 0.5, which is the least
+informative honest choice and also a hazard — it outranks a cited 0.024, so an
+unpriored criterion beats a well-sourced rare one. `fallbackCount()` reports how
+many criteria fell back. The more you can prior, the less of the VOI ranking is
+invented.
+
+### A note for the eval lane (Codex)
+
+`evaluate()` now takes `priors` and there is `evaluateWithNotes()`. If the eval
+harness compares engine output to human labels, run it **without** `priors` unless
+the labellers were looking at the same prevalence figures — otherwise the
+`pFavorable` column is comparing against numbers the human never saw. Verdicts and
+reasons are unaffected either way; priors only touch `pFavorable` and
+`expectedValue`.
