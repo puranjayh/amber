@@ -543,7 +543,7 @@ export function createGrokBlockCompiler({
 function messagesFor(block: EligibilityBlock, jsonMode = false) {
   const enumerated = enumeratedThresholdCount(block.sourceText);
   const enumerationInstruction = enumerated > 1
-    ? `\nThis source contains ${enumerated} explicit thresholds. Its root MUST be an AND group; split every threshold into its own typed leaf. Keep an OR group only inside an alternative such as AST OR ALT or eGFR OR creatinine clearance.`
+    ? `\nThis source contains ${enumerated} explicit thresholds. Its root MUST be an AND group; split every threshold into its own typed leaf. Every leaf sourceSpan must contain exactly one numeric comparison. “AST and ALT <= 2.5 ULN” is an AND of separate AST and ALT leaves. “eGFR >= 30 OR creatinine clearance >= 30” is an OR group of separate leaves. Never cite either pair in one leaf.`
     : "";
   return [
     {
