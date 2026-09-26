@@ -193,9 +193,21 @@ const SOMETIMES_FROM_CLAIMS: ReadonlyMap<Predicate, string> = new Map([
  * claim never carries a measurement.
  */
 function looksLikeMeasurement(leaf: CriterionLeaf): boolean {
-  return (
-    leaf.analyte !== undefined && leaf.unit !== undefined && typeof leaf.value === "number"
-  );
+  if (leaf.analyte === undefined || leaf.unit === undefined) return false;
+  if (typeof leaf.value !== "number") return false;
+
+  // Demographics are never a billed test. An enrolment file carries date of
+  // birth, so an age threshold is answerable however the compiler filed it.
+  if (leaf.predicate === "age") return false;
+
+  // The compiler sometimes restates the predicate as the analyte — an `age` leaf
+  // with `analyte: "age"`, a `staging` leaf with `analyte: "stage"`. That is not a
+  // named measurement, it is the same field twice, so it must not trip this.
+  const analyte = leaf.analyte.trim().toLowerCase().replace(/[\s_-]+/g, "");
+  const predicate = leaf.predicate.replace(/[_-]+/g, "");
+  if (analyte === predicate) return false;
+
+  return true;
 }
 
 /** Could this source settle this criterion, and if not, why not. */

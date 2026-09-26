@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Predicate } from "@/src/contracts";
 import { claimsCoverage } from "./coverage";
+import { allLeaves, duplicateLeafIds } from "./evaluate";
 import {
   answerableBy,
   ceilingFor,
@@ -295,5 +296,116 @@ describe("claimsCoverage", () => {
         expect(share).toBeLessThanOrEqual(1);
       }
     }
+  });
+});
+
+describe("counting leaves, not ids", () => {
+  /**
+   * NCT07631624 in the real corpus is a two-cohort protocol whose arms were
+   * numbered independently, so it has two INC-1 and two INC-2. Counting by id
+   * loses two criteria and the app's leaf-count assertion fails.
+   */
+  const colliding = trial({
+    nctId: "NCT07631624",
+    criteria: [
+      leaf({ id: "INC-1", predicate: "age", operator: ">", value: 50, tier: 0 }),
+      leaf({ id: "INC-2", predicate: "diagnosis", operator: "==", value: "cohort 2", tier: 0 }),
+      leaf({ id: "INC-1", predicate: "age", operator: ">=", value: 55, tier: 0 }),
+      leaf({ id: "INC-2", predicate: "age", operator: "<=", value: 74, tier: 0 }),
+    ],
+  });
+
+  it("counts every occurrence, so colliding ids do not vanish", () => {
+    expect(allLeaves(colliding)).toHaveLength(4);
+    expect(claimsCoverage([colliding]).overall.criteria).toBe(4);
+  });
+
+  it("reports which trials have colliding ids, and how many times", () => {
+    expect(duplicateLeafIds(colliding)).toEqual({ "INC-1": 2, "INC-2": 2 });
+    expect(claimsCoverage([colliding]).trialsWithDuplicateCriterionIds).toEqual([
+      { nctId: "NCT07631624", ids: { "INC-1": 2, "INC-2": 2 } },
+    ]);
+  });
+
+  it("reports nothing for a well-formed trial", () => {
+    const clean = trial({ nctId: "NCT00000001", criteria: [leaf({ id: "A" }), leaf({ id: "B" })] });
+    expect(duplicateLeafIds(clean)).toEqual({});
+    expect(claimsCoverage([clean]).trialsWithDuplicateCriterionIds).toEqual([]);
+  });
+
+  it("finds occurrences at every depth", () => {
+    const nested = trial({
+      nctId: "NCT00000001",
+      criteria: [group("OR", [leaf({ id: "A" }), group("AND", [leaf({ id: "A" })])])],
+    });
+    expect(allLeaves(nested)).toHaveLength(2);
+    expect(duplicateLeafIds(nested)).toEqual({ A: 2 });
+  });
+});
+
+describe("the measurement override does not misfire on demographics", () => {
+  it("keeps an age threshold answerable even when the compiler names an analyte", () => {
+    // NCT05334329 INC-3 in the real corpus: age, analyte "age", unit years.
+    // An enrolment file carries date of birth; this is not a billed test.
+    const l = leaf({
+      id: "INC-3",
+      predicate: "age",
+      analyte: "age",
+      unit: "years",
+      operator: ">=",
+      value: 18,
+      tier: 0,
+    });
+    expect(answerableBy(l, "claims")).toBe("yes");
+  });
+
+  it("ignores an analyte that merely restates the predicate", () => {
+    const staging = leaf({
+      id: "L",
+      predicate: "staging",
+      analyte: "Staging",
+      unit: "stage",
+      operator: ">=",
+      value: 3,
+      tier: 0,
+    });
+    // Still never — staging is never claims-confirmable — but for the predicate
+    // reason, not because the override fired.
+    expect(answerableBy(staging, "claims")).toBe("never");
+    const dx = leaf({
+      id: "L",
+      predicate: "diagnosis",
+      analyte: "diagnosis",
+      unit: "n",
+      operator: ">=",
+      value: 1,
+      tier: 0,
+    });
+    expect(answerableBy(dx, "claims")).toBe("yes");
+  });
+
+  it("still catches a real measurement filed as a diagnosis", () => {
+    // The two leaves the engine and the app genuinely disagree about, and the
+    // engine is right about both: a lesion size and a life expectancy.
+    const lesion = leaf({
+      id: "INC-5",
+      predicate: "diagnosis",
+      analyte: "Extracranial lesion",
+      unit: "cm",
+      operator: ">=",
+      value: 3,
+      tier: 2,
+    });
+    const survival = leaf({
+      id: "INC-9",
+      predicate: "diagnosis",
+      analyte: "survival",
+      unit: "months",
+      operator: ">=",
+      value: 6,
+      tier: 0,
+    });
+    expect(answerableBy(lesion, "claims")).toBe("never");
+    expect(answerableBy(survival, "claims")).toBe("never");
   });
 });

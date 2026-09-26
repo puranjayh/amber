@@ -698,7 +698,49 @@ export function eligibilityVerdict(verdict: Verdict, type: LeafType): Verdict {
   return type === "exclusion" ? not(verdict) : verdict;
 }
 
-/** Every leaf in a trial, by criterion id. Used by elasticity and the audit. */
+/**
+ * Every leaf in a trial, in document order, one entry per occurrence.
+ *
+ * Use this and not `indexLeaves` for counting. `indexLeaves` keys by criterion
+ * id, so a trial whose compiler emitted the same id twice — NCT07631624 in the
+ * current corpus has two `INC-1` and two `INC-2`, a two-cohort protocol whose
+ * arms were numbered independently — silently loses a leaf from the map.
+ */
+export function allLeaves(trial: Trial): CriterionLeaf[] {
+  const out: CriterionLeaf[] = [];
+  const visit = (node: CriterionNode): void => {
+    if (node.kind === "leaf") out.push(node);
+    else node.children.forEach(visit);
+  };
+  trial.criteria.forEach(visit);
+  return out;
+}
+
+/**
+ * Criterion ids that appear more than once in one trial, with their counts.
+ *
+ * A collision is a data defect with teeth, not a cosmetic one. `evaluate` emits a
+ * cell per leaf occurrence, but the roll-up looks cells up by id, so both tree
+ * positions read whichever cell was written last and the trial verdict can come
+ * out wrong. The pipeline check asserts this is empty across the corpus so the
+ * failure is named rather than silent.
+ */
+export function duplicateLeafIds(trial: Trial): Record<string, number> {
+  const seen = new Map<string, number>();
+  for (const leaf of allLeaves(trial)) {
+    seen.set(leaf.id, (seen.get(leaf.id) ?? 0) + 1);
+  }
+  const dupes: Record<string, number> = {};
+  for (const [id, n] of seen) if (n > 1) dupes[id] = n;
+  return dupes;
+}
+
+/**
+ * Every leaf in a trial, by criterion id.
+ *
+ * Deduplicates by id, which is what lookup callers want and what counting callers
+ * must not use — see `allLeaves` and `duplicateLeafIds`.
+ */
 export function indexLeaves(trial: Trial): Map<string, CriterionLeaf> {
   const out = new Map<string, CriterionLeaf>();
   const visit = (node: CriterionNode): void => {

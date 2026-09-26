@@ -22,7 +22,7 @@
  * Pure: takes trials, returns a report. The caller does the file I/O.
  */
 import type { CriterionLeaf, Predicate, Trial } from "@/src/contracts";
-import { indexLeaves } from "./evaluate";
+import { allLeaves, duplicateLeafIds } from "./evaluate";
 import { answerableBy, type Answerability, type Provenance } from "./provenance";
 
 export interface CoverageTally {
@@ -70,6 +70,13 @@ export interface CoverageReport {
 
   /** Trials with no compiled criteria at all, excluded from every share above. */
   trialsWithoutCriteria: string[];
+
+  /**
+   * Trials whose compiler emitted the same criterion id twice. Counted here in
+   * full, but the engine's roll-up looks cells up by id, so these need fixing
+   * upstream — see `duplicateLeafIds`.
+   */
+  trialsWithDuplicateCriterionIds: { nctId: string; ids: Record<string, number> }[];
 }
 
 const PREDICATE_ORDER: Predicate[] = [
@@ -152,12 +159,20 @@ export function claimsCoverage(
   };
   const perTrial: TrialCoverage[] = [];
   const trialsWithoutCriteria: string[] = [];
+  const trialsWithDuplicateCriterionIds: CoverageReport["trialsWithDuplicateCriterionIds"] = [];
 
   for (const trial of pool) {
-    const leaves: CriterionLeaf[] = [...indexLeaves(trial).values()];
+    // Occurrences, not unique ids: a trial with colliding criterion ids would
+    // otherwise be undercounted and the app's leaf-count assertion would fail.
+    const leaves: CriterionLeaf[] = allLeaves(trial);
     if (leaves.length === 0) {
       trialsWithoutCriteria.push(trial.nctId);
       continue;
+    }
+
+    const dupes = duplicateLeafIds(trial);
+    if (Object.keys(dupes).length > 0) {
+      trialsWithDuplicateCriterionIds.push({ nctId: trial.nctId, ids: dupes });
     }
 
     const here = emptyCounts();
@@ -220,5 +235,6 @@ export function claimsCoverage(
     ),
     distribution: bands.map((band) => ({ band, trials: counted.get(band) ?? 0 })),
     trialsWithoutCriteria,
+    trialsWithDuplicateCriterionIds,
   };
 }

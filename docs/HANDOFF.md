@@ -473,3 +473,91 @@ that distribution is dominated by one class, exactly as §13 says. `cellsByReaso
 in the claims report breaks UNKNOWN into `absent`, `stale` and `unsupported`,
 which are three different actions and worth reporting separately rather than as
 one bar.
+
+## From P2 (engine) — coverage.json is now the single source of truth for answerability
+
+### The published numbers (regenerate, do not recompute)
+
+`data/compiled/coverage.json`, built from the committed corpus at sha256
+`2539c315…` (300 records, 233 with criteria, **5,105 criteria**):
+
+| figure | value |
+|---|---|
+| answerable from claims (lower bound) | **54.4%** |
+| upper bound, counting the ambiguous middle | 71.6% |
+| inclusions | 45.3% |
+| exclusions | 62.4% |
+| diagnosis | 99.7% (582 of 584) |
+| age · prior_therapy · comorbidity | 100% |
+| staging · contraindication · washout · performance_status · lab_value · biomarker | 0% |
+
+### P3: why yours differed, and what to change
+
+Your `components/payer/coverage.ts` reported 54.5% / diagnosis 100% / inclusions
+45.4%. After fixing two bugs on my side the gap is down to **exactly two leaves**,
+and on those two the engine is right:
+
+- `NCT06660407 INC-5` — "Extracranial lesion ≥ 3 cm", filed under `diagnosis`.
+- `NCT06371482 INC-9` — "survival ≥ 6 months", filed under `diagnosis`.
+
+Both are measurements wearing a coded predicate. A claim shows the scan was
+billed, not the lesion size, and nobody bills a life expectancy. Classifying by
+predicate alone counts them as claims-answerable and overstates coverage.
+
+**The fix:** read `coverage.json` instead of calling `buildClaimsCoverage`. It
+carries an `assertions` block for exactly this:
+
+```ts
+// fail the build, not the demo, if the app and the report disagree
+assert(report.assertions.criteria === 5105);
+assert(report.assertions.corpusSha256 === expectedCorpusSha);
+```
+
+If you would rather keep computing in the app, import `answerableBy` from
+`@/src/engine` rather than reimplementing the predicate sets — it has the
+measurement override and a test that it and the evaluation-time ceiling never
+diverge. Please do not keep a second copy of the rules either way.
+
+`upperRate` is unchanged at 71.6%, so the two-bound framing on the payer slide
+still holds.
+
+### Two bugs this reconciliation found, both now fixed
+
+1. **`indexLeaves` deduplicates by criterion id, and I was counting with it.**
+   `NCT07631624` is a two-cohort protocol whose arms were numbered independently,
+   so it has two `INC-1` and two `INC-2`. Coverage was reporting 5,103 criteria
+   against the true 5,105 — which would have failed the very leaf-count assertion
+   this file now asks you to make. Counting now uses `allLeaves`.
+
+2. **The measurement override misfired on demographics.** `NCT05334329 INC-3` is
+   `age` with `analyte: "age"`, `unit: "years"`, and was being called
+   claims-unanswerable. An enrolment file carries date of birth. The override now
+   skips `age`, and skips any analyte that merely restates its predicate.
+
+### P1: duplicate criterion ids are a correctness bug, not a cosmetic one
+
+`duplicateLeafIds()` is exported and `coverage.json` lists the offenders — one
+trial today, `NCT07631624`.
+
+This needs fixing upstream because **the engine's roll-up looks cells up by id**.
+`evaluate` emits a cell per leaf occurrence, but `eliminatedFromCells` and
+`rollUp` read `byId.get(node.id)`, so with a collision both tree positions see
+whichever cell was written last and the trial verdict can come out wrong. It is
+not wrong for `NCT07631624` as it happens — all four leaves are inclusions that
+the hero patient satisfies — but it is luck, not design.
+
+Cheapest correct fix is at compile time: make criterion ids unique within a
+trial, e.g. suffix the cohort (`INC-1`, `INC-1b`) or prefix the arm. Until then
+the pipeline check I am adding asserts the set is empty and names the trial, so
+this fails loudly rather than silently.
+
+### The corpus is committed on `eng/compiler` but not on `main`
+
+`data/compiled/trials.json` exists on `origin/eng/compiler` (blob `b48833c3`,
+content sha256 `2539c315`) and on no other branch. Every engine report references
+that sha, so until it reaches `main` the numbers are traceable but not
+independently reproducible from a clean checkout. Please merge it.
+
+Note also: the sha `189c8b35` I was given does not match anything in the repo or
+either worktree. The corpus I used is `2539c315`; if `189c8b35` is a different
+run, say so and I will regenerate.

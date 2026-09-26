@@ -96,6 +96,7 @@ if (!EMIT) {
       };
 
       const all = claimsCoverage(records, { condition: "lung cancer" });
+      const chart = claimsCoverage(records, { condition: "lung cancer", provenance: "chart" });
       const demoPool = claimsCoverage(records, {
         condition: "lung cancer",
         demoPoolOnly: true,
@@ -118,12 +119,56 @@ if (!EMIT) {
           "This report is derived from protocol text only. No patient record of " +
             "any kind is read, so it carries no privacy burden.",
         ],
+        /**
+         * The number the app must assert against rather than recompute. A
+         * mismatch means the app is reading a different corpus than this report
+         * was built from, which is exactly the inconsistency a judge notices.
+         */
+        assertions: {
+          trialsWithCriteria: all.trials,
+          criteria: all.overall.criteria,
+          corpusSha256: sha256,
+          corpusRecords: records.length,
+        },
+        /**
+         * Why this file and a predicate-only computation differ. Kept in the
+         * artifact so nobody has to rediscover it from two slides.
+         */
+        reconciliation: {
+          note:
+            "A predicate-only classification reports 54.5% / diagnosis 100% / " +
+            "inclusions 45.4%. It differs on exactly two leaves, and both are " +
+            "measurements the compiler filed under `diagnosis`: NCT06660407 " +
+            "INC-5 (extracranial lesion >= 3 cm) and NCT06371482 INC-9 " +
+            "(survival >= 6 months). A claim shows the scan was billed, not the " +
+            "lesion size, and nobody bills a life expectancy. Counting them as " +
+            "claims-answerable overstates the coverage, so this file is the one " +
+            "to quote.",
+          predicateOnlyWouldReport: {
+            shareAnswerable: 0.545,
+            diagnosisShareAnswerable: 1,
+            inclusionShareAnswerable: 0.454,
+          },
+          divergingLeaves: [
+            { nctId: "NCT06660407", criterionId: "INC-5", reason: "lesion size in cm" },
+            { nctId: "NCT06371482", criterionId: "INC-9", reason: "life expectancy in months" },
+          ],
+        },
         allCompiledTrials: all,
         demoPool,
+        /** The same question asked of the chart, which answers everything. */
+        chartBaseline: {
+          shareAnswerable: chart.overall.shareAnswerable,
+          criteria: chart.overall.criteria,
+        },
       });
 
       // The numbers a slide would quote, echoed so a failed run is loud.
       console.log(`\n${all.headline}\n${all.headlineBasis}`);
+      console.log(
+        `criteria=${all.overall.criteria} trials=${all.trials} ` +
+          `duplicateIdTrials=${all.trialsWithDuplicateCriterionIds.length}`,
+      );
       console.log(`demo pool only: ${demoPool.headline}`);
       console.log(
         `\nby predicate:\n${all.byPredicate
