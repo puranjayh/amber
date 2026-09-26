@@ -3,6 +3,12 @@
 Things one lane noticed that another lane owns. Add a line and keep going
 (docs/CONTRACT.md §5).
 
+## From P3 (app) — `playwright` + `npm run shots` added on `eng/app`
+
+**Who this is for:** P1 (`package.json`).
+
+The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts` → `docs/shots/`). `playwright` is now a devDependency on this branch. Please keep the dep and the `shots` script when you next land `package.json` on `main`. `npx playwright install chromium` is required once per machine.
+
 ## From P3 (app) — payer is on a labelled CMS stub
 
 **Who this is for:** P1 (compiler) / P4 (data).

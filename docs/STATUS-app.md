@@ -1,6 +1,6 @@
 # STATUS — app lane (`eng/app`)
 
-Last updated: 2026-09-26 03:45 ET
+Last updated: 2026-09-26 04:00 ET
 
 ## Done
 
@@ -9,8 +9,9 @@ Last updated: 2026-09-26 03:45 ET
 3. **`?demo=1`** — Start demo / `/?demo=1` → PT-4401 × NCT07001001. Path through Eval.
 4. **Screen-failures-avoided** — 203 screened · 126 expected at 62% · 122 avoided · $244,000.
 5. **Eval** — `/eval` matrix + disagreements. `labelSource: model-draft` is the first thing on the page. Perfect agreement here is expected (labels are model-draft) and is not shown as a human grade.
-
 6. **Polish** — nine screens at 400px, light and dark. No page-level horizontal overflow. Dark tokens via `prefers-color-scheme`. Nav scrolls. Landscape bars capped so the no-consensus callout stays the slide.
+7. **Shots** — `npm run shots` (`scripts/shots.ts`, Playwright) writes 36 PNGs to `docs/shots/` (9 routes × 1440/390 × light/dark). Reuses a running `next dev`. Worklist is captured without `?demo=1` (that flag redirects to /patient).
+8. **README** — replaced the create-next-app stub. Thesis, mermaid (compiler → engine → cube → read models), run, synthetic disclosure, prior art, gallery.
 
 ## Queue
 
