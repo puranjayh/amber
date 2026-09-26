@@ -119,8 +119,19 @@ test("rejects an enumerated organ-function clause collapsed into a boolean leaf"
   expect(checked.success).toBe(false);
   if (!checked.success) {
     expect(checked.issues.join("\n")).toMatch(/lab_value requires a numeric value and a named analyte/);
+    expect(checked.issues.join("\n")).toMatch(/boolean leaf has no named subject/);
     expect(checked.issues.join("\n")).toMatch(/multiple threshold requirements/);
   }
+});
+
+test("rejects an unnamed boolean clause instead of emitting a catch-all fact", () => {
+  const source = "Women who are pregnant or lactating.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-2", type: "exclusion", predicate: "comorbidity", operator: "==", value: true,
+    tier: 1, sweepable: false, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/boolean leaf has no named subject/);
 });
 
 test("accepts an AND group of typed leaves for an enumerated organ-function clause", () => {

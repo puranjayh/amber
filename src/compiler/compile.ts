@@ -318,6 +318,9 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
   if (!membershipOperator && Array.isArray(node.value)) {
     issues.push(`${node.id}: ${node.operator} cannot compare an array value to a single fact`);
   }
+  if (typeof node.value === "boolean" && !nonEmptyText(node.analyte) && !nonEmptyText(node.drugClass)) {
+    issues.push(`${node.id}: boolean leaf has no named subject (analyte or drugClass required)`);
+  }
 
   if (node.predicate === "lab_value" && (typeof node.value !== "number" || !nonEmptyText(node.analyte))) {
     issues.push(`${node.id}: lab_value requires a numeric value and a named analyte`);
