@@ -76,17 +76,16 @@ export async function runFidelityPilot({
 }: { sheetPath?: string; outputPath?: string } = {}): Promise<ProbeResult[]> {
   const sheet = JSON.parse(await readFile(resolve(sheetPath), "utf8")) as { rows: FidelitySheetRow[] };
   const compiler = createGrokBlockCompiler();
-  const results: ProbeResult[] = [];
-  for (const nctId of PROBES) {
+  const results = await Promise.all(PROBES.map(async (nctId): Promise<ProbeResult> => {
     const row = sheet.rows.find((candidate) => candidate.nctId === nctId);
     if (!row?.sourceSpans[0]) throw new Error(`Fidelity pilot source is missing for ${nctId}`);
     const block: EligibilityBlock = { type: row.side, sourceText: row.sourceSpans[0] };
     const candidate = await compiler(block);
     const checked = validateCompiledTree(candidate, block);
-    results.push(checked.success
+    return checked.success
       ? { nctId, sourceText: block.sourceText, expectedRejection: EXPECTED_REJECTION.has(nctId), tree: checked.data }
-      : { nctId, sourceText: block.sourceText, expectedRejection: EXPECTED_REJECTION.has(nctId), rejection: checked.issues });
-  }
+      : { nctId, sourceText: block.sourceText, expectedRejection: EXPECTED_REJECTION.has(nctId), rejection: checked.issues };
+  }));
   assertPilot(results);
   await atomicWrite(outputPath, results);
   for (const result of results) {
