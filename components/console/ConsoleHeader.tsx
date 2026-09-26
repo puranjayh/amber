@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 const NAV = [
-  { href: "/", key: "worklist", label: "Worklist" },
+  { href: "/", key: "today", label: "Today" },
+  { href: "/worklist", key: "worklist", label: "Worklist" },
   { href: "/patient", key: "patient", label: "Patient" },
   { href: "/alert", key: "alert", label: "Alert" },
   { href: "/elasticity", key: "elasticity", label: "Elasticity" },
@@ -46,7 +47,7 @@ export function ConsoleHeader({
       <nav className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-2 sm:px-5" aria-label="Views">
         {NAV.map((item) => {
           const current = item.key === active;
-          const keepDemo = demo && item.key !== "worklist" && item.key !== "landscape";
+          const keepDemo = demo && item.key !== "worklist" && item.key !== "landscape" && item.key !== "today";
           return (
             <Link
               key={item.key}

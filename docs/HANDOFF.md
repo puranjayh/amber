@@ -378,6 +378,10 @@ Please:
 
 The tier-4 washout leaf is `NCT07001003` `EXC-2`, not `NCT07001001`. PT-4402's last dose is 2026-09-14, which is 11 days before asOf 2026-09-25 (the handoff's "5 days" does not match the dates). The exclusion fires, and `calendar()` emits one row: PT-4402 × NCT07001003 becomes eligible 2026-10-05. PT-4401's last dose is 2026-06-01, so that cell is FAIL and the hero pair is unchanged. PT-4408 has no last-dose fact: UNKNOWN / absent, resolution cost +30.
 
+## From P4 — physician day on `eng/doctor`
+
+The screening console stays on `/worklist`. `/` on branch `eng/doctor` is a physician's day built from CMS DE-SynPUF sample 1 (synthetic Medicare claims). `data/claims/build_panel.py` writes the 20-patient extract; `data/claims/score.ts` is a read-only engine import, same terms as `app/_data/generate.ts`, and writes `app/_data/clinic.json`. The page does not import the engine. Claims do not confirm labs, biomarkers, stage, or performance status. That is why the day shows tests still open instead of a referral.
+
 Two tests outside this lane now fail on purpose:
 
 - `src/eval/make-sheet.test.ts` expects 60 leaf rows; the new leaf makes 63.

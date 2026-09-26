@@ -42,3 +42,6 @@ next-env.d.ts
 
 # compiler output
 data/raw/
+
+# CMS DE-SynPUF downloads. The 20-patient panel committed under data/claims/ is the extract.
+data/claims/source/
