@@ -44,6 +44,7 @@ import {
   type Verdict,
 } from "@/src/contracts";
 import { combine, not } from "./kleene";
+import { ceilingFor, explainCeiling, type ProvenanceNote } from "./provenance";
 import { ageInDays, daysBetween } from "./time";
 
 /* ------------------------------------------------------------------ options */
@@ -69,6 +70,12 @@ interface LeafOutcome {
   /** The fact the verdict rests on. Absent only when nothing matched at all. */
   fact?: Fact;
   ageDays?: number;
+  /**
+   * Set when a provenance ceiling capped the verdict. `CubeCell` is frozen and
+   * cannot carry it, so `evaluate()` exposes the same notes on the side — see
+   * `PairResultNotes`.
+   */
+  provenanceNote?: ProvenanceNote;
 }
 
 /**
@@ -334,37 +341,74 @@ export function evaluateLeaf(
     };
   }
 
-  const quantified = UNIVERSAL_OPERATORS.has(leaf.operator) || SET_VALUED.has(leaf.predicate)
-    ? fresh
-    : [fresh[0]]; // a measurement is superseded by the newer measurement
+  /**
+   * Run the comparison, then apply the provenance ceiling. `capped` means the
+   * source is not entitled to the verdict it would otherwise have produced, so
+   * the outcome becomes UNKNOWN with a note rather than a decision.
+   */
+  const judge = (d: DatedFact) => {
+    const raw = satisfies(leaf, d.fact, asOf);
+    const ceiling = ceilingFor(d.fact.provenance, leaf.predicate);
+    const capped = ceiling === "no_verdict" || (ceiling === "no_confirm" && raw === true);
+    return { ...d, ok: capped ? null : raw, capped };
+  };
 
-  const results = quantified.map((d) => ({ ...d, ok: satisfies(leaf, d.fact, asOf) }));
+  const scored = fresh.map(judge);
+
+  // For a scalar measurement the newest reading supersedes the older ones — but
+  // a newest reading from a source that cannot answer is no reading at all, so
+  // fall through to the newest that can. A claims record of "CBC billed today"
+  // must not hide last week's actual chart result.
+  const considered =
+    UNIVERSAL_OPERATORS.has(leaf.operator) || SET_VALUED.has(leaf.predicate)
+      ? scored
+      : [scored.find((r) => !r.capped) ?? scored[0]];
+
   const cite = (d: DatedFact): Pick<LeafOutcome, "fact" | "ageDays"> => ({
     fact: d.fact,
     ageDays: d.ageDays ?? undefined,
   });
 
+  /** A capped source is the most informative thing we have; cite it and say why. */
+  const cappedOutcome = (): LeafOutcome | undefined => {
+    const blocked = considered.find((r) => r.capped);
+    if (blocked === undefined) return undefined;
+    return {
+      verdict: "UNKNOWN",
+      reason: "unsupported",
+      ...cite(blocked),
+      provenanceNote: explainCeiling(blocked.fact.provenance, leaf.predicate),
+    };
+  };
+
   if (UNIVERSAL_OPERATORS.has(leaf.operator)) {
-    // "no prior EGFR TKI" — one violating fact settles it.
-    const violation = results.find((r) => r.ok === false);
+    // "no prior EGFR TKI" — one violating fact settles it. Ruling out is exactly
+    // what a claim is allowed to do, so a violation stands whatever its source.
+    const violation = considered.find((r) => r.ok === false);
     if (violation) {
       return { verdict: "FAIL", reason: "contradicted", ...cite(violation) };
     }
-    if (results.some((r) => r.ok === null)) {
-      return { verdict: "UNKNOWN", reason: "unsupported", ...cite(results[0]) };
-    }
-    return { verdict: "PASS", reason: "satisfied", ...cite(results[0]) };
+    // Reaching PASS here means asserting that EVERY fact clears the list, so one
+    // source that cannot testify is enough to make the whole claim unprovable.
+    return (
+      cappedOutcome() ??
+      (considered.some((r) => r.ok === null)
+        ? { verdict: "UNKNOWN", reason: "unsupported", ...cite(considered[0]) }
+        : { verdict: "PASS", reason: "satisfied", ...cite(considered[0]) })
+    );
   }
 
-  // "prior osimertinib" — one matching fact settles it.
-  const hit = results.find((r) => r.ok === true);
+  // "prior osimertinib" — one matching fact settles it, if its source may say so.
+  const hit = considered.find((r) => r.ok === true);
   if (hit) {
     return { verdict: "PASS", reason: "satisfied", ...cite(hit) };
   }
-  if (results.some((r) => r.ok === null)) {
-    return { verdict: "UNKNOWN", reason: "unsupported", ...cite(results[0]) };
-  }
-  return { verdict: "FAIL", reason: "contradicted", ...cite(results[0]) };
+  return (
+    cappedOutcome() ??
+    (considered.some((r) => r.ok === null)
+      ? { verdict: "UNKNOWN", reason: "unsupported", ...cite(considered[0]) }
+      : { verdict: "FAIL", reason: "contradicted", ...cite(considered[0]) })
+  );
 }
 
 /* ------------------------------------------------------------- polarity tools */
@@ -435,11 +479,40 @@ const weightOf = (tier: number): number => TIER_WEIGHT[tier] ?? 1;
  *
  * Pure. Same inputs, same output, forever — `asOf` is the only notion of now.
  */
+/**
+ * A `PairResult` plus the provenance notes for its capped cells, keyed by
+ * criterion id.
+ *
+ * They travel beside the result rather than inside it because `CubeCell` is
+ * frozen and has nowhere to put them. Every note is derivable from the inputs,
+ * so nothing is lost by keeping them out of the cube — but a UI that wants to
+ * say "claims can rule this out but not confirm it" should call
+ * `evaluateWithNotes` rather than re-deriving the rule itself.
+ */
+export interface PairResultWithNotes {
+  result: PairResult;
+  provenanceNotes: Record<string, ProvenanceNote>;
+}
+
+/** As `evaluate`, and also hands back why any cell was capped by its source. */
+export function evaluateWithNotes(
+  patient: Patient,
+  trial: Trial,
+  asOf: string,
+  options: EvaluateOptions = {},
+): PairResultWithNotes {
+  const notes: Record<string, ProvenanceNote> = {};
+  const result = evaluate(patient, trial, asOf, options, notes);
+  return { result, provenanceNotes: notes };
+}
+
 export function evaluate(
   patient: Patient,
   trial: Trial,
   asOf: string,
   options: EvaluateOptions = {},
+  /** Internal: `evaluateWithNotes` passes a sink to collect capped-cell notes. */
+  noteSink?: Record<string, ProvenanceNote>,
 ): PairResult {
   if (ageInDays(asOf, asOf) === null) {
     // Everything downstream measures against this. Failing loudly beats
@@ -453,6 +526,9 @@ export function evaluate(
   const walk = (node: CriterionNode): Verdict => {
     if (node.kind === "leaf") {
       const outcome = evaluateLeaf(node, patient, asOf);
+      if (noteSink !== undefined && outcome.provenanceNote !== undefined) {
+        noteSink[node.id] = outcome.provenanceNote;
+      }
       cells.push({
         patientId: patient.id,
         nctId: trial.nctId,

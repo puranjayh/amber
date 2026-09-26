@@ -6,6 +6,7 @@
  *
  *   kleene      three-valued AND / OR / NOT
  *   evaluate    one patient x one trial → PairResult, a cell per criterion
+ *   provenance  what chart / claims / patient report are each allowed to prove
  *   rank        worklist order, both axes of the cube
  *   elasticity  what one threshold costs the cohort
  *   equity      exclusion rate per criterion, grouped by race
@@ -27,12 +28,23 @@ export {
   eliminatedFromCells,
   evaluate,
   evaluateAll,
+  evaluateWithNotes,
   evaluateLeaf,
   indexLeaves,
   isEliminating,
   matchingFacts,
   type EvaluateOptions,
+  type PairResultWithNotes,
 } from "./evaluate";
+export {
+  canConfirm,
+  ceilingFor,
+  claimsConfirmablePredicates,
+  explainCeiling,
+  type Provenance,
+  type ProvenanceCeiling,
+  type ProvenanceNote,
+} from "./provenance";
 export {
   compareCandidates,
   rank,
