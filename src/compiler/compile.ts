@@ -29,12 +29,17 @@ export interface CompiledTrialResult {
   sourceText: string;
 }
 
-export type BlockCompiler = (block: EligibilityBlock) => Promise<CriterionNodeValue>;
+/** The batch supplies a signal so a single protocol cannot hold a worker forever. */
+export type BlockCompiler = (block: EligibilityBlock, signal?: AbortSignal) => Promise<CriterionNodeValue>;
 
 export interface CompileBatchOptions {
-  /** xAI permits far more, but 8 keeps spend and retries bounded. */
+  /** Conservative by design: four concurrent protocol calls leave room for retries. */
   concurrency?: number;
+  /** Deadline for all inclusion/exclusion chunks belonging to one trial. */
+  trialTimeoutMs?: number;
   onProgress?: (completed: number, total: number) => void;
+  /** Called exactly once for a deadline-exhausted trial, after it is recorded as rejected. */
+  onSkipped?: (nctId: string, reason: string) => void;
 }
 
 const responseSchema = z.object({ root: CriterionNode });
@@ -527,12 +532,12 @@ export function createGrokBlockCompiler({
   // indefinitely. Transient timeouts flow through the bounded retry policy below.
   const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1", timeout: 90_000, maxRetries: 0 });
 
-  return async (block) => {
+  return async (block, signal) => {
     try {
-      return await compileWithBoundedSchema(client, model, block);
+      return await compileWithBoundedSchema(client, model, block, signal);
     } catch (error) {
       if (!unsupportedStructuredSchema(error)) throw error;
-      return compileWithJsonMode(client, model, block);
+      return compileWithJsonMode(client, model, block, signal);
     }
   };
 }
@@ -561,6 +566,7 @@ async function compileWithBoundedSchema(
   client: OpenAI,
   model: string,
   block: EligibilityBlock,
+  signal?: AbortSignal,
 ): Promise<CriterionNodeValue> {
   const completion = await withRetry(() =>
     client.chat.completions.create({
@@ -575,7 +581,7 @@ async function compileWithBoundedSchema(
           schema: boundedResponseJsonSchema,
         },
       },
-    }),
+    }, { signal }),
   );
   const content = completion.choices[0]?.message.content;
   if (!content) throw new Error("Grok returned no structured compilation");
@@ -596,6 +602,7 @@ async function compileWithJsonMode(
   client: OpenAI,
   model: string,
   block: EligibilityBlock,
+  signal?: AbortSignal,
 ): Promise<CriterionNodeValue> {
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -606,7 +613,7 @@ async function compileWithJsonMode(
           temperature: 0,
           messages: messagesFor(block, true),
           response_format: { type: "json_object" },
-        }),
+        }, { signal }),
       );
       const content = completion.choices[0]?.message.content;
       if (!content) throw new Error("Grok returned no JSON-mode compilation");
@@ -650,6 +657,7 @@ export async function withRetry<T>(
 export async function compileTrial(
   raw: RawClinicalTrial,
   compileBlock: BlockCompiler,
+  { signal }: { signal?: AbortSignal } = {},
 ): Promise<CompiledTrialResult> {
   const base = sourceTrial(raw);
   const sourceText = raw.protocolSection.eligibilityModule?.eligibilityCriteria?.trim() || "";
@@ -663,8 +671,12 @@ export async function compileTrial(
   const citationFlags: string[] = [];
   const usedIds = new Set<string>();
   for (const block of extractEligibilityBlocks(sourceText)) {
+    if (signal?.aborted) {
+      issues.push(signal.reason instanceof Error ? signal.reason.message : "per-trial compilation timeout");
+      break;
+    }
     try {
-      const candidate = await compileBlock(block);
+      const candidate = await compileBlock(block, signal);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
       else {
@@ -676,6 +688,7 @@ export async function compileTrial(
       }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
+      if (signal?.aborted) break;
     }
   }
 
@@ -698,10 +711,13 @@ export async function compileTrial(
 export async function compileRawTrials(
   rawTrials: RawClinicalTrial[],
   compileBlock: BlockCompiler,
-  { concurrency = 8, onProgress }: CompileBatchOptions = {},
+  { concurrency = 4, trialTimeoutMs = 90_000, onProgress, onSkipped }: CompileBatchOptions = {},
 ): Promise<CompiledTrialResult[]> {
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 10) {
     throw new Error("concurrency must be an integer from 1 through 10");
+  }
+  if (!Number.isInteger(trialTimeoutMs) || trialTimeoutMs < 1) {
+    throw new Error("trialTimeoutMs must be a positive integer");
   }
 
   const results = new Array<CompiledTrialResult>(rawTrials.length);
@@ -712,7 +728,19 @@ export async function compileRawTrials(
       const index = nextIndex;
       nextIndex += 1;
       if (index >= rawTrials.length) return;
-      results[index] = await compileTrial(rawTrials[index], compileBlock);
+      const raw = rawTrials[index];
+      const controller = new AbortController();
+      let timedOut = false;
+      const deadline = setTimeout(() => {
+        timedOut = true;
+        controller.abort(new Error(`per-trial timeout after ${trialTimeoutMs}ms`));
+      }, trialTimeoutMs);
+      try {
+        results[index] = await compileTrial(raw, compileBlock, { signal: controller.signal });
+      } finally {
+        clearTimeout(deadline);
+      }
+      if (timedOut) onSkipped?.(raw.protocolSection.identificationModule.nctId, `timeout after ${trialTimeoutMs}ms`);
       completed += 1;
       onProgress?.(completed, rawTrials.length);
     }
@@ -752,8 +780,10 @@ async function main(): Promise<void> {
   if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
   else if (!fullBatch) console.log(`Smoke test: compiling ${batch.length} trials. Re-run with --full only after reviewing this output.`);
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
-    concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
+    concurrency: Number(process.env.COMPILER_CONCURRENCY || "4"),
+    trialTimeoutMs: Number(process.env.COMPILER_TRIAL_TIMEOUT_MS || "90000"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
+    onSkipped: (nctId, reason) => console.log(`SKIPPED ${nctId}: ${reason}`),
   });
   const defects = fidelityDefectCounts(results);
   const longValues = longStringValueLeaves(results);
