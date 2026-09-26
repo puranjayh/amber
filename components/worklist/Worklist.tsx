@@ -92,9 +92,9 @@ export function Worklist({ rows }: { rows: WorklistItem[] }) {
               <span className="hidden font-mono text-[12px] text-ink-3 md:block">{i + 1}</span>
 
               <span className="flex items-baseline justify-between gap-2 md:block">
-                <span className="font-mono text-[13px] font-medium text-ink">
+                <span className="font-mono text-[13px] font-medium text-ink" title={row.patientId}>
                   <span className="mr-1.5 text-ink-3 md:hidden">{i + 1}.</span>
-                  {row.patientId}
+                  {row.patientId.length > 16 ? `${row.patientId.slice(0, 14)}…` : row.patientId}
                 </span>
                 {row.patient && (
                   <span className="text-[11px] text-ink-3 md:block">

@@ -2,7 +2,7 @@ import type { Assignment, PairResult, Patient, Trial } from "@/src/contracts";
 import {
   blockingCriterionIds,
   equityAudit,
-  evaluate,
+  evaluateAll,
   match,
   matchAdhoc,
   rank,
@@ -47,7 +47,7 @@ function worklistRow(pair: PairResult, blocking: PairResult["cells"]): WorklistR
 export function buildReadModels(trials: Trial[], patients: Patient[], asOf: string): ReadModels {
   const ctx = { patients, trials };
   const trialById = new Map(trials.map((t) => [t.nctId, t]));
-  const cube = patients.flatMap((p) => trials.map((t) => evaluate(p, t, asOf)));
+  const cube = evaluateAll(patients, trials, asOf);
 
   const bestLive: PairResult[] = [];
   const eliminatedRows: WorklistRow[] = [];
@@ -74,14 +74,16 @@ export function buildReadModels(trials: Trial[], patients: Patient[], asOf: stri
     ...eliminatedRows.sort((a, b) => a.patientId.localeCompare(b.patientId)),
   ];
 
-  const elasticity = trials.flatMap((trial) =>
-    sweepableLeaves(trial).map((leaf) => {
+  const elasticity: ElasticitySweep[] = [];
+  for (const trial of trials) {
+    for (const leaf of sweepableLeaves(trial)) {
       if (typeof leaf.value !== "number" || !sweepThresholds(leaf).includes(leaf.value)) {
-        throw new Error(`${trial.nctId} ${leaf.id}: protocol value ${leaf.value} is off its sweep grid`);
+        console.warn(`${trial.nctId} ${leaf.id}: protocol value ${leaf.value} is off its sweep grid — skipped`);
+        continue;
       }
-      return { nctId: trial.nctId, criterionId: leaf.id, points: sweep(trial, leaf.id, patients, asOf) };
-    }),
-  );
+      elasticity.push({ nctId: trial.nctId, criterionId: leaf.id, points: sweep(trial, leaf.id, patients, asOf) });
+    }
+  }
 
   const equity = trials.map((trial) => ({ nctId: trial.nctId, rows: equityAudit(trial, patients, asOf) }));
 

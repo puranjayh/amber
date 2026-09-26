@@ -7,8 +7,10 @@ import { buildGraph, edgeKey } from "./graph";
 
 const cube = CubeFixture.parse(cubeJson);
 const trials = TrialsFixture.parse(trialsJson);
-const assignments = Assignment.array().parse(sample);
 const patientIds = ["PT-4401", "PT-4402", "PT-4408"];
+const assignments = Assignment.array()
+  .parse(sample)
+  .map((a) => ({ ...a, pairs: a.pairs.filter((p) => patientIds.includes(p.patientId)) }));
 
 describe("buildGraph", () => {
   const graph = buildGraph(patientIds, trials, cube, assignments);

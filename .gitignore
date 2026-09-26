@@ -42,3 +42,7 @@ next-env.d.ts
 
 # compiler output
 data/raw/
+
+# Other lanes' inputs, consumed by app/_data/generate.ts. Tracked copies on main still win.
+/data/synthea/
+/data/compiled/

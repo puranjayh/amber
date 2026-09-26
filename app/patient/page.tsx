@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { DEMO, asOf, getCube, getPair, getPatient, getPatients, getTrial, getTrials, meta } from "@/app/_data/source";
+import { DEMO, asOf, fixturePatientIds, fixtureTrialIds, getCube, getPair, getPatient, getTrial, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { PairPicker } from "@/components/console/PairPicker";
@@ -32,8 +32,8 @@ export default async function PatientPage({ searchParams }: PageProps<"/patient"
           <DemoSteps current="patient" />
         ) : (
           <PairPicker
-            patientIds={getPatients().map((p) => p.id)}
-            nctIds={getTrials().map((t) => t.nctId)}
+            patientIds={fixturePatientIds()}
+            nctIds={fixtureTrialIds()}
             cube={getCube()}
             current={{ patientId, nctId }}
           />

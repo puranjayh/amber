@@ -8,25 +8,37 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 1
+          "White": 1,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 100
-      },
-      {
-        "criterionId": "INC-1",
-        "label": "Age ≥ 18 years at screening.",
-        "exclusionRateBySubgroup": {
-          "Asian": 0,
-          "Black or African American": 0
-        },
-        "maxGapPoints": 0
       },
       {
         "criterionId": "INC-2",
         "label": "Histologically or cytologically confirmed non-small cell lung cancer.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
-          "Black or African American": 0
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0.023668639053254437
+        },
+        "maxGapPoints": 2.4
+      },
+      {
+        "criterionId": "INC-1",
+        "label": "Age ≥ 18 years at screening.",
+        "exclusionRateBySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -35,7 +47,11 @@
         "label": "Documented EGFR exon 19 deletion or exon 21 L858R mutation.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
-          "Black or African American": 0
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -44,7 +60,11 @@
         "label": "ECOG performance status of 0 or 1, assessed within 28 days before enrollment.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
-          "Black or African American": 0
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -53,7 +73,11 @@
         "label": "Absolute neutrophil count ≥ 1500/μL within 14 days before enrollment.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
-          "Black or African American": 0
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -62,7 +86,11 @@
         "label": "Hemoglobin ≥ 9 g/dL within 14 days before enrollment.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
-          "Black or African American": 0
+          "Black or African American": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       }
@@ -72,43 +100,71 @@
     "nctId": "NCT07001002",
     "rows": [
       {
-        "criterionId": "EXC-1",
-        "label": "History of interstitial lung disease or drug-induced pneumonitis.",
-        "exclusionRateBySubgroup": {},
-        "maxGapPoints": 0
-      },
-      {
-        "criterionId": "INC-1",
-        "label": "Age ≥ 18 years.",
-        "exclusionRateBySubgroup": {},
-        "maxGapPoints": 0
-      },
-      {
-        "criterionId": "INC-2",
-        "label": "Histologically confirmed non-small cell lung cancer.",
-        "exclusionRateBySubgroup": {},
-        "maxGapPoints": 0
-      },
-      {
         "criterionId": "INC-3",
         "label": "Radiologic progression during or after treatment with osimertinib.",
         "exclusionRateBySubgroup": {
-          "Asian": 1
+          "Asian": 1,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
-        "maxGapPoints": 0
+        "maxGapPoints": 100
       },
       {
         "criterionId": "INC-4",
         "label": "EGFR T790M or C797S detected on tissue or plasma after osimertinib.",
         "exclusionRateBySubgroup": {
-          "White": 1
+          "White": 1,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
+        },
+        "maxGapPoints": 100
+      },
+      {
+        "criterionId": "INC-2",
+        "label": "Histologically confirmed non-small cell lung cancer.",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0.023668639053254437
+        },
+        "maxGapPoints": 2.4
+      },
+      {
+        "criterionId": "EXC-1",
+        "label": "History of interstitial lung disease or drug-induced pneumonitis.",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
+        },
+        "maxGapPoints": 0
+      },
+      {
+        "criterionId": "INC-1",
+        "label": "Age ≥ 18 years.",
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
       {
         "criterionId": "INC-5",
         "label": "ECOG performance status of 0, 1, or 2 within 28 days before enrollment.",
-        "exclusionRateBySubgroup": {},
+        "exclusionRateBySubgroup": {
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
+        },
         "maxGapPoints": 0
       }
     ]
@@ -117,12 +173,30 @@
     "nctId": "NCT07001003",
     "rows": [
       {
+        "criterionId": "INC-2",
+        "label": "Histologically or cytologically confirmed non-small cell lung cancer.",
+        "exclusionRateBySubgroup": {
+          "Asian": 0,
+          "Black or African American": 0,
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0.023668639053254437
+        },
+        "maxGapPoints": 2.4
+      },
+      {
         "criterionId": "EXC-1",
         "label": "History of interstitial lung disease.",
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -132,17 +206,11 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
-        },
-        "maxGapPoints": 0
-      },
-      {
-        "criterionId": "INC-2",
-        "label": "Histologically or cytologically confirmed non-small cell lung cancer.",
-        "exclusionRateBySubgroup": {
-          "Asian": 0,
-          "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -152,7 +220,11 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -162,7 +234,11 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -172,7 +248,11 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       },
@@ -182,7 +262,11 @@
         "exclusionRateBySubgroup": {
           "Asian": 0,
           "Black or African American": 0,
-          "White": 0
+          "White": 0,
+          "asian": 0,
+          "black": 0,
+          "native": 0,
+          "white": 0
         },
         "maxGapPoints": 0
       }
