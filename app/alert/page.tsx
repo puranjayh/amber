@@ -43,6 +43,7 @@ export default async function AlertPage({ searchParams }: PageProps<"/alert">) {
         )}
         {pair && patient && trial && cell && leaf && leaves ? (
           <AlertCard
+            key={`${pair.patientId}:${pair.nctId}:${cell.criterionId}`}
             patient={patient}
             trial={trial}
             pair={pair}

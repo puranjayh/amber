@@ -92,10 +92,10 @@ export function PairSummary({
             To resolve · cheapest first
           </div>
           <ul className="space-y-1">
-            {unknowns.map((c) => {
+            {unknowns.map((c, i) => {
               const leaf = leaves.get(c.criterionId);
               return (
-                <li key={c.criterionId} className="flex flex-wrap items-baseline gap-x-2 text-[12px]">
+                <li key={`${c.criterionId}:${i}`} className="flex flex-wrap items-baseline gap-x-2 text-[12px]">
                   <span className="font-mono font-medium text-unknown">{c.criterionId}</span>
                   <span className="text-ink">{leaf?.analyte ?? leaf?.predicate ?? ""}</span>
                   <span className="text-ink-3">

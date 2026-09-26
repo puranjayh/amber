@@ -51,7 +51,7 @@ function LeafLine({
 }) {
   const verdict = row.cell?.verdict ?? null;
   const tone = row.cell ? displayTone(row.cell, row.leaf.type) : "none";
-  const panelId = `cite-${row.leaf.id}`;
+  const panelId = `cite-${row.key.replace(/[^A-Za-z0-9_-]/g, "-")}`;
   return (
     <div className="border-b border-line-2 last:border-b-0">
       <button
@@ -96,6 +96,17 @@ function LeafLine({
   );
 }
 
+function openKeys(sections: CriteriaSection[], wanted: string[]): Set<string> {
+  const ids = new Set(wanted);
+  const keys = new Set<string>();
+  for (const section of sections) {
+    for (const row of section.rows) {
+      if (row.kind === "leaf" && ids.has(row.leaf.id)) keys.add(row.key);
+    }
+  }
+  return keys;
+}
+
 export function CriteriaTable({
   sections,
   initialOpen = [],
@@ -103,18 +114,24 @@ export function CriteriaTable({
   sections: CriteriaSection[];
   initialOpen?: string[];
 }) {
-  const [open, setOpen] = useState<Set<string>>(() => new Set(initialOpen));
-  const leafIds = sections.flatMap((s) =>
-    s.rows.filter((r): r is LeafRow => r.kind === "leaf").map((r) => r.leaf.id),
-  );
-  const allOpen = leafIds.length > 0 && leafIds.every((id) => open.has(id));
+  const sectionKey = sections
+    .flatMap((s) => s.rows.map((r) => r.key))
+    .join("|");
+  const [held, setHeld] = useState(() => ({ key: sectionKey, open: openKeys(sections, initialOpen) }));
+  if (held.key !== sectionKey) {
+    setHeld({ key: sectionKey, open: openKeys(sections, initialOpen) });
+  }
+  const open = held.key === sectionKey ? held.open : openKeys(sections, initialOpen);
+  const leafRows = sections.flatMap((s) => s.rows.filter((r): r is LeafRow => r.kind === "leaf"));
+  const allOpen = leafRows.length > 0 && leafRows.every((r) => open.has(r.key));
 
   const toggle = (id: string) =>
-    setOpen((prev) => {
-      const next = new Set(prev);
+    setHeld((prev) => {
+      const current = prev.key === sectionKey ? prev.open : openKeys(sections, initialOpen);
+      const next = new Set(current);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      return next;
+      return { key: sectionKey, open: next };
     });
 
   return (
@@ -123,7 +140,12 @@ export function CriteriaTable({
         <h2 className="text-[13px] font-semibold text-ink">Criteria</h2>
         <button
           type="button"
-          onClick={() => setOpen(allOpen ? new Set() : new Set(leafIds))}
+          onClick={() =>
+            setHeld({
+              key: sectionKey,
+              open: allOpen ? new Set() : new Set(leafRows.map((r) => r.key)),
+            })
+          }
           className="rounded px-2 py-1 font-mono text-[11px] text-ink-2 hover:bg-canvas hover:text-ink"
         >
           {allOpen ? "Collapse all" : "Expand all citations"}
@@ -147,8 +169,8 @@ export function CriteriaTable({
                 <LeafLine
                   key={row.key}
                   row={row}
-                  open={open.has(row.leaf.id)}
-                  onToggle={() => toggle(row.leaf.id)}
+                  open={open.has(row.key)}
+                  onToggle={() => toggle(row.key)}
                 />
               ),
             )}

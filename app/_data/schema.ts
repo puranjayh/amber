@@ -146,12 +146,68 @@ export type ChartNeed = z.infer<typeof ChartNeed>;
 export const PayerView = z.object({
   headline: z.string(),
   beneficiaries: z.number().int(),
+  /** Protocols the claims extract was scored against. */
+  protocols: z.number().int().default(0),
   settled: z.array(SettledExclusion),
   needs: z.array(ChartNeed),
   coverage: ClaimsCoverage.nullable(),
   source: z.enum(["data/claims/patients.json", "stub"]),
 });
 export type PayerView = z.infer<typeof PayerView>;
+
+/** Answers only the patient can give. Driver is app-owned — contracts are frozen. */
+export const Driver = z.enum(["self", "family", "friend", "none"]);
+export type Driver = z.infer<typeof Driver>;
+
+export const PortalAnswers = z.object({
+  maxTravelMinutes: z.number().nonnegative().optional(),
+  maxExtraVisitsPerMonth: z.number().nonnegative().optional(),
+  acceptsPlacebo: z.boolean().optional(),
+  driver: Driver.optional(),
+});
+export type PortalAnswers = z.infer<typeof PortalAnswers>;
+
+export const HcpTrialRow = z.object({
+  nctId: z.string(),
+  title: z.string(),
+  phase: z.string(),
+  unknownCount: z.number().int(),
+  expectedValue: z.number(),
+  resolutionCost: z.number(),
+  travelMinutes: z.number().nullable(),
+  visitBurden: z.number(),
+  likelyPlacebo: z.boolean(),
+  worth: z.number(),
+});
+export type HcpTrialRow = z.infer<typeof HcpTrialRow>;
+
+export const HcpPatientRow = z.object({
+  patientId: z.string(),
+  unknownCount: z.number().int(),
+  expectedValue: z.number(),
+  resolutionCost: z.number(),
+  travelMinutes: z.number().nullable(),
+  bestNctId: z.string(),
+  liveTrials: z.number().int(),
+  portal: PortalAnswers,
+  trials: z.array(HcpTrialRow),
+});
+export type HcpPatientRow = z.infer<typeof HcpPatientRow>;
+
+export const HcpPhysician = z.object({
+  id: z.string(),
+  name: z.string(),
+  site: z.string(),
+  patients: z.array(HcpPatientRow),
+});
+export type HcpPhysician = z.infer<typeof HcpPhysician>;
+
+export const HcpPanel = z.object({
+  channel: z.literal("Impiricus"),
+  defaultPhysicianId: z.string(),
+  physicians: z.array(HcpPhysician),
+});
+export type HcpPanel = z.infer<typeof HcpPanel>;
 
 export const EvalReport = z.object({
   labelSource: z.string(),

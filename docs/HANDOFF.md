@@ -13,11 +13,15 @@ The app lane was asked to add Playwright and `npm run shots` (`scripts/shots.ts`
 
 **Who this is for:** P1 (compiler) / P4 (data).
 
-`/payer` evaluates `data/claims/patients.json` when it exists. Claim lines are ICD-9 / HCPCS coded (`ICD-9 1623`, `pemetrexed` / `PLATINUM`). Fixture leaves still ask for the stub shapes (`non-small cell lung cancer`, `ILD: true`, `EGFR_TKI` / osimertinib). The app rewrites 162.x → NSCLC and 515/516.x → ILD before `evaluate()`. Sample 1 has **0** oral EGFR-TKI fills, so the first-line exclusion does not fire. After the rewrite, claims settle 33 of 1,296 (ILD). Drop the extract at that path; do not expect BENE-* ids.
+`/payer` evaluates `data/claims/patients.json` against the 133 demo-ready compiled protocols, not the fixture trio. Part B HCPCS fills (J9045 / J9060 / J9305 / J9171) keep their drug names and also alias as `chemotherapy` so `in: [chemotherapy, …]` exclusions can fire. Only exclusion `==` / `in` cells settle — an inclusion FAIL or a `!=` leaf is not a claim ruling someone out. Measured: **98 of 1,296** (112 drug-fill rows: carboplatin 61, cisplatin 16, pemetrexed 15, docetaxel 20). ICD-9 comorbidity codes do not equal the compiler's prose ILD leaves, so those no longer pad the list. Drop the extract at that path; do not expect BENE-* ids.
 
 `data/compiled/coverage.json` is compile-stats (now at `compile-stats.json` on `eng/compiler`). `/payer` will not derive a number from the trees. Republish `data/compiled/coverage.json` as `ClaimsCoverage` with **5,103** leaves (the slide number). Any other leaf count throws.
 
 The app cube now consumes the 133 demo-ready compiled trials (citation flags do not gate). Keep that count stable — a different non-zero pool throws. NCT07001001 is still pinned from fixtures so the presentation pair does not move.
+
+Compiled trees still reuse leaf ids (`INC-1` twice in one trial). The criteria table keys rows by tree path, not `leaf.id`. Do not key React lists by `criterionId` alone.
+
+`Patient` has no treating-physician field and `PatientPreferences` has no driver. `/hcp` assigns a deterministic Impiricus roster in the app lane; `/patient-portal` stores driver (and the other three answers) in `localStorage` and overlays them on the doctor’s ranking. Do not put either on the frozen contract unless all four lanes agree.
 
 ## From P2 (engine) — polarity: RESOLVED, engine complies
 

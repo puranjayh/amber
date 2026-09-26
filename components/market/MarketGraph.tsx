@@ -15,12 +15,30 @@ const MODE_BLURB: Record<Mode, string> = {
   stable_dap: "Stable, constrained to each sponsor's Diversity Action Plan targets.",
 };
 
+export function resolveMode(mode: Mode, available: Mode[]): Mode {
+  return available.includes(mode) ? mode : (available[0] ?? "adhoc");
+}
+
 export function MarketGraph({ graph }: { graph: Graph }) {
   const available = MODES.filter((m) => graph.modes[m]);
-  const [mode, setMode] = useState<Mode>(available[0] ?? "adhoc");
+  const availableKey = available.join(",");
+  const [held, setHeld] = useState({ key: availableKey, mode: available[0] ?? ("adhoc" as Mode) });
+  if (held.key !== availableKey) setHeld({ key: availableKey, mode: available[0] ?? "adhoc" });
+  const mode = resolveMode(held.key === availableKey ? held.mode : (available[0] ?? "adhoc"), available);
   const layout = graph.modes[mode];
   const assigned = new Set(layout?.assigned ?? []);
   const pos = new Map([...graph.patients, ...graph.trials].map((n) => [n.id, n]));
+
+  if (graph.patients.length === 0 || available.length === 0) {
+    return (
+      <div className="rounded-md border border-line bg-surface px-4 py-6">
+        <p className="text-[14px] font-medium text-ink">Not generated yet</p>
+        <p className="mt-1 text-[12px] text-ink-2">
+          No assignment to draw. app/_data/assignments.json is missing or empty.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-hidden rounded-md border border-line bg-surface">
@@ -36,7 +54,7 @@ export function MarketGraph({ graph }: { graph: Graph }) {
                 role="radio"
                 aria-checked={active}
                 disabled={disabled}
-                onClick={() => setMode(m)}
+                onClick={() => setHeld({ key: availableKey, mode: m })}
                 className={`rounded px-2 py-1.5 text-[12px] ${
                   active ? "bg-surface font-medium text-ink shadow-sm" : "text-ink-2 hover:text-ink"
                 } disabled:opacity-40`}

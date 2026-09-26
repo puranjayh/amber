@@ -19,6 +19,12 @@ export function countRows(data: unknown): number {
     if (Array.isArray(rec.settled) || Array.isArray(rec.needs)) {
       return (rec.settled?.length ?? 0) + (rec.needs?.length ?? 0);
     }
+    if (Array.isArray(rec.physicians)) {
+      return rec.physicians.reduce((n, p) => {
+        const patients = (p as { patients?: unknown }).patients;
+        return n + (Array.isArray(patients) ? patients.length : 0);
+      }, 0);
+    }
     if (typeof rec.patients === "number") return rec.patients;
   }
   return 0;

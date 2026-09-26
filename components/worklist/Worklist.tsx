@@ -20,7 +20,7 @@ function Blocking({ row }: { row: WorklistItem }) {
         const unknown = b.verdict === "UNKNOWN";
         return (
           <span
-            key={b.criterionId}
+            key={`${b.criterionId}:${b.reason}:${b.tier}`}
             title={`${b.criterionId}: ${b.verdict} (${b.reason}), tier ${b.tier}`}
             className={`rounded border px-1.5 py-px font-mono text-[10px] ${
               unknown

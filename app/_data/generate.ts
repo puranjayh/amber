@@ -11,7 +11,8 @@ import { fileURLToPath } from "node:url";
 import { buildLandscape } from "@/components/landscape/build";
 import { CLAIMS_STUB } from "@/components/payer/stub";
 import { buildEvalReport } from "./eval";
-import { AS_OF, DEMO_POOL, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadFixtureTrials, loadInputs, loadLandscape } from "./inputs";
+import { AS_OF, DEMO_POOL, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "./inputs";
+import { buildHcpPanel } from "./hcp";
 import { buildPayerView } from "./payer";
 import { buildReadModels, publishCube } from "./readModels";
 import type { Meta } from "./schema";
@@ -53,7 +54,7 @@ write("assignments.json", models.assignments);
 const claims = loadClaims(ROOT);
 const payer = buildPayerView(
   claims?.patients ?? CLAIMS_STUB,
-  loadFixtureTrials(ROOT),
+  loadPayerTrials(ROOT),
   AS_OF,
   loadCoverage(ROOT),
   claims ? claims.source : "stub",
@@ -62,6 +63,7 @@ const evalReport = buildEvalReport(ROOT, patients, trials, AS_OF);
 write("landscape.json", landscape);
 write("payer.json", payer);
 write("eval.json", evalReport);
+write("hcp.json", buildHcpPanel(models.cube, patients, trials));
 write("meta.json", meta);
 
 console.log(

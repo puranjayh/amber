@@ -123,9 +123,28 @@ export function realProtocolCount(trials: { nctId: string }[]): number {
   return trials.filter((trial) => !/^NCT07001\d+$/.test(trial.nctId)).length;
 }
 
-/** The hand-written trio — payer stub and oracle stay on these, not the 133. */
+/** The hand-written trio — stub, oracle, and the presentation pin stay on these. */
 export function loadFixtureTrials(root: string): TrialT[] {
   return acceptTrials(readJson(root + FIXTURE_TRIALS));
+}
+
+/**
+ * Live /payer evaluates claims against the 133 demo-ready compiled protocols.
+ * Both sides real: DE-SynPUF beneficiaries × registered trials. Fixtures only
+ * if the compiled file is missing.
+ */
+export function loadPayerTrials(root: string): TrialT[] {
+  const path = root + COMPILED;
+  if (!existsSync(path)) return loadFixtureTrials(root);
+  const compiled = acceptCompiledPool(readJson(path));
+  if (compiled.length === DEMO_POOL) return compiled;
+  if (compiled.length === 0) {
+    console.warn(`${COMPILED}: 0 demo-ready trials; payer falling back to fixtures`);
+    return loadFixtureTrials(root);
+  }
+  throw new Error(
+    `${COMPILED}: demo pool is ${compiled.length}; expected ${DEMO_POOL}. /payer will not silently score a different set of protocols.`,
+  );
 }
 
 export function acceptPatients(raw: unknown, source: string): PatientT[] {

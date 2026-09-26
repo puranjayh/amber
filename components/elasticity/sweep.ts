@@ -79,3 +79,16 @@ export function buildSweep(
     chart: { width: CHART.width, height: CHART.height, line, area, yMax },
   };
 }
+
+/** Pages must not 500 when a published sweep and a leaf disagree. */
+export function tryBuildSweep(
+  points: ElasticityPoint[],
+  protocolThreshold: number,
+  operator: Operator,
+): Sweep | null {
+  try {
+    return buildSweep(points, protocolThreshold, operator);
+  } catch {
+    return null;
+  }
+}

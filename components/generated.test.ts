@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { expect, test } from "vitest";
 import cubeOracle from "@/fixtures/cube.sample.json";
 import { buildEvalReport } from "@/app/_data/eval";
-import { AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadFixtureTrials, loadInputs, loadLandscape } from "@/app/_data/inputs";
+import { AS_OF, DEMO_POOL, PRESENTATION_PAIR, PRESENTATION_TRIAL, loadClaims, loadCoverage, loadInputs, loadLandscape, loadPayerTrials } from "@/app/_data/inputs";
 import { buildPayerView } from "@/app/_data/payer";
 import { publishCube } from "@/app/_data/readModels";
 import { buildLandscape } from "@/components/landscape/build";
@@ -52,7 +52,7 @@ test("payer.json is evaluate() over claims patients or the labelled stub", () =>
       JSON.stringify(
         buildPayerView(
           claims?.patients ?? CLAIMS_STUB,
-          loadFixtureTrials(ROOT),
+          loadPayerTrials(ROOT),
           AS_OF,
           loadCoverage(ROOT),
           claims ? claims.source : "stub",
@@ -66,6 +66,21 @@ test("eval.json matches a fresh harness run and is never silently marked human",
   const report = buildEvalReport(ROOT, patients, trials, AS_OF);
   expect(committed("eval")).toEqual(report);
   expect(report.labelSource.toLowerCase()).not.toBe("human");
+});
+
+test("hcp.json groups every published patient and pins the hero on Rahman", () => {
+  const panel = committed("hcp") as {
+    channel: string;
+    defaultPhysicianId: string;
+    physicians: { id: string; patients: { patientId: string; trials: unknown[] }[] }[];
+  };
+  expect(panel.channel).toBe("Impiricus");
+  const ids = panel.physicians.flatMap((p) => p.patients.map((row) => row.patientId));
+  expect(new Set(ids).size).toBe(patients.length);
+  expect(ids).toHaveLength(patients.length);
+  const rahman = panel.physicians.find((p) => p.id === panel.defaultPhysicianId);
+  expect(rahman?.patients.some((row) => row.patientId === PRESENTATION_PAIR.patientId)).toBe(true);
+  expect(rahman?.patients.find((row) => row.patientId === PRESENTATION_PAIR.patientId)?.trials.length).toBeGreaterThan(0);
 });
 
 test("the engine's cube over the pinned presentation trial agrees with the hand-worked oracle", () => {

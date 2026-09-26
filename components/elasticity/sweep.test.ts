@@ -3,7 +3,8 @@ import { TrialsFixture, type CriterionLeaf, type ElasticityPoint } from "@/src/c
 import sweepsJson from "@/app/_data/elasticity.json";
 import trialsJson from "@/app/_data/trials.json";
 import { collectLeaves } from "../criteria/rows";
-import { buildSweep } from "./sweep";
+import { clampSweepIndex } from "./ElasticityView";
+import { buildSweep, tryBuildSweep } from "./sweep";
 
 const pts = (...rows: [number, number, Record<string, number>?][]): ElasticityPoint[] =>
   rows.map(([threshold, eligibleCount, bySubgroup]) => ({
@@ -48,6 +49,13 @@ describe("buildSweep", () => {
   test("rejects unsorted thresholds and an off-grid protocol value", () => {
     expect(() => buildSweep(pts([2, 1], [1, 2]), 2, ">=")).toThrow(/ascending/);
     expect(() => buildSweep(pts([1, 2], [2, 1]), 1.5, ">=")).toThrow(/not a precomputed/);
+    expect(tryBuildSweep(pts([1, 2], [2, 1]), 1.5, ">=")).toBeNull();
+  });
+
+  test("slider index clamps when the sweep shrinks", () => {
+    const sweep = buildSweep(pts([1, 2], [2, 1]), 1, ">=");
+    expect(clampSweepIndex(40, sweep)).toBe(0);
+    expect(clampSweepIndex(1, sweep)).toBe(1);
   });
 
   test("every generated sweep builds against its protocol threshold", () => {

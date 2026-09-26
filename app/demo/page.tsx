@@ -27,7 +27,7 @@ import { PairSummary, PatientStrip } from "@/components/criteria/PairSummary";
 import { buildSections, collectLeaves } from "@/components/criteria/rows";
 import { toneCounts } from "@/components/criteria/tone";
 import { ElasticityView } from "@/components/elasticity/ElasticityView";
-import { buildSweep } from "@/components/elasticity/sweep";
+import { tryBuildSweep } from "@/components/elasticity/sweep";
 import { EquityBars } from "@/components/equity/EquityBars";
 import { buildEquityView } from "@/components/equity/equity";
 import { MarketGraph } from "@/components/market/MarketGraph";
@@ -115,7 +115,20 @@ export default function DemoPage() {
   const graphIds = [...fixture, ...extra.slice(0, 12)];
   const sizes = subgroupSizes();
   const smallest = Math.min(...Object.values(sizes));
-  const sweep = buildSweep(found.points, leaf.value, leaf.operator);
+  const sweep = tryBuildSweep(found.points, leaf.value, leaf.operator);
+  if (!sweep) {
+    return (
+      <>
+        <StageHeader asOf={asOf} label="Live story" />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData
+            file="app/_data/elasticity.json"
+            detail="Hero sweep does not match the leaf threshold."
+          />
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
