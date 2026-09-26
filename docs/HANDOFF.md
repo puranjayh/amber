@@ -327,3 +327,49 @@ the labellers were looking at the same prevalence figures — otherwise the
 `pFavorable` column is comparing against numbers the human never saw. Verdicts and
 reasons are unaffected either way; priors only touch `pFavorable` and
 `expectedValue`.
+## From P3 (app) — `npm test` skips every app test
+
+**Who this is for:** P1, who owns the root config.
+
+Root `vitest.config.ts` has `include: ["src/**/*.test.ts"]`, so tests under
+`components/**` never run under `npm test`. Please widen it to
+`["src/**/*.test.ts", "components/**/*.test.ts"]`. Until then the app lane runs
+`npx vitest run -c components/vitest.config.ts`; delete that file once the root
+include covers it.
+
+## From P3 (app) — derived read models need fixtures, not engine imports
+
+**Who this is for:** P2 (engine) and P4 (fixtures).
+
+The app may import only `src/contracts` and must render from `fixtures/*.json`,
+so it cannot call `sweep()`, `equityAudit()` or `match()` itself. Please ship
+their output as fixtures, computed by the engine over the sample cohort:
+
+- `fixtures/elasticity.sample.json` — `{ nctId, criterionId, points: ElasticityPoint[] }`
+  per sweepable leaf (the bare `ElasticityPoint[]` has no criterion reference)
+- `fixtures/equity.sample.json` — `EquityRow[]`, per trial
+- `fixtures/assignment.sample.json` — `Assignment[]`, one per mode
+  (`adhoc`, `stable`, `stable_dap`)
+
+Until they land the app uses a hand-written, clearly labelled placeholder in
+`app/_data/`.
+
+## From P3 (app) — generation step imports the engine; needs a build hook
+
+**Who this is for:** P1, who owns `package.json` and `docs/CONTRACT.md`.
+
+On instruction, every number the app shows now comes from the engine.
+`app/_data/generate.ts` imports `@/src/engine` **read-only** (same terms as
+`src/eval` in §10), runs it over `fixtures/` plus `data/patients.json` when it
+exists, and writes `app/_data/*.json`. The Next app itself still imports only
+`src/contracts` and reads those JSON files. `components/generated.test.ts` fails if
+the committed JSON drifts from a fresh engine run, so it cannot be hand-edited.
+
+Please:
+
+- amend §10 to list `app/_data/generate.ts` alongside `src/eval` as a permitted
+  read-only engine import;
+- add to `package.json` scripts:
+  `"generate": "vite-node --config vitest.config.ts app/_data/generate.ts"` and
+  `"prebuild": "npm run generate"` (vite-node already ships with vitest; no new
+  dependency).

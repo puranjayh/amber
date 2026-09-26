@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+/*
+ * Amber means UNKNOWN and nothing else. The `unknown` tokens are the only warm hue in
+ * the palette — do not introduce yellow/orange/amber anywhere else (focus rings,
+ * warnings, highlights, brand). Errors and bugs use `fail` or neutral ink.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #14171c;
+  --ink-2: #4a5160;
+  --ink-3: #7b8291;
+  --line: #e3e5ea;
+  --line-2: #eef0f3;
+  --surface: #ffffff;
+  --canvas: #f6f7f9;
+  --focus: #2f5bd3;
+
+  --pass: #17694b;
+  --pass-bg: #e7f3ed;
+  --pass-line: #b6dcc8;
+
+  --fail: #b3261e;
+  --fail-bg: #fbeceb;
+  --fail-line: #f0c2be;
+
+  --unknown: #9a5b00;
+  --unknown-bg: #fff4dc;
+  --unknown-line: #f2b53c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-surface: var(--surface);
+  --color-canvas: var(--canvas);
+  --color-focus: var(--focus);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-pass: var(--pass);
+  --color-pass-bg: var(--pass-bg);
+  --color-pass-line: var(--pass-line);
+  --color-fail: var(--fail);
+  --color-fail-bg: var(--fail-bg);
+  --color-fail-line: var(--fail-line);
+  --color-unknown: var(--unknown);
+  --color-unknown-bg: var(--unknown-bg);
+  --color-unknown-line: var(--unknown-line);
+
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
