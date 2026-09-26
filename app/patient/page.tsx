@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
 import { DEMO, asOf, fixturePatientIds, fixtureTrialIds, getCube, getPair, getPatient, getTrial, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { PairPicker } from "@/components/console/PairPicker";
 import { Provenance } from "@/components/console/Provenance";
@@ -18,7 +18,19 @@ export default async function PatientPage({ searchParams }: PageProps<"/patient"
   const patient = getPatient(patientId);
   const trial = getTrial(nctId);
   const pair = getPair(patientId, nctId);
-  if (!patient || !trial || !pair) notFound();
+  if (!patient || !trial || !pair) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="patient" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData
+            file="app/_data/cube.json"
+            detail={`No pair for ${patientId} × ${nctId}.`}
+          />
+        </main>
+      </>
+    );
+  }
 
   const sections = buildSections(trial.criteria, pair.cells);
   const leaves = collectLeaves(trial.criteria);

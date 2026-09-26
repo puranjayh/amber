@@ -1,5 +1,6 @@
 import { asOf, getPayer, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
@@ -12,6 +13,16 @@ export default async function PayerPage({
 }) {
   const demo = isDemo(await searchParams);
   const view = getPayer();
+  if (!view.headline && view.settled.length === 0 && view.needs.length === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="payer" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/payer.json" />
+        </main>
+      </>
+    );
+  }
 
   return (
     <>

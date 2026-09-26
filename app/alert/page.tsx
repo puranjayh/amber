@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import { DEMO, asOf, getCube, getPair, getPatient, getTrial, meta } from "@/app/_data/source";
+import { MissingData } from "@/components/console/MissingData";
 import { blockingUnknown, orderFor, pickAlertPair } from "@/components/alert/alert";
 import { AlertCard } from "@/components/alert/AlertCard";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
@@ -15,7 +15,16 @@ export default async function AlertPage({ searchParams }: PageProps<"/alert">) {
   const requested = demo ? DEMO : one(sp.patient) && one(sp.trial) ? { patientId: one(sp.patient)!, nctId: one(sp.trial)! } : null;
   const pair = requested ? getPair(requested.patientId, requested.nctId) : pickAlertPair(getCube());
 
-  if (requested && !pair) notFound();
+  if (getCube().length === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="alert" demo={demo} />
+        <main className="mx-auto w-full max-w-xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/cube.json" />
+        </main>
+      </>
+    );
+  }
 
   const patient = pair && getPatient(pair.patientId);
   const trial = pair && getTrial(pair.nctId);

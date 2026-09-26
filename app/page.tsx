@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { DEMO, asOf, getCube, getPair, getPatient, getTrial, getWorklist, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
 import { collectLeaves } from "@/components/criteria/rows";
@@ -12,7 +13,19 @@ import { screenFailures, worklistStrip } from "@/components/worklist/strip";
 export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   if (isDemo(await searchParams)) redirect("/patient?demo=1");
 
-  const rows: WorklistItem[] = getWorklist().map((row) => {
+  const worklist = getWorklist();
+  if (worklist.length === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="worklist" />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/worklist.json" />
+        </main>
+      </>
+    );
+  }
+
+  const rows: WorklistItem[] = worklist.map((row) => {
     const trial = getTrial(row.nctId);
     const leaves = trial ? collectLeaves(trial.criteria) : new Map();
     const cells = getPair(row.patientId, row.nctId)?.cells ?? [];

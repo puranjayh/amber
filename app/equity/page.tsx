@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { DEMO, asOf, getEquity, getTrial, getTrials, meta, subgroupSizes } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { isDemo, one } from "@/components/console/params";
@@ -16,7 +16,16 @@ export default async function EquityPage({ searchParams }: PageProps<"/equity">)
   const nctId = (!demo && one(sp.trial)) || DEMO.nctId;
   const trial = getTrial(nctId);
   const set = getEquity(nctId);
-  if (!trial || !set) notFound();
+  if (!trial || !set) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="equity" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/equity.json" detail={`No equity set for ${nctId}.`} />
+        </main>
+      </>
+    );
+  }
 
   const view = buildEquityView(set.rows);
   const sizes = subgroupSizes();

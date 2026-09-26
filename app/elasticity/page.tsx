@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { DEMO, asOf, getSweep, getSweeps, getTrial, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { collectLeaves } from "@/components/criteria/rows";
 import { ElasticityView } from "@/components/elasticity/ElasticityView";
@@ -25,7 +25,19 @@ export default async function ElasticityPage({ searchParams }: PageProps<"/elast
   const found = criterionId ? getSweep(nctId, criterionId) : undefined;
   const leaves = trial ? collectLeaves(trial.criteria) : undefined;
   const leaf = criterionId ? leaves?.get(criterionId) : undefined;
-  if (!trial || !found || !leaf || typeof leaf.value !== "number") notFound();
+  if (!trial || !found || !leaf || typeof leaf.value !== "number") {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="elasticity" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData
+            file="app/_data/elasticity.json"
+            detail={`No sweep for ${nctId}${criterionId ? ` / ${criterionId}` : ""}.`}
+          />
+        </main>
+      </>
+    );
+  }
 
   const sweep = buildSweep(found.points, leaf.value, leaf.operator);
   const qs = (c: string) => `/elasticity?trial=${nctId}&criterion=${c}`;

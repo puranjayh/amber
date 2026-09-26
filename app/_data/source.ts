@@ -10,21 +10,90 @@ import evalJson from "./eval.json";
 import landscapeJson from "./landscape.json";
 import payerJson from "./payer.json";
 import worklistJson from "./worklist.json";
-import { Assignments, CriteriaLandscape, ElasticitySweep, EquitySet, EvalReport, Meta, PayerView, WorklistRow } from "./schema";
+import {
+  Assignments,
+  CriteriaLandscape,
+  ElasticitySweep,
+  EquitySet,
+  EvalReport,
+  Meta,
+  PayerView,
+  WorklistRow,
+} from "./schema";
+import type { z } from "zod";
 
-// The only place the app reads data. Every file here is written by generate.ts from engine
-// output, and components/generated.test.ts fails if any of them drifts from a fresh run.
-const trials = TrialsFixture.parse(trialsJson);
-const patients = PatientsFixture.parse(patientsJson);
-const cube = CubeFixture.parse(cubeJson);
-const worklist = WorklistRow.array().parse(worklistJson);
-const sweeps = ElasticitySweep.array().parse(elasticityJson);
-const equity = EquitySet.array().parse(equityJson);
-const assignments = Assignments.parse(assignmentsJson);
-const landscape = CriteriaLandscape.parse(landscapeJson);
-const payer = PayerView.parse(payerJson);
-const evalReport = EvalReport.parse(evalJson);
-export const meta = Meta.parse(metaJson);
+const EMPTY_META: Meta = {
+  asOf: "—",
+  sources: [],
+  patients: 0,
+  trials: 0,
+  cells: 0,
+  pairsEvaluated: 0,
+  eligibleNow: 0,
+  oneTier0Away: 0,
+  engineTree: "—",
+};
+
+const EMPTY_PAYER: PayerView = {
+  headline: "",
+  beneficiaries: 0,
+  settled: [],
+  needs: [],
+  coverage: null,
+  source: "stub",
+};
+
+const EMPTY_EVAL: EvalReport = {
+  labelSource: "missing",
+  evaluatedCells: 0,
+  issues: [],
+  confusionMatrix: {},
+  precision: null,
+  recall: null,
+  unknownAgreement: null,
+  unknownRecall: null,
+  byVerdict: {},
+  disagreements: [],
+};
+
+export type SourceStatus = { file: string; ok: boolean; rows: number; error?: string };
+
+function take<T>(file: string, schema: z.ZodType<T>, json: unknown, empty: T, rows: (data: T) => number): T {
+  const result = schema.safeParse(json);
+  if (!result.success) {
+    const issue = result.error.issues[0];
+    sourceStatus.push({
+      file,
+      ok: false,
+      rows: 0,
+      error: issue ? `${issue.message}${issue.path.length ? ` at ${issue.path.join(".")}` : ""}` : "invalid",
+    });
+    return empty;
+  }
+  const n = rows(result.data);
+  sourceStatus.push({ file, ok: n > 0, rows: n, error: n === 0 ? "empty" : undefined });
+  return result.data;
+}
+
+export const sourceStatus: SourceStatus[] = [];
+
+const trials = take("app/_data/trials.json", TrialsFixture, trialsJson, [], (d) => d.length);
+const patients = take("app/_data/patients.json", PatientsFixture, patientsJson, [], (d) => d.length);
+const cube = take("app/_data/cube.json", CubeFixture, cubeJson, [], (d) => d.length);
+const worklist = take("app/_data/worklist.json", WorklistRow.array(), worklistJson, [], (d) => d.length);
+const sweeps = take("app/_data/elasticity.json", ElasticitySweep.array(), elasticityJson, [], (d) => d.length);
+const equity = take("app/_data/equity.json", EquitySet.array(), equityJson, [], (d) => d.length);
+const assignments = take("app/_data/assignments.json", Assignments, assignmentsJson, [], (d) => d.length);
+const landscape = take(
+  "app/_data/landscape.json",
+  CriteriaLandscape,
+  landscapeJson,
+  { generatedFromTrials: 0, analytes: [] },
+  (d) => d.analytes.length,
+);
+const payer = take("app/_data/payer.json", PayerView, payerJson, EMPTY_PAYER, (d) => d.settled.length + d.needs.length);
+const evalReport = take("app/_data/eval.json", EvalReport, evalJson, EMPTY_EVAL, (d) => d.evaluatedCells);
+export const meta = take("app/_data/meta.json", Meta, metaJson, EMPTY_META, (d) => d.patients);
 
 export const asOf = meta.asOf;
 

@@ -1,5 +1,6 @@
 import { asOf, getEval, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
@@ -12,6 +13,16 @@ export default async function EvalPage({
 }) {
   const demo = isDemo(await searchParams);
   const report = getEval();
+  if (report.evaluatedCells === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="eval" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/eval.json" />
+        </main>
+      </>
+    );
+  }
 
   return (
     <>

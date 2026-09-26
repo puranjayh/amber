@@ -1,6 +1,7 @@
 import { asOf, fixturePatientIds, getAssignments, getCube, getPatients, getTrials, meta } from "@/app/_data/source";
 // Route must stay free of PageProps<"/market"> — a stale AppRoutes omit 404s the page.
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
@@ -13,6 +14,16 @@ export default async function MarketPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const demo = isDemo(await searchParams);
+  if (getPatients().length === 0 || getTrials().length === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="market" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/assignments.json" />
+        </main>
+      </>
+    );
+  }
   const assignments = getAssignments();
   const assigned = new Set(assignments.flatMap((a) => a.pairs.map((p) => p.patientId)));
   const fixture = fixturePatientIds();

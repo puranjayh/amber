@@ -1,5 +1,6 @@
 import { asOf, getLandscape, meta } from "@/app/_data/source";
 import { ConsoleHeader } from "@/components/console/ConsoleHeader";
+import { MissingData } from "@/components/console/MissingData";
 import { DemoSteps } from "@/components/console/DemoSteps";
 import { Provenance } from "@/components/console/Provenance";
 import { isDemo } from "@/components/console/params";
@@ -8,6 +9,16 @@ import { LandscapeHistogram } from "@/components/landscape/LandscapeHistogram";
 export default async function LandscapePage({ searchParams }: PageProps<"/landscape">) {
   const demo = isDemo(await searchParams);
   const landscape = getLandscape();
+  if (landscape.analytes.length === 0 && landscape.generatedFromTrials === 0) {
+    return (
+      <>
+        <ConsoleHeader asOf={asOf} active="landscape" demo={demo} />
+        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+          <MissingData file="app/_data/landscape.json" />
+        </main>
+      </>
+    );
+  }
   const fromCompiler = meta.sources.includes("data/compiled/landscape.json");
 
   return (
