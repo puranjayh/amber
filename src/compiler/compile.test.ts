@@ -122,7 +122,7 @@ test("rejects an enumerated organ-function clause collapsed into a boolean leaf"
   if (!checked.success) {
     expect(checked.issues.join("\n")).toMatch(/lab_value requires a numeric value and a named analyte/);
     expect(checked.issues.join("\n")).toMatch(/boolean leaf has no named subject/);
-    expect(checked.issues.join("\n")).toMatch(/multiple threshold requirements/);
+    expect(checked.issues.join("\n")).toMatch(/no AND group of typed leaves/);
   }
 });
 
@@ -176,6 +176,36 @@ test("accepts an AND group of typed leaves for an enumerated organ-function clau
     ],
   }, { type: "inclusion", sourceText: source });
   expect(checked.success).toBe(true);
+});
+
+test("requires an AND group when a source block contains several thresholds", () => {
+  const source = "ANC >= 1500/uL, platelets >= 100,000/uL.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "INC-1", type: "inclusion", predicate: "lab_value", analyte: "ANC", operator: ">=", value: 1500,
+    unit: "/uL", tier: 1, sweepable: true, sweepRange: [0, 3000], sweepStep: 100, sourceSpan: "ANC >= 1500/uL",
+  }, { type: "inclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/no AND group of typed leaves/);
+});
+
+test("rejects a sentence stored as a string value", () => {
+  const source = "Chest CT scan or chest PET/CT within 12 months.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-1", type: "exclusion", predicate: "washout", drugClass: "RADIOTHERAPY", operator: "==",
+    value: source, tier: 4, sweepable: false, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/string value exceeds 40 characters/);
+});
+
+test("rejects an imaging timing sentence rather than relabelling it as washout", () => {
+  const source = "Chest CT scan or chest PET/CT within 12 months.";
+  const checked = validateCompiledTree({
+    kind: "leaf", id: "EXC-1", type: "exclusion", predicate: "diagnosis", operator: "==", value: "normal scan",
+    tier: 2, sweepable: false, sourceSpan: source,
+  }, { type: "exclusion", sourceText: source });
+  expect(checked.success).toBe(false);
+  if (!checked.success) expect(checked.issues.join("\n")).toMatch(/imaging timing requirement has no contract predicate/);
 });
 
 test("inlines bounded group nesting without recursive schema references", () => {

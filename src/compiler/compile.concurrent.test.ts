@@ -69,4 +69,30 @@ describe("compiler batch concurrency", () => {
     )).rejects.toEqual({ status: 400 });
     expect(calls).toBe(1);
   });
+
+  it("times out one stalled trial, records its NCT id, and continues the batch", async () => {
+    let calls = 0;
+    const skipped: string[] = [];
+    const results = await compileRawTrials(
+      [raw(1), raw(2)],
+      async (_block, signal) => {
+        calls += 1;
+        if (calls === 1) {
+          return new Promise((_, reject) => {
+            signal?.addEventListener("abort", () => reject(signal.reason), { once: true });
+          });
+        }
+        return validAgeTree;
+      },
+      {
+        concurrency: 1,
+        trialTimeoutMs: 5,
+        onSkipped: (nctId) => skipped.push(nctId),
+      },
+    );
+
+    expect(results[0].failure?.issues).toEqual(["per-trial timeout after 5ms"]);
+    expect(results[1].failure).toBeUndefined();
+    expect(skipped).toEqual(["NCT00000001"]);
+  });
 });

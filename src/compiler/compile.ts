@@ -29,12 +29,17 @@ export interface CompiledTrialResult {
   sourceText: string;
 }
 
-export type BlockCompiler = (block: EligibilityBlock) => Promise<CriterionNodeValue>;
+/** The batch supplies a signal so a single protocol cannot hold a worker forever. */
+export type BlockCompiler = (block: EligibilityBlock, signal?: AbortSignal) => Promise<CriterionNodeValue>;
 
 export interface CompileBatchOptions {
-  /** xAI permits far more, but 8 keeps spend and retries bounded. */
+  /** Conservative by design: four concurrent protocol calls leave room for retries. */
   concurrency?: number;
+  /** Deadline for all inclusion/exclusion chunks belonging to one trial. */
+  trialTimeoutMs?: number;
   onProgress?: (completed: number, total: number) => void;
+  /** Called exactly once for a deadline-exhausted trial, after it is recorded as rejected. */
+  onSkipped?: (nctId: string, reason: string) => void;
 }
 
 const responseSchema = z.object({ root: CriterionNode });
@@ -105,7 +110,7 @@ Use only the contract predicates and operators. Do not invent clinical requireme
 
 Washout leaves are time since a SPECIFIC prior exposure, never generic time since any treatment. Every washout leaf must have a numeric duration in days, tier:4, and a non-empty target in drugClass or analyte. Put the target in drugClass whenever it is a treatment category: RADIOTHERAPY, PLATINUM_CHEMOTHERAPY, INVESTIGATIONAL_AGENT, or SURGERY. For example, “prior palliative or curative radiotherapy must be completed at least 14 days prior” is a washout leaf with value:14, unit:"days", operator:">=", drugClass:"RADIOTHERAPY", tier:4. Preserve “palliative or curative” as a sourceSpan/countingRule; it does not make the target optional.
 
-Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For example, “pregnant or lactating” is an OR group of named contraindication/comorbidity leaves (analyte:"pregnancy" and analyte:"lactation", value:true); never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
+Boolean leaves must name the thing a Fact would record: use analyte or drugClass and a boolean value. For “pregnant or lactating”, return exactly an OR group with named contraindication/comorbidity leaves for analyte:"pregnancy", value:true and analyte:"lactation", value:true. Never encode the entire sentence as an unnamed true value. If a criterion genuinely cannot be typed into a Fact comparison, emit no invented catch-all leaf: the result must fail validation and be reviewed.
 
 Do not use washout for an imaging or assessment requirement. “Chest CT or PET/CT within 12 months” is not time since a dose; it is not representable by a washout leaf. Never put a quoted source sentence in value. Split enumerated requirements into typed leaves joined by an AND group. For example, “ANC >= 1500/uL, platelets >= 100,000/uL, CrCl >= 45 mL/min” becomes an AND group with three lab_value leaves, each with its own analyte, numeric value, unit, and sourceSpan. Never emit a catch-all boolean leaf (such as value:true) whose sourceSpan is a whole multi-requirement sentence. If a requirement cannot be represented as a predicate that a Fact can compare to, do not emit a leaf for it.
 
@@ -296,6 +301,10 @@ function structuralAlternative(text: string): boolean {
   return /\beither\b[\s\S]{0,240}\bor\b|\bunless\b|\bwhichever\b|\bin which case\b/i.test(text);
 }
 
+function isUntypableImagingTimingRequirement(text: string): boolean {
+  return /\b(?:CT|PET\/?CT|MRI)\b[\s\S]{0,160}\bwithin\s+\d+\s+(?:day|week|month|year)/i.test(text);
+}
+
 function nonEmptyText(value: string | undefined): boolean {
   return typeof value === "string" && value.trim().length > 0;
 }
@@ -304,6 +313,16 @@ function nonEmptyText(value: string | undefined): boolean {
 function enumeratedThresholdCount(text: string): number {
   const matches = text.match(/(?:>=|<=|≥|≤|(?<![A-Za-z])>|(?<![A-Za-z])<|\bat least\b|\bno more than\b|\bless than\b|\bgreater than\b)\s*\d/gi);
   return matches?.length ?? 0;
+}
+
+function leafCount(node: CriterionNodeValue): number {
+  return node.kind === "leaf" ? 1 : node.children.reduce((count, child) => count + leafCount(child), 0);
+}
+
+function hasEnumeratedAndGroup(node: CriterionNodeValue, requiredLeaves: number): boolean {
+  if (node.kind === "leaf") return false;
+  if (node.op === "AND" && leafCount(node) >= requiredLeaves) return true;
+  return node.children.some((child) => hasEnumeratedAndGroup(child, requiredLeaves));
 }
 
 function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf" }>): string[] {
@@ -320,6 +339,9 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
   if (!membershipOperator && Array.isArray(node.value)) {
     issues.push(`${node.id}: ${node.operator} cannot compare an array value to a single fact`);
   }
+  if (typeof node.value === "string" && node.value.length > 40) {
+    issues.push(`${node.id}: string value exceeds 40 characters; it is likely unparsed protocol prose`);
+  }
   if (typeof node.value === "boolean" && !nonEmptyText(node.analyte) && !nonEmptyText(node.drugClass)) {
     issues.push(`${node.id}: boolean leaf has no named subject (analyte or drugClass required)`);
   }
@@ -335,9 +357,6 @@ function validateComparableLeaf(node: Extract<CriterionNodeValue, { kind: "leaf"
       issues.push(`${node.id}: washout duration has no target exposure (drugClass or analyte required)`);
     }
     if (node.tier !== 4) issues.push(`${node.id}: washout must use tier 4`);
-  }
-  if (enumeratedThresholdCount(node.sourceSpan) > 1) {
-    issues.push(`${node.id}: sourceSpan contains multiple threshold requirements; compile an AND group of typed leaves`);
   }
   return issues;
 }
@@ -383,6 +402,20 @@ export function fidelityDefectCounts(results: readonly CompiledTrialResult[]): R
     }
   }
   return counts;
+}
+
+function longStringValueLeaves(results: readonly CompiledTrialResult[]): string[] {
+  const ids: string[] = [];
+  for (const result of results) {
+    for (const criterion of result.trial.criteria) {
+      walk(criterion, (node) => {
+        if (node.kind === "leaf" && typeof node.value === "string" && node.value.length > 40) {
+          ids.push(`${result.trial.nctId}/${node.id}`);
+        }
+      });
+    }
+  }
+  return ids;
 }
 
 /**
@@ -479,6 +512,13 @@ export function validateCompiledTree(
   if (groupDepth(reconciled.data) > MAX_GROUP_DEPTH) {
     reviewReasons.push(`tree exceeds the supported nesting depth of ${MAX_GROUP_DEPTH} groups`);
   }
+  if (isUntypableImagingTimingRequirement(block.sourceText)) {
+    issues.push("imaging timing requirement has no contract predicate; reject rather than relabel it as washout");
+  }
+  const enumeratedRequirements = enumeratedThresholdCount(block.sourceText);
+  if (enumeratedRequirements > 1 && !hasEnumeratedAndGroup(reconciled.data, enumeratedRequirements)) {
+    issues.push(`source block has ${enumeratedRequirements} threshold requirements but no AND group of typed leaves`);
+  }
 
   return issues.length ? { success: false, issues } : { success: true, data: reconciled.data, reviewReasons };
 }
@@ -488,25 +528,31 @@ export function createGrokBlockCompiler({
   model = process.env.XAI_MODEL || "grok-4",
 }: { apiKey?: string; model?: string } = {}): BlockCompiler {
   if (!apiKey) throw new Error("XAI_API_KEY is required to compile eligibility criteria");
-  const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1" });
+  // Individual stalled responses must not hold a pilot (or the full batch)
+  // indefinitely. Transient timeouts flow through the bounded retry policy below.
+  const client = new OpenAI({ apiKey, baseURL: "https://api.x.ai/v1", timeout: 90_000, maxRetries: 0 });
 
-  return async (block) => {
+  return async (block, signal) => {
     try {
-      return await compileWithBoundedSchema(client, model, block);
+      return await compileWithBoundedSchema(client, model, block, signal);
     } catch (error) {
       if (!unsupportedStructuredSchema(error)) throw error;
-      return compileWithJsonMode(client, model, block);
+      return compileWithJsonMode(client, model, block, signal);
     }
   };
 }
 
 function messagesFor(block: EligibilityBlock, jsonMode = false) {
+  const enumerated = enumeratedThresholdCount(block.sourceText);
+  const enumerationInstruction = enumerated > 1
+    ? `\nThis source contains ${enumerated} explicit thresholds. Its root MUST be an AND group; split every threshold into its own typed leaf. Every leaf sourceSpan must contain exactly one numeric comparison. “AST and ALT <= 2.5 ULN” is an AND of separate AST and ALT leaves. “eGFR >= 30 OR creatinine clearance >= 30” is an OR group of separate leaves. Never cite either pair in one leaf.`
+    : "";
   return [
     {
       role: "developer" as const,
       content: jsonMode
-        ? `${COMPILER_INSTRUCTIONS}\nReturn one JSON object with exactly one key, root. Do not use markdown.`
-        : COMPILER_INSTRUCTIONS,
+        ? `${COMPILER_INSTRUCTIONS}${enumerationInstruction}\nReturn one JSON object with exactly one key, root. Do not use markdown.`
+        : `${COMPILER_INSTRUCTIONS}${enumerationInstruction}`,
     },
     { role: "user" as const, content: `Block type: ${block.type}\n\nProtocol source:\n${block.sourceText}` },
   ];
@@ -520,6 +566,7 @@ async function compileWithBoundedSchema(
   client: OpenAI,
   model: string,
   block: EligibilityBlock,
+  signal?: AbortSignal,
 ): Promise<CriterionNodeValue> {
   const completion = await withRetry(() =>
     client.chat.completions.create({
@@ -534,7 +581,7 @@ async function compileWithBoundedSchema(
           schema: boundedResponseJsonSchema,
         },
       },
-    }),
+    }, { signal }),
   );
   const content = completion.choices[0]?.message.content;
   if (!content) throw new Error("Grok returned no structured compilation");
@@ -555,6 +602,7 @@ async function compileWithJsonMode(
   client: OpenAI,
   model: string,
   block: EligibilityBlock,
+  signal?: AbortSignal,
 ): Promise<CriterionNodeValue> {
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -565,7 +613,7 @@ async function compileWithJsonMode(
           temperature: 0,
           messages: messagesFor(block, true),
           response_format: { type: "json_object" },
-        }),
+        }, { signal }),
       );
       const content = completion.choices[0]?.message.content;
       if (!content) throw new Error("Grok returned no JSON-mode compilation");
@@ -609,6 +657,7 @@ export async function withRetry<T>(
 export async function compileTrial(
   raw: RawClinicalTrial,
   compileBlock: BlockCompiler,
+  { signal }: { signal?: AbortSignal } = {},
 ): Promise<CompiledTrialResult> {
   const base = sourceTrial(raw);
   const sourceText = raw.protocolSection.eligibilityModule?.eligibilityCriteria?.trim() || "";
@@ -622,8 +671,12 @@ export async function compileTrial(
   const citationFlags: string[] = [];
   const usedIds = new Set<string>();
   for (const block of extractEligibilityBlocks(sourceText)) {
+    if (signal?.aborted) {
+      issues.push(signal.reason instanceof Error ? signal.reason.message : "per-trial compilation timeout");
+      break;
+    }
     try {
-      const candidate = await compileBlock(block);
+      const candidate = await compileBlock(block, signal);
       const checked = validateCompiledTree(candidate, block);
       if (!checked.success) issues.push(...checked.issues);
       else {
@@ -635,6 +688,7 @@ export async function compileTrial(
       }
     } catch (error) {
       issues.push(error instanceof Error ? error.message : "unknown compiler error");
+      if (signal?.aborted) break;
     }
   }
 
@@ -657,10 +711,13 @@ export async function compileTrial(
 export async function compileRawTrials(
   rawTrials: RawClinicalTrial[],
   compileBlock: BlockCompiler,
-  { concurrency = 8, onProgress }: CompileBatchOptions = {},
+  { concurrency = 4, trialTimeoutMs = 90_000, onProgress, onSkipped }: CompileBatchOptions = {},
 ): Promise<CompiledTrialResult[]> {
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 10) {
     throw new Error("concurrency must be an integer from 1 through 10");
+  }
+  if (!Number.isInteger(trialTimeoutMs) || trialTimeoutMs < 1) {
+    throw new Error("trialTimeoutMs must be a positive integer");
   }
 
   const results = new Array<CompiledTrialResult>(rawTrials.length);
@@ -671,7 +728,19 @@ export async function compileRawTrials(
       const index = nextIndex;
       nextIndex += 1;
       if (index >= rawTrials.length) return;
-      results[index] = await compileTrial(rawTrials[index], compileBlock);
+      const raw = rawTrials[index];
+      const controller = new AbortController();
+      let timedOut = false;
+      const deadline = setTimeout(() => {
+        timedOut = true;
+        controller.abort(new Error(`per-trial timeout after ${trialTimeoutMs}ms`));
+      }, trialTimeoutMs);
+      try {
+        results[index] = await compileTrial(raw, compileBlock, { signal: controller.signal });
+      } finally {
+        clearTimeout(deadline);
+      }
+      if (timedOut) onSkipped?.(raw.protocolSection.identificationModule.nctId, `timeout after ${trialTimeoutMs}ms`);
       completed += 1;
       onProgress?.(completed, rawTrials.length);
     }
@@ -699,6 +768,8 @@ async function main(): Promise<void> {
   const retryIdsPath = cliArgument("--nct-ids");
   const requestedSmokeCount = cliArgument("--smoke-count");
   const smokeCount = requestedSmokeCount === undefined ? 3 : Number(requestedSmokeCount);
+  const requireAllCompiled = process.argv.includes("--require-all-compiled");
+  const printTrees = process.argv.includes("--print-trees");
   if (!Number.isInteger(smokeCount) || smokeCount < 1) throw new Error("--smoke-count must be a positive integer");
   const outputPath = resolve(process.argv[3] || (retryIdsPath ? "data/compiled/trials.retry.json" : fullBatch ? "data/compiled/trials.json" : "data/compiled/trials.smoke.json"));
   const rawTrials = z.array(RawClinicalTrial).parse(JSON.parse(await readFile(inputPath, "utf8")));
@@ -709,13 +780,26 @@ async function main(): Promise<void> {
   if (retryNctIds) console.log(`Targeted retry: compiling ${batch.length} requested trials only.`);
   else if (!fullBatch) console.log(`Smoke test: compiling ${batch.length} trials. Re-run with --full only after reviewing this output.`);
   const results = await compileRawTrials(batch, createGrokBlockCompiler(), {
-    concurrency: Number(process.env.COMPILER_CONCURRENCY || "8"),
+    concurrency: Number(process.env.COMPILER_CONCURRENCY || "4"),
+    trialTimeoutMs: Number(process.env.COMPILER_TRIAL_TIMEOUT_MS || "90000"),
     onProgress: (completed, total) => console.log(`${completed}/${total} trials compiled`),
+    onSkipped: (nctId, reason) => console.log(`SKIPPED ${nctId}: ${reason}`),
   });
   const defects = fidelityDefectCounts(results);
+  const longValues = longStringValueLeaves(results);
   console.log(`Fidelity defect scan: sentence-as-boolean ${defects["sentence-as-boolean"]}; washout-without-target ${defects["washout-without-target"]}; quoted-sentence-in-value ${defects["quoted-sentence-in-value"]}`);
+  console.log(`Long string value scan (>40 chars): ${longValues.length}`);
+  if (printTrees) {
+    for (const result of results) {
+      console.log(`\n=== ${result.trial.nctId} ===\nSOURCE:\n${result.sourceText}\nTREE:\n${JSON.stringify(result.trial.criteria, null, 2)}${result.failure ? `\nREJECTED: ${result.failure.issues.join(" | ")}` : ""}`);
+    }
+  }
   if (Object.values(defects).some((count) => count > 0)) {
     throw new Error("Refusing to publish compilation containing fidelity defect classes");
+  }
+  if (longValues.length > 0) throw new Error(`Refusing to publish ${longValues.length} long literal criterion values`);
+  if (requireAllCompiled && results.some((result) => result.failure)) {
+    throw new Error("Pilot requires every requested trial to compile before publication");
   }
   const published = await publishCompilationResults(results, outputPath);
   console.log(`Compiled ${published.compiledTrees}; rejected ${results.filter((result) => result.failure).length}${published.previousCompiledTrees === undefined ? "" : `; previous corpus had ${published.previousCompiledTrees} compiled trees`}`);
