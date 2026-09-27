@@ -23,6 +23,7 @@
 .DS_Store
 .data/
 .env*
+!.env.example
 .pnp.*
 .pnpm-debug.log*
 .vercel

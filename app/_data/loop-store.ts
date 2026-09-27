@@ -30,8 +30,14 @@ function supabaseUrl(): string | undefined {
   return process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || undefined;
 }
 
+/** Every loop table has RLS on and no policies, so a publishable/anon key cannot read or write. */
 function supabaseKey(): string | undefined {
-  return process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || undefined;
+  return process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || undefined;
+}
+
+function authHeaders(key: string): Record<string, string> {
+  // sb_secret_ keys are not JWTs; the gateway rejects them as a Bearer token.
+  return key.startsWith("sb_") ? { apikey: key } : { apikey: key, Authorization: `Bearer ${key}` };
 }
 
 export function loopBackend(): LoopStateT["backend"] {
@@ -138,6 +144,30 @@ type NoteRow = {
   updated_at: string;
 };
 
+type RegistryRow = {
+  nct_id: string;
+  fetched_at: string;
+  study: unknown;
+};
+
+type ReleaseRow = {
+  physician_id: string;
+  mode: string;
+};
+
+function fromRegistryRow(row: RegistryRow): RegistrySnapshotT[] {
+  const one = RegistrySnapshot.safeParse({ nctId: row.nct_id, fetchedAt: row.fetched_at, study: row.study });
+  return one.success ? [one.data] : [];
+}
+
+function toRegistryRow(row: RegistrySnapshotT): RegistryRow {
+  return { nct_id: row.nctId, fetched_at: row.fetchedAt, study: row.study };
+}
+
+function fromReleaseRow(row: ReleaseRow): ReleaseSettingT {
+  return ReleaseSetting.parse({ physicianId: row.physician_id, mode: row.mode });
+}
+
 function fromPrefRow(row: PrefRow): LoopPreferenceT {
   return LoopPreference.parse({
     patientId: row.patient_id,
@@ -201,8 +231,7 @@ async function rest<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${url}/rest/v1/${path}`, {
     ...init,
     headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
+      ...authHeaders(key),
       "Content-Type": "application/json",
       Prefer: "return=representation",
       ...(init?.headers ?? {}),
@@ -212,17 +241,18 @@ async function rest<T>(path: string, init?: RequestInit): Promise<T> {
   if (!res.ok) {
     throw new Error(`supabase ${res.status} ${path}: ${await res.text()}`);
   }
-  if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
 }
 
 async function readSupabase(): Promise<LoopStateT> {
-  const [prefs, nudges, notes] = await Promise.all([
+  const [prefs, nudges, notes, registry, releases] = await Promise.all([
     rest<PrefRow[]>("preferences?select=*&order=updated_at.asc"),
     rest<NudgeRow[]>("nudges?select=*&order=created_at.asc"),
     rest<NoteRow[]>("physician_notes?select=*"),
+    rest<RegistryRow[]>("registry_snapshots?select=*"),
+    rest<ReleaseRow[]>("release_settings?select=physician_id,mode"),
   ]);
-  const file = readFile();
   return {
     backend: "supabase",
     preferences: prefs.map(fromPrefRow),
@@ -234,8 +264,8 @@ async function readSupabase(): Promise<LoopStateT> {
         updatedAt: row.updated_at,
       }),
     ),
-    registry: file.registry,
-    releases: file.releases,
+    registry: registry.flatMap(fromRegistryRow),
+    releases: releases.map(fromReleaseRow),
   };
 }
 
@@ -345,12 +375,13 @@ export async function clearLoop(): Promise<void> {
   const wiped = { ...empty(), notes: keep };
   if (loopBackend() === "supabase") {
     await trySupabase(async () => {
+      const minimal = { method: "DELETE", headers: { Prefer: "return=minimal" } };
       await Promise.all([
-        rest("preferences?patient_id=not.is.null", { method: "DELETE", headers: { Prefer: "return=minimal" } }),
-        rest("nudges?id=not.is.null", { method: "DELETE", headers: { Prefer: "return=minimal" } }),
+        rest("preferences?patient_id=not.is.null", minimal),
+        rest("nudges?id=not.is.null", minimal),
+        rest("registry_snapshots?nct_id=not.is.null", minimal),
+        rest("release_settings?physician_id=not.is.null", minimal),
       ]);
-      const file = readFile();
-      writeFile({ ...file, registry: [], releases: [] });
     }, () => writeFile(wiped));
     return;
   }
@@ -363,11 +394,16 @@ export async function saveRegistry(registry: RegistrySnapshotT[], nudges: LoopNu
   if (loopBackend() === "supabase") {
     await trySupabase(
       async () => {
+        if (registry.length) {
+          await rest("registry_snapshots", {
+            method: "POST",
+            headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+            body: JSON.stringify(registry.map(toRegistryRow)),
+          });
+        }
         if (nudges.length) {
           await rest("nudges", { method: "POST", body: JSON.stringify(nudges.map(toNudgeRow)) });
         }
-        const file = readFile();
-        writeFile({ ...file, registry });
       },
       () => writeFile(next),
     );
@@ -397,8 +433,21 @@ export async function setNudgeHeld(id: string, held: boolean): Promise<void> {
 }
 
 export async function saveReleases(releases: ReleaseSettingT[]): Promise<void> {
-  const current = readFile();
-  writeFile({ ...current, releases });
+  const apply = () => writeFile({ ...readFile(), releases });
+  if (loopBackend() === "supabase") {
+    await trySupabase(async () => {
+      if (!releases.length) return;
+      await rest("release_settings", {
+        method: "POST",
+        headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+        body: JSON.stringify(
+          releases.map((row) => ({ physician_id: row.physicianId, mode: row.mode, updated_at: new Date().toISOString() })),
+        ),
+      });
+    }, apply);
+    return;
+  }
+  apply();
 }
 
 export function preferenceFromAnswers(patientId: string, answers: PortalAnswers, at: string): LoopPreferenceT {

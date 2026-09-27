@@ -40,3 +40,22 @@ create table if not exists physician_notes (
   text text not null,
   updated_at timestamptz not null default now()
 );
+
+create table if not exists registry_snapshots (
+  nct_id text primary key,
+  fetched_at timestamptz not null,
+  study jsonb not null
+);
+
+create table if not exists release_settings (
+  physician_id text primary key,
+  mode text not null check (mode in ('review', 'auto')),
+  updated_at timestamptz not null default now()
+);
+
+-- No policies: only the service role (which bypasses RLS) can read or write.
+alter table preferences enable row level security;
+alter table nudges enable row level security;
+alter table physician_notes enable row level security;
+alter table registry_snapshots enable row level security;
+alter table release_settings enable row level security;
