@@ -7,7 +7,6 @@ import type { TrialNewsItem } from "./trialNews";
 
 const SORTS = [
   { id: "date", label: "Date" },
-  { id: "close", label: "Near eligible" },
   { id: "eligible", label: "Eligible now" },
   { id: "name", label: "Name" },
 ] as const;
@@ -136,7 +135,6 @@ function compareTrials(
   sort: SortId,
   news: Map<string, TrialNewsItem>,
 ): number {
-  if (sort === "close") return b.close - a.close || a.title.localeCompare(b.title);
   if (sort === "eligible") return b.eligible - a.eligible || b.close - a.close || a.title.localeCompare(b.title);
   if (sort === "name") return a.title.localeCompare(b.title);
   const left = news.get(a.nctId)?.date ?? "";
