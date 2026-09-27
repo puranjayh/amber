@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Vercel deployments are the doctor portal only; local dev keeps every portal.
+  env: {
+    NEXT_PUBLIC_DOCTOR_ONLY: process.env.NEXT_PUBLIC_DOCTOR_ONLY ?? (process.env.VERCEL ? "1" : "0"),
+  },
   // Pages read generated JSON by computed path, which the tracer cannot follow.
   outputFileTracingIncludes: {
     "/**": [
