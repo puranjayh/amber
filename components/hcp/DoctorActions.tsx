@@ -81,7 +81,7 @@ export function DoctorActions({
         >
           Dismiss
         </button>
-        {suggested && (
+        {suggested && process.env.NEXT_PUBLIC_DOCTOR_ONLY !== "1" && (
           <Link
             href={`/patient-portal?patient=${encodeURIComponent(patientId)}`}
             className="text-[13px] font-medium text-brand hover:text-ink"

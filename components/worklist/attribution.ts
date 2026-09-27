@@ -37,7 +37,7 @@ function loadObserved(): Map<string, { id: string; name?: string; site?: string 
   ];
   const out = new Map<string, { id: string; name?: string; site?: string }>();
   for (const rel of files) {
-    const path = rel.startsWith("/") ? rel : join(roots[0], rel);
+    const path = rel.startsWith("/") ? rel : join(/*turbopackIgnore: true*/ roots[0], rel);
     if (!existsSync(path)) continue;
     try {
       const raw = JSON.parse(readFileSync(path, "utf8")) as unknown;

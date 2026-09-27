@@ -41,7 +41,6 @@
 /playwright-report/
 /playwright/.cache/
 /test-results/
-app/_data/cube.json
 data/claims/raw/
 data/raw/
 next-env.d.ts

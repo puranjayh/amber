@@ -127,7 +127,7 @@ const draftEval = take(
 );
 
 function readJsonFile(rel: string): unknown {
-  const path = join(process.cwd(), rel);
+  const path = join(/*turbopackIgnore: true*/ process.cwd(), rel);
   if (!existsSync(path)) return undefined;
   return JSON.parse(readFileSync(path, "utf8"));
 }

@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
 const ROOT = process.cwd();
 
 function read(rel: string): string | null {
-  const path = join(ROOT, rel);
+  const path = join(/*turbopackIgnore: true*/ ROOT, rel);
   if (!existsSync(path)) return null;
   return readFileSync(path, "utf8");
 }
