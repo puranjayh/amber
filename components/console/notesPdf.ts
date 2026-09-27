@@ -9,13 +9,19 @@ const PAGE_W = 612;
 const PAGE_H = 792;
 const MARGIN_X = 54;
 const CONTENT_W = PAGE_W - MARGIN_X * 2;
-const HEADER_H = 40;
+const HEADER_H = 52;
 const FOOTER_Y = 48;
-const BODY_TOP = 708;
+const BODY_TOP = 696;
 const BODY_FLOOR = 72;
 
+export type NoteLogo = {
+  width: number;
+  height: number;
+  rgb: Uint8Array;
+  alpha?: Uint8Array;
+};
+
 const BRAND = "0.886 0.294 0.196";
-const ON_BRAND = "1 1 1";
 const INK = "0.110 0.141 0.188";
 const INK_2 = "0.243 0.298 0.369";
 const INK_3 = "0.416 0.467 0.533";
@@ -140,14 +146,32 @@ function textWidth(text: string, size: number): number {
   return text.length * size * 0.5;
 }
 
-function chrome(note: NotePage, page: number, total: number): string[] {
+function hexOf(bytes: Uint8Array): string {
+  let out = "";
+  for (let i = 0; i < bytes.length; i += 1) out += bytes[i].toString(16).padStart(2, "0");
+  return `${out}>`;
+}
+
+function chrome(note: NotePage, page: number, total: number, logo?: NoteLogo): string[] {
   const kicker = note.kicker ?? "Visit note";
   const pages = `${page} / ${total}`;
+  const mark = logo
+    ? (() => {
+        const height = 22;
+        const width = (logo.width / logo.height) * height;
+        return [
+          "q",
+          `${width.toFixed(1)} 0 0 ${height.toFixed(1)} ${MARGIN_X} ${(PAGE_H - 16 - height).toFixed(1)} cm`,
+          "/Im1 Do",
+          "Q",
+        ];
+      })()
+    : [textAt(MARGIN_X, PAGE_H - 32, 16, "F2", BRAND, "AMBER")];
   return [
-    fillRect(0, PAGE_H - HEADER_H, PAGE_W, HEADER_H, BRAND),
-    textAt(MARGIN_X, PAGE_H - 26, 13, "F2", ON_BRAND, "AMBER"),
-    textAt(PAGE_W - MARGIN_X - textWidth(kicker, 10), PAGE_H - 25, 10, "F1", ON_BRAND, kicker),
-    fillRect(0, PAGE_H - HEADER_H - 3, PAGE_W, 3, RULE),
+    fillRect(0, PAGE_H - HEADER_H, PAGE_W, HEADER_H, "1 1 1"),
+    ...mark,
+    textAt(PAGE_W - MARGIN_X - textWidth(kicker, 10), PAGE_H - 30, 10, "F1", INK_3, kicker),
+    fillRect(0, PAGE_H - HEADER_H - 3, PAGE_W, 3, BRAND),
     stroke(MARGIN_X, FOOTER_Y, PAGE_W - MARGIN_X, FOOTER_Y, RULE),
     textAt(MARGIN_X, 34, 8, "F1", INK_3, `${note.name}  ·  ${note.code}`),
     textAt(PAGE_W - MARGIN_X - textWidth(pages, 8), 34, 8, "F1", INK_3, pages),
@@ -168,7 +192,7 @@ function titleBlock(note: NotePage): { ops: string[]; nextY: number } {
 }
 
 /** US Letter pages. A long note continues onto the next page. No printer, no email. */
-export function notesPdf(notes: NotePage[]): Uint8Array {
+export function notesPdf(notes: NotePage[], logo?: NoteLogo): Uint8Array {
   const pages: { note: NotePage; stream: string; page: number; of: number }[] = [];
   for (const note of notes) {
     const lines = bodyLines(note.body);
@@ -207,14 +231,18 @@ export function notesPdf(notes: NotePage[]): Uint8Array {
 
   const objects: string[] = [];
   const pageIds: number[] = [];
+  const imageId = logo ? 6 : 0;
+  const maskId = logo?.alpha ? 7 : 0;
+  const pageStart = logo ? (maskId ? 8 : 7) : 6;
+  const xObject = logo ? " /XObject << /Im1 6 0 R >>" : "";
   pages.forEach((page, index) => {
-    const stamped = `${chrome(page.note, page.page, page.of).join("\n")}\n${page.stream}`;
-    const pageId = 6 + index * 2;
+    const stamped = `${chrome(page.note, page.page, page.of, logo).join("\n")}\n${page.stream}`;
+    const pageId = pageStart + index * 2;
     const contentId = pageId + 1;
     pageIds.push(pageId);
     objects[contentId] = `<< /Length ${stamped.length} >>\nstream\n${stamped}\nendstream`;
     objects[pageId] =
-      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] /Contents ${contentId} 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>`;
+      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] /Contents ${contentId} 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >>${xObject} >> >>`;
   });
 
   objects[1] = "<< /Type /Catalog /Pages 2 0 R >>";
@@ -222,6 +250,18 @@ export function notesPdf(notes: NotePage[]): Uint8Array {
   objects[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>";
   objects[4] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>";
   objects[5] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>";
+  if (logo) {
+    const rgb = hexOf(logo.rgb);
+    const mask = logo.alpha ? hexOf(logo.alpha) : "";
+    objects[imageId] =
+      `<< /Type /XObject /Subtype /Image /Width ${logo.width} /Height ${logo.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /ASCIIHexDecode${
+        maskId ? ` /SMask ${maskId} 0 R` : ""
+      } /Length ${rgb.length} >>\nstream\n${rgb}\nendstream`;
+    if (maskId && logo.alpha) {
+      objects[maskId] =
+        `<< /Type /XObject /Subtype /Image /Width ${logo.width} /Height ${logo.height} /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /ASCIIHexDecode /Length ${mask.length} >>\nstream\n${mask}\nendstream`;
+    }
+  }
 
   let body = "%PDF-1.4\n";
   const offsets = [0];
@@ -243,9 +283,38 @@ export function notesPdf(notes: NotePage[]): Uint8Array {
   return new TextEncoder().encode(body);
 }
 
-export function downloadNotes(notes: NotePage[], filename = "notes.pdf") {
+async function loadLogo(): Promise<NoteLogo | undefined> {
+  if (typeof document === "undefined") return undefined;
+  try {
+    const image = new Image();
+    image.src = "/amber-logo.png";
+    await image.decode();
+    const height = 48;
+    const width = Math.max(1, Math.round((image.naturalWidth / image.naturalHeight) * height));
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return undefined;
+    ctx.drawImage(image, 0, 0, width, height);
+    const pixels = ctx.getImageData(0, 0, width, height).data;
+    const rgb = new Uint8Array(width * height * 3);
+    const alpha = new Uint8Array(width * height);
+    for (let i = 0, p = 0; i < pixels.length; i += 4, p += 1) {
+      rgb[p * 3] = pixels[i];
+      rgb[p * 3 + 1] = pixels[i + 1];
+      rgb[p * 3 + 2] = pixels[i + 2];
+      alpha[p] = pixels[i + 3];
+    }
+    return { width, height, rgb, alpha };
+  } catch {
+    return undefined;
+  }
+}
+
+export async function downloadNotes(notes: NotePage[], filename = "notes.pdf") {
   if (notes.length === 0 || typeof document === "undefined") return;
-  const bytes = notesPdf(notes);
+  const bytes = notesPdf(notes, await loadLogo());
   const blob = new Blob([bytes], { type: "application/pdf" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

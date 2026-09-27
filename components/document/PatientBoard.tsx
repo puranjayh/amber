@@ -37,9 +37,12 @@ export function PatientBoard({
 }) {
   const [nctId, setNctId] = useState(initialNctId);
   const [moved, setMoved] = useState(false);
+  const [shown, setShown] = useState(() => shownCount(entries, initialNctId));
   const heading = useRef<HTMLHeadingElement>(null);
   const byId = new Map(details.map((row) => [row.nctId, row]));
   const selected = byId.get(nctId) ?? details[0];
+  const visible = entries.slice(0, shown);
+  const hidden = Math.max(0, entries.length - shown);
 
   useEffect(() => {
     if (!moved) return;
@@ -56,7 +59,7 @@ export function PatientBoard({
       <section aria-label="Trials this patient could go for">
         <h2 className="text-[18px] font-medium text-ink">Trials</h2>
         <ol className="mt-3 overflow-hidden rounded-md border border-brand-line bg-surface">
-          {entries.map((row) => {
+          {visible.map((row) => {
             const current = row.nctId === selected.nctId;
             const standing = standingOf(row);
             const bar =
@@ -111,6 +114,15 @@ export function PatientBoard({
             );
           })}
         </ol>
+        {hidden > 0 ? (
+          <button
+            type="button"
+            onClick={() => setShown((count) => Math.min(count + 10, entries.length))}
+            className="mt-2 text-[13px] font-medium text-brand hover:text-ink"
+          >
+            {Math.min(10, hidden)} more
+          </button>
+        ) : null}
       </section>
       <TrialPane
         key={selected.nctId}
@@ -122,6 +134,14 @@ export function PatientBoard({
       />
     </div>
   );
+}
+
+const PAGE = 10;
+
+function shownCount(entries: BoardEntry[], nctId: string): number {
+  const index = entries.findIndex((row) => row.nctId === nctId);
+  if (index < 0) return Math.min(PAGE, entries.length);
+  return Math.min(entries.length, Math.ceil((index + 1) / PAGE) * PAGE);
 }
 
 function TrialPane({
@@ -209,7 +229,7 @@ function TrialPane({
       <button
         type="button"
         onClick={() =>
-          downloadNotes(
+          void downloadNotes(
             [
               {
                 name: panelName(patient.id),

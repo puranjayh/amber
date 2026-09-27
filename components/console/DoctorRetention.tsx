@@ -32,7 +32,7 @@ export function DoctorRetention({
       <button
         type="button"
         onClick={() =>
-          downloadNotes(
+          void downloadNotes(
             ids.map((id) => ({ name: panelName(id), code: id, body: UPDATE, kicker: "Follow-up" })),
             "follow-ups.pdf",
           )

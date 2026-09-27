@@ -8,6 +8,7 @@ import {
   getPairsForPatient,
   getPatient,
   getTrial,
+  getTrials,
   getWorklist,
   meta,
 } from "@/app/_data/source";
@@ -15,7 +16,7 @@ import { anchorById, isAnchor } from "@/components/console/anchors";
 import { MissingData } from "@/components/console/MissingData";
 import { Provenance } from "@/components/console/Provenance";
 import { isStaticDemo, one } from "@/components/console/params";
-import { boardEntries, focusOrder } from "@/components/document/board";
+import { boardEntries, focusOrder, withOpenTrials } from "@/components/document/board";
 import { PatientBoard, type BoardDetail } from "@/components/document/PatientBoard";
 import { doctorMayOpen, documentQuery } from "@/components/hcp/access";
 import { displayName, panelName } from "@/components/hcp/clinic";
@@ -87,7 +88,7 @@ export default async function DoctorPatientPage({
   if (!demo) await syncRegistry();
   const loop = demo ? null : await readLoop(getDemoWorklist());
   const patient = getPatient(patientId);
-  const pairs = getPairsForPatient(patientId);
+  const pairs = withOpenTrials(patientId, getPairsForPatient(patientId), getTrials());
   const entries = patient ? boardEntries(pairs, getTrial) : [];
   const requestedTrial = one(sp.trial);
   const initialNctId = entries.some((row) => row.nctId === requestedTrial)

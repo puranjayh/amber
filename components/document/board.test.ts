@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CriterionLeaf, CubeCell, PairResult, Patient, Trial } from "@/src/contracts";
-import { boardEntries, focusOrder, trialBlocks, unknownLabel } from "./board";
+import { boardEntries, focusOrder, trialBlocks, unknownLabel, withOpenTrials } from "./board";
 
 function leaf(
   id: string,
@@ -136,6 +136,26 @@ test("met counts a cleared exclusion, not a raw pass", () => {
     () => trial(nctId, "Met trial", criteria),
   );
   expect(ranked[0]).toMatchObject({ met: 2, total: 3, unknownCount: 1 });
+});
+
+test("a patient missing a trial is still scored as unknown on it", () => {
+  const known = trial("NCT00000001", "Known", [leaf("INC-1", "inclusion")]);
+  const missing = trial("NCT00000002", "Missing", [leaf("INC-1", "inclusion"), leaf("INC-2", "inclusion")]);
+  const filled = withOpenTrials(
+    "PT-1",
+    [
+      pair("NCT00000001", {
+        eliminated: false,
+        unknownCount: 1,
+        cells: [cell("NCT00000001", "INC-1", "UNKNOWN", "absent")],
+      }),
+    ],
+    [known, missing],
+  );
+  const ranked = boardEntries(filled, (id) => (id === known.nctId ? known : missing));
+  expect(ranked).toHaveLength(2);
+  expect(ranked.map((row) => row.nctId)).toEqual(["NCT00000001", "NCT00000002"]);
+  expect(ranked[1]).toMatchObject({ met: 0, total: 2, unknownCount: 2, eliminated: false });
 });
 
 test("unknown label stays a count", () => {

@@ -16,7 +16,7 @@ import {
 import { fetchStudy } from "@/app/_data/ctgov";
 import type { RegistryStudy } from "@/app/_data/schema";
 import { orderCorresponds, orderFor } from "@/components/alert/alert";
-import { boardEntries, standingOf } from "@/components/document/board";
+import { boardEntries, standingOf, withOpenTrials } from "@/components/document/board";
 import { DoctorHome } from "@/components/console/DoctorHome";
 import { DoctorPatients, type DoctorListRow } from "@/components/console/DoctorPatients";
 import { DoctorRetention } from "@/components/console/DoctorRetention";
@@ -342,7 +342,7 @@ type TrialPicture = {
 
 /** Best trial first: eligible, then the fewest conditions still open, then ruled out. */
 function trialPicture(patientId: string): TrialPicture {
-  const entries = boardEntries(getPairsForPatient(patientId), getTrial);
+  const entries = boardEntries(withOpenTrials(patientId, getPairsForPatient(patientId), getTrials()), getTrial);
   let eligible = 0;
   let unknown = 0;
   let rejected = 0;

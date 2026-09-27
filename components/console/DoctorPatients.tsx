@@ -59,7 +59,7 @@ export function DoctorPatients({ rows }: { rows: DoctorListRow[] }) {
           type="button"
           disabled={picked.length === 0}
           onClick={() =>
-            downloadNotes(
+            void downloadNotes(
               picked.map((row) => ({
                 name: row.name,
                 code: row.code,

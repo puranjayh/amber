@@ -7,7 +7,9 @@ export function PrintLetter({ pages, filename }: { pages: NotePage[]; filename: 
   return (
     <button
       type="button"
-      onClick={() => downloadNotes(pages, filename)}
+      onClick={() => {
+        void downloadNotes(pages, filename);
+      }}
       className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] font-medium text-ink hover:border-ink-3"
     >
       Download PDF

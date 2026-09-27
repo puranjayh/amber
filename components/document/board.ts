@@ -23,6 +23,41 @@ export type Block = {
   resolve: string;
 };
 
+/** A trial with no cube row is still unknown — never a fail. */
+export function openPair(patientId: string, trial: Trial): PairResult {
+  const leaves = [...collectLeaves(trial.criteria).values()];
+  return {
+    patientId,
+    nctId: trial.nctId,
+    eliminated: false,
+    passCount: 0,
+    failCount: 0,
+    unknownCount: leaves.length,
+    resolutionCost: 0,
+    expectedValue: 0,
+    cells: leaves.map((leaf) => ({
+      patientId,
+      nctId: trial.nctId,
+      criterionId: leaf.id,
+      verdict: "UNKNOWN" as const,
+      reason: "absent" as const,
+      criterionCitation: leaf.sourceSpan,
+      tier: leaf.tier,
+    })),
+  };
+}
+
+/** Score every catalog trial. Missing pairs stay UNKNOWN. */
+export function withOpenTrials(
+  patientId: string,
+  pairs: readonly PairResult[],
+  trials: readonly Trial[],
+): PairResult[] {
+  const have = new Set(pairs.map((pair) => pair.nctId));
+  const extra = trials.filter((trial) => !have.has(trial.nctId)).map((trial) => openPair(patientId, trial));
+  return extra.length === 0 ? [...pairs] : [...pairs, ...extra];
+}
+
 /**
  * Every trial on this chart, from fully eligible, through the fewest
  * conditions still open, down to ruled out.
