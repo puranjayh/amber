@@ -162,7 +162,6 @@ export default async function DoctorPage({
           patientsHref={`/doctor?${patientsQuery}`}
           followHref={`/doctor?${followQuery}`}
         />
-        <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
       </main>,
     );
   }
@@ -229,7 +228,9 @@ export default async function DoctorPage({
   const scoped = [...rowsForTrial(mine, ordered, onTrial)].sort((a, b) => {
     const left = pictureOf(a.patientId);
     const right = pictureOf(b.patientId);
+    const pin = (id: string) => (id === "PT-4422" ? 0 : 1);
     return (
+      pin(a.patientId) - pin(b.patientId) ||
       left.band - right.band ||
       left.unknowns - right.unknowns ||
       right.met - left.met ||
@@ -248,11 +249,12 @@ export default async function DoctorPage({
     );
   }
   const rows: DoctorListRow[] = scoped.map((row, index) => {
+    const counts = pictureOf(row.patientId);
+    const nctId = counts.bestNctId ?? row.nctId;
     const patient = getPatient(row.patientId);
-    const trial = getTrial(row.nctId);
-    const pair = getPair(row.patientId, row.nctId);
-    const focus =
-      patient && trial && pair ? clinicFocus(pair, trial, row.blocking[0]?.criterionId) : undefined;
+    const trial = getTrial(nctId);
+    const pair = getPair(row.patientId, nctId);
+    const focus = patient && trial && pair ? clinicFocus(pair, trial) : undefined;
     const cell = focus && pair && !pair.eliminated ? focus.cell : undefined;
     const leaf = focus && pair && !pair.eliminated ? focus.leaf : undefined;
     const order = patient && leaf && cell ? orderFor(leaf, cell, patient) : undefined;
@@ -263,10 +265,10 @@ export default async function DoctorPage({
     const card = patient
       ? describeClinic({
           patient,
-          nctId: row.nctId,
+          nctId,
           trialTitle: trial?.title,
-          eliminated: row.eliminated,
-          unknownCount: row.unknownCount,
+          eliminated: pair?.eliminated ?? row.eliminated,
+          unknownCount: pair?.unknownCount ?? row.unknownCount,
           leaf: focus?.leaf,
           reason: focus?.cell.reason,
           orderTitle: order?.title,
@@ -274,13 +276,12 @@ export default async function DoctorPage({
         })
       : describeClinic({
           patient: { id: row.patientId, age: 0, sex: "unknown", race: "", facts: [] },
-          nctId: row.nctId,
+          nctId,
           trialTitle: trial?.title,
-          eliminated: row.eliminated,
-          unknownCount: row.unknownCount,
+          eliminated: pair?.eliminated ?? row.eliminated,
+          unknownCount: pair?.unknownCount ?? row.unknownCount,
           asOf,
         });
-    const counts = pictureOf(row.patientId);
     const details = patient
       ? [String(patient.age), patient.sex === "unknown" ? "" : patient.sex, patient.race, card.picture]
           .filter(Boolean)
@@ -294,14 +295,14 @@ export default async function DoctorPage({
       details,
       trialName: card.trialName,
       blocker: card.blocker,
-      tier: tierLine(row.resolutionTier),
+      tier: tierLine(cell?.tier ?? null),
       blockingType: order?.title ?? card.blocker,
-      close: readiness(row),
+      close: readiness(pair ?? row),
       ...counts,
       href: doctorChartPath({
         physicianId,
         patientId: row.patientId,
-        trialId: row.nctId,
+        trialId: nctId,
         demo: demo ? demoMode : null,
       }),
       draft,
@@ -338,6 +339,7 @@ type TrialPicture = {
   unknowns: number;
   met: number;
   name: string;
+  bestNctId?: string;
 };
 
 /** Best trial first: eligible, then the fewest conditions still open, then ruled out. */
@@ -364,6 +366,7 @@ function trialPicture(patientId: string): TrialPicture {
     unknowns: best?.unknownCount ?? 0,
     met: best?.met ?? 0,
     name: patient ? panelName(patient.id) : patientId,
+    bestNctId: best?.nctId,
   };
 }
 

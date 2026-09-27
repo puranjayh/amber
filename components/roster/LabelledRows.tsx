@@ -99,7 +99,6 @@ function Clinic({ row }: { row: LabelledRow }) {
       <div className="flex shrink-0 gap-6">
         <Count value={counts.eligible} label="Eligible" tone="text-pass" />
         <Count value={counts.unknown} label="Partially fulfilled" tone="text-unknown" />
-        <Count value={counts.rejected} label="Rejected" tone="text-fail" />
       </div>
     </div>
   );
@@ -168,13 +167,11 @@ export function LabelledRows({
             <li
               key={row.key}
               className={`relative border-b border-line-2 last:border-b-0 ${
-                row.tone === "eligible"
-                  ? "border-l-4 border-l-pass bg-pass-bg"
-                  : row.tone === "rejected"
-                    ? "border-l-4 border-l-fail"
-                    : row.tone === "partial"
-                      ? "border-l-4 border-l-unknown"
-                      : ""
+                row.tone === "rejected"
+                  ? "border-l-4 border-l-fail"
+                  : row.tone === "partial"
+                    ? "border-l-4 border-l-unknown"
+                    : ""
               }`}
             >
               {clinic && row.select ? (

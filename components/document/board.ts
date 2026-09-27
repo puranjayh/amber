@@ -106,11 +106,19 @@ export function filledShare(row: Pick<BoardEntry, "met" | "total">): number {
   return row.total > 0 ? row.met / row.total : 0;
 }
 
-/** Eligible means every condition is fulfilled. A red criterion is a rejection, even if the pair was not flagged eliminated. */
+/** Share of conditions that already have an answer — green or red. */
+export function decidedShare(row: Pick<BoardEntry, "unknownCount" | "met" | "total">): number {
+  if (row.total <= 0) return 0;
+  const failed = row.total - row.met - row.unknownCount;
+  return (row.met + Math.max(failed, 0)) / row.total;
+}
+
+/** Eligible means every condition is fulfilled. Rejected only when a real share of the protocol was decided and at least one condition is red — a single fail on a mostly-unknown trial stays open. */
 export function standingOf(row: Pick<BoardEntry, "eliminated" | "unknownCount" | "met" | "total">): Standing {
   const failed = row.total - row.met - row.unknownCount;
-  if (row.eliminated || failed > 0) return "rejected";
-  if (row.total > 0 && row.met === row.total && row.unknownCount === 0) return "eligible";
+  const blocked = row.eliminated || failed > 0;
+  if (blocked && decidedShare(row) > PARTIAL_FLOOR) return "rejected";
+  if (!blocked && row.total > 0 && row.met === row.total && row.unknownCount === 0) return "eligible";
   if (filledShare(row) > PARTIAL_FLOOR) return "partial";
   return "open";
 }

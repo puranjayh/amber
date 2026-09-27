@@ -164,6 +164,13 @@ test("partial means more than 40 percent of conditions are already green", () =>
   expect(standingOf({ eliminated: false, unknownCount: 0, met: 5, total: 5 })).toBe("eligible");
 });
 
+test("rejected needs a decided chart, not one red on a mostly unknown trial", () => {
+  expect(standingOf({ eliminated: true, unknownCount: 0, met: 0, total: 1 })).toBe("rejected");
+  expect(standingOf({ eliminated: true, unknownCount: 1, met: 3, total: 5 })).toBe("rejected");
+  expect(standingOf({ eliminated: true, unknownCount: 20, met: 2, total: 27 })).toBe("open");
+  expect(standingOf({ eliminated: false, unknownCount: 24, met: 2, total: 27 })).toBe("open");
+});
+
 test("unknown label stays a count", () => {
   expect(unknownLabel(0)).toBe("0 unknowns");
   expect(unknownLabel(1)).toBe("1 unknown");

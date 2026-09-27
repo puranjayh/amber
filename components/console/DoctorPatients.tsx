@@ -131,7 +131,7 @@ export function DoctorPatients({ rows }: { rows: DoctorListRow[] }) {
             tier: row.tier,
             href: row.href,
             counts: { eligible: row.eligible, unknown: row.unknown, rejected: row.rejected },
-            tone: row.eligible > 0 ? "eligible" : row.unknown > 0 ? "partial" : row.rejected > 0 ? "rejected" : undefined,
+            tone: undefined,
             select: {
               checked: checked.includes(row.key),
               label: `Select ${row.name}`,
