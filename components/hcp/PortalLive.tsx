@@ -6,6 +6,7 @@ import { prefsByPatient, prefsStated } from "@/components/loop/rank";
 import { postPreferences, useLoop } from "@/components/loop/useLoop";
 import { PortalForm } from "./PortalForm";
 import type { PortalCatalog } from "./portal-copy";
+import { discussionCopy } from "./portal-copy";
 import { patientUpdateCopy } from "@/components/loop/registry";
 
 export function PortalLive({
@@ -32,9 +33,23 @@ export function PortalLive({
       n.held !== true &&
       n.status !== "done",
   );
+  const suggested = state.nudges.find(
+    (n) =>
+      n.kind === "trial_suggestion" &&
+      n.patientId === patientId &&
+      n.status !== "done",
+  );
 
   return (
     <div className="space-y-4">
+      {suggested && (
+        <aside
+          className="rounded-md border border-brand-line bg-brand-bg px-4 py-4"
+          aria-label="Doctor suggestion"
+        >
+          <p className="text-[15px] leading-relaxed text-ink">{discussionCopy(catalog.talk)}</p>
+        </aside>
+      )}
       {update && (
         <aside
           className="rounded-md border border-brand-line bg-brand-bg px-4 py-4"

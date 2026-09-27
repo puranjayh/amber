@@ -63,11 +63,29 @@ export function PatientBoard({
             const current = row.nctId === selected.nctId;
             const standing = standingOf(row);
             const bar =
-              standing === "eligible" ? "border-l-pass" : standing === "rejected" ? "border-l-fail" : "border-l-unknown";
+              standing === "eligible"
+                ? "border-l-pass"
+                : standing === "rejected"
+                  ? "border-l-fail"
+                  : standing === "partial"
+                    ? "border-l-unknown"
+                    : "border-l-line";
             const wash =
-              standing === "eligible" ? "bg-pass-bg" : standing === "rejected" ? "bg-fail-bg" : "bg-unknown-bg";
+              standing === "eligible"
+                ? "bg-pass-bg"
+                : standing === "rejected"
+                  ? "bg-fail-bg"
+                  : standing === "partial"
+                    ? "bg-unknown-bg"
+                    : "";
             const score =
-              standing === "eligible" ? "text-pass" : standing === "rejected" ? "text-fail" : "text-unknown";
+              standing === "eligible"
+                ? "text-pass"
+                : standing === "rejected"
+                  ? "text-fail"
+                  : standing === "partial"
+                    ? "text-unknown"
+                    : "text-ink";
             return (
               <li key={row.nctId} className="border-b border-line-2 last:border-b-0">
                 <button
@@ -103,6 +121,9 @@ export function PatientBoard({
                       </span>
                       {standing === "rejected" ? <span className="mt-0.5 block text-[13px] text-fail">Ruled out</span> : null}
                       {standing === "eligible" ? <span className="mt-0.5 block text-[13px] text-pass">Eligible</span> : null}
+                      {standing === "partial" ? (
+                        <span className="mt-0.5 block text-[13px] text-unknown">Partially fulfilled</span>
+                      ) : null}
                     </span>
                   </span>
                   <span className="min-w-0 sm:flex-1">

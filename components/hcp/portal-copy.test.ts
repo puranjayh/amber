@@ -1,5 +1,13 @@
 import { expect, test } from "vitest";
-import { catalogFor, suggestionCopy } from "./portal-copy";
+import { catalogFor, discussionCopy, suggestionCopy } from "./portal-copy";
+
+test("a suggested trial is a conversation, not a study name", () => {
+  const line = discussionCopy("Dr Gupta");
+  expect(line).toBe(
+    "Dr Gupta wants to discuss a clinical trial with you. Book a follow-up and you can go through it together.",
+  );
+  expect(line).not.toMatch(/NCT|Osimertinib|sign up|enrol/i);
+});
 
 test("trial suggestion is a conversation with the doctor — never a sign-up", () => {
   const catalog = catalogFor("PT-4401", [
@@ -12,7 +20,7 @@ test("trial suggestion is a conversation with the doctor — never a sign-up", (
     },
   ]);
   const copy = suggestionCopy(catalog, "NCT07001001");
-  expect(copy?.cta).toBe("Talk to Dr Rahman about this.");
+  expect(copy?.cta).toBe("Talk to Dr Gupta about this.");
   expect(copy?.body).toMatch(/does not sign you up/i);
   expect(copy?.body).toMatch(/does not enrol/i);
   expect(copy?.cta).not.toMatch(/sign up|enrol now|enroll now/i);

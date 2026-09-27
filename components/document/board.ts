@@ -83,10 +83,12 @@ export function boardEntries(
       total: leaves.size,
     });
   }
-  const order = { eligible: 0, partial: 1, rejected: 2 };
+  const order = { eligible: 0, partial: 1, open: 2, rejected: 3 };
   return rows.sort((a, b) => {
     const standing = order[standingOf(a)] - order[standingOf(b)];
     if (standing !== 0) return standing;
+    const fill = filledShare(b) - filledShare(a);
+    if (fill !== 0) return fill;
     const unknowns = a.unknownCount - b.unknownCount;
     if (unknowns !== 0) return unknowns;
     const met = b.met - a.met;
@@ -95,14 +97,22 @@ export function boardEntries(
   });
 }
 
-export type Standing = "eligible" | "partial" | "rejected";
+export type Standing = "eligible" | "partial" | "open" | "rejected";
+
+/** Partially fulfilled means more than 40% of the conditions are already green. */
+export const PARTIAL_FLOOR = 0.4;
+
+export function filledShare(row: Pick<BoardEntry, "met" | "total">): number {
+  return row.total > 0 ? row.met / row.total : 0;
+}
 
 /** Eligible means every condition is fulfilled. A red criterion is a rejection, even if the pair was not flagged eliminated. */
 export function standingOf(row: Pick<BoardEntry, "eliminated" | "unknownCount" | "met" | "total">): Standing {
   const failed = row.total - row.met - row.unknownCount;
   if (row.eliminated || failed > 0) return "rejected";
   if (row.total > 0 && row.met === row.total && row.unknownCount === 0) return "eligible";
-  return "partial";
+  if (filledShare(row) > PARTIAL_FLOOR) return "partial";
+  return "open";
 }
 
 export function unknownLabel(count: number): string {

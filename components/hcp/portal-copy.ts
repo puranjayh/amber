@@ -14,6 +14,11 @@ export type PortalCatalog = {
   }[];
 };
 
+/** Shown when the doctor suggests a trial. No study name — that is a clinic conversation. */
+export function discussionCopy(doctorTalk: string): string {
+  return `${doctorTalk} wants to discuss a clinical trial with you. Book a follow-up and you can go through it together.`;
+}
+
 export function suggestionCopy(
   catalog: PortalCatalog,
   nctId: string | null,

@@ -81,32 +81,44 @@ export function DoctorTrials({
       {rows.length === 0 ? (
         <p className="text-[15px] text-ink-2">No trials match this topic.</p>
       ) : (
-        <ol className="divide-y divide-line overflow-hidden rounded-md border border-line bg-surface">
+        <ol className="overflow-hidden rounded-md border border-brand-line bg-surface">
           {rows.map((card) => {
             const item = news.get(card.nctId);
             const expanded = open === card.nctId;
+            const tone =
+              card.eligible > 0 ? "eligible" : card.close > 0 ? "partial" : "open";
             return (
-              <li key={card.nctId} id={`trial-${card.nctId}`} className="scroll-mt-6">
+              <li
+                key={card.nctId}
+                id={`trial-${card.nctId}`}
+                className={`scroll-mt-6 border-b border-line-2 last:border-b-0 ${
+                  tone === "eligible"
+                    ? "border-l-4 border-l-pass bg-pass-bg"
+                    : tone === "partial"
+                      ? "border-l-4 border-l-unknown"
+                      : "border-l-4 border-l-line"
+                }`}
+              >
                 <button
                   type="button"
                   aria-expanded={expanded}
                   onClick={() => setOpen(expanded ? null : card.nctId)}
-                  className="flex w-full flex-col gap-2 px-4 py-3 text-left hover:bg-canvas sm:flex-row sm:gap-6 sm:px-5"
+                  className="flex w-full flex-col gap-2 px-4 py-4 text-left hover:bg-canvas sm:flex-row sm:items-baseline sm:gap-6 sm:px-5"
                 >
                   {item ? (
-                    <time className="shrink-0 font-mono text-[18px] font-semibold text-brand" dateTime={item.date}>
+                    <time className="shrink-0 font-mono text-[28px] font-semibold leading-none text-brand" dateTime={item.date}>
                       {item.dateLabel}
                     </time>
                   ) : (
-                    <span className="shrink-0 font-mono text-[18px] text-ink-3">—</span>
+                    <span className="shrink-0 font-mono text-[28px] leading-none text-ink-3">—</span>
                   )}
-                  <span className="min-w-0">
+                  <span className="min-w-0 flex-1">
                     <span className="flex items-baseline justify-between gap-4">
-                      <span className="break-words text-[15px] font-medium text-ink">{card.title}</span>
-                      <span className="shrink-0 font-mono text-[13px] text-ink-3">{card.nctId}</span>
+                      <span className="break-words text-[22px] font-semibold leading-snug text-ink">{card.title}</span>
+                      <span className="shrink-0 font-mono text-[12px] text-ink-3">{card.nctId}</span>
                     </span>
                     {item ? (
-                      <span className="mt-1 block break-words text-[15px] leading-snug text-ink">{item.text}</span>
+                      <span className="mt-1 block break-words text-[15px] leading-snug text-ink-2">{item.text}</span>
                     ) : null}
                   </span>
                 </button>
@@ -136,14 +148,14 @@ function compareTrials(
 
 function TrialDetail({ card, href }: { card: TrialCard; href: string }) {
   return (
-    <div className="space-y-2 border-t border-line px-4 py-3 sm:px-5">
+    <div className="space-y-3 border-t border-brand-line bg-brand-bg/40 px-4 py-4 sm:px-5">
       <div className="flex flex-wrap gap-8">
         <div>
-          <div className="font-mono text-[18px] font-semibold leading-none text-ink">{card.enrollment ?? "—"}</div>
+          <div className="font-mono text-[24px] font-semibold leading-none text-ink">{card.enrollment ?? "—"}</div>
           <div className="mt-1 text-[13px] text-ink-3">Enrollment target</div>
         </div>
         <div>
-          <div className="font-mono text-[18px] font-semibold leading-none text-pass">{card.close}</div>
+          <div className="font-mono text-[24px] font-semibold leading-none text-pass">{card.close}</div>
           <div className="mt-1 text-[13px] text-ink-3">Near eligible</div>
         </div>
       </div>
@@ -155,7 +167,7 @@ function TrialDetail({ card, href }: { card: TrialCard; href: string }) {
         </p>
       ) : null}
       {card.blocker ? <p className="text-[15px] font-medium text-ink">{card.blocker}</p> : null}
-      <Link href={href} className="inline-block text-[13px] text-ink-2 hover:text-ink">
+      <Link href={href} className="inline-block text-[13px] font-medium text-brand hover:text-ink">
         My patients on this trial
       </Link>
     </div>

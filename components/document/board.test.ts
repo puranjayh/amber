@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import type { CriterionLeaf, CubeCell, PairResult, Patient, Trial } from "@/src/contracts";
-import { boardEntries, focusOrder, trialBlocks, unknownLabel, withOpenTrials } from "./board";
+import { boardEntries, focusOrder, standingOf, trialBlocks, unknownLabel, withOpenTrials } from "./board";
 
 function leaf(
   id: string,
@@ -156,6 +156,12 @@ test("a patient missing a trial is still scored as unknown on it", () => {
   expect(ranked).toHaveLength(2);
   expect(ranked.map((row) => row.nctId)).toEqual(["NCT00000001", "NCT00000002"]);
   expect(ranked[1]).toMatchObject({ met: 0, total: 2, unknownCount: 2, eliminated: false });
+});
+
+test("partial means more than 40 percent of conditions are already green", () => {
+  expect(standingOf({ eliminated: false, unknownCount: 2, met: 3, total: 5 })).toBe("partial");
+  expect(standingOf({ eliminated: false, unknownCount: 3, met: 2, total: 5 })).toBe("open");
+  expect(standingOf({ eliminated: false, unknownCount: 0, met: 5, total: 5 })).toBe("eligible");
 });
 
 test("unknown label stays a count", () => {

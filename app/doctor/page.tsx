@@ -349,17 +349,18 @@ function trialPicture(patientId: string): TrialPicture {
   for (const row of entries) {
     const standing = standingOf(row);
     if (standing === "eligible") eligible += 1;
+    else if (standing === "partial") unknown += 1;
     else if (standing === "rejected") rejected += 1;
-    else unknown += 1;
   }
   const best = entries[0];
   const standing = best ? standingOf(best) : "rejected";
   const patient = getPatient(patientId);
+  const band = standing === "eligible" ? 0 : standing === "partial" ? 1 : standing === "open" ? 2 : 3;
   return {
     eligible,
     unknown,
     rejected,
-    band: standing === "eligible" ? 0 : standing === "partial" ? 1 : 2,
+    band,
     unknowns: best?.unknownCount ?? 0,
     met: best?.met ?? 0,
     name: patient ? panelName(patient.id) : patientId,
