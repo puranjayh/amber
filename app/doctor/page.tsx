@@ -171,8 +171,6 @@ export default async function DoctorPage({
     const studies = new Map((loop?.registry ?? []).map((row) => [row.nctId, row.study] as const));
     const nctIds = [...new Set(pairs.map((pair) => pair.nctId))];
     if (!demo) await fillEnrollment(nctIds, studies);
-    const osi = studies.get("NCT02496663");
-    if (osi) studies.set("NCT02496663", { ...osi, overallStatus: "RECRUITING" });
     const trials = new Map(getTrials().map((trial) => [trial.nctId, trial]));
     const cards = buildTrialCards({
       pairs,
