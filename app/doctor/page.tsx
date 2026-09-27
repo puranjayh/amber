@@ -38,7 +38,7 @@ import { pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
 import { anchorById } from "@/components/console/anchors";
 import { readiness } from "@/components/worklist/readiness";
 
-export const metadata = { title: "Impiricus — Doctor portal" };
+export const metadata = { title: "AMBER — Doctor portal" };
 
 const WIDE = "mx-auto w-full max-w-[1600px]";
 

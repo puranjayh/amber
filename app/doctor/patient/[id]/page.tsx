@@ -38,7 +38,7 @@ const EMPTY_LOOP = {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const patient = getPatient(decodeURIComponent(id));
-  return { title: patient ? `${displayName(patient)} — Impiricus` : "Impiricus — Doctor portal" };
+  return { title: patient ? `${displayName(patient)} — AMBER` : "AMBER — Doctor portal" };
 }
 
 export default async function DoctorPatientPage({

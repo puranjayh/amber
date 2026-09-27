@@ -14,7 +14,7 @@ import { DEFAULT_PHYSICIAN_ID, doctorTalk, PHYSICIANS } from "@/components/hcp/r
 import { attributePatients } from "@/components/worklist/attribution";
 import { anchorById, isAnchor } from "@/components/console/anchors";
 
-export const metadata = { title: "Patient information — Impiricus" };
+export const metadata = { title: "Patient information — AMBER" };
 
 export default async function DocumentPage({
   searchParams,
