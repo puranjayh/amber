@@ -21,6 +21,8 @@ export type LabelledRow = {
   details?: ReactNode;
   /** Trials this patient is eligible for, still unknown on, or rejected from. */
   counts?: { eligible: number; unknown: number; rejected: number };
+  /** Clinic row figures in place of `counts`. */
+  stats?: { value: ReactNode; label: string; tone?: string }[];
   select?: { checked: boolean; label: string; onChange: () => void };
   /** Clinic row accent. Eligible, still open, or ruled out. */
   tone?: "eligible" | "partial" | "rejected";
@@ -70,7 +72,7 @@ function Grid({ row }: { row: LabelledRow }) {
   );
 }
 
-function Count({ value, label, tone = "text-ink" }: { value: number; label: string; tone?: string }) {
+function Count({ value, label, tone = "text-ink" }: { value: ReactNode; label: string; tone?: string }) {
   return (
       <div className="min-w-[4.5rem] max-w-[7rem] text-left">
       <div className={`font-mono text-[24px] font-semibold leading-none ${tone}`}>{value}</div>
@@ -97,8 +99,14 @@ function Clinic({ row }: { row: LabelledRow }) {
         ) : null}
       </div>
       <div className="flex shrink-0 gap-6">
-        <Count value={counts.eligible} label="Eligible" tone="text-pass" />
-        <Count value={counts.unknown} label="Partially fulfilled" tone="text-unknown" />
+        {row.stats ? (
+          row.stats.map((stat) => <Count key={stat.label} value={stat.value} label={stat.label} tone={stat.tone} />)
+        ) : (
+          <>
+            <Count value={counts.eligible} label="Eligible" tone="text-pass" />
+            <Count value={counts.unknown} label="Partially fulfilled" tone="text-unknown" />
+          </>
+        )}
       </div>
     </div>
   );

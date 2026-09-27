@@ -52,15 +52,14 @@ export default async function ElasticityPage({
     : undefined;
 
   return (
-    <>
-      <ConsoleHeader
-        asOf={asOf}
-        active="elasticity"
-        demo={demo}
-        demoMode={one(sp.demo) === "static" ? "static" : "1"}
-        trial={DEMO.nctId}
-      />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader
+      asOf={asOf}
+      active="elasticity"
+      demo={demo}
+      demoMode={one(sp.demo) === "static" ? "static" : "1"}
+      trial={DEMO.nctId}
+    >
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         {demo && (
           <DemoSteps current="elasticity" mode={one(sp.demo) === "static" ? "static" : "1"} />
         )}
@@ -120,6 +119,6 @@ export default async function ElasticityPage({
           call={pick ? `sweep(${pick.nctId}, ${pick.criterionId})` : "sweep"}
         />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }

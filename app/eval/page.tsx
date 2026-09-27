@@ -15,22 +15,20 @@ export default async function EvalPage({
   const draft = getDraftEval();
   if (report.evaluatedCells === 0) {
     return (
-      <>
-        <ConsoleHeader asOf={asOf} active="eval" demo={demo} />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+      <ConsoleHeader asOf={asOf} active="eval" demo={demo}>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-8">
           <MissingData
             file="data/eval/results.human.json"
             detail="Need the compiler's human-labelled run — 30 cells, not app/_data/eval.json."
           />
         </main>
-      </>
+      </ConsoleHeader>
     );
   }
 
   return (
-    <>
-      <ConsoleHeader asOf={asOf} active="eval" demo={demo} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader asOf={asOf} active="eval" demo={demo}>
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         <EvalView report={report} />
         <Provenance meta={meta} call="data/eval/results.human.json" />
         {draft.evaluatedCells > 0 && (
@@ -39,6 +37,6 @@ export default async function EvalPage({
           </section>
         )}
       </main>
-    </>
+    </ConsoleHeader>
   );
 }

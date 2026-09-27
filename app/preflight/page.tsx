@@ -86,9 +86,8 @@ export default async function PreflightPage() {
   const loop = await readLoop(getDemoWorklist());
 
   return (
-    <>
-      <ConsoleHeader asOf={asOfFromMeta()} active="preflight" />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader asOf={asOfFromMeta()} active="preflight">
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         <div
           className={`rounded-md border px-3 py-3 sm:px-4 ${
             ok ? "border-pass-line bg-pass-bg text-pass" : "border-fail-line bg-fail-bg text-fail"
@@ -107,16 +106,16 @@ export default async function PreflightPage() {
         <Section title="Demo reads these" checks={required} />
         <Section title="Upstream (fallback if missing)" checks={optional} />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }
 
 function Section({ title, checks }: { title: string; checks: FileCheck[] }) {
   return (
     <section className="overflow-hidden rounded-md border border-line bg-surface">
-      <h1 className="border-b border-line px-3 py-2 text-[24px] font-medium text-ink sm:px-4">
+      <h2 className="border-b border-line px-3 py-2 text-[18px] font-medium text-ink sm:px-4">
         {title}
-      </h1>
+      </h2>
       <ul>
         {checks.map((c) => (
           <li

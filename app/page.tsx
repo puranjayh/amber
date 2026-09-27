@@ -40,12 +40,11 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   const pinned = one(sp.demo) === "1" || Boolean(requested);
   if (worklist.length === 0) {
     return (
-      <>
-        <ConsoleHeader asOf={asOf} active="worklist" trial={anchor.nctId} />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+      <ConsoleHeader asOf={asOf} active="worklist" trial={anchor.nctId}>
+        <main className="mx-auto w-full max-w-[1600px] flex-1 px-4 py-6 sm:px-8">
           <MissingData file="app/_data/anchors.json" />
         </main>
-      </>
+      </ConsoleHeader>
     );
   }
 
@@ -93,20 +92,19 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
   };
 
   return (
-    <>
-      <ConsoleHeader
-        asOf={asOf}
-        active="worklist"
-        demo={staticDemo || one(sp.demo) === "1"}
-        demoMode={staticDemo ? "static" : "1"}
-        trial={anchor.nctId}
-      />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader
+      asOf={asOf}
+      active="worklist"
+      demo={staticDemo || one(sp.demo) === "1"}
+      demoMode={staticDemo ? "static" : "1"}
+      trial={anchor.nctId}
+    >
+      <main className="mx-auto w-full max-w-[1600px] flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8">
         {staticDemo && <DemoSteps current="worklist" mode="static" />}
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 className="text-[24px] font-medium text-ink">Worklist</h1>
-            <p className="mt-0.5 max-w-2xl text-[13px] text-ink-2">
+            <h1 className="text-[28px] font-semibold text-ink">Worklist</h1>
+            <p className="mt-1 max-w-2xl text-[15px] text-ink-2">
               Ranked on {anchor.short}, {anchor.line}. {anchor.note} The four highlighted charts are
               synthetic. Every criterion is a sentence from the compiled protocol.
               {realProtocols > 0 ? ` ${realProtocols} other real protocols stay in the cube.` : ""}
@@ -119,7 +117,7 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
               trialId: anchor.nctId,
               demo: staticDemo ? "static" : null,
             })}
-            className="shrink-0 rounded-md bg-ink px-3 py-2 text-[13px] font-medium text-surface hover:bg-ink-2 sm:text-[13px]"
+            className="shrink-0 rounded-md bg-brand px-3 py-2 text-[13px] font-medium text-on-brand"
           >
             {DEMO.patientId} × {anchor.nctId} →
           </Link>
@@ -139,6 +137,6 @@ export default async function WorklistPage({ searchParams }: PageProps<"/">) {
           call={loop ? "rank(evaluate + preferenceUnknown)" : "rank(evaluate(patient × trial))"}
         />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }

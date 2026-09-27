@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ANCHORS } from "./anchors";
 import { AmberMark } from "./AmberMark";
-import { IdentitySwitcher } from "./IdentitySwitcher";
-import { PortalSwitcher } from "./PortalSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { TrialSwitcher } from "./TrialSwitcher";
 
 const NAV = [
@@ -24,66 +24,67 @@ function hrefFor(href: string, demo: boolean, demoMode: "1" | "static"): string 
   return href === "/" ? `/?demo=${demoMode}` : `${href}?demo=${demoMode}`;
 }
 
+function NavLink({ href, label, on, small = false }: { href: string; label: string; on: boolean; small?: boolean }) {
+  return (
+    <Link
+      href={href}
+      aria-current={on ? "page" : undefined}
+      className={`rounded-md px-3 ${small ? "py-1.5 text-[13px]" : "py-2 text-[15px]"} ${
+        on ? "bg-brand font-medium text-on-brand" : "text-ink-2 hover:bg-brand-bg hover:text-ink"
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
+
+/** Left rail for the trial site, in the doctor portal's style. Pages render inside it. */
 export function ConsoleHeader({
-  asOf,
   active,
   demo = false,
   demoMode = "1",
   trial = ANCHORS[0].nctId,
+  children,
 }: {
   asOf: string;
   active: NavKey;
   demo?: boolean;
   demoMode?: "1" | "static";
   trial?: string;
+  children?: ReactNode;
 }) {
   return (
-    <>
-      <PortalSwitcher current="trial" demo={demo} demoMode={demoMode} />
-      <header className="border-b border-line bg-surface">
-        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 pt-3 sm:px-8">
-          <div className="flex items-center gap-3">
-            <AmberMark href={hrefFor("/", demo, demoMode)} />
-            <span className="text-[13px] text-ink-3">Screening</span>
-            {demo && (
-              <span className="rounded border border-line px-1.5 py-px text-[11px] text-ink-3">
-                Demo
-              </span>
-            )}
-          </div>
-          <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 text-[13px] text-ink-3">
-            <IdentitySwitcher current="coordinator" trial={trial} demo={demo ? demoMode : ""} />
-            <span>As of {asOf}</span>
-          </div>
-        </div>
-        <div className="mx-auto flex max-w-[1600px] px-4 pb-2 sm:px-8">
+    <div className="flex min-h-dvh w-full">
+      <aside className="console-rail no-print sticky top-0 flex h-dvh w-[148px] shrink-0 flex-col self-start overflow-y-auto border-r border-brand-line px-3 py-4 sm:w-60 sm:px-5">
+        <AmberMark href={hrefFor("/", demo, demoMode)} side />
+        <p className="mt-2 text-[13px] font-medium text-brand">Trial site</p>
+        {demo && (
+          <span className="mt-2 w-fit rounded border border-line px-1.5 py-px text-[11px] text-ink-3">
+            Demo
+          </span>
+        )}
+        <div className="mt-5">
           <TrialSwitcher current={trial} demo={demo ? demoMode : ""} />
         </div>
-        <nav
-          className="mx-auto flex max-w-[1600px] items-center gap-1 overflow-x-auto px-3 sm:px-7"
-          aria-label="Views"
-        >
-          {[...NAV, ...UTILITY].map((item) => {
-            const current = item.key === active;
-            return (
-              <Link
-                key={item.key}
-                href={item.href.startsWith("/eval") || item.href.startsWith("/preflight")
-                  ? item.href
-                  : hrefFor(item.href, demo, demoMode)}
-                aria-current={current ? "page" : undefined}
-                className={`shrink-0 whitespace-nowrap border-b-2 px-2 py-2.5 text-[13px] ${
-                  current
-                    ? "border-ink font-medium text-ink"
-                    : "border-transparent text-ink-3 hover:text-ink"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav className="mt-5 flex flex-col gap-0.5" aria-label="Views">
+          {NAV.map((item) => (
+            <NavLink
+              key={item.key}
+              href={hrefFor(item.href, demo, demoMode)}
+              label={item.label}
+              on={item.key === active}
+            />
+          ))}
+          <div className="my-2 border-t border-brand-line" />
+          {UTILITY.map((item) => (
+            <NavLink key={item.key} href={item.href} label={item.label} on={item.key === active} small />
+          ))}
         </nav>
-      </header>
-    </>
+        <div className="mt-auto flex flex-col items-start gap-3 pt-6">
+          <ThemeToggle />
+        </div>
+      </aside>
+      <div className="console-stage min-w-0 flex-1">{children}</div>
+    </div>
   );
 }

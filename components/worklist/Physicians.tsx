@@ -7,8 +7,8 @@ import type { LoopState } from "@/app/_data/schema";
 import { pairTravel, prefsByPatient, rank } from "@/components/loop/rank";
 import { postNote, postNudge, useLoop } from "@/components/loop/useLoop";
 import { trialPatientPath } from "@/components/hcp/access";
-import { displayName, trialWords } from "@/components/hcp/clinic";
-import { DensityToggle, LabelledRows } from "@/components/roster/LabelledRows";
+import { trialWords } from "@/components/hcp/clinic";
+import { LabelledRows } from "@/components/roster/LabelledRows";
 import type { PatientPhysician } from "./attribution";
 import { splitForNudge } from "./group";
 import { READY, READY_LABEL, spread, trialReady, type Ready } from "./readiness";
@@ -72,14 +72,10 @@ export function Physicians({
   const [open, setOpen] = useState<string | null>(physicians[0]?.physicianId ?? null);
   const [checked, setChecked] = useState<Record<string, string[]>>({});
   const [drafts, setDrafts] = useState<Record<string, string>>({});
-  const [compact, setCompact] = useState(false);
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-end">
-        <DensityToggle compact={compact} onChange={setCompact} />
-      </div>
-      <ol className="space-y-2">
+      <ol className="space-y-3">
         {physicians.map((doc) => {
           const mine = ranked.filter(
             (row) => byId.get(row.patientId)?.physicianId === doc.physicianId,
@@ -120,7 +116,7 @@ export function Physicians({
                 className="flex w-full flex-col gap-2 px-3 py-3 text-left sm:px-4"
               >
                 <span className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <span className="text-[15px] font-medium text-ink">{doc.name}</span>
+                  <span className="text-[18px] font-semibold text-ink">{doc.name}</span>
                   <span className="font-mono text-[11px] text-ink-3">
                     {doc.specialty ? `${doc.specialty} · ` : ""}
                     {doc.site}
@@ -153,7 +149,7 @@ export function Physicians({
                   <div className="flex flex-wrap items-center gap-2">
                     <Link
                       href={`/doctor?physician=${encodeURIComponent(doc.physicianId)}`}
-                      className="text-[13px] text-ink underline-offset-2 hover:underline"
+                      className="text-[13px] font-medium text-brand hover:text-ink"
                     >
                       Open in doctor portal
                     </Link>
@@ -188,7 +184,7 @@ export function Physicians({
                             }),
                           }).then(apply);
                         }}
-                        className="rounded-md bg-ink px-2.5 py-1 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+                        className="rounded-md bg-brand px-3 py-1.5 text-[13px] font-medium text-on-brand disabled:opacity-40"
                       >
                         {asked
                           ? "Asked — waiting"
@@ -210,7 +206,7 @@ export function Physicians({
                             }),
                           }).then(apply);
                         }}
-                        className="rounded-md bg-ink px-2.5 py-1 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+                        className="rounded-md bg-brand px-3 py-1.5 text-[13px] font-medium text-on-brand disabled:opacity-40"
                       >
                         {nudged ? "Physician nudged" : `Nudge this physician (${reachable.length})`}
                       </button>
@@ -224,59 +220,66 @@ export function Physicians({
 
                   <LabelledRows
                     label={`${doc.name} patients`}
-                    compact={compact}
-                    showToggle={false}
+                    layout="clinic"
                     rows={mine.map((row) => {
                       const attr = byId.get(row.patientId);
-                      const name = row.patient ? displayName(row.patient) : row.patientId;
                       const on = selected.includes(row.patientId);
                       const block = row.blocking[0];
                       return {
                         key: row.patientId,
                         rank: (place.get(row.patientId) ?? 0) + 1,
+                        select: {
+                          checked: on,
+                          label: `Select ${row.patientId}`,
+                          onChange: () =>
+                            setChecked((prev) => {
+                              const cur = prev[doc.physicianId] ?? [];
+                              const next = on
+                                ? cur.filter((id) => id !== row.patientId)
+                                : [...cur, row.patientId];
+                              return { ...prev, [doc.physicianId]: next };
+                            }),
+                        },
                         patient: (
-                          <span className="inline-flex items-start gap-2">
-                            <input
-                              type="checkbox"
-                              checked={on}
-                              aria-label={`Select ${row.patientId}`}
-                              onChange={() =>
-                                setChecked((prev) => {
-                                  const cur = prev[doc.physicianId] ?? [];
-                                  const next = on
-                                    ? cur.filter((id) => id !== row.patientId)
-                                    : [...cur, row.patientId];
-                                  return { ...prev, [doc.physicianId]: next };
-                                })
-                              }
-                            />
-                            <span>
-                              <Link
-                                href={trialPatientPath(row.patientId, {
-                                  trialId: row.nctId,
-                                  demo: demoMode,
-                                })}
-                                className="hover:underline"
-                              >
-                                {name}
-                              </Link>
-                              {attr?.source === "assigned" && (
-                                <span className="text-ink-3"> · assigned</span>
-                              )}
-                              {attr?.source === "observed" && (
-                                <span className="text-ink-3"> · observed</span>
-                              )}
-                            </span>
-                          </span>
+                          <Link
+                            href={trialPatientPath(row.patientId, {
+                              trialId: row.nctId,
+                              demo: demoMode,
+                            })}
+                            className="hover:text-brand"
+                          >
+                            <span className="font-mono">{row.patientId}</span>
+                          </Link>
                         ),
-                        trial: (
-                          <span>
-                            <span className="block">{trialWords(row.nctId, row.trial?.title)}</span>
-                            <span className="font-mono text-[11px] text-ink-3">{row.nctId}</span>
-                          </span>
+                        details: (
+                          <>
+                            {trialWords(row.nctId, row.trial?.title)}{" "}
+                            <span className="font-mono">{row.nctId}</span>
+                            {attr?.source === "assigned" && " · assigned"}
+                            {attr?.source === "observed" && " · observed"}
+                          </>
                         ),
+                        trial: trialWords(row.nctId, row.trial?.title),
                         met: row.favourable,
                         total: row.total,
+                        stats: [
+                          {
+                            value: (
+                              <>
+                                {row.favourable}
+                                <span className="font-normal text-ink-3">/{row.total}</span>
+                              </>
+                            ),
+                            label: "Met",
+                            tone: "text-ink",
+                          },
+                          {
+                            value: row.unknownCount,
+                            label: "Unknown",
+                            tone: row.unknownCount > 0 ? "text-unknown" : "text-ink-3",
+                          },
+                        ],
+                        tone: row.eliminated ? "rejected" : row.unknownCount > 0 ? "partial" : undefined,
                         blocking: block
                           ? `${block.criterionId} ${block.verdict === "UNKNOWN" ? block.reason : "eliminates"}`
                           : "none — ready to refer",

@@ -1,5 +1,5 @@
 import { getPair, getPairsForPatient, getPatient, getTrial, getWorklist } from "@/app/_data/source";
-import { clinicFocus, diagnosisLine, displayName } from "@/components/hcp/clinic";
+import { clinicFocus, diagnosisLine } from "@/components/hcp/clinic";
 import { attributePatients } from "@/components/worklist/attribution";
 import { rankPatientTrials, suggestPeers, type Peer } from "./rank";
 
@@ -26,7 +26,7 @@ function peerOf(patientId: string, nctId: string): Peer {
   const focus = pair && trial ? clinicFocus(pair, trial) : undefined;
   return {
     patientId,
-    name: patient ? displayName(patient) : patientId,
+    name: patientId,
     nctId,
     blockingId: focus?.leaf.id,
     diagnosis: patient ? diagnosisLine(patient) : undefined,

@@ -112,11 +112,11 @@ export function WorklistLive({
     <div className="space-y-3">
       <Propagation nudges={state.nudges} />
       <aside
-        className="rounded-md border border-ink bg-surface px-3 py-3 sm:px-4"
+        className="rounded-md border border-brand-line border-l-4 border-l-brand bg-brand-bg px-4 py-4"
         aria-label="Live rank"
       >
-        <p className="text-[11px] font-medium text-ink-3">Live loop</p>
-        <p className="mt-1 font-mono text-[13px] font-medium text-ink">
+        <p className="text-[13px] font-medium text-brand">Live loop</p>
+        <p className="mt-1 font-mono text-[15px] font-medium text-ink">
           {focus.patientId} × {focus.nctId}
         </p>
         <p className="mt-1 text-[13px] text-ink">
@@ -136,7 +136,7 @@ export function WorklistLive({
                   nctId: focus.nctId,
                 }).then(apply);
               }}
-              className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+              className="rounded-md bg-brand px-3 py-1.5 text-[13px] font-medium text-on-brand disabled:opacity-40"
             >
               {notified ? "Physician notified" : "Notify treating physician"}
             </button>
@@ -153,7 +153,7 @@ export function WorklistLive({
                   nctId: focus.nctId,
                 }).then(apply);
               }}
-              className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+              className="rounded-md bg-brand px-3 py-1.5 text-[13px] font-medium text-on-brand disabled:opacity-40"
             >
               {asked ? "Asked — waiting on patient" : "Ask patient for preferences"}
             </button>

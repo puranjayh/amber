@@ -33,21 +33,25 @@ export function IdentitySwitcher({
   current,
   trial = ANCHORS[0].nctId,
   demo = "",
+  stacked = false,
 }: {
   current: SignedIn;
   trial?: string;
   demo?: string;
+  stacked?: boolean;
 }) {
   const router = useRouter();
   return (
-    <label className="inline-flex items-center gap-1.5 text-[11px] text-ink-3">
+    <label
+      className={`${stacked ? "flex w-full flex-col gap-0.5" : "inline-flex items-center gap-1.5"} text-[11px] text-ink-3`}
+    >
       <span className="sr-only">Signed in as</span>
       <span aria-hidden>Signed in as</span>
       <select
         aria-label="Signed in as"
         value={current}
         onChange={(e) => router.push(hrefFor(e.target.value as SignedIn, trial, demo))}
-        className="max-w-[11rem] rounded-md border border-line bg-surface px-1.5 py-1 text-[13px] text-ink"
+        className={`${stacked ? "w-full" : "max-w-[11rem]"} rounded-md border border-line bg-surface px-1.5 py-1 text-[13px] text-ink`}
       >
         {OPTIONS.map((option) => (
           <option key={option.id} value={option.id}>

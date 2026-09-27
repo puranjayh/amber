@@ -160,15 +160,18 @@ body {
   max-width: 100%;
 }
 
-.doctor-rail {
+.doctor-rail,
+.console-rail {
   background: linear-gradient(180deg, #fff6f1 0%, #fff 48%, #fff4f7 100%);
 }
 
-html[data-theme="dark"] .doctor-rail {
+html[data-theme="dark"] .doctor-rail,
+html[data-theme="dark"] .console-rail {
   background: linear-gradient(180deg, #2a1c1c 0%, #1a2028 55%, #241820 100%);
 }
 
-.doctor-stage h1::before {
+.doctor-stage h1::before,
+.console-stage h1::before {
   content: "";
   display: inline-block;
   width: 0.55rem;

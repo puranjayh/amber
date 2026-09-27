@@ -45,15 +45,14 @@ export default async function TrialPatientPage({
   const suggestions = panelSuggestions(patientId, nctId ?? "", physician.physicianId);
 
   return (
-    <>
-      <ConsoleHeader
-        asOf={asOf}
-        active="worklist"
-        demo={demo}
-        demoMode={demoMode}
-        trial={backTrial}
-      />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader
+      asOf={asOf}
+      active="worklist"
+      demo={demo}
+      demoMode={demoMode}
+      trial={backTrial}
+    >
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         <PatientRecord
           backHref={back}
           backLabel="Worklist"
@@ -101,6 +100,6 @@ export default async function TrialPatientPage({
         )}
         <Provenance meta={meta} call="evaluate(patient × trial) · coordinator, this patient only" />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }

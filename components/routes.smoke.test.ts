@@ -173,9 +173,8 @@ test("trial tabs stay Worklist · HCP · Elasticity · Payer; the switcher is a 
   expect(consoleNav).toContain("HCP");
   expect(consoleNav).toContain("Elasticity");
   expect(consoleNav).toContain("Payer");
-  expect(consoleNav).toContain("Trial portal");
-  expect(consoleNav).toContain("Doctor portal");
-  expect(consoleNav).toContain("Patient portal");
+  expect(consoleNav).not.toContain("Doctor portal");
+  expect(consoleNav).not.toContain("Signed in as");
   expect(consoleNav).not.toContain("Deep dives");
   const doctor = html(createElement(PortalSwitcher, { current: "doctor" }));
   expect(doctor).toContain('href="/doctor"');

@@ -34,18 +34,17 @@ export default async function HcpRosterPage({
   const worklist = getWorklist();
   if (worklist.length === 0) {
     return (
-      <>
-        <ConsoleHeader
-          asOf={asOf}
-          active="hcp"
-          demo={demo}
-          demoMode={demoMode}
-          trial={anchor.nctId}
-        />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+      <ConsoleHeader
+        asOf={asOf}
+        active="hcp"
+        demo={demo}
+        demoMode={demoMode}
+        trial={anchor.nctId}
+      >
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-8">
           <MissingData file="app/_data/worklist.json" />
         </main>
-      </>
+      </ConsoleHeader>
     );
   }
 
@@ -65,15 +64,14 @@ export default async function HcpRosterPage({
   const attributions = attributePatients(rows.map((row) => row.patientId));
 
   return (
-    <>
-      <ConsoleHeader
-        asOf={asOf}
-        active="hcp"
-        demo={demo}
-        demoMode={demoMode}
-        trial={anchor.nctId}
-      />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader
+      asOf={asOf}
+      active="hcp"
+      demo={demo}
+      demoMode={demoMode}
+      trial={anchor.nctId}
+    >
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         {demo && <DemoSteps current="hcp" mode={demoMode} />}
         <div>
           <h1 className="text-[24px] font-medium text-ink">Physicians</h1>
@@ -92,6 +90,6 @@ export default async function HcpRosterPage({
         />
         <Provenance meta={meta} call="attribute(patient) · rank(evaluate(patient × trial))" />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }

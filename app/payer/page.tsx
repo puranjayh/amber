@@ -17,19 +17,17 @@ export default async function PayerPage({
   const view = getPayer();
   if (!view.headline && view.settled.length === 0 && view.needs.length === 0) {
     return (
-      <>
-        <ConsoleHeader asOf={asOf} active="payer" demo={demo} demoMode={demoMode} />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-3 py-6 sm:px-6">
+      <ConsoleHeader asOf={asOf} active="payer" demo={demo} demoMode={demoMode}>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-8">
           <MissingData file="app/_data/payer.json" />
         </main>
-      </>
+      </ConsoleHeader>
     );
   }
 
   return (
-    <>
-      <ConsoleHeader asOf={asOf} active="payer" demo={demo} demoMode={demoMode} />
-      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
+    <ConsoleHeader asOf={asOf} active="payer" demo={demo} demoMode={demoMode}>
+      <main className="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-6 sm:px-8 sm:py-8">
         {demo && <DemoSteps current="payer" mode={demoMode} />}
         <PayerSplit view={view} />
         <Provenance
@@ -43,6 +41,6 @@ export default async function PayerPage({
           }
         />
       </main>
-    </>
+    </ConsoleHeader>
   );
 }
