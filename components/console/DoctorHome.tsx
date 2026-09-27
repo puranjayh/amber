@@ -42,7 +42,7 @@ export function DoctorHome({
         <HomeCard
           href={patientsHref}
           tone="unknown"
-          label="One fact missing"
+          label="One step away"
           value={oneAway}
           detail="Not rejected. One open fact is the only thing between them and eligible."
         />
