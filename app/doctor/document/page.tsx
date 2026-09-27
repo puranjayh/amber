@@ -5,8 +5,9 @@ import { isStaticDemo, one } from "@/components/console/params";
 import { MissingData } from "@/components/console/MissingData";
 import { doctorChartPath, doctorMayOpen } from "@/components/hcp/access";
 import { DoctorChrome } from "@/components/hcp/DoctorChrome";
-import { buildLetter } from "@/components/hcp/letter";
+import { buildLetter, letterText } from "@/components/hcp/letter";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
+import { panelName } from "@/components/hcp/clinic";
 import { PatientLetter } from "@/components/hcp/PatientLetter";
 import { PrintLetter } from "@/components/hcp/PrintLetter";
 import { DEFAULT_PHYSICIAN_ID, doctorTalk, PHYSICIANS } from "@/components/hcp/roster";
@@ -59,7 +60,6 @@ export default async function DocumentPage({
           <Link href={back} className="text-[13px] text-ink underline-offset-2 hover:underline">
             Back to chart
           </Link>
-          {gate === "open" ? <PrintLetter /> : null}
         </div>
         {gate === "denied" && patientId ? <NotYourPatient patientId={patientId} /> : null}
         {gate === "closed" ? (
@@ -124,5 +124,22 @@ function LetterBody({
     travelMinutes,
     travelFrom,
   });
-  return <PatientLetter letter={letter} />;
+  return (
+    <div className="space-y-4">
+      <div className="no-print flex justify-end">
+        <PrintLetter
+          filename={`${patientId}-document.pdf`}
+          pages={[
+            {
+              name: panelName(patientId),
+              code: patientId,
+              body: letterText(letter),
+              kicker: "Patient document",
+            },
+          ]}
+        />
+      </div>
+      <PatientLetter letter={letter} />
+    </div>
+  );
 }

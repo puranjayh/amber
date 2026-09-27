@@ -7,7 +7,7 @@ export type SignedIn = "coordinator" | "physician" | "patient";
 
 const OPTIONS: { id: SignedIn; label: string }[] = [
   { id: "coordinator", label: "Trial coordinator" },
-  { id: "physician", label: "Dr Aisha Rahman" },
+  { id: "physician", label: "Dr Sanjay Gupta" },
   { id: "patient", label: "A patient" },
 ];
 

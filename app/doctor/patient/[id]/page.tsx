@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { readLoop } from "@/app/_data/loop";
+import { protocolSource } from "@/app/_data/protocolText";
 import { syncRegistry } from "@/app/_data/registry-sync";
 import {
   asOf,
@@ -17,10 +18,11 @@ import { isStaticDemo, one } from "@/components/console/params";
 import { boardEntries, focusOrder } from "@/components/document/board";
 import { PatientBoard, type BoardDetail } from "@/components/document/PatientBoard";
 import { doctorMayOpen, documentQuery } from "@/components/hcp/access";
-import { displayName } from "@/components/hcp/clinic";
+import { displayName, panelName } from "@/components/hcp/clinic";
+import { buildLetter, letterText } from "@/components/hcp/letter";
 import { DoctorChrome } from "@/components/hcp/DoctorChrome";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
-import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
+import { DEFAULT_PHYSICIAN_ID, doctorTalk, PHYSICIANS } from "@/components/hcp/roster";
 import { attributePatients } from "@/components/worklist/attribution";
 
 const EMPTY_LOOP = {
@@ -54,6 +56,7 @@ export default async function DoctorPatientPage({
   const physicianId = PHYSICIANS.some((p) => p.id === requestedPhysician)
     ? requestedPhysician!
     : DEFAULT_PHYSICIAN_ID;
+  const physician = PHYSICIANS.find((row) => row.id === physicianId) ?? PHYSICIANS[0];
   const mine = new Set(
     attributePatients(getWorklist().map((row) => row.patientId))
       .filter((row) => row.physicianId === physicianId)
@@ -108,6 +111,25 @@ export default async function DoctorPatientPage({
                 trialId: trial.nctId,
                 demo: demo ? demoMode : null,
               }),
+              documentBody: letterText(
+                buildLetter({
+                  patient,
+                  trial,
+                  pair,
+                  physicianName: physician.name,
+                  physicianTalk: doctorTalk(physician.name),
+                  physicianSite: physician.site,
+                  asOf,
+                  protocolText: protocolSource(trial.nctId),
+                  travelMinutes: trial.siteDistanceMinutes ?? patient.travelMinutes ?? null,
+                  travelFrom:
+                    trial.siteDistanceMinutes !== undefined
+                      ? "site"
+                      : patient.travelMinutes !== undefined
+                        ? "record"
+                        : "none",
+                }),
+              ),
               order: focusOrder(patient, trial, pair),
             },
           ];
@@ -127,12 +149,15 @@ export default async function DoctorPatientPage({
         <div>
           <Link
             href={`/doctor?physician=${encodeURIComponent(physicianId)}&view=patients${demo ? `&demo=${demoMode}` : ""}`}
-            className="text-[13px] text-ink-2 hover:text-ink"
+            className="text-[13px] font-medium text-brand hover:text-ink"
           >
             ← My patients
           </Link>
           <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-            <h1 className="text-[24px] font-medium text-ink">{patient ? displayName(patient) : patientId}</h1>
+            <h1 className="text-[28px] font-semibold text-ink">
+              {patient ? panelName(patient.id) : patientId}
+              <span className="ml-2 align-middle font-mono text-[13px] font-normal text-ink-3">{patientId}</span>
+            </h1>
             <span className="text-[11px] text-ink-3">synthetic</span>
           </div>
         </div>

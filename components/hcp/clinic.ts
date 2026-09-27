@@ -28,8 +28,22 @@ export type ClinicCard = {
  * Chart codes are not names. Each SEED / LC id maps to one pseudonym.
  * Story ids (PT-4410) stay, so the demo patient is still findable.
  */
-const GIVEN = ["A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "J.", "K.", "L.", "M.", "N.", "O.", "P.", "Q.", "R.", "S.", "T.", "U.", "V.", "W.", "X.", "Y.", "Z."];
-const FAMILY = ["Chen", "Patel", "Nguyen", "Kim", "Singh", "Garcia", "Brooks", "Adler", "Shah", "Morales"];
+const GIVENS = [
+  "Elena", "Marcus", "Hana", "Omar", "Sofia", "Noah", "Leila", "Camille",
+  "Derek", "Grace", "Kenji", "Lucia", "Malik", "Naomi", "Owen", "Ingrid",
+];
+const FAMILIES = [
+  "Alvarez", "Berg", "Cho", "Duarte", "Elbaz", "Ferreira", "Gallagher", "Haddad",
+  "Ibarra", "Johansson", "Kowalski", "Moreau", "Nakamura", "Okafor", "Petrov", "Quintero",
+  "Silva", "Tremblay", "Ueda", "Vargas", "Walsh", "Yamamoto", "Brennan", "Costa",
+];
+
+/** Sequential chart codes get a different surname each step, then a different given name. */
+function spokenName(n: number): string {
+  const family = FAMILIES[n % FAMILIES.length];
+  const given = GIVENS[Math.floor(n / FAMILIES.length) % GIVENS.length];
+  return `${given} ${family}`;
+}
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -44,9 +58,18 @@ export function displayName(patient: { id: string; age: number }): string {
 function cohortName(id: string): string | undefined {
   const n = cohortSlot(id);
   if (n === undefined) return undefined;
-  const family = FAMILY[Math.floor(n / GIVEN.length)];
-  const given = GIVEN[n % GIVEN.length];
-  return family && given ? `${given} ${family}` : undefined;
+  return spokenName(n);
+}
+
+/** A spoken name for the doctor list. The chart id stays beside it, not in front of it. */
+export function panelName(id: string): string {
+  const alias = cohortName(id);
+  if (alias) return alias;
+  let n = 0;
+  for (const ch of id) n = (n * 33 + ch.charCodeAt(0)) >>> 0;
+  const given = GIVENS[n % GIVENS.length];
+  const family = FAMILIES[(n * 7) % FAMILIES.length];
+  return `${given} ${family}`;
 }
 
 function cohortSlot(id: string): number | undefined {

@@ -22,6 +22,8 @@ export type LabelledRow = {
   /** Trials this patient is eligible for, still unknown on, or rejected from. */
   counts?: { eligible: number; unknown: number; rejected: number };
   select?: { checked: boolean; label: string; onChange: () => void };
+  /** Clinic row accent. Eligible, still open, or ruled out. */
+  tone?: "eligible" | "partial" | "rejected";
 };
 
 const FIELDS = ["#", "Patient", "Best trial", "Met", "Blocking", "Resolution tier"] as const;
@@ -68,10 +70,10 @@ function Grid({ row }: { row: LabelledRow }) {
   );
 }
 
-function Count({ value, label }: { value: number; label: string }) {
+function Count({ value, label, tone = "text-ink" }: { value: number; label: string; tone?: string }) {
   return (
-    <div className="min-w-[4.5rem] text-left">
-      <div className="font-mono text-[24px] font-semibold leading-none text-ink">{value}</div>
+      <div className="min-w-[4.5rem] max-w-[7rem] text-left">
+      <div className={`font-mono text-[24px] font-semibold leading-none ${tone}`}>{value}</div>
       <div className="mt-1 text-[13px] text-ink-3">{label}</div>
     </div>
   );
@@ -83,20 +85,21 @@ function Clinic({ row }: { row: LabelledRow }) {
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div className="min-w-0">
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[28px] font-semibold leading-none text-ink">{row.rank}</span>
+          <span className="font-mono text-[28px] font-semibold leading-none text-brand">{row.rank}</span>
           <span className="text-[22px] font-semibold leading-tight text-ink">{row.patient}</span>
         </div>
         {row.details ? <p className="mt-1 text-[13px] text-ink-3">{row.details}</p> : null}
-        <p className="mt-2 text-[18px] font-medium leading-snug text-ink">{row.trial}</p>
-        <p className="mt-0.5 text-[13px] text-ink-2">
-          {row.blocking}
-          <span className="text-ink-3"> · {row.tier}</span>
-        </p>
+        {row.blocking !== "Nothing open on this trial" ? (
+          <p className="mt-2 text-[13px] text-ink-2">
+            {row.blocking}
+            {row.tier && row.tier !== "—" ? <span className="text-ink-3"> · {row.tier}</span> : null}
+          </p>
+        ) : null}
       </div>
       <div className="flex shrink-0 gap-6">
-        <Count value={counts.eligible} label="Eligible" />
-        <Count value={counts.unknown} label="Unknown" />
-        <Count value={counts.rejected} label="Rejected" />
+        <Count value={counts.eligible} label="Eligible" tone="text-pass" />
+        <Count value={counts.unknown} label="Partially fulfilled" tone="text-unknown" />
+        <Count value={counts.rejected} label="Rejected" tone="text-fail" />
       </div>
     </div>
   );
@@ -162,7 +165,18 @@ export function LabelledRows({
             clinic ? `px-4 py-4 ${row.select ? "pl-16" : ""}` : "px-4 py-3"
           }`;
           return (
-            <li key={row.key} className="relative border-b border-line-2 last:border-b-0">
+            <li
+              key={row.key}
+              className={`relative border-b border-line-2 last:border-b-0 ${
+                row.tone === "eligible"
+                  ? "border-l-4 border-l-pass bg-pass-bg"
+                  : row.tone === "rejected"
+                    ? "border-l-4 border-l-fail"
+                    : row.tone === "partial"
+                      ? "border-l-4 border-l-unknown"
+                      : ""
+              }`}
+            >
               {clinic && row.select ? (
                 <input
                   type="checkbox"

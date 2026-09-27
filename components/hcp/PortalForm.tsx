@@ -26,9 +26,9 @@ function Choice({
 }) {
   return (
     <label
-      className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2.5 text-[13px] ${
-        checked ? "border-ink bg-canvas text-ink" : "border-line bg-surface text-ink-2"
-      }`}
+        className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2.5 text-[15px] ${
+          checked ? "border-brand bg-brand-bg text-ink" : "border-line bg-surface text-ink-2"
+        }`}
     >
       <input type="radio" name={name} checked={checked} onChange={onSelect} className="sr-only" />
       {children}
@@ -86,7 +86,7 @@ export function PortalForm({
       }}
     >
       <fieldset className="space-y-2">
-        <legend className="text-[13px] font-medium text-ink">How far will you travel?</legend>
+        <legend className="text-[15px] font-medium text-ink">How far will you travel?</legend>
         <div className="grid grid-cols-2 gap-2">
           {TRAVEL.map((minutes) => (
             <Choice
@@ -102,7 +102,7 @@ export function PortalForm({
       </fieldset>
 
       <fieldset className="space-y-2">
-        <legend className="text-[13px] font-medium text-ink">How many extra visits a month?</legend>
+        <legend className="text-[15px] font-medium text-ink">How many extra visits a month?</legend>
         <div className="grid grid-cols-3 gap-2">
           {VISITS.map((n) => (
             <Choice
@@ -118,7 +118,7 @@ export function PortalForm({
       </fieldset>
 
       <fieldset className="space-y-2">
-        <legend className="text-[13px] font-medium text-ink">
+        <legend className="text-[15px] font-medium text-ink">
           Would you accept a placebo arm?
         </legend>
         <div className="grid grid-cols-2 gap-2">
@@ -140,7 +140,7 @@ export function PortalForm({
       </fieldset>
 
       <fieldset className="space-y-2">
-        <legend className="text-[13px] font-medium text-ink">Who can drive you?</legend>
+        <legend className="text-[15px] font-medium text-ink">Who can drive you?</legend>
         <div className="grid gap-2">
           {DRIVERS.map((d) => (
             <Choice
@@ -158,14 +158,13 @@ export function PortalForm({
       <button
         type="submit"
         disabled={!complete || busy}
-        className="w-full rounded-md bg-ink px-4 py-2.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+        className="w-full rounded-md bg-brand px-4 py-2.5 text-[15px] font-medium text-on-brand disabled:opacity-40"
       >
         {busy ? "Saving…" : "Save answers"}
       </button>
       {saved && !live && (
         <p className="text-[13px] text-ink-2" role="status">
-          Saved on this device. Your doctor sees them on their panel. This page did not contact
-          anyone.
+          Saved on this device.
         </p>
       )}
     </form>

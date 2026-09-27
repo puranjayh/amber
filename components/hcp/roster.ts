@@ -16,7 +16,7 @@ export type Physician = {
 export const PHYSICIANS: readonly Physician[] = [
   {
     id: "hcp-rahman",
-    name: "Aisha Rahman, MD",
+    name: "Sanjay Gupta, MD",
     specialty: "Medical oncology",
     site: "Community oncology",
     lat: 34.0522,

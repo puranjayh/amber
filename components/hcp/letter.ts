@@ -168,6 +168,75 @@ export function buildLetter(input: {
   };
 }
 
+/** Plain text of the take-home note, for a downloaded PDF. */
+export function letterText(letter: PatientLetter): string {
+  const lines = [
+    "Information for you",
+    "",
+    letter.title,
+    `${letter.nctId}. ${letter.phaseLine}`,
+    "",
+    `Prepared for ${letter.patientId} by ${letter.physicianName}, ${letter.physicianSite}. Screened as of ${letter.asOf}.`,
+    "This is information to take away and think about. It does not sign you up, it does not enrol you, and it does not reserve a place.",
+    "",
+    "Why you, specifically",
+    letter.scoreLine,
+  ];
+  if (letter.reasons.length === 0) {
+    lines.push("None of the checks can be confirmed from your record yet.");
+  } else {
+    for (const reason of letter.reasons) {
+      lines.push(reason.sentence);
+      lines.push(
+        reason.quote
+          ? `${reason.sourceLabel}: "${reason.quote}"`
+          : `${reason.sourceLabel}. The exact sentence was not stored with this check.`,
+      );
+      lines.push("");
+    }
+  }
+  if (letter.blockers.length > 0) {
+    lines.push("Why this study does not fit");
+    for (const reason of letter.blockers) {
+      lines.push(reason.sentence);
+      lines.push(
+        reason.quote
+          ? `${reason.sourceLabel}: "${reason.quote}"`
+          : `${reason.sourceLabel}. The exact sentence was not stored with this check.`,
+      );
+      lines.push("");
+    }
+  }
+  lines.push("What still needs checking");
+  if (letter.questions.length === 0) {
+    lines.push("Nothing in this check is still unknown.");
+  } else {
+    for (const group of letter.questions) {
+      lines.push(group.check);
+      for (const item of group.items) lines.push(`- ${item.gap}`);
+      lines.push("");
+    }
+  }
+  lines.push(
+    "What the trial is trying to find out",
+    letter.objective,
+    "",
+    "What it would involve",
+    `Where: ${letter.location}`,
+    `Travel: ${letter.travel}`,
+    `Visits: ${letter.visits}`,
+    `How long: ${letter.duration}`,
+    `Costs: ${letter.costs}`,
+    `Travel costs: ${letter.travelCovered}`,
+    "",
+    "What happens next",
+    `Nothing happens unless you decide to talk about it with ${letter.physicianTalk}. Taking this page home does not sign you up and does not enrol you. The choice is yours, discussed with your doctor.`,
+    "",
+    `Prepared by ${letter.physicianName}.`,
+  );
+  return lines.join("\n");
+}
+
 function uniqueByFact(rows: CitedReason[]): CitedReason[] {
   const seen = new Set<string>();
   const out: CitedReason[] = [];

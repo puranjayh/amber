@@ -2,7 +2,7 @@
 
 /*
  * Light is the default. Dark is opt-in via data-theme on <html>.
- * Amber means UNKNOWN and nothing else. The unknown tokens are the only warm hue.
+ * Amber means UNKNOWN and nothing else. Brand coral is the mark, not a verdict.
  */
 :root {
   color-scheme: light;
@@ -12,7 +12,7 @@
   --line: #e2e6ed;
   --line-2: #eef1f5;
   --surface: #ffffff;
-  --canvas: #f7f8fa;
+  --canvas: #f6f4f2;
   --focus: #2c5aa0;
 
   --pass: #1d6b4a;
@@ -26,6 +26,11 @@
   --unknown: #8a5a12;
   --unknown-bg: #f8f1e4;
   --unknown-line: #e6d3a8;
+
+  --brand: #e24b32;
+  --brand-bg: #fff1eb;
+  --brand-line: #f5cfc4;
+  --on-brand: #ffffff;
 }
 
 html[data-theme="dark"] {
@@ -50,6 +55,11 @@ html[data-theme="dark"] {
   --unknown: #e4c07a;
   --unknown-bg: #332818;
   --unknown-line: #6e5830;
+
+  --brand: #ff8a6a;
+  --brand-bg: #3a2420;
+  --brand-line: #6a3a32;
+  --on-brand: #1c120f;
 }
 
 @theme inline {
@@ -71,6 +81,10 @@ html[data-theme="dark"] {
   --color-unknown: var(--unknown);
   --color-unknown-bg: var(--unknown-bg);
   --color-unknown-line: var(--unknown-line);
+  --color-brand: var(--brand);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-line: var(--brand-line);
+  --color-on-brand: var(--on-brand);
 
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
@@ -97,6 +111,24 @@ html[data-theme="dark"] {
     max-width: none;
     padding: 0;
   }
+
+  .print-sheet {
+    display: block !important;
+  }
+
+  .print-sheet article {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .print-sheet article:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+.print-sheet {
+  display: none;
 }
 
 body {
@@ -126,6 +158,25 @@ body {
   height: auto;
   width: 9.5rem;
   max-width: 100%;
+}
+
+.doctor-rail {
+  background: linear-gradient(180deg, #fff6f1 0%, #fff 48%, #fff4f7 100%);
+}
+
+html[data-theme="dark"] .doctor-rail {
+  background: linear-gradient(180deg, #2a1c1c 0%, #1a2028 55%, #241820 100%);
+}
+
+.doctor-stage h1::before {
+  content: "";
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.55rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffb020, #e24b32 55%, #ff5d86);
+  vertical-align: 0.12em;
 }
 
 /* /demo progressive reveal — later beats are in the first HTML, hidden until the shell advances. */

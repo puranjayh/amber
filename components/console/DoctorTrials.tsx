@@ -94,7 +94,7 @@ export function DoctorTrials({
                   className="flex w-full flex-col gap-2 px-4 py-3 text-left hover:bg-canvas sm:flex-row sm:gap-6 sm:px-5"
                 >
                   {item ? (
-                    <time className="shrink-0 font-mono text-[18px] font-semibold text-ink" dateTime={item.date}>
+                    <time className="shrink-0 font-mono text-[18px] font-semibold text-brand" dateTime={item.date}>
                       {item.dateLabel}
                     </time>
                   ) : (
@@ -143,7 +143,7 @@ function TrialDetail({ card, href }: { card: TrialCard; href: string }) {
           <div className="mt-1 text-[13px] text-ink-3">Enrollment target</div>
         </div>
         <div>
-          <div className="font-mono text-[18px] font-semibold leading-none text-ink">{card.close}</div>
+          <div className="font-mono text-[18px] font-semibold leading-none text-pass">{card.close}</div>
           <div className="mt-1 text-[13px] text-ink-3">Near eligible</div>
         </div>
       </div>

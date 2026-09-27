@@ -39,9 +39,9 @@ function leaf(over: Partial<CriterionLeaf> & Pick<CriterionLeaf, "id" | "predica
 }
 
 test("chart codes become a name and an age, and no two codes share one", () => {
-  expect(displayName({ id: "SEED-01", age: 66 })).toBe("S. Adler, 66");
+  expect(displayName({ id: "SEED-01", age: 66 })).toBe("Derek Ibarra, 66");
   expect(displayName({ id: "SEED-01", age: 66 })).not.toContain("SEED");
-  expect(displayName({ id: "LC-A-001", age: 59 })).toBe("A. Chen, 59");
+  expect(displayName({ id: "LC-A-001", age: 59 })).toBe("Elena Alvarez, 59");
   expect(displayName({ id: "LC-A-001", age: 59 })).not.toBe(displayName({ id: "LC-A-007", age: 65 }));
   expect(displayName({ id: "PT-4410", age: 64 })).toBe("PT-4410, 64");
   const ids = [

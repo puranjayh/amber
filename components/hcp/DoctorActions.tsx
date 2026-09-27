@@ -61,7 +61,7 @@ export function DoctorActions({
               nctId,
             }).then(apply);
           }}
-          className="rounded-md bg-ink px-3 py-1.5 text-[13px] font-medium text-surface hover:bg-ink-2 disabled:opacity-40"
+          className="rounded-md bg-brand px-3 py-1.5 text-[13px] font-medium text-on-brand disabled:opacity-40"
         >
           {suggested ? "Suggested to patient" : "Suggest this trial"}
         </button>
@@ -69,7 +69,7 @@ export function DoctorActions({
           type="button"
           disabled={!canOrder || decision === "ordered" || decision === "dismissed"}
           onClick={() => setDecision("ordered")}
-          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
+          className="rounded-md border border-pass-line bg-pass-bg px-3 py-1.5 text-[13px] font-medium text-pass hover:border-pass disabled:opacity-40"
         >
           {decision === "ordered" ? "Order drafted" : "Order this test"}
         </button>
@@ -77,14 +77,14 @@ export function DoctorActions({
           type="button"
           disabled={decision === "dismissed" || decision === "ordered"}
           onClick={() => setDecision("dismissing")}
-          className="rounded-md border border-line bg-surface px-3 py-1.5 text-[13px] font-medium text-ink hover:border-ink-3 disabled:opacity-40"
+          className="rounded-md border border-fail-line bg-fail-bg px-3 py-1.5 text-[13px] font-medium text-fail hover:border-fail disabled:opacity-40"
         >
           Dismiss
         </button>
         {suggested && (
           <Link
             href={`/patient-portal?patient=${encodeURIComponent(patientId)}`}
-            className="text-[13px] text-ink underline-offset-2 hover:underline"
+            className="text-[13px] font-medium text-brand hover:text-ink"
           >
             Open patient portal
           </Link>

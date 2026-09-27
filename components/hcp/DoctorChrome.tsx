@@ -49,7 +49,7 @@ export function DoctorChrome({
   const home = viewHref("home", physicianId, trial, demoFlag);
   return (
     <div className="flex min-h-dvh w-full">
-      <aside className="no-print sticky top-0 flex h-dvh w-[148px] shrink-0 flex-col self-start overflow-y-auto border-r border-line bg-surface px-3 py-4 sm:w-60 sm:px-5">
+      <aside className="doctor-rail no-print sticky top-0 flex h-dvh w-[148px] shrink-0 flex-col self-start overflow-y-auto border-r border-brand-line px-3 py-4 sm:w-60 sm:px-5">
         <AmberMark href={home} side />
         {demo && (
           <span className="mt-3 w-fit rounded border border-line px-1.5 py-px text-[11px] text-ink-3">
@@ -64,7 +64,7 @@ export function DoctorChrome({
                 key={item.id}
                 href={viewHref(item.id, physicianId, trial, demoFlag)}
                 aria-current={on ? "page" : undefined}
-                className={`rounded-md px-3 py-2 text-[15px] ${on ? "bg-canvas font-medium text-ink" : "text-ink-2 hover:text-ink"}`}
+                className={`rounded-md px-3 py-2 text-[15px] ${on ? "bg-brand font-medium text-on-brand" : "text-ink-2 hover:bg-brand-bg hover:text-ink"}`}
               >
                 {item.label}
               </Link>
@@ -72,11 +72,11 @@ export function DoctorChrome({
           })}
         </nav>
         <div className="mt-auto flex flex-col items-start gap-2 pt-6">
-          <p className="text-[14px] font-medium text-ink">{doctorName(physicianId)}</p>
+          <p className="text-[14px] font-medium text-brand">{doctorName(physicianId)}</p>
           <ThemeToggle />
         </div>
       </aside>
-      <div className="min-w-0 flex-1">{children}</div>
+      <div className="doctor-stage min-w-0 flex-1">{children}</div>
     </div>
   );
 }

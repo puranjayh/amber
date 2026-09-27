@@ -156,7 +156,7 @@ test("/worklist physicians tab mounts a roster with assigned labels and a readin
     ]),
   );
   expect(markup).toContain(">HCP<");
-  expect(markup).toContain("Aisha Rahman");
+  expect(markup).toContain("Sanjay Gupta");
   expect(markup).toContain("trial-ready");
   expect(markup).toContain("assigned");
   expect(markup).toContain("eligible now");
@@ -181,7 +181,7 @@ test("trial tabs stay Worklist · HCP · Elasticity · Payer; the switcher is a 
   expect(doctor).toContain('href="/doctor"');
   const signedIn = html(createElement(HcpPhysician, { physicianId: "hcp-rahman" }));
   expect(signedIn).toContain("Signed in as");
-  expect(signedIn).toContain("Aisha Rahman");
+  expect(signedIn).toContain("Sanjay Gupta");
   expect(signedIn).not.toContain("Okonkwo");
   expect(signedIn).not.toContain("Vasquez");
 });

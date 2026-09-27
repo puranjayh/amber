@@ -16,6 +16,7 @@ import {
 import { fetchStudy } from "@/app/_data/ctgov";
 import type { RegistryStudy } from "@/app/_data/schema";
 import { orderCorresponds, orderFor } from "@/components/alert/alert";
+import { boardEntries, standingOf } from "@/components/document/board";
 import { DoctorHome } from "@/components/console/DoctorHome";
 import { DoctorPatients, type DoctorListRow } from "@/components/console/DoctorPatients";
 import { DoctorRetention } from "@/components/console/DoctorRetention";
@@ -25,7 +26,7 @@ import { Provenance } from "@/components/console/Provenance";
 import { followUpsByTrial, trialNews } from "@/components/console/trialNews";
 import { isStaticDemo, one } from "@/components/console/params";
 import { doctorChartPath, doctorMayOpen, doctorQuery } from "@/components/hcp/access";
-import { clinicFocus, describeClinic, displayName, trialWords } from "@/components/hcp/clinic";
+import { clinicFocus, describeClinic, panelName, trialWords } from "@/components/hcp/clinic";
 import { DoctorChrome, type DoctorView } from "@/components/hcp/DoctorChrome";
 import { NotYourPatient } from "@/components/hcp/NotYourPatient";
 import { DEFAULT_PHYSICIAN_ID, PHYSICIANS } from "@/components/hcp/roster";
@@ -103,12 +104,13 @@ export default async function DoctorPage({
     const waiting: { name: string; detail: string }[] = [];
     for (const id of mine) {
       const pairs = getPairsForPatient(id);
-      const eligible = pairs.filter((pair) => !pair.eliminated && pair.unknownCount === 0);
+      const entries = boardEntries(pairs, getTrial);
+      const eligible = entries.filter((row) => standingOf(row) === "eligible");
       if (eligible.length > 0) {
         const pair = eligible[0];
         const patient = getPatient(id);
         ready.push({
-          name: patient ? displayName(patient) : id,
+          name: patient ? panelName(patient.id) : id,
           trial: trialWords(pair.nctId, getTrial(pair.nctId)?.title),
           href: doctorChartPath({
             physicianId,
@@ -117,7 +119,7 @@ export default async function DoctorPage({
             demo: demo ? demoMode : null,
           }),
         });
-      } else if (pairs.some((pair) => !pair.eliminated && pair.unknownCount === 1)) {
+      } else if (entries.some((row) => standingOf(row) === "partial" && row.unknownCount === 1)) {
         oneAway += 1;
       }
     }
@@ -130,7 +132,7 @@ export default async function DoctorPage({
           if (waiting.length >= 5) continue;
           const patient = getPatient(row.patientId);
           waiting.push({
-            name: patient ? displayName(patient) : row.patientId,
+            name: patient ? panelName(patient.id) : row.patientId,
             detail: card.detail,
           });
         }
@@ -151,6 +153,7 @@ export default async function DoctorPage({
     return frame(
       <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
         <DoctorHome
+          greeting={heyDoctor(physician.name)}
           eligible={ready.length}
           oneAway={oneAway}
           toReview={toReview}
@@ -207,7 +210,6 @@ export default async function DoctorPage({
           ) : (
             <p className="text-[15px] text-ink-2">No follow-ups on file.</p>
           )}
-          <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
       </main>,
     );
   }
@@ -216,7 +218,24 @@ export default async function DoctorPage({
     const pair = getPair(id, trialId);
     return pair ? [pair] : [];
   });
-  const scoped = rowsForTrial(mine, ordered, onTrial);
+  const pictures = new Map<string, TrialPicture>();
+  const pictureOf = (patientId: string) => {
+    const hit = pictures.get(patientId);
+    if (hit) return hit;
+    const next = trialPicture(patientId);
+    pictures.set(patientId, next);
+    return next;
+  };
+  const scoped = [...rowsForTrial(mine, ordered, onTrial)].sort((a, b) => {
+    const left = pictureOf(a.patientId);
+    const right = pictureOf(b.patientId);
+    return (
+      left.band - right.band ||
+      left.unknowns - right.unknowns ||
+      right.met - left.met ||
+      left.name.localeCompare(right.name)
+    );
+  });
   const gate = doctorMayOpen(requested, mine);
   if (gate === "open" && requested) {
     redirect(
@@ -228,7 +247,6 @@ export default async function DoctorPage({
       }),
     );
   }
-  const focusTrial = getTrial(trialId);
   const rows: DoctorListRow[] = scoped.map((row, index) => {
     const patient = getPatient(row.patientId);
     const trial = getTrial(row.nctId);
@@ -262,14 +280,17 @@ export default async function DoctorPage({
           unknownCount: row.unknownCount,
           asOf,
         });
-    const counts = countTrials(row.patientId);
+    const counts = pictureOf(row.patientId);
     const details = patient
-      ? [patient.sex === "unknown" ? "" : patient.sex, patient.race, card.picture].filter(Boolean).join(" · ")
+      ? [String(patient.age), patient.sex === "unknown" ? "" : patient.sex, patient.race, card.picture]
+          .filter(Boolean)
+          .join(" · ")
       : card.picture;
     return {
       key: row.patientId,
       rank: index + 1,
-      name: card.name,
+      name: patient ? panelName(patient.id) : row.patientId,
+      code: row.patientId,
       details,
       trialName: card.trialName,
       blocker: card.blocker,
@@ -289,31 +310,60 @@ export default async function DoctorPage({
 
   return frame(
     <main className={`${WIDE} flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
-      <div>
-          <h1 className="text-[28px] font-semibold text-ink">My patients</h1>
-          <p className="mt-1 text-[15px] text-ink-2">{trialWords(trialId, focusTrial?.title)}</p>
-        </div>
+      <h1 className="no-print text-[28px] font-semibold text-ink">My patients</h1>
         {rows.length === 0 ? (
           <p className="text-[15px] text-ink-2">No patients on this trial are on your panel.</p>
         ) : (
           <DoctorPatients rows={rows} />
         )}
         {gate === "denied" && requested ? <NotYourPatient patientId={requested} /> : null}
-        <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
+        <div className="no-print">
+          <Provenance meta={meta} call="rank(evaluate(patient × trial)) · this physician only" />
+        </div>
     </main>,
   );
 }
 
-function countTrials(patientId: string): { eligible: number; unknown: number; rejected: number } {
+function heyDoctor(name: string): string {
+  const given = name.replace(/,?\s*MD$/, "").trim().split(/\s+/)[0] || "Doctor";
+  return `Hey, Dr. ${given}!`;
+}
+
+type TrialPicture = {
+  eligible: number;
+  unknown: number;
+  rejected: number;
+  /** 0 eligible, 1 one or more conditions still open, 2 ruled out. */
+  band: number;
+  unknowns: number;
+  met: number;
+  name: string;
+};
+
+/** Best trial first: eligible, then the fewest conditions still open, then ruled out. */
+function trialPicture(patientId: string): TrialPicture {
+  const entries = boardEntries(getPairsForPatient(patientId), getTrial);
   let eligible = 0;
   let unknown = 0;
   let rejected = 0;
-  for (const pair of getPairsForPatient(patientId)) {
-    if (pair.eliminated) rejected += 1;
-    else if (pair.unknownCount === 0) eligible += 1;
+  for (const row of entries) {
+    const standing = standingOf(row);
+    if (standing === "eligible") eligible += 1;
+    else if (standing === "rejected") rejected += 1;
     else unknown += 1;
   }
-  return { eligible, unknown, rejected };
+  const best = entries[0];
+  const standing = best ? standingOf(best) : "rejected";
+  const patient = getPatient(patientId);
+  return {
+    eligible,
+    unknown,
+    rejected,
+    band: standing === "eligible" ? 0 : standing === "partial" ? 1 : 2,
+    unknowns: best?.unknownCount ?? 0,
+    met: best?.met ?? 0,
+    name: patient ? panelName(patient.id) : patientId,
+  };
 }
 
 /** Fill enrollment and sites from ClinicalTrials.gov when the cached snapshot is missing them. */

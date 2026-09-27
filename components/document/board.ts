@@ -4,7 +4,6 @@ import { blockerPhrase, clinicBucket, clinicFocus, resolveLine } from "@/compone
 import type { DoctorOrder } from "@/components/hcp/DoctorActions";
 import { collectLeaves, leafForCell, unknownCells } from "@/components/criteria/rows";
 import { displayTone, toneCounts } from "@/components/criteria/tone";
-import { rankPatientTrials } from "@/components/patient/rank";
 
 export type BoardEntry = {
   nctId: string;
@@ -25,8 +24,8 @@ export type Block = {
 };
 
 /**
- * Every trial on this chart. Eligibility leads: no fails, then fewest unknowns.
- * A gap of one unknown is close, so significance (expected value over cost) breaks it.
+ * Every trial on this chart, from fully eligible, through the fewest
+ * conditions still open, down to ruled out.
  */
 export function boardEntries(
   pairs: readonly PairResult[],
@@ -49,9 +48,26 @@ export function boardEntries(
       total: leaves.size,
     });
   }
-  const ranked = rankPatientTrials(rows);
-  const open = ranked.filter((row) => !row.eliminated);
-  return open.length > 0 ? open : ranked;
+  const order = { eligible: 0, partial: 1, rejected: 2 };
+  return rows.sort((a, b) => {
+    const standing = order[standingOf(a)] - order[standingOf(b)];
+    if (standing !== 0) return standing;
+    const unknowns = a.unknownCount - b.unknownCount;
+    if (unknowns !== 0) return unknowns;
+    const met = b.met - a.met;
+    if (met !== 0) return met;
+    return a.nctId.localeCompare(b.nctId);
+  });
+}
+
+export type Standing = "eligible" | "partial" | "rejected";
+
+/** Eligible means every condition is fulfilled. A red criterion is a rejection, even if the pair was not flagged eliminated. */
+export function standingOf(row: Pick<BoardEntry, "eliminated" | "unknownCount" | "met" | "total">): Standing {
+  const failed = row.total - row.met - row.unknownCount;
+  if (row.eliminated || failed > 0) return "rejected";
+  if (row.total > 0 && row.met === row.total && row.unknownCount === 0) return "eligible";
+  return "partial";
 }
 
 export function unknownLabel(count: number): string {
@@ -61,19 +77,18 @@ export function unknownLabel(count: number): string {
 /** What is holding the patient, and the order or wait that would resolve it. */
 export function trialBlocks(patient: Patient, trial: Trial, pair: PairResult): Block[] {
   const leaves = collectLeaves(trial.criteria);
-  if (pair.eliminated) {
-    return pair.cells.flatMap((cell) => {
-      const leaf = leaves.get(cell.criterionId);
-      if (!leaf || displayTone(cell, leaf.type) !== "red") return [];
-      return [
-        {
-          criterionId: cell.criterionId,
-          blocking: blockerPhrase(leaf, cell.reason, patient, true),
-          resolve: resolveLine("ruled-out"),
-        },
-      ];
-    });
-  }
+  const reds = pair.cells.flatMap((cell) => {
+    const leaf = leaves.get(cell.criterionId);
+    if (!leaf || displayTone(cell, leaf.type) !== "red") return [];
+    return [
+      {
+        criterionId: cell.criterionId,
+        blocking: blockerPhrase(leaf, cell.reason, patient, true),
+        resolve: resolveLine("ruled-out"),
+      },
+    ];
+  });
+  if (pair.eliminated || reds.length > 0) return reds;
 
   return unknownCells(pair.cells).map((cell) => {
     const leaf = leafForCell(trial.criteria, cell);

@@ -73,7 +73,7 @@ const patient: Patient = {
   facts: [],
 };
 
-test("eligibility leads, and significance breaks a close call", () => {
+test("easiest open trials lead, and ruled out trials go last", () => {
   const specs = [
     { nctId: "NCT00000003", title: "Ruled out", eliminated: true, unknownCount: 0, expectedValue: 9 },
     { nctId: "NCT00000002", title: "Many open", eliminated: false, unknownCount: 4, expectedValue: 9 },
@@ -94,8 +94,8 @@ test("eligibility leads, and significance breaks a close call", () => {
     ),
     (id) => trials.get(id),
   );
-  expect(ranked.map((row) => row.nctId)).toEqual(["NCT00000004", "NCT00000001", "NCT00000002"]);
-  expect(ranked[0]?.title).toBe("Close and worth more");
+  expect(ranked.map((row) => row.nctId)).toEqual(["NCT00000001", "NCT00000004", "NCT00000002", "NCT00000003"]);
+  expect(ranked[0]?.title).toBe("One open");
 });
 
 test("a chart with only fails still lists those trials", () => {

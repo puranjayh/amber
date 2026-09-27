@@ -1,13 +1,13 @@
 import { readLoop } from "@/app/_data/loop";
 import { syncRegistry } from "@/app/_data/registry-sync";
-import { asOf, getDemoWorklist, getHcp, getPair, getTrial } from "@/app/_data/source";
+import { getDemoWorklist, getHcp, getPair, getTrial } from "@/app/_data/source";
 import { blockingUnknown } from "@/components/alert/alert";
 import { MissingData } from "@/components/console/MissingData";
 import { isStaticDemo, one } from "@/components/console/params";
+import { panelName } from "@/components/hcp/clinic";
 import { PortalChrome } from "@/components/hcp/PortalChrome";
 import { PortalForm } from "@/components/hcp/PortalForm";
 import { PortalLive } from "@/components/hcp/PortalLive";
-import { PortalSelect } from "@/components/hcp/PortalSelect";
 import { catalogFor, trialPhaseLabel } from "@/components/hcp/portal-copy";
 import { prefsByPatient } from "@/components/loop/rank";
 import { forAudience } from "@/components/loop/registry";
@@ -25,12 +25,11 @@ export default async function PatientPortalPage({
   const patients = panel.physicians.flatMap((p) => p.patients);
   if (patients.length === 0) {
     return (
-      <>
-        <PortalChrome asOf={asOf} />
-        <main className="mx-auto w-full max-w-xl flex-1 px-3 py-6 sm:px-6">
+      <PortalChrome patientId="" ids={[]}>
+        <main className="mx-auto w-full max-w-xl flex-1 px-4 py-6 sm:px-8">
           <MissingData file="app/_data/hcp.json" />
         </main>
-      </>
+      </PortalChrome>
     );
   }
 
@@ -72,19 +71,12 @@ export default async function PatientPortalPage({
     }),
   );
 
+  const given = panelName(current.patientId).split(/\s+/)[0] || "there";
+
   return (
-    <>
-      <PortalChrome asOf={asOf} />
-      <main className="mx-auto w-full max-w-xl flex-1 space-y-8 px-3 py-6 sm:px-6 sm:py-8">
-        <div>
-          <h1 className="text-[24px] font-medium text-ink">What only you know</h1>
-          <p className="mt-0.5 text-[13px] text-ink-2">
-            Your doctor already has the chart. These four answers are not in it. They change how
-            trials are ranked for you. They are not medical facts
-            {loop ? "." : ", and saving them does not message anyone."}
-          </p>
-        </div>
-        <PortalSelect ids={codes} current={current.patientId} />
+    <PortalChrome patientId={current.patientId} ids={codes}>
+      <main className="mx-auto w-full max-w-xl flex-1 space-y-6 px-4 py-6 sm:px-8 sm:py-8">
+        <h1 className="text-[28px] font-semibold text-ink">Hey, {given}!</h1>
         {patientLoop ? (
           <PortalLive
             patientId={current.patientId}
@@ -100,6 +92,6 @@ export default async function PatientPortalPage({
           />
         )}
       </main>
-    </>
+    </PortalChrome>
   );
 }
